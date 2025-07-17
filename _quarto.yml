@@ -2,7 +2,7 @@
 project:
   type: website
   resources:
-    - d32e276c1d5049feac6fcea4d17a3718.txt
+    - 7ee2dd1d5e0449a9bccbe5419f7fba40.txt
 
 execute:
   freeze: auto
@@ -11,8 +11,8 @@ execute:
 website:
   title: "/var/log/little-things"
   description: "A great sample blog"
-  site-url: https://hasenpfote.netlify.app
-  repo-url: https://github.com/Hasenpfote/quarto-blog
+  site-url: https://hasenpfote.github.io
+  repo-url: https://github.com/Hasenpfote/hasenpfote.github.io
   repo-actions: [edit, source, issue]
   navbar:
     left:
