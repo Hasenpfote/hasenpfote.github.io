@@ -1,6 +1,6 @@
 [
   {
-    "listing": "/index.html",
+    "listing": "/archive.html",
     "items": [
       "/posts/thoughts-on-slab-method.html",
       "/posts/thoughts-on-morton-code.html",
@@ -24,7 +24,7 @@
     ]
   },
   {
-    "listing": "/archive.html",
+    "listing": "/index.html",
     "items": [
       "/posts/thoughts-on-slab-method.html",
       "/posts/thoughts-on-morton-code.html",
