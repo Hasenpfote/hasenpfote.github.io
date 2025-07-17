@@ -6,14 +6,14 @@
       version="2.0">
 <channel>
 <title>/var/log/little-things</title>
-<link>https://hasenpfote.netlify.app/</link>
-<atom:link href="https://hasenpfote.netlify.app/index.xml" rel="self" type="application/rss+xml"/>
+<link>https://hasenpfote.github.io/</link>
+<atom:link href="https://hasenpfote.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>A great sample blog</description>
 <generator>quarto-1.7.32</generator>
 <lastBuildDate>Thu, 10 Jul 2025 00:00:00 GMT</lastBuildDate>
 <item>
   <title>スラブ法についての考察</title>
-  <link>https://hasenpfote.netlify.app/posts/thoughts-on-slab-method.html</link>
+  <link>https://hasenpfote.github.io/posts/thoughts-on-slab-method.html</link>
   <description><![CDATA[ 
 
 
@@ -514,7 +514,7 @@ font-style: inherit;">8</span>),</span>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-slab-method_files/figure-html/cell-3-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-slab-method_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-slab-method_files/figure-html/cell-3-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://hasenpfote.github.io/posts/thoughts-on-slab-method_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -960,7 +960,7 @@ font-style: inherit;">8</span>),</span>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-slab-method_files/figure-html/cell-6-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-slab-method_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-slab-method_files/figure-html/cell-6-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://hasenpfote.github.io/posts/thoughts-on-slab-method_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1500,7 +1500,7 @@ font-style: inherit;">8</span>),</span>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-slab-method_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-slab-method_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-slab-method_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="https://hasenpfote.github.io/posts/thoughts-on-slab-method_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1519,12 +1519,12 @@ font-style: inherit;">8</span>),</span>
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
   <category>computerscience</category>
   <category>slabmethod</category>
-  <guid>https://hasenpfote.netlify.app/posts/thoughts-on-slab-method.html</guid>
+  <guid>https://hasenpfote.github.io/posts/thoughts-on-slab-method.html</guid>
   <pubDate>Thu, 10 Jul 2025 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>モートン符号についての考察</title>
-  <link>https://hasenpfote.netlify.app/posts/thoughts-on-morton-code.html</link>
+  <link>https://hasenpfote.github.io/posts/thoughts-on-morton-code.html</link>
   <description><![CDATA[ 
 
 
@@ -1861,7 +1861,7 @@ font-style: inherit;">True</span>)</span>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-morton-code_files/figure-html/cell-3-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-morton-code_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-morton-code_files/figure-html/cell-3-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://hasenpfote.github.io/posts/thoughts-on-morton-code_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2496,7 +2496,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-morton-code_files/figure-html/cell-7-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-morton-code_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-morton-code_files/figure-html/cell-7-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://hasenpfote.github.io/posts/thoughts-on-morton-code_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2518,7 +2518,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-morton-code_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-morton-code_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-morton-code_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="https://hasenpfote.github.io/posts/thoughts-on-morton-code_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2540,7 +2540,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-morton-code_files/figure-html/cell-9-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-morton-code_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-morton-code_files/figure-html/cell-9-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="https://hasenpfote.github.io/posts/thoughts-on-morton-code_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2562,7 +2562,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-morton-code_files/figure-html/cell-10-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-morton-code_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-morton-code_files/figure-html/cell-10-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="https://hasenpfote.github.io/posts/thoughts-on-morton-code_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2584,7 +2584,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-morton-code_files/figure-html/cell-11-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-morton-code_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-morton-code_files/figure-html/cell-11-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="https://hasenpfote.github.io/posts/thoughts-on-morton-code_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2606,7 +2606,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-morton-code_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-morton-code_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-morton-code_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="https://hasenpfote.github.io/posts/thoughts-on-morton-code_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2628,7 +2628,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="thoughts-on-morton-code_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="https://hasenpfote.netlify.app/posts/thoughts-on-morton-code_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="thoughts-on-morton-code_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="https://hasenpfote.github.io/posts/thoughts-on-morton-code_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2647,12 +2647,12 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
   <category>computerscience</category>
   <category>mortoncode</category>
-  <guid>https://hasenpfote.netlify.app/posts/thoughts-on-morton-code.html</guid>
+  <guid>https://hasenpfote.github.io/posts/thoughts-on-morton-code.html</guid>
   <pubDate>Sun, 06 Jul 2025 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>ロシアンルーレットについての考察</title>
-  <link>https://hasenpfote.netlify.app/posts/thoughts-on-rr.html</link>
+  <link>https://hasenpfote.github.io/posts/thoughts-on-rr.html</link>
   <description><![CDATA[ 
 
 
@@ -2740,12 +2740,12 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
   <category>computerscience</category>
-  <guid>https://hasenpfote.netlify.app/posts/thoughts-on-rr.html</guid>
+  <guid>https://hasenpfote.github.io/posts/thoughts-on-rr.html</guid>
   <pubDate>Mon, 02 Jun 2025 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Netlify と Playwright とビルドエラー</title>
-  <link>https://hasenpfote.netlify.app/posts/netlify-playwright-build-error.html</link>
+  <link>https://hasenpfote.github.io/posts/netlify-playwright-build-error.html</link>
   <description><![CDATA[ 
 
 
@@ -2896,12 +2896,12 @@ font-style: inherit;">...</span></span></code></pre></div>
   <category>pnpm</category>
   <category>netlify</category>
   <category>playwright</category>
-  <guid>https://hasenpfote.netlify.app/posts/netlify-playwright-build-error.html</guid>
+  <guid>https://hasenpfote.github.io/posts/netlify-playwright-build-error.html</guid>
   <pubDate>Sun, 26 Jan 2025 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>正規直交基底の構築 (3)</title>
-  <link>https://hasenpfote.netlify.app/posts/building-an-orthonormal-basis-3.html</link>
+  <link>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-3.html</link>
   <description><![CDATA[ 
 
 
@@ -2985,12 +2985,12 @@ font-style: inherit;">...</span></span></code></pre></div>
   <category>onb</category>
   <category>orthonormal</category>
   <category>basis</category>
-  <guid>https://hasenpfote.netlify.app/posts/building-an-orthonormal-basis-3.html</guid>
+  <guid>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-3.html</guid>
   <pubDate>Wed, 15 Jan 2025 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>正規直交基底の構築 (2)</title>
-  <link>https://hasenpfote.netlify.app/posts/building-an-orthonormal-basis-2.html</link>
+  <link>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-2.html</link>
   <description><![CDATA[ 
 
 
@@ -3477,12 +3477,12 @@ font-style: inherit;">#define COMPARISON_MODE 1</span></span></code></pre></div>
   <category>onb</category>
   <category>orthonormal</category>
   <category>basis</category>
-  <guid>https://hasenpfote.netlify.app/posts/building-an-orthonormal-basis-2.html</guid>
+  <guid>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-2.html</guid>
   <pubDate>Mon, 13 Jan 2025 12:00:00 GMT</pubDate>
 </item>
 <item>
   <title>正規直交基底の構築 (1)</title>
-  <link>https://hasenpfote.netlify.app/posts/building-an-orthonormal-basis-1.html</link>
+  <link>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-1.html</link>
   <description><![CDATA[ 
 
 
@@ -3927,12 +3927,12 @@ font-style: inherit;">}</span></span></code></pre></div>
   <category>onb</category>
   <category>orthonormal</category>
   <category>basis</category>
-  <guid>https://hasenpfote.netlify.app/posts/building-an-orthonormal-basis-1.html</guid>
+  <guid>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-1.html</guid>
   <pubDate>Mon, 13 Jan 2025 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>CRT shader</title>
-  <link>https://hasenpfote.netlify.app/posts/crt-shader/</link>
+  <link>https://hasenpfote.github.io/posts/crt-shader/</link>
   <description><![CDATA[ 
 
 
@@ -3945,7 +3945,7 @@ font-style: inherit;">}</span></span></code></pre></div>
 <p>ここでは，LCD モニタの出力映像に CRT モニタ特有の雰囲気を適用する方法について模索をする．</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="crt_shader.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="CRT shader"><img src="https://hasenpfote.netlify.app/posts/crt-shader/crt_shader.png" class="img-fluid figure-img" alt="CRT shader"></a></p>
+<p><a href="crt_shader.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="CRT shader"><img src="https://hasenpfote.github.io/posts/crt-shader/crt_shader.png" class="img-fluid figure-img" alt="CRT shader"></a></p>
 <figcaption>CRT shader</figcaption>
 </figure>
 </div>
@@ -4178,19 +4178,19 @@ Aperture grille の定義に加え，<img src="https://latex.codecogs.com/png.la
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="crt_shader_aperture_grille.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Fig. 2b. Aperture grille"><img src="https://hasenpfote.netlify.app/posts/crt-shader/crt_shader_aperture_grille.png" class="img-fluid figure-img" alt="Fig. 2b. Aperture grille"></a></p>
+<p><a href="crt_shader_aperture_grille.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Fig. 2b. Aperture grille"><img src="https://hasenpfote.github.io/posts/crt-shader/crt_shader_aperture_grille.png" class="img-fluid figure-img" alt="Fig. 2b. Aperture grille"></a></p>
 <figcaption>Fig. 2b. Aperture grille</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="crt_shader_slot_mask.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Fig. 2c. Slot mask"><img src="https://hasenpfote.netlify.app/posts/crt-shader/crt_shader_slot_mask.png" class="img-fluid figure-img" alt="Fig. 2c. Slot mask"></a></p>
+<p><a href="crt_shader_slot_mask.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Fig. 2c. Slot mask"><img src="https://hasenpfote.github.io/posts/crt-shader/crt_shader_slot_mask.png" class="img-fluid figure-img" alt="Fig. 2c. Slot mask"></a></p>
 <figcaption>Fig. 2c. Slot mask</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="crt_shader_shadow_mask.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Fig. 2d. Shadow mask"><img src="https://hasenpfote.netlify.app/posts/crt-shader/crt_shader_shadow_mask.png" class="img-fluid figure-img" alt="Fig. 2d. Shadow mask"></a></p>
+<p><a href="crt_shader_shadow_mask.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Fig. 2d. Shadow mask"><img src="https://hasenpfote.github.io/posts/crt-shader/crt_shader_shadow_mask.png" class="img-fluid figure-img" alt="Fig. 2d. Shadow mask"></a></p>
 <figcaption>Fig. 2d. Shadow mask</figcaption>
 </figure>
 </div>
@@ -4375,13 +4375,13 @@ Fig. 6a. 基本的なモデル
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="crt_shader_ca_01.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Fig. 6b. 同パラメータ時のユークリッド距離での効果(赤色は処理不要領域の可視化)"><img src="https://hasenpfote.netlify.app/posts/crt-shader/crt_shader_ca_01.png" class="img-fluid figure-img" alt="Fig. 6b. 同パラメータ時のユークリッド距離での効果(赤色は処理不要領域の可視化)"></a></p>
+<p><a href="crt_shader_ca_01.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Fig. 6b. 同パラメータ時のユークリッド距離での効果(赤色は処理不要領域の可視化)"><img src="https://hasenpfote.github.io/posts/crt-shader/crt_shader_ca_01.png" class="img-fluid figure-img" alt="Fig. 6b. 同パラメータ時のユークリッド距離での効果(赤色は処理不要領域の可視化)"></a></p>
 <figcaption>Fig. 6b. 同パラメータ時のユークリッド距離での効果(赤色は処理不要領域の可視化)</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="crt_shader_ca_02.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Fig. 6c. 同パラメータ時のチェビシェフ距離での効果(赤色は処理不要領域の可視化)"><img src="https://hasenpfote.netlify.app/posts/crt-shader/crt_shader_ca_02.png" class="img-fluid figure-img" alt="Fig. 6c. 同パラメータ時のチェビシェフ距離での効果(赤色は処理不要領域の可視化)"></a></p>
+<p><a href="crt_shader_ca_02.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Fig. 6c. 同パラメータ時のチェビシェフ距離での効果(赤色は処理不要領域の可視化)"><img src="https://hasenpfote.github.io/posts/crt-shader/crt_shader_ca_02.png" class="img-fluid figure-img" alt="Fig. 6c. 同パラメータ時のチェビシェフ距離での効果(赤色は処理不要領域の可視化)"></a></p>
 <figcaption>Fig. 6c. 同パラメータ時のチェビシェフ距離での効果(赤色は処理不要領域の可視化)</figcaption>
 </figure>
 </div>
@@ -4458,12 +4458,12 @@ Fig. 7a. 実装例 (resume で操作可/詳細はImageタグ)
   <category>computergraphics</category>
   <category>glsl</category>
   <category>shadertoy</category>
-  <guid>https://hasenpfote.netlify.app/posts/crt-shader/</guid>
+  <guid>https://hasenpfote.github.io/posts/crt-shader/</guid>
   <pubDate>Sun, 31 Dec 2023 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Calibre-Web on TS-220</title>
-  <link>https://hasenpfote.netlify.app/posts/calibre-web-on-ts-220.html</link>
+  <link>https://hasenpfote.github.io/posts/calibre-web-on-ts-220.html</link>
   <description><![CDATA[ 
 
 
@@ -4742,12 +4742,12 @@ font-style: inherit;">&gt;</span> –force-removal-of-dependent-packages</span><
   <category>ts220</category>
   <category>calibreweb</category>
   <category>python</category>
-  <guid>https://hasenpfote.netlify.app/posts/calibre-web-on-ts-220.html</guid>
+  <guid>https://hasenpfote.github.io/posts/calibre-web-on-ts-220.html</guid>
   <pubDate>Wed, 30 Jun 2021 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>剛体シム覚書</title>
-  <link>https://hasenpfote.netlify.app/posts/rigid-body-simulation-notes.html</link>
+  <link>https://hasenpfote.github.io/posts/rigid-body-simulation-notes.html</link>
   <description><![CDATA[ 
 
 
@@ -4893,12 +4893,12 @@ font-style: inherit;">&gt;</span> –force-removal-of-dependent-packages</span><
   <category>physics</category>
   <category>rigidbody</category>
   <category>python</category>
-  <guid>https://hasenpfote.netlify.app/posts/rigid-body-simulation-notes.html</guid>
+  <guid>https://hasenpfote.github.io/posts/rigid-body-simulation-notes.html</guid>
   <pubDate>Wed, 09 Jun 2021 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>プリュッカー座標の考察</title>
-  <link>https://hasenpfote.netlify.app/posts/thoughts-on-pluecker-coordinates.html</link>
+  <link>https://hasenpfote.github.io/posts/thoughts-on-pluecker-coordinates.html</link>
   <description><![CDATA[ 
 
 
@@ -4956,12 +4956,12 @@ font-style: inherit;">&gt;</span> –force-removal-of-dependent-packages</span><
   <category>math</category>
   <category>plückercoordinates</category>
   <category>cpp</category>
-  <guid>https://hasenpfote.netlify.app/posts/thoughts-on-pluecker-coordinates.html</guid>
+  <guid>https://hasenpfote.github.io/posts/thoughts-on-pluecker-coordinates.html</guid>
   <pubDate>Fri, 19 Feb 2021 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Gatsby ブログに任意のフォントを追加する方法</title>
-  <link>https://hasenpfote.netlify.app/posts/gatsby-add-custom-font.html</link>
+  <link>https://hasenpfote.github.io/posts/gatsby-add-custom-font.html</link>
   <description><![CDATA[ 
 
 
@@ -5207,12 +5207,12 @@ font-style: inherit;">,</span></span>
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
   <category>web</category>
   <category>gatsby</category>
-  <guid>https://hasenpfote.netlify.app/posts/gatsby-add-custom-font.html</guid>
+  <guid>https://hasenpfote.github.io/posts/gatsby-add-custom-font.html</guid>
   <pubDate>Fri, 22 Jan 2021 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>アーカイブ機能の実装</title>
-  <link>https://hasenpfote.netlify.app/posts/gatsby-starter-lumen-archive-implementation/</link>
+  <link>https://hasenpfote.github.io/posts/gatsby-starter-lumen-archive-implementation/</link>
   <description><![CDATA[ 
 
 
@@ -5225,7 +5225,7 @@ font-style: inherit;">,</span></span>
 <p>下図のような機能を <a href="https://github.com/alxshelepenok/gatsby-starter-lumen">gatsby-starter-lumen</a> へ実装することを目的とする．</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="screenshot-localhost_8001-2021.01.19-13_52_18.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Fig. 1. アーカイブ機能"><img src="https://hasenpfote.netlify.app/posts/gatsby-starter-lumen-archive-implementation/screenshot-localhost_8001-2021.01.19-13_52_18.png" class="img-fluid figure-img" alt="Fig. 1. アーカイブ機能"></a></p>
+<p><a href="screenshot-localhost_8001-2021.01.19-13_52_18.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Fig. 1. アーカイブ機能"><img src="https://hasenpfote.github.io/posts/gatsby-starter-lumen-archive-implementation/screenshot-localhost_8001-2021.01.19-13_52_18.png" class="img-fluid figure-img" alt="Fig. 1. アーカイブ機能"></a></p>
 <figcaption>Fig. 1. アーカイブ機能</figcaption>
 </figure>
 </div>
@@ -5468,12 +5468,12 @@ font-style: inherit;">]</span></span></code></pre></div>
 </section></div> ]]></description>
   <category>web</category>
   <category>gatsby</category>
-  <guid>https://hasenpfote.netlify.app/posts/gatsby-starter-lumen-archive-implementation/</guid>
+  <guid>https://hasenpfote.github.io/posts/gatsby-starter-lumen-archive-implementation/</guid>
   <pubDate>Tue, 19 Jan 2021 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>複素数における回転の表現と補間</title>
-  <link>https://hasenpfote.netlify.app/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html</link>
+  <link>https://hasenpfote.github.io/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html</link>
   <description><![CDATA[ 
 
 
@@ -5675,12 +5675,12 @@ Fig. 5. スプライン補間
   <category>math</category>
   <category>complexnumbers</category>
   <category>cpp</category>
-  <guid>https://hasenpfote.netlify.app/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html</guid>
+  <guid>https://hasenpfote.github.io/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html</guid>
   <pubDate>Tue, 12 Jan 2021 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>双対複素数</title>
-  <link>https://hasenpfote.netlify.app/posts/dual-complex-numbers.html</link>
+  <link>https://hasenpfote.github.io/posts/dual-complex-numbers.html</link>
   <description><![CDATA[ 
 
 
@@ -6034,12 +6034,12 @@ Fig. 3. 変位後に原点を中心に回転
   <category>math</category>
   <category>dualcomplexnumbers</category>
   <category>cpp</category>
-  <guid>https://hasenpfote.netlify.app/posts/dual-complex-numbers.html</guid>
+  <guid>https://hasenpfote.github.io/posts/dual-complex-numbers.html</guid>
   <pubDate>Tue, 05 Jan 2021 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Zotero の運用方法</title>
-  <link>https://hasenpfote.netlify.app/posts/zotero-workflow/</link>
+  <link>https://hasenpfote.github.io/posts/zotero-workflow/</link>
   <description><![CDATA[ 
 
 
@@ -6122,7 +6122,7 @@ Fig. 3. 変位後に原点を中心に回転
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="zotero_sync_01.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Fig. 1. 設定 1"><img src="https://hasenpfote.netlify.app/posts/zotero-workflow/zotero_sync_01.png" class="img-fluid figure-img" alt="Fig. 1. 設定 1"></a></p>
+<p><a href="zotero_sync_01.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Fig. 1. 設定 1"><img src="https://hasenpfote.github.io/posts/zotero-workflow/zotero_sync_01.png" class="img-fluid figure-img" alt="Fig. 1. 設定 1"></a></p>
 <figcaption>Fig. 1. 設定 1</figcaption>
 </figure>
 </div>
@@ -6151,7 +6151,7 @@ Fig. 3. 変位後に原点を中心に回転
 <p>ここでは文献の置き場所を分離し，独自の同期を行うことを想定する．</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="zotero_sync_02.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Fig. 2. 設定 2"><img src="https://hasenpfote.netlify.app/posts/zotero-workflow/zotero_sync_02.png" class="img-fluid figure-img" alt="Fig. 2. 設定 2"></a></p>
+<p><a href="zotero_sync_02.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Fig. 2. 設定 2"><img src="https://hasenpfote.github.io/posts/zotero-workflow/zotero_sync_02.png" class="img-fluid figure-img" alt="Fig. 2. 設定 2"></a></p>
 <figcaption>Fig. 2. 設定 2</figcaption>
 </figure>
 </div>
@@ -6175,12 +6175,12 @@ Fig. 3. 変位後に原点を中心に回転
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
   <category>software</category>
   <category>zotero</category>
-  <guid>https://hasenpfote.netlify.app/posts/zotero-workflow/</guid>
+  <guid>https://hasenpfote.github.io/posts/zotero-workflow/</guid>
   <pubDate>Sun, 27 Dec 2020 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Joplin の運用方法</title>
-  <link>https://hasenpfote.netlify.app/posts/joplin-workflow/</link>
+  <link>https://hasenpfote.github.io/posts/joplin-workflow/</link>
   <description><![CDATA[ 
 
 
@@ -6249,7 +6249,7 @@ Fig. 3. 変位後に原点を中心に回転
 <p><strong>フェイルセーフのチェックを外すと絶望のどん底に突き落とされるので要注意．</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="joplin_sync.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Fig. 1. 同期"><img src="https://hasenpfote.netlify.app/posts/joplin-workflow/joplin_sync.png" class="img-fluid figure-img" alt="Fig. 1. 同期"></a></p>
+<p><a href="joplin_sync.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Fig. 1. 同期"><img src="https://hasenpfote.github.io/posts/joplin-workflow/joplin_sync.png" class="img-fluid figure-img" alt="Fig. 1. 同期"></a></p>
 <figcaption>Fig. 1. 同期</figcaption>
 </figure>
 </div>
@@ -6259,7 +6259,7 @@ Fig. 3. 変位後に原点を中心に回転
 <p><a href="https://joplinapp.org">Joplin</a> のまま編集をすることもできるが没入感を阻害されるので外部エディタとの連携を行う．</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="joplin_editor.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Fig. 2. 外部エディタ"><img src="https://hasenpfote.netlify.app/posts/joplin-workflow/joplin_editor.png" class="img-fluid figure-img" alt="Fig. 2. 外部エディタ"></a></p>
+<p><a href="joplin_editor.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Fig. 2. 外部エディタ"><img src="https://hasenpfote.github.io/posts/joplin-workflow/joplin_editor.png" class="img-fluid figure-img" alt="Fig. 2. 外部エディタ"></a></p>
 <figcaption>Fig. 2. 外部エディタ</figcaption>
 </figure>
 </div>
@@ -6279,12 +6279,12 @@ Fig. 3. 変位後に原点を中心に回転
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
   <category>software</category>
   <category>joplin</category>
-  <guid>https://hasenpfote.netlify.app/posts/joplin-workflow/</guid>
+  <guid>https://hasenpfote.github.io/posts/joplin-workflow/</guid>
   <pubDate>Sun, 27 Dec 2020 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>How to start a simplest-blog quickly with Gatsby</title>
-  <link>https://hasenpfote.netlify.app/posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html</link>
+  <link>https://hasenpfote.github.io/posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html</link>
   <description><![CDATA[ 
 
 
@@ -6501,12 +6501,12 @@ Fig. 3. 変位後に原点を中心に回転
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
   <category>web</category>
   <category>gatsby</category>
-  <guid>https://hasenpfote.netlify.app/posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html</guid>
+  <guid>https://hasenpfote.github.io/posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html</guid>
   <pubDate>Sat, 26 Dec 2020 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Toy Box</title>
-  <link>https://hasenpfote.netlify.app/posts/toy-box.html</link>
+  <link>https://hasenpfote.github.io/posts/toy-box.html</link>
   <description><![CDATA[ 
 
 
@@ -6808,7 +6808,7 @@ Fig. 3. 変位後に原点を中心に回転
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
   <category>repository</category>
   <category>codesnippet</category>
-  <guid>https://hasenpfote.netlify.app/posts/toy-box.html</guid>
+  <guid>https://hasenpfote.github.io/posts/toy-box.html</guid>
   <pubDate>Thu, 01 Jan 1970 00:00:00 GMT</pubDate>
 </item>
 </channel>
