@@ -1,0 +1,90 @@
+---
+title: "Netlify と Playwright とビルドエラー"
+description: "或いは pnpm dlx と pnpm exec"
+categories:
+  - web
+  - pnpm
+  - netlify
+  - playwright
+date: 2025-01-26T09:00:00+09:00
+draft: false
+---
+
+Astro ブログで図表を出力できるよう [rehype-mermaid](https://github.com/remcohaszing/rehype-mermaid/) を利用し，生成は [Playwright](https://playwright.dev) に丸投げする方法を採用している．
+
+## 問題
+
+<https://answers.netlify.com/t/build-fails-because-of-playwright-install/123506/>
+
+Netlify でも動作できるようフォーラムの情報を頼りに `package.json` に次のような記述をした．
+
+```{.json filename="package.json"}
+  "scripts": {
+    ...,
+    "postinstall": "pnpm dlx playwright-core install chromium"
+  },
+  ...
+```
+
+(前略)少し前までは特に問題もなく(中略)ある日突然デプロイに失敗していた．
+
+```bash
+...
+browserType.launch: Executable doesn't exist at /opt/buildhome/.cache/ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell
+╔═════════════════════════════════════════════════════════════════════════╗
+12:59:07 PM: ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+12:59:07 PM: ║ Please run the following command to download new browsers:              ║
+12:59:07 PM: ║                                                                         ║
+12:59:07 PM: ║     pnpm exec playwright install                                        ║
+12:59:07 PM: ║                                                                         ║
+12:59:07 PM: ║ <3 Playwright Team                                                      ║
+12:59:07 PM: ╚═════════════════════════════════════════════════════════════════════════╝
+12:59:07 PM:      at getBrowser (/opt/build/repo/node_modules/.pnpm/mermaid-isomorphic@3.0.0_playwright@1.49.1/node_modules/mermaid-isomorphic/dist/mermaid-isomorphic.js:93:39)
+...
+```
+
+実行ファイルが存在しないとは理解に苦しむが，デプロイが成功していた時と比べると `playwright build v1155` となっており，バージョンが異なるようだ．
+
+```default
+...
+12:58:39 PM: Already up to date
+12:58:39 PM: > fuwari@0.0.1 postinstall /opt/build/repo
+12:58:39 PM: > pnpm dlx playwright-core install chromium
+12:58:40 PM: Progress: resolved 1, reused 0, downloaded 0, added 0
+12:58:40 PM: Packages: +1
+12:58:40 PM: +
+12:58:40 PM: Progress: resolved 1, reused 0, downloaded 1, added 1, done
+12:58:41 PM: Downloading Chromium 133.0.6943.16 (playwright build v1155) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1155/chromium-linux.zip
+...
+```
+
+## 原因
+
+<https://github.com/microsoft/playwright/issues/19562#issuecomment-1362552705>
+
+> More concretely pnpm dlx / pnpx does not respect the version specified in package.json, but npx does.
+
+叩くコマンドによって挙動が違うようだ．
+
+## 解決策
+
+`package.json` を次のように変更する．
+
+```{.json filename="package.json"}
+  "scripts": {
+    ...,
+    "postinstall": "pnpm exec playwright install chromium"
+  },
+  ...
+```
+
+今回の環境では `playwright build v1148` となり問題が解消した．
+
+```default
+...
+6:05:19 PM: Already up to date
+6:05:20 PM: > fuwari@0.0.1 postinstall /opt/build/repo
+6:05:20 PM: > pnpm exec playwright install chromium
+6:05:21 PM: Downloading Chromium 131.0.6778.33 (playwright build v1148) from https://playwright.azureedge.net/builds/chromium/1148/chromium-linux.zip
+...
+```

@@ -1,0 +1,250 @@
+---
+title: "Calibre-Web on TS-220"
+description: "抗えない Python3 への移行"
+categories:
+  - web
+  - qnap
+  - ts220
+  - calibreweb
+  - python
+date: 2021-06-30T09:00:00+09:00
+draft: false
+---
+
+## 概要
+
+TS-220 バージョン 4.3.3.1677 (2021/06/08) 上で [Calibre-Web](https://github.com/janeczku/calibre-web) を動作させる．すべての操作は QNAP で言うところの `admin` ユーザで行う．
+
+## Entware-std のインストール
+
+**※作業はクライアント側からブラウザ経由**
+
+1. AppCenter にリポジトリを追加
+   [設定] - [アプリリポジトリ] より
+   `https://www.qnapclub.eu/en/repo.xml` を追加．
+
+2. qnapclub.eu から Entware-std をインストール
+   Entware-std **1.03**
+   **※ Python3 系のみ**
+
+## 共有フォルダの作成
+
+**※作業はクライアント側からブラウザ経由**
+
+[コントロールパネル] - [共有フォルダ] より `Calibre-Web` を作成．
+
+[自動的にパスを指定] で `/share/MD0_DATA/Calibre-Web` に生成される．
+
+レイアウトは下記を想定．
+
+```bash
+Calibre-Web
+├── .venv
+└── Calibre Library
+```
+
+## パッケージのインストール
+
+**※作業はクライアント側から SSH 経由**
+
+### gcc
+
+```bash
+opkg install gcc
+```
+
+不要かも知れない．
+
+### python 関連
+
+```bash
+opkg install python3-dev
+opkg install python3-pip
+```
+
+## Python 仮想環境の作成
+
+**※作業はクライアント側から SSH 経由**
+
+システムの Python 環境に影響しないよう仮想環境を作成する．
+
+### 1. 作業ディレクトリに移動
+
+```bash
+cd /share/MD0_DATA/Calibre-Web
+```
+
+### 2. 仮想環境を作成
+
+```bash
+python -m venv .venv --without-pip
+```
+
+`--without-pip` を省くとエラーが発生する．
+
+### 3. 仮想環境をアクティブに
+
+```bash
+source .venv/bin/activate
+```
+
+### 4. 仮想環境の確認
+
+```bash
+which python
+which pip
+```
+
+pip が仮想環境下にないことを確認．
+
+### 5. pip をインストール
+
+```bash
+curl -O https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+```
+
+### 6. 仮想環境を非アクティブ → アクティブに
+
+```bash
+deactivate
+source .venv/bin/activate
+```
+
+### 7. 仮想環境の再確認
+
+```bash
+which python
+which pip
+```
+
+pip が仮想環境下にあることを確認．
+
+**※ pip の位置が仮想環境下にない場合，`pip install` が意図しない動作になるので注意．**
+
+## Calibre-Web のインストール
+
+**※作業はクライアント側から SSH 経由**
+
+### 1. インストール
+
+**仮想環境がアクティブになっていることを確認し**
+
+```bash
+pip install calibreweb
+```
+
+途中 `/root/.cache` の容量を圧迫しシステムが不安定になるかも知れない．その場合 `/root/.cache` 以下を削除．
+
+### 2. 確認
+
+```bash
+which cps
+```
+
+`/share/MD0_DATA/Calibre-Web/.venv/bin/cps`
+
+この時点で Calibre-Web は起動可能．
+
+## Calibre Library の配置
+
+**※作業はクライアント側から FTP や同期アプリ経由**
+
+`/share/MD0_DATA/Calibre-Web/Calibre Library` に配置．
+
+## 自動起動の設定
+
+**※作業はクライアント側から SSH 経由**
+
+### 1. autorun.sh の作成
+
+`/share/MD0_DATA/.qpkg/autorun/autorun.sh` を作成．
+
+```{.bash filename="autorun.sh"}
+#!/bin/sh
+/share/MD0_DATA/Calibre-Web/.venv/bin/cps
+```
+
+### 2. qpkg.conf の編集
+
+`/etc/config/qpkg.conf` に [Autorun] ブロックを追加．
+
+```{.default filename="qpkg.conf"}
+[Autorun]
+Name = Autorun
+Version = 0.1
+Author = hasenpfote
+QPKG_FILE = Autorun.qpkg
+Date = 2021-06-30
+Shell = /share/MD0_DATA/.qpkg/autorun/autorun.sh
+Install_Path = /share/MD0_DATA/.qpkg/autorun
+Enable = TRUE
+```
+
+## Calibre-Web の動作確認
+
+**※作業はクライアント側からブラウザ経由**
+
+1. `http://<NASのアドレス>:8083` へアクセス
+2. Location of Calibre Database
+   `/share/MD0_DATA/Calibre-Web/Calibre Library`
+3. ログイン（デフォルト）
+   admin / admin123
+
+**※ DBを更新した場合，[Admin] - [Administration] - [Restart] などで反映．**
+
+## その他
+
+### 作業コマンド
+
+#### pip 全消去
+
+```bash
+pip freeze > piplist.txt
+pip uninstall -y -r piplist.txt
+```
+
+#### opkg 確認
+
+```bash
+opkg list-installed
+```
+
+#### opkg アンインストール
+
+```bash
+opkg remove <package> –force-removal-of-dependent-packages
+```
+
+### 特定のユーザで操作を行う
+
+もしも特定のユーザで操作を行うなら...
+
+**※ opkg で sudo コマンドをインストールしないこと**
+
+#### 1. sudoers の編集
+
+`/usr/etc/sudoers` を**直接編集**
+
+例えば特定グループ(administrators)に適用する場合は次の行を追加．
+
+```{.default filename="sudoers"}
+%administrators ALL=(ALL) ALL
+```
+
+特定グループ所属のユーザがコマンドを実行すると，そのユーザのパスワードを入力する形式になる．
+
+#### 2. profile の編集
+
+`~/.profile` に次の行を追加．
+
+```{.default filename=".profile"}
+export PATH=/opt/bin:$PATH
+```
+
+## 参考
+
+- [NASの起動時に calibre-web を自動実行する](https://kunsen.net/2020/05/31/post-3255/)
+- [QNAPのARMプロセッサ搭載NASに calibre-webをインストールする](https://kunsen.net/2019/12/31/post-2785/)
+- [（参考）venvコマンドでエラーが発生した場合の対処法](https://hibiki-press.tech/python/venv/4567#ref02)
+- [「WARNING: Running pip install with root privileges is generally not a good idea. Try `pip3 install --user` instead.」について](https://kamatimaru.hatenablog.com/entry/2020/05/22/041527)

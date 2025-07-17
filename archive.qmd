@@ -1,0 +1,13 @@
+---
+title: "Archive"
+listing:
+  contents: posts
+  type: table
+  sort: "date desc"
+  date-format: iso
+  fields: [date, title, categories]
+  sort-ui: false
+  filter-ui: [date]
+page-layout: full
+comments: false
+---

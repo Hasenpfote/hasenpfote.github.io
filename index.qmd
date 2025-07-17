@@ -1,0 +1,21 @@
+---
+# https://quarto.org/docs/websites/website-listings.html
+#title: "quarto-blog"
+listing:
+  contents: posts
+  type: default
+  sort: "date desc"
+  date-format: iso
+  categories: cloud
+  feed: true
+  fields: [title, subtitle, description, date, image, categories]
+  sort-ui: false
+  filter-ui: false
+  page-size: 8
+page-layout: full
+title-block-banner: true
+back-to-top-navigation: false
+comments: false
+---
+
+

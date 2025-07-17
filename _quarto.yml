@@ -1,0 +1,76 @@
+# https://quarto.org/docs/reference/projects/options.html
+project:
+  type: website
+  resources:
+    - d32e276c1d5049feac6fcea4d17a3718.txt
+
+execute:
+  freeze: auto
+
+# https://quarto.org/docs/reference/projects/websites.html
+website:
+  title: "/var/log/little-things"
+  description: "A great sample blog"
+  site-url: https://hasenpfote.netlify.app
+  repo-url: https://github.com/Hasenpfote/quarto-blog
+  repo-actions: [edit, source, issue]
+  navbar:
+    left:
+      - about.qmd
+      - archive.qmd
+      - posts/toy-box.md
+      - text: "Shadertoy"
+        href: https://www.shadertoy.com/user/hasenpfote
+    right:
+      - icon: github
+        href: https://github.com/Hasenpfote
+#      - icon: twitter
+#        href: https://twitter.com
+#      - icon: mastodon
+#        href: https://social.vivaldi.net/@Hasenpfote
+      - icon: rss
+        href: index.xml
+  back-to-top-navigation: true
+  page-footer:
+    left:
+      - text: "Built with Quarto"
+        href: https://quarto.org
+    center:
+      - text: "© 2020-2025 Hasenpfote"
+    right:
+      - text: "RSS"
+        href: index.xml
+      - text: "Sitemap"
+        href: sitemap.xml
+    border: true
+  reader-mode: true
+  comments:
+    giscus:
+      repo: Hasenpfote/blog-comments
+      repo-id: R_kgDOI-oVeg
+      category: Announcements
+      category-id: DIC_kwDOI-oVes4CUQGw
+      mapping: pathname
+      loading: lazy
+      input-position: top
+      language: en
+
+# https://quarto.org/docs/reference/formats/html.html
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+    toc-depth: 5
+    number-sections: true
+    code-fold: show
+    fig-align: center
+    lightbox: true
+    link-external-newwindow: true
+    lang: ja-JP
+    # https://quarto.org/docs/output-formats/html-code.html
+#    code-block-bg: true
+#    code-block-border-left: true
+    highlight-style: github

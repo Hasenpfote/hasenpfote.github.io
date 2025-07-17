@@ -1,0 +1,21 @@
+/* css styles */
+
+.quarto-figure .figure figcaption {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0.5em;
+  line-height: 1.5;
+  text-align: center;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  padding: 0 1em;
+}
+
+.quarto-figure iframe {
+  width: 80%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  display: block;
+  margin: 0 auto;
+}

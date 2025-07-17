@@ -1,0 +1,222 @@
+---
+title: "How to start a simplest-blog quickly with Gatsby"
+description: "How to start a simplest-blog quickly with Gatsby"
+date: 2020-12-26T09:00:00+09:00
+categories:
+  - web
+  - gatsby
+draft: false
+---
+
+## 概要
+
+```{mermaid}
+graph LR
+  id1[Markdown] --- id2
+  subgraph ide1[Build and Deploy]
+    id2[GitHub] --- id3[Netlify]
+  end
+  id3 -->|Release| id4[Blog]
+```
+
+Markdown ファイルを GitHub の専用リポジトリに `git push` すれば Blog が出来るの図．
+
+## 方針
+
+- Markdown を中心に据える
+- [Typora](https://typora.io) や [Joplin](https://joplinapp.org) との互換性を最優先とする
+- 数式や図表を扱う
+- コード断片を扱う
+- 退屈・面倒なことはしない
+
+## [Starter Library | Gatsby](https://www.gatsbyjs.com/starters)
+
+あらゆる手を抜くため [gatsby-starter-lumen](https://www.gatsbyjs.com/starters/alxshelepenok/gatsby-starter-lumen/) を選定．
+
+**(実質必須な)後からやるべき退屈な作業に概ね対応している．**
+
+## 不足機能の実装
+
+### ~~数式の表示~~
+
+**Jan 5, 2021 - デフォルトで入っているのでスキップ．**
+
+数式を書き殴るのに [KaTeX](https://katex.org) が必要．
+
+- [gatsby-remark-katex](https://www.gatsbyjs.com/plugins/gatsby-remark-katex/)
+
+**煩わしいこと(エスケープなど)を考える必要性は一切ない．**
+
+[Visit demo](/posts/Test-for-math-expressions)
+
+## ダイアグラムの表示
+
+[Mermaid](https://mermaid-js.github.io/mermaid/) が必要．
+
+- [gatsby-remark-graph](https://www.gatsbyjs.com/plugins/gatsby-remark-graph/)
+
+[Visit demo](/posts/Test-for-diagrams)
+
+### コードブロックの表示
+
+Linuxコマンドなど比較的短めなコード断片の表示を行うのに必要．
+
+**表示する以外の機能は [Typora](https://typora.io) や [Joplin](https://joplinapp.org) との互換性を維持できないので要注意．**
+
+- [gatsby-remark-prismjs](https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/)
+
+[テーマ](https://prismjs.com/) 毎にレイアウトを弄る必要がある．
+
+特に行番号はデフォルトで表示がずれているので要修正．
+
+デフォルトテーマは実質 OKAIDIA 一択．
+
+テーマを追加する場合は [prism-themes](https://github.com/PrismJS/prism-themes) から持ってくる．
+
+[Visit demo](/posts/Test-for-code-blocks)
+
+### [GitHub Gist](https://gist.github.com) の埋め込み
+
+コードブロック関連はこちらが本命．
+
+- [gatsby-remark-embed-gist](https://www.gatsbyjs.com/plugins/gatsby-remark-embed-gist/)
+
+[Visit demo](/posts/Test-for-gist)
+
+### カテゴリやタグのリスト表示 [optional]
+
+デフォルトでは機能として存在するだけなので何かしら手を加える必要がある．
+
+下記が参考になる．
+
+- [タグを全部表示するコンポーネントを作成する](https://kiotera-tech.com/create_tag_or_category_display_component)
+- [カテゴリーを全部表示するコンポーネントを作成する](https://kiotera-tech.com/create_category_display_component)
+
+### 目次の表示 [optional]
+
+特定のプラグインが Markdown 内の特別な記述ブロックを読み込み，目次を生成するというパターンがある．
+
+便利ではあるが **互換性の観点から異物注入は回避**したい．
+
+[Typora](https://typora.io) は見出しタグから自動生成しているようなのでこれに従う．
+
+- [gatsby製のblogにちゃんとしたtable of content（目次）を付ける](https://yukarinoki.com/making_toc/)
+
+極めてシンプルな実装例が参考になる．
+
+[Visit demo](/posts/Test-for-TOC)
+
+### 環境変数について
+
+特定のサービスとの連携を考慮．
+
+包含したくないもの(IDやKEY)を退避する術．
+
+- [Environment Variables](https://www.gatsbyjs.com/docs/how-to/local-development/environment-variables/)
+
+### サイト内検索 [optional]
+
+任意の投稿をカテゴリとタグだけでは絞りきれないことを考慮．
+
+**一番シンプルな奴** だ．
+
+- [Adding Search with Algolia](https://www.gatsbyjs.com/docs/adding-search-with-algolia/)
+
+タイトルと概要から検索する程度なら公式のままで良い．
+
+**[Algolia](https://www.algolia.com/) への登録が必要．**
+
+## サポート機能の有効化
+
+[gatsby-starter-lumen](https://www.gatsbyjs.com/starters/alxshelepenok/gatsby-starter-lumen/) の良いところ．
+
+### Google Analytics
+
+[gatsby-config.js](https://github.com/alxshelepenok/gatsby-starter-lumen/blob/da1d222613a5a757ddb5ab844b4150b9fc3a455c/gatsby-config.js#L143) から辿ると [config.js](https://github.com/alxshelepenok/gatsby-starter-lumen/blob/da1d222613a5a757ddb5ab844b4150b9fc3a455c/config.js#L11) で設定することを確認できる．
+
+**[Google Analytics](https://analytics.google.com/) への登録が必要．**
+
+### Disqus Comments [optional]
+
+[gatsby-config.js](https://github.com/alxshelepenok/gatsby-starter-lumen/blob/da1d222613a5a757ddb5ab844b4150b9fc3a455c/gatsby-config.js#L13) から辿ると [config.js](https://github.com/alxshelepenok/gatsby-starter-lumen/blob/da1d222613a5a757ddb5ab844b4150b9fc3a455c/config.js#L9) で設定することを確認できる．
+
+**[DISQUS](https://blog.disqus.com) への登録が必要．**
+
+## ホスティングサービス
+
+### [Gatsby Cloud](https://www.gatsbyjs.com/cloud/)
+
+1. アカウントを登録
+2. GitHub リポジトリを指定
+3. 必要なら環境変数の設定
+  [Site Settings] タブの [General] -> [Environment variables]
+
+以降は次のタイミングで Build & Deploy, Release の流れになる．
+
+- 自動: `git push` 毎
+- 手動: Trigger build ボタン
+
+最初に本家のサービスということで試した．
+
+[Google Search Console](https://search.google.com/search-console) に
+
+sitemap.xml を送信後に任意の URL 検査を行ったところ，すべての URL に noindex が付与される状態が確認できた．
+
+robots.txt を配置しても状況は変わらず．
+
+同じ状況に陥っているケースを発見するも役に立たない．
+
+[x-robots-tag: none” on Gatsby site hosted by Gatsby Cloud with Contentful](https://stackoverflow.com/questions/64474374/x-robots-tag-none-on-gatsby-site-hosted-by-gatsby-cloud-with-contentful)
+
+後述の [Netlify](https://www.netlify.com) で同作業を行うと何ら問題がなかった．
+
+フリープランへの呪縛ということで諦めた．
+
+### [Netlify](https://www.netlify.com)
+
+1. アカウントを登録
+2. GitHub リポジトリを指定
+3. 必要なら環境変数の設定
+  [Site settings] タブの [Build & deploy] -> [Environment]
+
+以降は次のタイミングで Build & Deploy, Release の流れになる．
+
+- 自動: `git push` 毎
+- 手動: Trigger deploy ボタン
+
+## SEO
+
+### 検索エンジンへ sitemap.xml を送信
+
+sitemap.xml は [gatsby-starter-lumen](https://www.gatsbyjs.com/starters/alxshelepenok/gatsby-starter-lumen/) が自動生成．
+
+#### Google
+
+- [Google Analytics](https://analytics.google.com/analytics/web/) へ登録
+- [Google Search Console](https://search.google.com/search-console) へ登録
+  上記で連携
+
+#### Bing
+
+- [Webmaster Tools - Bing](https://www.bing.com/toolbox/webmaster) へ登録
+- [Google Search Console](https://search.google.com/search-console) からインポート
+
+### robots.txt
+
+[gatsby-plugin-robots-txt](https://www.gatsbyjs.com/plugins/gatsby-plugin-robots-txt/)
+
+### canonical links
+
+[gatsby-plugin-canonical-urls](https://www.gatsbyjs.com/plugins/gatsby-plugin-canonical-urls/?=gatsby-plugin-canonical-urls)
+
+## トラブルシューティング
+
+- 別の環境で `git clone` し `gatsby develop` したらエラー
+  **node_modules** がないのが原因なので `npm install` でインストール．
+
+- 投稿を弄ったり削除した直後に **GraphQL** エラー云々
+  Markdown 内の特殊ブロック(特にソーシャル画像関連)を弄ると高確率で生じる．
+  ファイルを削除しても元の位置に戻しても状況は変化しない．
+  可能ならエラーが発生する前の状態に戻し特殊ブロックの変更は慎重に行う．
+  最終手段としては `gatsby clean` で **.cache** と **public** フォルダを削除する．
+  内部のハッシュ値との不整合がエラー発生の要因と思われる．
