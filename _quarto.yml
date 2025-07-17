@@ -3,6 +3,7 @@ project:
   type: website
   resources:
     - 7ee2dd1d5e0449a9bccbe5419f7fba40.txt
+    - googlea81ae7cff2827e73.html
 
 execute:
   freeze: auto
