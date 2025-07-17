@@ -1,0 +1,856 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Hi, I’m a tech enthusiast with a passion for mathematics, computer science, and programming. I write about topics that fascinate me—ranging from computational geometry and computer graphics to game development and low-level optimization. Most of my work is in C++ and Python, and I enjoy exploring the intersection of theory and implementation.\n#math #mathematics #computerscience #computergraphics #programming #cpp #python #gamedev"
+  },
+  {
+    "objectID": "about.html#previous-blogs",
+    "href": "about.html#previous-blogs",
+    "title": "About",
+    "section": "1 Previous Blogs",
+    "text": "1 Previous Blogs\n\nhttps://hasenpfote36-2.blogspot.com/\nhttps://hasenpfote36.blogspot.com/\nhttps://charm36.hatenablog.com/"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "/var/log/little-things",
+    "section": "",
+    "text": "スラブ法についての考察\n\n\n\n\n\n\ncomputerscience\n\nslabmethod\n\n\n\n光線と軸平行境界ボックスの交差判定に使われるスラブ法の仕組みについて\n\n\n\n\n\n2025-07-10\n\n\n\n\n\n\n\n\n\n\n\n\nモートン符号についての考察\n\n\n\n\n\n\ncomputerscience\n\nmortoncode\n\n\n\nモートン符号の基本を簡単に\n\n\n\n\n\n2025-07-06\n\n\n\n\n\n\n\n\n\n\n\n\nロシアンルーレットについての考察\n\n\n\n\n\n\ncomputerscience\n\n\n\n確率的に処理を打ち切るロシアンルーレットという手法についての考察をする\n\n\n\n\n\n2025-06-02\n\n\n\n\n\n\n\n\n\n\n\n\nNetlify と Playwright とビルドエラー\n\n\n\n\n\n\nweb\n\npnpm\n\nnetlify\n\nplaywright\n\n\n\n或いは pnpm dlx と pnpm exec\n\n\n\n\n\n2025-01-26\n\n\n\n\n\n\n\n\n\n\n\n\n正規直交基底の構築 (3)\n\n\n\n\n\n\ncomputerscience\n\nonb\n\northonormal\n\nbasis\n\n\n\n鏡映を利用する方法について考察をする\n\n\n\n\n\n2025-01-15\n\n\n\n\n\n\n\n\n\n\n\n\n正規直交基底の構築 (2)\n\n\n\n\n\n\ncomputerscience\n\nonb\n\northonormal\n\nbasis\n\n\n\nPixar の方法について考察をする\n\n\n\n\n\n2025-01-13\n\n\n\n\n\n\n\n\n\n\n\n\n正規直交基底の構築 (1)\n\n\n\n\n\n\ncomputerscience\n\nonb\n\northonormal\n\nbasis\n\n\n\nFrisvad の方法について考察をする\n\n\n\n\n\n2025-01-13\n\n\n\n\n\n\n\n\n\n\n\n\nCRT shader\n\n\n\n\n\n\ncomputergraphics\n\nglsl\n\nshadertoy\n\n\n\nCRT モニタ特有の雰囲気を適用する方法について\n\n\n\n\n\n2023-12-31\n\n\n\n\n\n\n\n\n\n\n\n\nCalibre-Web on TS-220\n\n\n\n\n\n\nweb\n\nqnap\n\nts220\n\ncalibreweb\n\npython\n\n\n\n抗えない Python3 への移行\n\n\n\n\n\n2021-06-30\n\n\n\n\n\n\n\n\n\n\n\n\n剛体シム覚書\n\n\n\n\n\n\nphysics\n\nrigidbody\n\npython\n\n\n\n剛体シムの最初の最初\n\n\n\n\n\n2021-06-09\n\n\n\n\n\n\n\n\n\n\n\n\nプリュッカー座標の考察\n\n\n\n\n\n\nmath\n\nplückercoordinates\n\ncpp\n\n\n\n\n\n\n\n\n\n2021-02-19\n\n\n\n\n\n\n\n\n\n\n\n\nGatsby ブログに任意のフォントを追加する方法\n\n\n\n\n\n\nweb\n\ngatsby\n\n\n\nGatsby ブログに任意のフォントを追加する方法について\n\n\n\n\n\n2021-01-22\n\n\n\n\n\n\n\n\n\n\n\n\nアーカイブ機能の実装\n\n\n\n\n\n\nweb\n\ngatsby\n\n\n\ngatsby-starter-lumen にアーカイブ機能を実装\n\n\n\n\n\n2021-01-19\n\n\n\n\n\n\n\n\n\n\n\n\n複素数における回転の表現と補間\n\n\n\n\n\n\nmath\n\ncomplexnumbers\n\ncpp\n\n\n\n複素数における回転の表現と補間について\n\n\n\n\n\n2021-01-12\n\n\n\n\n\n\n\n\n\n\n\n\n双対複素数\n\n\n\n\n\n\nmath\n\ndualcomplexnumbers\n\ncpp\n\n\n\n双対複素数について\n\n\n\n\n\n2021-01-05\n\n\n\n\n\n\n\n\n\n\n\n\nZotero の運用方法\n\n\n\n\n\n\nsoftware\n\nzotero\n\n\n\nクロスプラットフォームな文献管理ソフトウェア Zotero の運用方法について\n\n\n\n\n\n2020-12-27\n\n\n\n\n\n\n\n\n\n\n\n\nJoplin の運用方法\n\n\n\n\n\n\nsoftware\n\njoplin\n\n\n\nクロスプラットフォームな Markdown 統合環境 Joplin の運用方法について\n\n\n\n\n\n2020-12-27\n\n\n\n\n\n\n\n\n\n\n\n\nHow to start a simplest-blog quickly with Gatsby\n\n\n\n\n\n\nweb\n\ngatsby\n\n\n\nHow to start a simplest-blog quickly with Gatsby\n\n\n\n\n\n2020-12-26\n\n\n\n\n\n\n\n\n\n\n\n\nToy Box\n\n\n\n\n\n\nrepository\n\ncodesnippet\n\n\n\nRepositories and code snippets\n\n\n\n\n\n1970-01-01\n\n\n\n\n\n一致なし"
+  },
+  {
+    "objectID": "posts/rigid-body-simulation-notes.html",
+    "href": "posts/rigid-body-simulation-notes.html",
+    "title": "剛体シム覚書",
+    "section": "",
+    "text": "慣性テンソル \\(\\boldsymbol{I}\\) は次のような対称行列である．\n\\[\n\\begin{aligned}\n\\boldsymbol{I}\n&=\n\\left(\n\\begin{array}{ccc}\nI_{xx} & I_{xy} & I_{xz}\\\\\nI_{yx} & I_{yy} & I_{yz}\\\\\nI_{zx} & I_{zy} & I_{zz}\n\\end{array}\n\\right)\n=\\int \\rho d\\boldsymbol{V}\n\\left(\n\\begin{array}{ccc}\ny^2 + z^2 & -xy & -xz\\\\\n-xy & z^2 + x^2 & -yz\\\\\n-xz & -yz & x^2 + y^2\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n対角項を慣性モーメント，非対角項を慣性乗積という．対称行列なので，ある直交行列 \\(\\boldsymbol{O}\\) で対角化をすれば慣性乗積をすべて0にできる．対角化された慣性テンソル \\(\\boldsymbol{I}_{I}\\) は\n\\[\n\\begin{aligned}\n\\boldsymbol{I}_{I}\n&=\\boldsymbol{O}^{-1} \\boldsymbol{I} \\boldsymbol{O}\n=\n\\left(\n\\begin{array}{ccc}\nI_{1} & 0 & 0\\\\\n0 & I_{2} & 0\\\\\n    0 & 0 & I_{3}\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n対角成分を主慣性モーメント，それが成立する座標系を慣性主軸という．回転対称性のない一般の剛体の場合，慣性主軸を求めることは固有値問題に帰着する．\n\\[\n\\boldsymbol{I} \\boldsymbol{\\omega}\n=\\lambda \\boldsymbol{\\omega}\n\\]\n上式を満たす \\(\\boldsymbol{\\omega}\\) の方向は，行列 \\(\\boldsymbol{I}\\) の固有ベクトルの方向と一致する．固有値 \\(\\lambda_{i}\\) と固有ベクトル \\(\\boldsymbol{\\omega}_{i}\\) より\n\\[\n\\begin{aligned}\n\\left(\n\\begin{array}{c}\nI_{1}\\\\\nI_{2}\\\\\nI_{3}\n\\end{array}\n\\right)\n&=\n\\left(\n\\begin{array}{c}\n\\lambda_{1}\\\\\n\\lambda_{2}\\\\\n\\lambda_{3}\n\\end{array}\n\\right)\\\\\n\\\\\n\\boldsymbol{O}\n&=\n\\left(\n\\begin{array}{ccc}\n\\frac{\\boldsymbol{\\omega}_{0}}{\\|\\boldsymbol{\\omega}_{0}\\|} &\n\\frac{\\boldsymbol{\\omega}_{1}}{\\|\\boldsymbol{\\omega}_{1}\\|} &\n\\frac{\\boldsymbol{\\omega}_{2}}{\\|\\boldsymbol{\\omega}_{2}\\|}\\\\\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n主慣性モーメント \\(I_{i}\\) は，それに対応する慣性主軸(\\(I_{i}\\) に対応する固有ベクトル \\(\\boldsymbol{\\omega}_{i}\\) の方向) の周りの慣性モーメントである．\n\n回転対称性のある剛体は慣性テンソルが対角行列になっているので直交行列 \\(\\boldsymbol{O}\\) は単位行列．\ncf. 色々な物体の慣性モーメント１"
+  },
+  {
+    "objectID": "posts/rigid-body-simulation-notes.html#慣性テンソル",
+    "href": "posts/rigid-body-simulation-notes.html#慣性テンソル",
+    "title": "剛体シム覚書",
+    "section": "",
+    "text": "慣性テンソル \\(\\boldsymbol{I}\\) は次のような対称行列である．\n\\[\n\\begin{aligned}\n\\boldsymbol{I}\n&=\n\\left(\n\\begin{array}{ccc}\nI_{xx} & I_{xy} & I_{xz}\\\\\nI_{yx} & I_{yy} & I_{yz}\\\\\nI_{zx} & I_{zy} & I_{zz}\n\\end{array}\n\\right)\n=\\int \\rho d\\boldsymbol{V}\n\\left(\n\\begin{array}{ccc}\ny^2 + z^2 & -xy & -xz\\\\\n-xy & z^2 + x^2 & -yz\\\\\n-xz & -yz & x^2 + y^2\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n対角項を慣性モーメント，非対角項を慣性乗積という．対称行列なので，ある直交行列 \\(\\boldsymbol{O}\\) で対角化をすれば慣性乗積をすべて0にできる．対角化された慣性テンソル \\(\\boldsymbol{I}_{I}\\) は\n\\[\n\\begin{aligned}\n\\boldsymbol{I}_{I}\n&=\\boldsymbol{O}^{-1} \\boldsymbol{I} \\boldsymbol{O}\n=\n\\left(\n\\begin{array}{ccc}\nI_{1} & 0 & 0\\\\\n0 & I_{2} & 0\\\\\n    0 & 0 & I_{3}\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n対角成分を主慣性モーメント，それが成立する座標系を慣性主軸という．回転対称性のない一般の剛体の場合，慣性主軸を求めることは固有値問題に帰着する．\n\\[\n\\boldsymbol{I} \\boldsymbol{\\omega}\n=\\lambda \\boldsymbol{\\omega}\n\\]\n上式を満たす \\(\\boldsymbol{\\omega}\\) の方向は，行列 \\(\\boldsymbol{I}\\) の固有ベクトルの方向と一致する．固有値 \\(\\lambda_{i}\\) と固有ベクトル \\(\\boldsymbol{\\omega}_{i}\\) より\n\\[\n\\begin{aligned}\n\\left(\n\\begin{array}{c}\nI_{1}\\\\\nI_{2}\\\\\nI_{3}\n\\end{array}\n\\right)\n&=\n\\left(\n\\begin{array}{c}\n\\lambda_{1}\\\\\n\\lambda_{2}\\\\\n\\lambda_{3}\n\\end{array}\n\\right)\\\\\n\\\\\n\\boldsymbol{O}\n&=\n\\left(\n\\begin{array}{ccc}\n\\frac{\\boldsymbol{\\omega}_{0}}{\\|\\boldsymbol{\\omega}_{0}\\|} &\n\\frac{\\boldsymbol{\\omega}_{1}}{\\|\\boldsymbol{\\omega}_{1}\\|} &\n\\frac{\\boldsymbol{\\omega}_{2}}{\\|\\boldsymbol{\\omega}_{2}\\|}\\\\\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n主慣性モーメント \\(I_{i}\\) は，それに対応する慣性主軸(\\(I_{i}\\) に対応する固有ベクトル \\(\\boldsymbol{\\omega}_{i}\\) の方向) の周りの慣性モーメントである．\n\n回転対称性のある剛体は慣性テンソルが対角行列になっているので直交行列 \\(\\boldsymbol{O}\\) は単位行列．\ncf. 色々な物体の慣性モーメント１"
+  },
+  {
+    "objectID": "posts/rigid-body-simulation-notes.html#座標系",
+    "href": "posts/rigid-body-simulation-notes.html#座標系",
+    "title": "剛体シム覚書",
+    "section": "2 座標系",
+    "text": "2 座標系\n座標系は [慣性主軸] → [ローカル座標] → [ワールド座標] とする．角運動量 \\(\\boldsymbol{L}\\) と角速度 \\(\\boldsymbol{\\omega}\\) の関係式より\n\n慣性主軸\n\\[\n\\begin{aligned}\n\\boldsymbol{L}_{I}\n&=\\boldsymbol{I}_{I} \\boldsymbol{\\omega}_{I}\\\\\n&=(\\boldsymbol{O}^{-1} \\boldsymbol{I} \\boldsymbol{O}) \\boldsymbol{\\omega}_{I}\\\\\n\\end{aligned}\n\\]\nローカル座標\n\\[\n\\begin{aligned}\n\\boldsymbol{L}_{local}\n&=\\boldsymbol{I}_{local} \\, \\boldsymbol{\\omega}_{local}\\\\\n\\boldsymbol{O} \\boldsymbol{L}_{I}\n&=\\boldsymbol{O} \\boldsymbol{I}_{I} \\boldsymbol{\\omega}_{I}\\\\\n&=(\\boldsymbol{O} \\boldsymbol{I}_{I} \\boldsymbol{O}^{-1}) \\boldsymbol{O} \\boldsymbol{\\omega}_{I}\\\\\n&=\\boldsymbol{I} \\, \\boldsymbol{O} \\boldsymbol{\\omega}_{I}\n\\end{aligned}\n\\]\nワールド座標\n\\[\n\\begin{aligned}\n\\boldsymbol{L}_{world}\n&=\\boldsymbol{I}_{world} \\, \\boldsymbol{\\omega}_{world}\\\\\n\\boldsymbol{R} \\boldsymbol{L}_{local}\n&=\\boldsymbol{R} \\boldsymbol{I}_{local} \\, \\boldsymbol{\\omega}_{local}\\\\\n&=(\\boldsymbol{R} \\boldsymbol{I}_{local} \\boldsymbol{R}^{-1}) \\, \\boldsymbol{R} \\boldsymbol{\\omega}_{local}\\\\\n&=(\\boldsymbol{R} (\\boldsymbol{O} \\boldsymbol{I}_{I} \\boldsymbol{O}^{-1}) \\boldsymbol{R}^{-1}) \\, \\boldsymbol{R} \\boldsymbol{\\omega}_{local}\\\\\n&=(\\boldsymbol{R} \\boldsymbol{I} \\boldsymbol{R}^{-1}) \\, \\boldsymbol{R} \\boldsymbol{\\omega}_{local}\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "posts/rigid-body-simulation-notes.html#力の適用",
+    "href": "posts/rigid-body-simulation-notes.html#力の適用",
+    "title": "剛体シム覚書",
+    "section": "3 力の適用",
+    "text": "3 力の適用\n剛体の重心へ作用し必要に応じて何度でも適用する．\n\n3.1 並進運動\n\\[\n\\begin{aligned}\n\\begin{array}{l|l}\n\\text{パラメータ} & \\text{解説}\\\\ \\hline\n    \\boldsymbol{x} \\in \\mathbb{R}^{3} & \\text{位置}\\\\\n    \\boldsymbol{v} \\in \\mathbb{R}^{3} & \\text{速度}\\\\\n    m  \\in \\mathbb{R} & \\text{質量}\\\\\n    \\boldsymbol{F} \\in \\mathbb{R}^{3} & \\text{力}\\\\\n    \\boldsymbol{J} \\in \\mathbb{R}^{3} & \\text{力積}\\\\\n    \\Delta t \\in \\mathbb{R} & \\text{タイムステップ}\n\\end{array}\n\\end{aligned}\n\\]\n\n3.1.1 力を適用する場合\n\\[\n\\begin{aligned}\n\\boldsymbol{v}_{t+1}\n&=\\boldsymbol{v}_{t} + \\frac{\\boldsymbol{F}}{m} \\Delta t\n\\end{aligned}\n\\]\n\n\n3.1.2 力積を適用する場合\n\\[\n\\begin{aligned}\n\\boldsymbol{v}_{t+1}\n&=\\boldsymbol{v}_{t} + \\frac{\\boldsymbol{J}}{m}\n\\end{aligned}\n\\]\n\n撃力は運動量 \\(\\boldsymbol{p}(t)=m\\boldsymbol{v}(t)\\) を用いて\n\\[\n\\begin{aligned}\n\\int^{t + \\Delta t}_{t} \\frac{d \\boldsymbol{p}(t)}{dt} dt\n&=\\int^{t + \\Delta t}_{t} \\boldsymbol{F}(t) dt\\\\\n\\\\\n\\left[\\boldsymbol{p}(t) \\right]^{t + \\Delta t}_{t}\n&\\simeq \\boldsymbol{F}(t) \\Delta t\\\\\n\\\\\n\\underbrace{m \\Delta \\boldsymbol{v}}_{Change \\hspace{2pt} in \\hspace{2pt} momentum}\n&\\simeq \\underbrace{\\boldsymbol{F}(t) \\Delta t}_{impulse}\n\\end{aligned}\n\\]\n\n\n\n\n3.2 回転運動\n\\[\n\\begin{aligned}\n\\begin{array}{l|l}\n\\text{パラメータ} & \\text{解説}\\\\ \\hline\n    \\boldsymbol{q}_{r} \\in \\mathbb{H}_{1} & \\text{剛体の回転}\\\\\n    \\boldsymbol{I} \\in \\mathbb{R}^{3\\times 3} & \\text{慣性テンソル}\\\\\n    \\boldsymbol{I}_{world} \\in \\mathbb{R}^{3\\times 3} & \\text{慣性テンソル}\\\\\n    \\boldsymbol{\\omega} \\in \\mathbb{R}^{3} & \\text{角速度}\\\\\n    \\boldsymbol{L} \\in \\mathbb{R}^{3} & \\text{角運動量}\\\\\n    \\boldsymbol{\\tau} \\in \\mathbb{R}^{3} & \\text{トルク}\\\\\n    \\boldsymbol{H} \\in \\mathbb{R}^{3} & \\text{力積}\\\\\n    \\Delta t \\in \\mathbb{R} & \\text{タイムステップ}\n\\end{array}\n\\end{aligned}\n\\]\n\n3.2.1 トルクを適用する場合\n\\[\n\\begin{aligned}\n\\boldsymbol{R}_{t}\n&=({\\boldsymbol{q}_{r}}_{t}) \\text{ as matrix}\\\\\n\\\\\n\\boldsymbol{I}_{world}\n&=\\boldsymbol{R}_{t} \\boldsymbol{I} \\boldsymbol{R}_{t}^{-1}\\\\\n\\\\\n\\boldsymbol{I}^{-1}_{world}\n&=\\boldsymbol{R}_{t} \\boldsymbol{I}^{-1} \\boldsymbol{R}_{t}^{-1}\\\\\n\\\\\n\\boldsymbol{L}_{t}\n&=\\boldsymbol{I}_{world} \\boldsymbol{\\omega}_{t}\\\\\n\\\\\n\\boldsymbol{L}_{t+1}\n&=\\boldsymbol{L}_{t} + \\boldsymbol{\\tau}_{t} \\Delta t\\\\\n\\\\\n\\boldsymbol{\\omega}_{t+1}\n&=\\boldsymbol{I}^{-1}_{world} \\boldsymbol{L}_{t+1}\\\\\n\\end{aligned}\n\\]\n\n\n3.2.2 力積を適用する場合\n\\[\n\\begin{aligned}\n\\boldsymbol{R}_{t}\n&=({\\boldsymbol{q}_{r}}_{t}) \\text{ as matrix}\\\\\n\\\\\n\\boldsymbol{I}_{world}\n&=\\boldsymbol{R}_{t} \\boldsymbol{I} \\boldsymbol{R}_{t}^{-1}\\\\\n\\\\\n\\boldsymbol{I}^{-1}_{world}\n&=\\boldsymbol{R}_{t} \\boldsymbol{I}^{-1} \\boldsymbol{R}_{t}^{-1}\\\\\n\\\\\n\\boldsymbol{L}_{t}\n&=\\boldsymbol{I}_{world} \\boldsymbol{\\omega}_{t}\\\\\n\\\\\n\\boldsymbol{L}_{t+1}\n&=\\boldsymbol{L}_{t} + \\boldsymbol{H}_{t}\\\\\n\\\\\n\\boldsymbol{\\omega}_{t+1}\n&=\\boldsymbol{I}^{-1}_{world} \\boldsymbol{L}_{t+1}\\\\\n\\end{aligned}\n\\]\n\n撃力は角運動量 \\(\\boldsymbol{L}\\) を用いて\n\\[\n\\begin{aligned}\n\\int^{t + \\Delta t}_{t} \\frac{d \\boldsymbol{L}(t)}{dt} dt\n&=\\int^{t + \\Delta t}_{t} \\boldsymbol{\\tau}(t) dt\\\\\n\\\\\n\\left[\\boldsymbol{L}(t) \\right]^{t + \\Delta t}_{t}\n&\\simeq \\boldsymbol{\\tau}(t) \\Delta t\\\\\n\\\\\n\\underbrace{\\Delta \\boldsymbol{L}}_{Change \\hspace{2pt} in \\hspace{2pt} momentum}\n&\\simeq \\underbrace{\\boldsymbol{\\tau}(t) \\Delta t}_{impulse}\n\\end{aligned}\n\\]\nまたは\n\\[\n\\begin{aligned}\n\\int^{t + \\Delta t}_{t} \\frac{d \\boldsymbol{L}(t)}{dt} dt\n&=\\boldsymbol{r} \\times \\int^{t + \\Delta t}_{t} \\boldsymbol{F}(t) dt\\\\\n\\\\\n\\left[\\boldsymbol{L}(t) \\right]^{t + \\Delta t}_{t}\n&\\simeq \\boldsymbol{r} \\times \\boldsymbol{F}(t) \\Delta t\\\\\n\\\\\n\\underbrace{\\Delta \\boldsymbol{L}}_{Change \\hspace{2pt} in \\hspace{2pt} momentum}\n&\\simeq \\underbrace{\\boldsymbol{r} \\times \\boldsymbol{F}(t) \\Delta t}_{impulse}\n\\end{aligned}\n\\]\n\n\n\n\n3.3 合成運動\n剛体上のある位置へ力や撃力を適用する場合について．剛体の中心(重心)から剛体上のある位置 \\(\\boldsymbol{p}\\) へのベクトルを \\(\\boldsymbol{r}=\\boldsymbol{p}\\ - \\boldsymbol{x}\\) とする．\n\n3.3.1 力を適用する場合\n\n並進運動を行う\n\\(\\boldsymbol{\\tau}=\\boldsymbol{r} \\times \\boldsymbol{F}\\) として回転運動を行う\n\n\n\n3.3.2 力積を適用する場合\n\n並進運動を行う\n\\(\\boldsymbol{H}=\\boldsymbol{r} \\times \\boldsymbol{J}\\) として回転運動を行う"
+  },
+  {
+    "objectID": "posts/rigid-body-simulation-notes.html#更新",
+    "href": "posts/rigid-body-simulation-notes.html#更新",
+    "title": "剛体シム覚書",
+    "section": "4 更新",
+    "text": "4 更新\n最終的な速度や角速度を用い，位置や姿勢を更新する．\n\n4.1 並進運動\n\\[\n\\begin{aligned}\n\\boldsymbol{x}_{t+1}\n&=\\boldsymbol{x}_{t} + \\boldsymbol{v}_{t+1} \\Delta t\n\\end{aligned}\n\\]\n\n\n4.2 回転運動\n\\[\n\\begin{aligned}\n{\\boldsymbol{q}_{r}}_{t+1}\n&=\\frac{{\\boldsymbol{q}_{r}}_{t} + \\dot{\\boldsymbol{q}_{r}}_{t+1} \\Delta t}{\\|{\\boldsymbol{q}_{r}}_{t} + \\dot{\\boldsymbol{q}_{r}}_{t+1} \\Delta t\\|}\n\\end{aligned}\n\\]\n\n四元数の時間微分について\n\\[\n\\begin{aligned}\n\\dot{\\boldsymbol{q}}(t)\n&=\\frac{d}{dt} \\boldsymbol{q}(t)\\\\\n&=\\frac{1}{2} \\left\\{\\omega_{x}(t) \\boldsymbol{i} + \\omega_{y}(t) \\boldsymbol{j} + \\omega_{z}(t) \\boldsymbol{k}\\right\\} \\otimes \\boldsymbol{q}(t)\n\\end{aligned}\n\\]\nオイラー法による時間積分\n\\[\n\\begin{aligned}\n\\boldsymbol{q}(t+\\Delta t)\n&=\\frac{\\boldsymbol{q}(t) + \\dot{\\boldsymbol{q}}(t) \\Delta t}{\\|\\boldsymbol{q}(t) + \\dot{\\boldsymbol{q}}(t) \\Delta t\\|}\n\\end{aligned}\n\\]\n大きさが安定しないので正規化が必須．"
+  },
+  {
+    "objectID": "posts/rigid-body-simulation-notes.html#回転運動のパラメータについて",
+    "href": "posts/rigid-body-simulation-notes.html#回転運動のパラメータについて",
+    "title": "剛体シム覚書",
+    "section": "5 回転運動のパラメータについて",
+    "text": "5 回転運動のパラメータについて\n対角化された慣性テンソルに着目する．主慣性モーメントをベクトルとして扱えばストレージサイズが 1/3 となる．それに伴い計算は四元数が主となる．\n\\[\n\\begin{aligned}\n\\begin{array}{c|l}\n\\text{パラメータ} & \\text{解説}\\\\ \\hline\n    \\boldsymbol{I}_{d} \\in \\mathbb{R}^{3} & \\text{主慣性モーメント}\\\\\n    \\boldsymbol{q}_{o} \\in \\mathbb{H}_{1} & \\boldsymbol{O} \\text{ を四元数化}\\\\\n    \\boldsymbol{q}_{r} \\in \\mathbb{H}_{1} & \\boldsymbol{R} \\text{ を四元数化}\\\\\n\\end{array}\n\\end{aligned}\n\\]\nただし\n\\[\n\\begin{aligned}\n\\boldsymbol{I}^{-1}_{d}\n&\\equiv\n\\left(\n\\begin{array}{c}\n\\frac{1}{{I_{1}}}\\\\\n\\frac{1}{{I_{2}}}\\\\\n\\frac{1}{{I_{3}}}\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n\n5.1 トルクを適用する場合\n\\[\n\\begin{aligned}\n\\boldsymbol{q}_{t}\n&={\\boldsymbol{q}_{r}}_{t} \\otimes {\\boldsymbol{q}_{o}}_{t}\\\\\n\\boldsymbol{q}^{-1}_{t}\n&={\\boldsymbol{q}_{o}}^{-1}_{t} \\otimes {\\boldsymbol{q}_{r}}^{-1}_{t}\\\\\n\\\\\n\\boldsymbol{L}_{t}\n&=\\boldsymbol{q}_{t} \\diamond (\\boldsymbol{I}_{d} \\odot (\\boldsymbol{q}^{-1}_{t} \\diamond \\boldsymbol{\\omega}_{t}))\\\\\n\\boldsymbol{L}_{t+1}\n&=\\boldsymbol{L}_{t} + \\boldsymbol{\\tau}_{t} \\Delta t\\\\\n\\\\\n\\boldsymbol{\\omega}_{t+1}\n&=\\boldsymbol{q}_{t} \\diamond \\left(\\boldsymbol{I}^{-1}_{d} \\odot (\\boldsymbol{q}^{-1}_{t} \\diamond \\boldsymbol{L}_{t+1}) \\right)\n\\end{aligned}\n\\]\n\n\n5.2 力積を適用する場合\n\\[\n\\begin{aligned}\n\\boldsymbol{q}_{t}\n&={\\boldsymbol{q}_{r}}_{t} \\otimes {\\boldsymbol{q}_{o}}_{t}\\\\\n\\boldsymbol{q}^{-1}_{t}\n&={\\boldsymbol{q}_{o}}^{-1}_{t} \\otimes {\\boldsymbol{q}_{r}}^{-1}_{t}\\\\\n\\\\\n\\boldsymbol{L}_{t}\n&=\\boldsymbol{q}_{t} \\diamond (\\boldsymbol{I}_{d} \\odot (\\boldsymbol{q}^{-1}_{t} \\diamond \\boldsymbol{\\omega}_{t}))\\\\\n\\boldsymbol{L}_{t+1}\n&=\\boldsymbol{L}_{t} + \\boldsymbol{H}_{t}\\\\\n\\\\\n\\boldsymbol{\\omega}_{t+1}\n&=\\boldsymbol{q}_{t} \\diamond \\left(\\boldsymbol{I}^{-1}_{d} \\odot (\\boldsymbol{q}^{-1}_{t} \\diamond \\boldsymbol{L}_{t+1}) \\right)\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "posts/rigid-body-simulation-notes.html#記号について",
+    "href": "posts/rigid-body-simulation-notes.html#記号について",
+    "title": "剛体シム覚書",
+    "section": "6 記号について",
+    "text": "6 記号について\n\\[\n\\begin{aligned}\n\\begin{array}{c|l}\n\\text{記号} & \\text{解説}\\\\ \\hline\n    \\odot & \\text{アダマール積}\\\\\n    \\otimes & \\text{四元数の積}\\\\\n    \\diamond & \\text{四元数によるベクトルの回転: } \\boldsymbol{p}^{'} = \\boldsymbol{q} \\boldsymbol{p} \\boldsymbol{q}^{-1}\\\\\n\\end{array}\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "posts/rigid-body-simulation-notes.html#python-による実装例",
+    "href": "posts/rigid-body-simulation-notes.html#python-による実装例",
+    "title": "剛体シム覚書",
+    "section": "7 Python による実装例",
+    "text": "7 Python による実装例\n\n基本的な実装例\nrigid-body-dynamics.ipynb\n「回転運動のパラメータについて」で考察した実装例\nrigid-body-dynamics-2.ipynb"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html",
+    "href": "posts/calibre-web-on-ts-220.html",
+    "title": "Calibre-Web on TS-220",
+    "section": "",
+    "text": "TS-220 バージョン 4.3.3.1677 (2021/06/08) 上で Calibre-Web を動作させる．すべての操作は QNAP で言うところの admin ユーザで行う．"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#概要",
+    "href": "posts/calibre-web-on-ts-220.html#概要",
+    "title": "Calibre-Web on TS-220",
+    "section": "",
+    "text": "TS-220 バージョン 4.3.3.1677 (2021/06/08) 上で Calibre-Web を動作させる．すべての操作は QNAP で言うところの admin ユーザで行う．"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#entware-std-のインストール",
+    "href": "posts/calibre-web-on-ts-220.html#entware-std-のインストール",
+    "title": "Calibre-Web on TS-220",
+    "section": "2 Entware-std のインストール",
+    "text": "2 Entware-std のインストール\n※作業はクライアント側からブラウザ経由\n\nAppCenter にリポジトリを追加 [設定] - [アプリリポジトリ] より https://www.qnapclub.eu/en/repo.xml を追加．\nqnapclub.eu から Entware-std をインストール Entware-std 1.03 ※ Python3 系のみ"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#共有フォルダの作成",
+    "href": "posts/calibre-web-on-ts-220.html#共有フォルダの作成",
+    "title": "Calibre-Web on TS-220",
+    "section": "3 共有フォルダの作成",
+    "text": "3 共有フォルダの作成\n※作業はクライアント側からブラウザ経由\n[コントロールパネル] - [共有フォルダ] より Calibre-Web を作成．\n[自動的にパスを指定] で /share/MD0_DATA/Calibre-Web に生成される．\nレイアウトは下記を想定．\nCalibre-Web\n├── .venv\n└── Calibre Library"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#パッケージのインストール",
+    "href": "posts/calibre-web-on-ts-220.html#パッケージのインストール",
+    "title": "Calibre-Web on TS-220",
+    "section": "4 パッケージのインストール",
+    "text": "4 パッケージのインストール\n※作業はクライアント側から SSH 経由\n\n4.1 gcc\nopkg install gcc\n不要かも知れない．\n\n\n4.2 python 関連\nopkg install python3-dev\nopkg install python3-pip"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#python-仮想環境の作成",
+    "href": "posts/calibre-web-on-ts-220.html#python-仮想環境の作成",
+    "title": "Calibre-Web on TS-220",
+    "section": "5 Python 仮想環境の作成",
+    "text": "5 Python 仮想環境の作成\n※作業はクライアント側から SSH 経由\nシステムの Python 環境に影響しないよう仮想環境を作成する．\n\n5.1 1. 作業ディレクトリに移動\ncd /share/MD0_DATA/Calibre-Web\n\n\n5.2 2. 仮想環境を作成\npython -m venv .venv --without-pip\n--without-pip を省くとエラーが発生する．\n\n\n5.3 3. 仮想環境をアクティブに\nsource .venv/bin/activate\n\n\n5.4 4. 仮想環境の確認\nwhich python\nwhich pip\npip が仮想環境下にないことを確認．\n\n\n5.5 5. pip をインストール\ncurl -O https://bootstrap.pypa.io/get-pip.py\npython get-pip.py\n\n\n5.6 6. 仮想環境を非アクティブ → アクティブに\ndeactivate\nsource .venv/bin/activate\n\n\n5.7 7. 仮想環境の再確認\nwhich python\nwhich pip\npip が仮想環境下にあることを確認．\n※ pip の位置が仮想環境下にない場合，pip install が意図しない動作になるので注意．"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#calibre-web-のインストール",
+    "href": "posts/calibre-web-on-ts-220.html#calibre-web-のインストール",
+    "title": "Calibre-Web on TS-220",
+    "section": "6 Calibre-Web のインストール",
+    "text": "6 Calibre-Web のインストール\n※作業はクライアント側から SSH 経由\n\n6.1 1. インストール\n仮想環境がアクティブになっていることを確認し\npip install calibreweb\n途中 /root/.cache の容量を圧迫しシステムが不安定になるかも知れない．その場合 /root/.cache 以下を削除．\n\n\n6.2 2. 確認\nwhich cps\n/share/MD0_DATA/Calibre-Web/.venv/bin/cps\nこの時点で Calibre-Web は起動可能．"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#calibre-library-の配置",
+    "href": "posts/calibre-web-on-ts-220.html#calibre-library-の配置",
+    "title": "Calibre-Web on TS-220",
+    "section": "7 Calibre Library の配置",
+    "text": "7 Calibre Library の配置\n※作業はクライアント側から FTP や同期アプリ経由\n/share/MD0_DATA/Calibre-Web/Calibre Library に配置．"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#自動起動の設定",
+    "href": "posts/calibre-web-on-ts-220.html#自動起動の設定",
+    "title": "Calibre-Web on TS-220",
+    "section": "8 自動起動の設定",
+    "text": "8 自動起動の設定\n※作業はクライアント側から SSH 経由\n\n8.1 1. autorun.sh の作成\n/share/MD0_DATA/.qpkg/autorun/autorun.sh を作成．\n\n\nautorun.sh\n\n#!/bin/sh\n/share/MD0_DATA/Calibre-Web/.venv/bin/cps\n\n\n\n8.2 2. qpkg.conf の編集\n/etc/config/qpkg.conf に [Autorun] ブロックを追加．\n\n\nqpkg.conf\n\n[Autorun]\nName = Autorun\nVersion = 0.1\nAuthor = hasenpfote\nQPKG_FILE = Autorun.qpkg\nDate = 2021-06-30\nShell = /share/MD0_DATA/.qpkg/autorun/autorun.sh\nInstall_Path = /share/MD0_DATA/.qpkg/autorun\nEnable = TRUE"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#calibre-web-の動作確認",
+    "href": "posts/calibre-web-on-ts-220.html#calibre-web-の動作確認",
+    "title": "Calibre-Web on TS-220",
+    "section": "9 Calibre-Web の動作確認",
+    "text": "9 Calibre-Web の動作確認\n※作業はクライアント側からブラウザ経由\n\nhttp://&lt;NASのアドレス&gt;:8083 へアクセス\nLocation of Calibre Database /share/MD0_DATA/Calibre-Web/Calibre Library\nログイン（デフォルト） admin / admin123\n\n※ DBを更新した場合，[Admin] - [Administration] - [Restart] などで反映．"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#その他",
+    "href": "posts/calibre-web-on-ts-220.html#その他",
+    "title": "Calibre-Web on TS-220",
+    "section": "10 その他",
+    "text": "10 その他\n\n10.1 作業コマンド\n\n10.1.1 pip 全消去\npip freeze &gt; piplist.txt\npip uninstall -y -r piplist.txt\n\n\n10.1.2 opkg 確認\nopkg list-installed\n\n\n10.1.3 opkg アンインストール\nopkg remove &lt;package&gt; –force-removal-of-dependent-packages\n\n\n\n10.2 特定のユーザで操作を行う\nもしも特定のユーザで操作を行うなら…\n※ opkg で sudo コマンドをインストールしないこと\n\n10.2.1 1. sudoers の編集\n/usr/etc/sudoers を直接編集\n例えば特定グループ(administrators)に適用する場合は次の行を追加．\n\n\nsudoers\n\n%administrators ALL=(ALL) ALL\n\n特定グループ所属のユーザがコマンドを実行すると，そのユーザのパスワードを入力する形式になる．\n\n\n10.2.2 2. profile の編集\n~/.profile に次の行を追加．\n\n\n.profile\n\nexport PATH=/opt/bin:$PATH"
+  },
+  {
+    "objectID": "posts/calibre-web-on-ts-220.html#参考",
+    "href": "posts/calibre-web-on-ts-220.html#参考",
+    "title": "Calibre-Web on TS-220",
+    "section": "11 参考",
+    "text": "11 参考\n\nNASの起動時に calibre-web を自動実行する\nQNAPのARMプロセッサ搭載NASに calibre-webをインストールする\n（参考）venvコマンドでエラーが発生した場合の対処法\n「WARNING: Running pip install with root privileges is generally not a good idea. Try pip3 install --user instead.」について"
+  },
+  {
+    "objectID": "posts/thoughts-on-slab-method.html",
+    "href": "posts/thoughts-on-slab-method.html",
+    "title": "スラブ法についての考察",
+    "section": "",
+    "text": "光線は，始点ベクトル \\(\\boldsymbol{o}\\) と方向ベクトル \\(\\boldsymbol{d}\\) を用いて，次のようなパラメトリック形式で表される．\n\\[\n\\boldsymbol{P}(t)=\\boldsymbol{o}+t\\boldsymbol{d}\n\\]\n軸平行境界ボックス（Axis-Aligned Bounding Box, AABB）との交点を求めるには，光線が各境界面に到達するパラメータ \\(t\\) を計算すればよい．\n\\[\n\\begin{cases}\n\\boldsymbol{P}(t)=\\boldsymbol{b}_{min}\\\\\n\\boldsymbol{P}(t)=\\boldsymbol{b}_{max}\n\\end{cases}\n\\]\n各次元 \\(i\\) ごとに，光線がその軸方向のスラブ面（\\(b_{min,i},b_{max,i}\\)）に到達するパラメータ値は，次のように求められる．\n\\[\n\\begin{align*}\nt_{0, i}&=\\frac{b_{min,i} - o_{i}}{d_{i}}\\\\\nt_{1, i}&=\\frac{b_{max,i} - o_{i}}{d_{i}}\n\\end{align*}\n\\]\n各軸での交差区間の共通部分から，全体の交差区間を求めることができる．"
+  },
+  {
+    "objectID": "posts/thoughts-on-slab-method.html#スラブ法の概要",
+    "href": "posts/thoughts-on-slab-method.html#スラブ法の概要",
+    "title": "スラブ法についての考察",
+    "section": "",
+    "text": "光線は，始点ベクトル \\(\\boldsymbol{o}\\) と方向ベクトル \\(\\boldsymbol{d}\\) を用いて，次のようなパラメトリック形式で表される．\n\\[\n\\boldsymbol{P}(t)=\\boldsymbol{o}+t\\boldsymbol{d}\n\\]\n軸平行境界ボックス（Axis-Aligned Bounding Box, AABB）との交点を求めるには，光線が各境界面に到達するパラメータ \\(t\\) を計算すればよい．\n\\[\n\\begin{cases}\n\\boldsymbol{P}(t)=\\boldsymbol{b}_{min}\\\\\n\\boldsymbol{P}(t)=\\boldsymbol{b}_{max}\n\\end{cases}\n\\]\n各次元 \\(i\\) ごとに，光線がその軸方向のスラブ面（\\(b_{min,i},b_{max,i}\\)）に到達するパラメータ値は，次のように求められる．\n\\[\n\\begin{align*}\nt_{0, i}&=\\frac{b_{min,i} - o_{i}}{d_{i}}\\\\\nt_{1, i}&=\\frac{b_{max,i} - o_{i}}{d_{i}}\n\\end{align*}\n\\]\n各軸での交差区間の共通部分から，全体の交差区間を求めることができる．"
+  },
+  {
+    "objectID": "posts/thoughts-on-slab-method.html#テストシーン共通データセット",
+    "href": "posts/thoughts-on-slab-method.html#テストシーン共通データセット",
+    "title": "スラブ法についての考察",
+    "section": "2 テストシーン（共通データセット）",
+    "text": "2 テストシーン（共通データセット）\n\n\nコード\nimport numpy as np\n\nro, rd = np.array([1, 2]), np.array([4, 2])\nrd = rd / np.linalg.norm(rd)\n\nb_min, b_max = np.array([2, 2]), np.array([4, 4])\n\nt0 = (b_min - ro) / rd\nt1 = (b_max - ro) / rd"
+  },
+  {
+    "objectID": "posts/thoughts-on-slab-method.html#スラブのパラメータ区間の可視化",
+    "href": "posts/thoughts-on-slab-method.html#スラブのパラメータ区間の可視化",
+    "title": "スラブ法についての考察",
+    "section": "3 スラブのパラメータ区間の可視化",
+    "text": "3 スラブのパラメータ区間の可視化\n光線パラメータ \\(t\\) を横軸に，縦軸に各軸方向のスラブ区間を並べ，光線がその区間を通過する様子を視覚的に示す．\n\n\nコード\nimport matplotlib.pyplot as plt\nfrom matplotlib import font_manager\n\n\n# print(plt.style.available)\nplt.style.use(\"seaborn-v0_8\")\n\n\ndef plot_slabs(t0, t1, ax):\n    COLORS = [\"red\", \"green\", \"blue\"]\n\n    num_dim = ro.size\n    t_inf, t_sup = 0.0, np.inf\n    t_min, t_max = np.empty(num_dim), np.empty(num_dim)\n\n    for i in range(num_dim):\n        t_min[i], t_max[i] = np.fmin(t0[i], t1[i]), np.fmax(t0[i], t1[i])\n        t_inf, t_sup = np.fmax(t_inf, t_min[i]), np.fmin(t_sup, t_max[i])\n\n    has_overlap = t_inf &lt; t_sup\n\n    for i in range(num_dim):\n        if not np.isfinite(t_min[i]) or not np.isfinite(t_max[i]):\n            continue\n\n        y = num_dim - i\n        color = COLORS[i]\n\n        lo, hi = t_min[i], t_max[i]\n        ax.hlines(y, xmin=lo, xmax=hi, label=f\"axis-{i}\", color=color, linewidth=1, alpha=0.5)\n        ax.plot(lo, y, color=color, marker=\"v\", label=f\"entry: {lo:.3f}\")\n        ax.plot(hi, y, color=color, marker=\"^\", label=f\"exit: {hi:.3f}\")\n\n        if has_overlap:\n            ax.vlines(lo, ymin=0, ymax=y, colors=\"black\", linestyles=\"--\", linewidth=1, alpha=0.5)\n            ax.vlines(hi, ymin=0, ymax=y, colors=\"black\", linestyles=\"--\", linewidth=1, alpha=0.5)\n\n    if has_overlap:\n        lo, hi = np.min(t_min[np.isfinite(t_min)]), np.max(t_max[np.isfinite(t_max)])\n        ax.hlines(0, xmin=lo, xmax=hi, colors=\"gray\", linestyles=\"--\", linewidth=1, alpha=0.5)\n\n        color = \"orange\"\n        ax.hlines(0, xmin=t_inf, xmax=t_sup, colors=color, label=f\"t\", linewidth=1, alpha=0.5)\n        ax.plot(t_inf, 0, color=color, marker=\"v\", label=f\"entry: {t_inf:.3f}\")\n        ax.plot(t_sup, 0, color=color, marker=\"^\", label=f\"exit: {t_sup:.3f}\")\n    else:\n        ax.plot([], [], color=\"black\", linestyle=\"-.\", label=\"No overlap between slabs\")\n\n\nfig, ax = plt.subplots(figsize=(5, 5), constrained_layout=True)\n\nplot_slabs(t0, t1, ax)\n\n# Styling and layout\nax.set_title(\"Slabs\")\nax.set_xlabel(\"t\")\nax.margins(x=0.25, y=0.25)\nax.get_yaxis().set_visible(False)\nax.set_aspect(\"equal\", adjustable=\"box\")\nax.grid(True)\n\nax.legend(\n    loc=\"upper left\",\n    bbox_to_anchor=(1.02, 1),\n    borderaxespad=0.0,\n    prop=font_manager.FontProperties(family=\"monospace\", size=8),\n)\n\nplt.show()"
+  },
+  {
+    "objectID": "posts/thoughts-on-slab-method.html#スラブ法の実装",
+    "href": "posts/thoughts-on-slab-method.html#スラブ法の実装",
+    "title": "スラブ法についての考察",
+    "section": "4 スラブ法の実装",
+    "text": "4 スラブ法の実装\nここでは，分岐なしのスラブ法を実装する（詳細は Tavianator, 2022 を参照）．\n実装上の注意点としては以下がある．\n\n0 除算は IEEE 754 の仕様に依存している\n最小値・最大値の計算においては，NaN を無視する必要がある\n比較操作は NaN の性質を利用する\n\n\n\nコード\ndef intersect(ro: np.ndarray, rd: np.ndarray, b_min: np.ndarray, b_max: np.ndarray) -&gt; tuple[bool, float, float]:\n    t_min, t_max = 0.0, np.inf  # Ray interval\n\n    for i in range(ro.size):\n        # inv_d may become inf if rd[i] == 0 (IEEE 754: 1/0 = inf).\n        inv_d = 1.0 / rd[i]\n        # t0 or t1 may be NaN when 0 * inf occurs.\n        t0 = (b_min[i] - ro[i]) * inv_d\n        t1 = (b_max[i] - ro[i]) * inv_d\n\n        # fmin/fmax ignore NaN and return the valid value.\n        t_min = np.fmax(t_min, np.fmin(t0, t1))  # Entry point\n        t_max = np.fmin(t_max, np.fmax(t0, t1))  # Exit point\n\n    # t_min == t_max occurs when ray grazes a degenerate (zero-thickness) box → no hit.\n    return t_min &lt; t_max, t_min, t_max\n\n\n\n\nコード\nis_hit, t_min, t_max = intersect(ro, rd, b_min, b_max)\nprint(f\"{is_hit=}, {t_min=}, {t_max=}\")\n\n\nis_hit=np.True_, t_min=np.float64(1.118033988749895), t_max=np.float64(3.3541019662496847)\n\n\n\n\nコード\ndef plot_scene(ro, rd, b_min, b_max, is_hit, t_min, t_max, ax):\n    extent = b_max - b_min\n    # AABB\n    rect = plt.Rectangle(b_min, extent[0], extent[1], edgecolor=\"black\", facecolor=\"none\", linewidth=1, hatch=\"//\", label=\"AABB\")\n    ax.add_patch(rect)\n    # Ray\n    ax.quiver(*ro, *rd, angles=\"xy\", scale_units=\"xy\", scale=1, color=\"black\", label=\"Ray\")\n    # Hit\n    if is_hit:\n        entry_pos = ro + t_min * rd\n        exit_pos = ro + t_max * rd\n        ax.plot(*np.vstack([entry_pos, exit_pos]).T, color=\"crimson\", linestyle=\"--\", linewidth=1, label=\"Intersection\")\n        ax.plot(*entry_pos, color=\"crimson\", marker=\"v\", label=\"Entry\")\n        ax.plot(*exit_pos, color=\"crimson\", marker=\"^\", label=\"Exit\")\n\n\nfig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 5), constrained_layout=True)\n\nplot_scene(ro, rd, b_min, b_max, is_hit, t_min, t_max, axes[0])\nplot_slabs(t0, t1, axes[1])\n\n# Styling and layout\nax = axes[0]\nax.set_title(\"Slab method\")\nax.margins(x=0.5, y=0.5)\nax.set_aspect(\"equal\", adjustable=\"box\")\nax.grid(True)\n\nax.legend(\n    loc=\"upper left\",\n    bbox_to_anchor=(1.02, 1),\n    borderaxespad=0.0,\n    prop=font_manager.FontProperties(family=\"monospace\", size=8),\n)\n\nax = axes[1]\nax.set_title(\"Slabs\")\nax.set_xlabel(\"t\")\nax.margins(x=0.25, y=0.25)\nax.get_yaxis().set_visible(False)\nax.set_aspect(\"equal\", adjustable=\"box\")\nax.grid(True)\n\nax.legend(\n    loc=\"upper left\",\n    bbox_to_anchor=(1.02, 1),\n    borderaxespad=0.0,\n    prop=font_manager.FontProperties(family=\"monospace\", size=8),\n)\n\nplt.show()"
+  },
+  {
+    "objectID": "posts/thoughts-on-slab-method.html#appendix-3次元での可視化",
+    "href": "posts/thoughts-on-slab-method.html#appendix-3次元での可視化",
+    "title": "スラブ法についての考察",
+    "section": "5 Appendix: 3次元での可視化",
+    "text": "5 Appendix: 3次元での可視化\n\n\nコード\nro, rd = np.array([2, 1, 2]), np.array([4, 4, 2])\nrd = rd / np.linalg.norm(rd)\n\nb_min = np.array([2.0, 2.0, 2.0])\nb_max = np.array([4.0, 4.0, 4.0])\n\nt0 = (b_min - ro) / rd\nt1 = (b_max - ro) / rd\n\nis_hit, t_min, t_max = intersect(ro, rd, b_min, b_max)\nprint(f\"{is_hit=}, {t_min=}, {t_max=}\")\n\n\nis_hit=np.True_, t_min=np.float64(1.5), t_max=np.float64(3.0)\n\n\n\n\nコード\nfrom mpl_toolkits.mplot3d import Axes3D\n\n\ndef plot_aabb(b_min, b_max, ax, **kwargs):\n    x, y, z = b_min[0], b_min[1], b_min[2]\n    X, Y, Z = b_max[0], b_max[1], b_max[2]\n\n    faces = [\n        (\"z\", x, X, y, Y, z),  # bottom\n        (\"z\", x, X, y, Y, Z),  # top\n        (\"y\", x, X, z, Z, y),  # front\n        (\"y\", x, X, z, Z, Y),  # back\n        (\"x\", y, Y, z, Z, x),  # left\n        (\"x\", y, Y, z, Z, X),  # right\n    ]\n\n    for axis, a0, a1, b0, b1, fixed in faces:\n        aa, bb = np.meshgrid([a0, a1], [b0, b1])\n        surf = {\"x\": (np.full_like(aa, fixed), aa, bb), \"y\": (aa, np.full_like(aa, fixed), bb), \"z\": (aa, bb, np.full_like(aa, fixed))}[axis]\n        ax.plot_surface(*surf, **kwargs)\n\n\ndef plot_scene_3d(ro, rd, b_min, b_max, is_hit, t_min, t_max, ax):\n    extent = b_max - b_min\n    # AABB\n    plot_aabb(b_min, b_max, ax, color=\"skyblue\", alpha=0.25)\n    # Ray\n    ax.quiver(*ro, *rd, length=1.0, normalize=True, color=\"black\", arrow_length_ratio=0.1)\n    #\n    if is_hit:\n        entry_pos = ro + t_min * rd\n        exit_pos = ro + t_max * rd\n        ax.plot(*np.vstack([entry_pos, exit_pos]).T, color=\"crimson\", linestyle=\"--\", linewidth=1, label=\"Intersection\")\n        ax.plot(*entry_pos, color=\"crimson\", marker=\"v\", label=\"Entry\")\n        ax.plot(*exit_pos, color=\"crimson\", marker=\"^\", label=\"Exit\")\n\n    pts = [b_min, b_max, ro, ro + rd]\n    lower, upper = np.min(pts, axis=0), np.max(pts, axis=0)\n    center = 0.5 * (lower + upper)\n    extent = upper - lower\n    half_max_extent = 0.5 * np.max(extent)\n\n    ax.set_xlim(center[0] - half_max_extent, center[0] + half_max_extent)\n    ax.set_ylim(center[1] - half_max_extent, center[1] + half_max_extent)\n    ax.set_zlim(center[2] - half_max_extent, center[2] + half_max_extent)\n    ax.set_box_aspect([1, 1, 1])\n\n\nfig = plt.figure(figsize=(10, 5), constrained_layout=True)\nax0 = fig.add_subplot(121, projection=\"3d\")\nax1 = fig.add_subplot(122)\n\nplot_scene_3d(ro, rd, b_min, b_max, is_hit, t_min, t_max, ax0)\nplot_slabs(t0, t1, ax1)\n\n# Styling and layout\nax = ax0\nax.set_xlabel(\"x\")\nax.set_ylabel(\"y\")\nax.set_zlabel(\"z\")\nax.legend(\n    loc=\"upper left\",\n    bbox_to_anchor=(1.02, 1),\n    borderaxespad=0.0,\n    prop=font_manager.FontProperties(family=\"monospace\", size=8),\n)\n\nax = ax1\nax.set_title(\"Slabs\")\nax.set_xlabel(\"t\")\nax.margins(x=0.25, y=0.25)\nax.get_yaxis().set_visible(False)\nax.set_aspect(\"equal\", adjustable=\"box\")\nax.grid(True)\n\nax.legend(\n    loc=\"upper left\",\n    bbox_to_anchor=(1.02, 1),\n    borderaxespad=0.0,\n    prop=font_manager.FontProperties(family=\"monospace\", size=8),\n)\n\nplt.show()"
+  },
+  {
+    "objectID": "posts/thoughts-on-slab-method.html#references",
+    "href": "posts/thoughts-on-slab-method.html#references",
+    "title": "スラブ法についての考察",
+    "section": "6 References",
+    "text": "6 References\n\nWikipedia contributors. (2025, April 23). Slab method. Wikipedia. https://en.wikipedia.org/w/index.php?title=Slab_method&oldid=1287019363\nTavianator. (2022). Fast, Branchless Ray/Bounding Box Intersections, Part 3: Boundaries. Tavianator.com. https://tavianator.com/2022/ray_box_boundary.html"
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-1.html",
+    "href": "posts/building-an-orthonormal-basis-1.html",
+    "title": "正規直交基底の構築 (1)",
+    "section": "",
+    "text": "Frisvad [2012] では，接空間の \\(z\\) 軸から任意の単位ベクトル \\(\\vec{n}\\) への回転に四元数を利用する．これは，サンプリングされた方向 \\({}_{\\perp}\\vec{\\omega}\\) に適用して \\(\\vec{\\omega}\\) を得る回転である．以下の式で，ベクトル \\(\\boldsymbol{s}\\) から \\(\\boldsymbol{t}\\) への回転を指定する単位四元数 \\(\\hat{q}\\) を見つける(導出は Appendix 1).\n\\[\n\\hat{q}\n=(q_{v}, q_{w})\n=\\left(\\frac{\\boldsymbol{s} \\times \\boldsymbol{t}}{\\sqrt{2(1 + \\langle \\boldsymbol{s}, \\boldsymbol{t} \\rangle)}}, \\frac{\\sqrt{2(1 + \\langle \\boldsymbol{s}, \\boldsymbol{t} \\rangle)}}{2} \\right)\n\\tag{1}\n\\]\n\\(z\\) 軸の方向 \\((0,0,1)^{\\mathsf{T}}\\) から \\(\\vec{n}=(n_{x}, n_{y}, n_{z})^{\\mathsf{T}}\\) に回転する場合，式 \\((1)\\) は次のように簡略化される.\n\\[\n\\hat{q}\n=\\left(\\frac{(-n_{y}, n_{x}, 0)^{\\mathsf{T}}}{\\sqrt{2(1 + n_{z})}}, \\frac{\\sqrt{2(1 + n_{z})}}{2} \\right)\n\\tag{2}\n\\]\n代数的な操作の後，\\(\\vec{n}\\) が単位ベクトルであることを利用すると，次の結果が得られる(正規性と直交性の証明は Frisvad[2012] の Appendix B).\n\\[\n\\begin{align*}\n\\vec{\\omega}\n&=(\\hat{q} ({}_{\\perp}\\vec{\\omega}, 0) \\hat{q}^{*})_{v}\\\\\n&=\n\\begin{pmatrix}\nx\n\\begin{pmatrix}\n1 - \\frac{n^{2}_{x}}{1 + n_{z}}\\\\\n- \\frac{n_{x} n_{y}}{1 + n_{z}}\\\\\n- n_{x}\n\\end{pmatrix}\n+\ny\n\\begin{pmatrix}\n- \\frac{n_{x} n_{y}}{1 + n_{z}}\\\\\n1 - \\frac{n^{2}_{y}}{1 + n_{z}}\\\\\n- n_{y}\n\\end{pmatrix}\n+\nz\n\\begin{pmatrix}\nn_{x}\\\\\nn_{y}\\\\\nn_{z}\n\\end{pmatrix}\n\\end{pmatrix}\n\\tag{3}\n\\end{align*}\n\\]\nこの方程式は，\\(1 + n_{z}=0\\) の場合に特異点を持つが，これは \\(\\vec{n}=(0, 0, -1)^{\\mathsf{T}}\\) の場合にのみ起こる．この場合は，\\(\\vec{\\omega}=(-y, -x , -z)^{\\mathsf{T}}\\) と設定することで対処できる．\n\\(z\\) 軸周りにサンプリングした方向を任意の方向 \\(\\vec{n}\\) まわりにサンプリングした方向に回転させる式 \\((3)\\) を見ると，3 つのベクトルがある.\n\\[\n\\begin{align*}\n\\vec{b}_{1}\n&=\n\\left(\n1 - \\frac{n^{2}_{x}}{1 + n_{z}}, - \\frac{n_{x} n_{y}}{1 + n_{z}}, - n_{x}\n\\right)^{\\mathsf{T}}\n\\tag{4}\\\\\n\\vec{b}_{2}\n&=\n\\left(\n- \\frac{n_{x} n_{y}}{1 + n_{z}}, 1 - \\frac{n^{2}_{y}}{1 + n_{z}}, - n_{y}\n\\right)^{\\mathsf{T}}\n\\tag{5}\\\\\n\\vec{n}\n&=\n\\left(\nn_{x}, n_{y}, n_{z}\n\\right)^{\\mathsf{T}}\n\\tag{6}\\\\\n\\end{align*}\n\\]\nこれらの式は，\\(\\vec{n}\\) を \\(z\\) 軸とする基底である.\n\n\n\n\n\n\n特異点への対処について\n\n\n\n\\(1 + n_{z}=0\\) の場合は，\\(\\vec{b}_{1}=(0, -1, 0)^{\\mathsf{T}}\\) および \\(\\vec{b}_{2}=(-1, 0, 0)^{\\mathsf{T}}\\) とする.\n\\[\n\\vec{\\omega}\n=(\\vec{b}_{1}, \\vec{b}_{2}, \\vec{n}) {}_{\\perp}\\vec{\\omega}\n=\n\\begin{pmatrix}\n0 & -1 & 0\\\\\n-1 & 0 & 0\\\\\n0 & 0 & -1\n\\end{pmatrix}\n\\begin{pmatrix}\nx\\\\\ny\\\\\nz\n\\end{pmatrix}\n=\n\\begin{pmatrix}\n-y\\\\\n-x\\\\\n-z\n\\end{pmatrix}\n\\]\n\n\n実装は次のようになる.\n// Listing 2. New way of finding an orthonormal basis from a unit 3D vector.\nvoid frisvad(const Vec3f& n, Vec3f& b1, Vec3f& b2)\n{\n  if(n.z &lt; -0.9999999f) // Handle the singularity\n  {\n    b1 = Vec3f ( 0.0f, -1.0f, 0.0f);\n    b2 = Vec3f (-1.0f , 0.0f, 0.0f);\n    return;\n  }\n  const float a = 1.0f/(1.0f + n.z);\n  const float b = -n.x*n.y*a;\n  b1 = Vec3f (1.0f - n.x*n.x*a, b, -n.x);\n  b2 = Vec3f (b, 1.0f - n.y*n.y*a, -n.y);\n}\n\n\nMax [2017] によると，単精度浮動小数点数の場合に特異点付近で許容できない誤差が発生することが報告されている．また，最大誤差を最小化することにも触れており,\n\nAs t increases away from -1, the maximum errors for vectors n with n.z ≥ t will decrease, and those errors for n.z &lt; t will increase, so there should be an optimum trade-off value of t where they are equal. When considering only the normality conditions, the maximum normality error was minimized at 0.00222844 when t = -0.9999805689, in which case the maximum orthogonality error was 0.00622611. When considering only the orthogonality conditions, the maximum error was minimized to the value 0.004901 when t = -0.99998796, in which case the maximum normality condition error was 0.00180161. This same value of t minimized the maximum errors when both the orthogonality and normality conditions were considered together. So if these errors of about a half of one percent are acceptable, this threshold of -0.99998796 would work in Frisvad’s method.\n\n閾値を次のように変更する.\n  ...\n  if(n.z &lt; -0.99998796f) // Handle the singularity\n  ...\n\n\n\n\n\n確度の比較\n\n\n\n\n\n\n\nPros\n\n外積と正規化がないため，既存の方法を凌駕する実行速度を得る\n実質的に分岐がない\n四元数を基礎としているため，接ベクトルの方向に一貫性がある (Frisvad [2014])\n\nCons\n\n単精度浮動小数点数の場合に，特異点付近で許容できない誤差が発生する"
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-1.html#frisvad-の方法",
+    "href": "posts/building-an-orthonormal-basis-1.html#frisvad-の方法",
+    "title": "正規直交基底の構築 (1)",
+    "section": "",
+    "text": "Frisvad [2012] では，接空間の \\(z\\) 軸から任意の単位ベクトル \\(\\vec{n}\\) への回転に四元数を利用する．これは，サンプリングされた方向 \\({}_{\\perp}\\vec{\\omega}\\) に適用して \\(\\vec{\\omega}\\) を得る回転である．以下の式で，ベクトル \\(\\boldsymbol{s}\\) から \\(\\boldsymbol{t}\\) への回転を指定する単位四元数 \\(\\hat{q}\\) を見つける(導出は Appendix 1).\n\\[\n\\hat{q}\n=(q_{v}, q_{w})\n=\\left(\\frac{\\boldsymbol{s} \\times \\boldsymbol{t}}{\\sqrt{2(1 + \\langle \\boldsymbol{s}, \\boldsymbol{t} \\rangle)}}, \\frac{\\sqrt{2(1 + \\langle \\boldsymbol{s}, \\boldsymbol{t} \\rangle)}}{2} \\right)\n\\tag{1}\n\\]\n\\(z\\) 軸の方向 \\((0,0,1)^{\\mathsf{T}}\\) から \\(\\vec{n}=(n_{x}, n_{y}, n_{z})^{\\mathsf{T}}\\) に回転する場合，式 \\((1)\\) は次のように簡略化される.\n\\[\n\\hat{q}\n=\\left(\\frac{(-n_{y}, n_{x}, 0)^{\\mathsf{T}}}{\\sqrt{2(1 + n_{z})}}, \\frac{\\sqrt{2(1 + n_{z})}}{2} \\right)\n\\tag{2}\n\\]\n代数的な操作の後，\\(\\vec{n}\\) が単位ベクトルであることを利用すると，次の結果が得られる(正規性と直交性の証明は Frisvad[2012] の Appendix B).\n\\[\n\\begin{align*}\n\\vec{\\omega}\n&=(\\hat{q} ({}_{\\perp}\\vec{\\omega}, 0) \\hat{q}^{*})_{v}\\\\\n&=\n\\begin{pmatrix}\nx\n\\begin{pmatrix}\n1 - \\frac{n^{2}_{x}}{1 + n_{z}}\\\\\n- \\frac{n_{x} n_{y}}{1 + n_{z}}\\\\\n- n_{x}\n\\end{pmatrix}\n+\ny\n\\begin{pmatrix}\n- \\frac{n_{x} n_{y}}{1 + n_{z}}\\\\\n1 - \\frac{n^{2}_{y}}{1 + n_{z}}\\\\\n- n_{y}\n\\end{pmatrix}\n+\nz\n\\begin{pmatrix}\nn_{x}\\\\\nn_{y}\\\\\nn_{z}\n\\end{pmatrix}\n\\end{pmatrix}\n\\tag{3}\n\\end{align*}\n\\]\nこの方程式は，\\(1 + n_{z}=0\\) の場合に特異点を持つが，これは \\(\\vec{n}=(0, 0, -1)^{\\mathsf{T}}\\) の場合にのみ起こる．この場合は，\\(\\vec{\\omega}=(-y, -x , -z)^{\\mathsf{T}}\\) と設定することで対処できる．\n\\(z\\) 軸周りにサンプリングした方向を任意の方向 \\(\\vec{n}\\) まわりにサンプリングした方向に回転させる式 \\((3)\\) を見ると，3 つのベクトルがある.\n\\[\n\\begin{align*}\n\\vec{b}_{1}\n&=\n\\left(\n1 - \\frac{n^{2}_{x}}{1 + n_{z}}, - \\frac{n_{x} n_{y}}{1 + n_{z}}, - n_{x}\n\\right)^{\\mathsf{T}}\n\\tag{4}\\\\\n\\vec{b}_{2}\n&=\n\\left(\n- \\frac{n_{x} n_{y}}{1 + n_{z}}, 1 - \\frac{n^{2}_{y}}{1 + n_{z}}, - n_{y}\n\\right)^{\\mathsf{T}}\n\\tag{5}\\\\\n\\vec{n}\n&=\n\\left(\nn_{x}, n_{y}, n_{z}\n\\right)^{\\mathsf{T}}\n\\tag{6}\\\\\n\\end{align*}\n\\]\nこれらの式は，\\(\\vec{n}\\) を \\(z\\) 軸とする基底である.\n\n\n\n\n\n\n特異点への対処について\n\n\n\n\\(1 + n_{z}=0\\) の場合は，\\(\\vec{b}_{1}=(0, -1, 0)^{\\mathsf{T}}\\) および \\(\\vec{b}_{2}=(-1, 0, 0)^{\\mathsf{T}}\\) とする.\n\\[\n\\vec{\\omega}\n=(\\vec{b}_{1}, \\vec{b}_{2}, \\vec{n}) {}_{\\perp}\\vec{\\omega}\n=\n\\begin{pmatrix}\n0 & -1 & 0\\\\\n-1 & 0 & 0\\\\\n0 & 0 & -1\n\\end{pmatrix}\n\\begin{pmatrix}\nx\\\\\ny\\\\\nz\n\\end{pmatrix}\n=\n\\begin{pmatrix}\n-y\\\\\n-x\\\\\n-z\n\\end{pmatrix}\n\\]\n\n\n実装は次のようになる.\n// Listing 2. New way of finding an orthonormal basis from a unit 3D vector.\nvoid frisvad(const Vec3f& n, Vec3f& b1, Vec3f& b2)\n{\n  if(n.z &lt; -0.9999999f) // Handle the singularity\n  {\n    b1 = Vec3f ( 0.0f, -1.0f, 0.0f);\n    b2 = Vec3f (-1.0f , 0.0f, 0.0f);\n    return;\n  }\n  const float a = 1.0f/(1.0f + n.z);\n  const float b = -n.x*n.y*a;\n  b1 = Vec3f (1.0f - n.x*n.x*a, b, -n.x);\n  b2 = Vec3f (b, 1.0f - n.y*n.y*a, -n.y);\n}\n\n\nMax [2017] によると，単精度浮動小数点数の場合に特異点付近で許容できない誤差が発生することが報告されている．また，最大誤差を最小化することにも触れており,\n\nAs t increases away from -1, the maximum errors for vectors n with n.z ≥ t will decrease, and those errors for n.z &lt; t will increase, so there should be an optimum trade-off value of t where they are equal. When considering only the normality conditions, the maximum normality error was minimized at 0.00222844 when t = -0.9999805689, in which case the maximum orthogonality error was 0.00622611. When considering only the orthogonality conditions, the maximum error was minimized to the value 0.004901 when t = -0.99998796, in which case the maximum normality condition error was 0.00180161. This same value of t minimized the maximum errors when both the orthogonality and normality conditions were considered together. So if these errors of about a half of one percent are acceptable, this threshold of -0.99998796 would work in Frisvad’s method.\n\n閾値を次のように変更する.\n  ...\n  if(n.z &lt; -0.99998796f) // Handle the singularity\n  ...\n\n\n\n\n\n確度の比較\n\n\n\n\n\n\n\nPros\n\n外積と正規化がないため，既存の方法を凌駕する実行速度を得る\n実質的に分岐がない\n四元数を基礎としているため，接ベクトルの方向に一貫性がある (Frisvad [2014])\n\nCons\n\n単精度浮動小数点数の場合に，特異点付近で許容できない誤差が発生する"
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-1.html#appendix-1-最短円弧の四元数について",
+    "href": "posts/building-an-orthonormal-basis-1.html#appendix-1-最短円弧の四元数について",
+    "title": "正規直交基底の構築 (1)",
+    "section": "2 Appendix 1: 最短円弧の四元数について",
+    "text": "2 Appendix 1: 最短円弧の四元数について\nMelax [2000] を参考に最短円弧の四元数を導出する.\n\n2.1 安定した式の導出\n回転を表す単位四元数は，次のように表される.\n\\[\nq\n=e^{\\frac{\\theta}{2} \\hat{\\boldsymbol{u}}}\n=\\cos{\\left(\\frac{\\theta}{2}\\right)} + \\sin{\\left(\\frac{\\theta}{2}\\right)} \\hat{\\boldsymbol{u}}\n\\]\n2 つのベクトル \\(\\hat{\\boldsymbol{a}}, \\hat{\\boldsymbol{b}} \\in \\mathbb{R}^{3}\\) かつ \\(\\|\\hat{\\boldsymbol{a}}\\|=\\|\\hat{\\boldsymbol{b}}\\|=1\\) について，内積 \\(d=\\langle \\hat{\\boldsymbol{a}}, \\hat{\\boldsymbol{b}} \\rangle\\) と外積 \\(\\boldsymbol{c}=\\hat{\\boldsymbol{a}}\\times \\hat{\\boldsymbol{b}}\\) を定義する．四元数 \\(q\\) のベクトル成分 \\(q_{v}=(q_{x}, q_{y}, q_{z})\\) の長さは，角度 \\(\\theta\\) の半分に対する正弦 \\(\\sin{\\left(\\frac{\\theta}{2} \\right)}\\) に等しい．また，外積 \\(\\boldsymbol{c}\\) の長さは，角度 \\(\\theta\\) に対する正弦 \\(\\sin{(\\theta)}\\) に等しい．これらの関係を元に，四元数の成分を求める.\n\\[\nq_{v}\n=\\sin{\\left(\\frac{\\theta}{2} \\right)} \\hat{\\boldsymbol{u}}\n=\\frac{\\sin{\\left(\\frac{\\theta}{2} \\right)}}{\\sin{\\theta}} \\boldsymbol{c}\n\\]\n\\(\\frac{\\sin{\\left(\\frac{\\theta}{2} \\right)}}{\\sin{\\theta}}\\) 項の安定した式を決定する必要がある．\\(\\sin{\\left(\\frac{\\theta}{2} \\right)}\\) は，三角関数の半角公式から次のように表される.\n\\[\n\\sin{\\left(\\frac{\\theta}{2} \\right)}\n=\\sqrt{\\frac{1 - \\cos{\\theta}}{2}}\n\\]\nまた，次の三角関数の恒等式を用いる.\n\\[\n\\sin^{2}{\\theta} + \\cos^{2}{\\theta}=1\n\\]\nすると，次のようになる.\n\\[\n\\frac{\\sin{\\left(\\frac{\\theta}{2} \\right)}}{\\sin{\\theta}}\n=\\frac{\\sqrt{\\frac{1 - \\cos{\\theta}}{2}}}{\\sqrt{1 - \\cos^{2}{\\theta}}}\n\\]\n\\(d\\) を用いて簡略化すると,\n\\[\n\\frac{\\sqrt{\\frac{1 - d}{2}}}{\\sqrt{1 - d^{2}}}\n=\\sqrt{\\frac{1 - d}{2(1 - d^{2})}}\n=\\sqrt{\\frac{1 - d}{2(1 + d)(1 - d)}}\n=\\frac{1}{\\sqrt{2(1 + d)}}\n\\]\nそれらを代入するとベクトル部は次のようになる.\n\\[\nq_{v}\n=\\frac{\\boldsymbol{c}}{\\sqrt{2(1 + d)}}\n\\]\nスカラー部は，三角関数の半角公式を用いると簡単になる.\n\\[\nq_{s}\n=\\cos{\\left(\\frac{\\theta}{2} \\right)}\n=\\sqrt{\\frac{1 + \\cos{\\theta}}{2}}\n=\\sqrt{\\frac{1 + d}{2}}\n\\]\n平方根(コード上の sqrt)の呼び出しを減らすため，平方根内に \\(\\frac{2}{2}\\) を掛けると次のように変形することができる.\n\\[\nq_{s}\n=\\sqrt{\\frac{1 + d}{2}}\n=\\sqrt{\\frac{2}{2} \\frac{1 + d}{2}}\n=\\frac{\\sqrt{2(1 + d)}}{2}\n\\]\n\n\n2.2 残存する不安定性条件\nもし \\(\\hat{\\boldsymbol{a}}=-\\hat{\\boldsymbol{b}}\\) なら回転軸は無限に存在し，一意に決定することが出来なくなる．この場合，内積 \\(d=-1\\) になるのでゼロ除算が発生し，数値的不安定性が生じる (※ Melax [2000] では対象オブジェクトをターゲット方向に向ける目的で利用されるため，このケースに遭遇することは少なく，その回避処理は省略されている).\n\n\n2.3 実装例\nvec4 rotation_arc(in vec3 a, in vec3 b){\n    vec3 c = cross(a, b);\n    float d = dot(a, b);\n    float s = sqrt(2. * (1. + d));\n    \n    return vec4(c / s, s / 2.);\n}"
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-1.html#references",
+    "href": "posts/building-an-orthonormal-basis-1.html#references",
+    "title": "正規直交基底の構築 (1)",
+    "section": "3 References",
+    "text": "3 References\n\nFrisvad, J. R. (2012). Building an Orthonormal Basis from a 3D Unit Vector Without Normalization. Journal of Graphics Tools, 16(3), 151–159. https://doi.org/10.1080/2165347X.2012.689606\nFrisvad, J. R. (2014). Combing hair and sampling directions [Presentation slides]. Extra slide added October 2018. https://people.compute.dtu.dk/jerf/code/hairy/HairAndDirections.pdf\nMax, N. (2017). Improved accuracy when building an orthonormal basis. Journal of Computer Graphics Techniques (JCGT), 6(1), 9–16. http://jcgt.org/published/0006/01/02/\nMelax, S. (2000). The shortest arc quaternion. In M. Deloura (Ed.), Game programming gems (pp. 214–218). Charles River Media."
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-3.html",
+    "href": "posts/building-an-orthonormal-basis-3.html",
+    "title": "正規直交基底の構築 (3)",
+    "section": "",
+    "text": "警告\n\n\n\nこの方法は基底を構築しない．"
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-3.html#鏡映を利用する方法",
+    "href": "posts/building-an-orthonormal-basis-3.html#鏡映を利用する方法",
+    "title": "正規直交基底の構築 (3)",
+    "section": "1 鏡映を利用する方法",
+    "text": "1 鏡映を利用する方法\n\n\n\n\n\n\nComparing ONB Accuracy で助言を頂いたので整理をする．\n\nmla, 2025-01-12 Interesting. Simpler to derive Frisvad’s equation with a 3D reflection rather than using quaternions (given unit vectors p,q, reflection in plane with normal p-q exchanges p and q).\n\nベクトルの鏡映は次のように定義される．\n\\[\n\\boldsymbol{r}\n=\\boldsymbol{v} - 2 (\\boldsymbol{v}\\cdot\\hat{\\boldsymbol{n}}) \\hat{\\boldsymbol{n}}\n\\]\n一般的な場合から考える．\n\\[\n\\begin{align*}\n\\boldsymbol{q}\n&=\\boldsymbol{p} - 2 (\\boldsymbol{p}\\cdot\\hat{\\boldsymbol{n}}) \\hat{\\boldsymbol{n}}\\\\\n&=\\boldsymbol{p} - 2 \\left(\\boldsymbol{p}\\cdot\\frac{\\boldsymbol{p} - \\boldsymbol{q}}{\\|\\boldsymbol{p} - \\boldsymbol{q}\\|}\\right) \\frac{\\boldsymbol{p} - \\boldsymbol{q}}{\\|\\boldsymbol{p} - \\boldsymbol{q}\\|}\\\\\n&=\\boldsymbol{p} - 2 \\left(\\frac{\\|\\boldsymbol{p}\\|^{2} - \\boldsymbol{p}\\cdot\\boldsymbol{q}}{\\|\\boldsymbol{p}\\|^{2} + \\|\\boldsymbol{q}\\|^{2} - 2 \\boldsymbol{p}\\cdot\\boldsymbol{q}}\\right) (\\boldsymbol{p} - \\boldsymbol{q})\n\\end{align*}\n\\]\nここで \\(\\boldsymbol{p}, \\boldsymbol{q}\\) を単位ベクトルとすると，次のように \\(\\boldsymbol{p}\\) と \\(\\boldsymbol{q}\\) を交換する式になっていることがわかる．\n\\[\n\\boldsymbol{q}\n=\\boldsymbol{p} - \\left(\\frac{1 - \\boldsymbol{p}\\cdot\\boldsymbol{q}}{1 - \\boldsymbol{p}\\cdot\\boldsymbol{q}}\\right) (\\boldsymbol{p} - \\boldsymbol{q})\n=\\boldsymbol{q}\n\\]\n特異点は \\(\\boldsymbol{p}=\\boldsymbol{q}\\) となるが，交換は不要ということに他ならない．単位ベクトルであることを強調すると次のようになる．\n\\[\n\\hat{\\boldsymbol{q}}\n=\\hat{\\boldsymbol{p}} - 2 (\\hat{\\boldsymbol{p}}\\cdot\\hat{\\boldsymbol{n}}) \\hat{\\boldsymbol{n}}\n=\\hat{\\boldsymbol{p}} - \\left(\\hat{\\boldsymbol{p}}\\cdot\\frac{\\hat{\\boldsymbol{p}} - \\hat{\\boldsymbol{q}}}{1 - \\hat{\\boldsymbol{p}}\\cdot\\hat{\\boldsymbol{q}}}\\right) (\\hat{\\boldsymbol{p}} - \\hat{\\boldsymbol{q}})\n=\\hat{\\boldsymbol{q}}\n\\]\nこの交換式を使って \\(\\hat{\\boldsymbol{s}}=(0,0,1)^{\\mathsf{T}}\\) から \\(\\hat{\\boldsymbol{t}}\\) への回転とするならば，\n\\[\n\\begin{align*}\n\\boldsymbol{\\omega}\n&={}_{\\perp}\\boldsymbol{\\omega} - 2 ({}_{\\perp}\\boldsymbol{\\omega}\\cdot\\hat{\\boldsymbol{n}}) \\hat{\\boldsymbol{n}}\\\\\n&={}_{\\perp}\\boldsymbol{\\omega} - 2 \\left({}_{\\perp}\\boldsymbol{\\omega}\\cdot\\frac{\\hat{\\boldsymbol{s}} - \\hat{\\boldsymbol{t}}}{\\|\\hat{\\boldsymbol{s}} - \\hat{\\boldsymbol{t}}\\|}\\right) \\frac{\\hat{\\boldsymbol{s}} - \\hat{\\boldsymbol{t}}}{\\|\\hat{\\boldsymbol{s}} - \\hat{\\boldsymbol{t}}\\|}\\\\\n&={}_{\\perp}\\boldsymbol{\\omega} - \\left(\\frac{{}_{\\perp}\\boldsymbol{\\omega}\\cdot(\\hat{\\boldsymbol{s}} - \\hat{\\boldsymbol{t}})}{1 -  \\hat{t}_{z}}\\right) (\\hat{\\boldsymbol{s}} - \\hat{\\boldsymbol{t}})\\\\\n\\end{align*}\n\\]\n\\(\\hat{t}_{z}=1\\) のときに特異点となるが，これは \\(\\hat{\\boldsymbol{s}}=\\hat{\\boldsymbol{t}}\\) なので回転は不要ということに他ならない．\n\n1.1 Issues\n接空間の \\(z\\) 軸に対称な分布に適用するような場合は問題なさそうに見えるが，Frisvad の方法に合わせるなら対応が必要になるのではないだろうか？\n見通しをよくするため 2 次元で考える．\n\n\n\n\n\n2次元で動作を確認する\n\n\n\n\\(\\hat{\\boldsymbol{s}}\\) に対する \\({}_{\\perp}\\boldsymbol{\\omega}\\) と \\(\\hat{\\boldsymbol{t}}\\) に対する \\(\\boldsymbol{\\omega}\\) は直感に反している．図とベクトルの鏡映式を眺めると，\\({}_{\\perp}\\boldsymbol{\\omega}\\) をある平面に対して反転させる必要があるようだ．\nある平面の法線ベクトル \\(\\hat{\\boldsymbol{m}}\\) は次のようになる．\n\\[\n\\begin{align*}\n\\boldsymbol{m}\n&=\\hat{\\boldsymbol{n}} - (\\hat{\\boldsymbol{s}}\\cdot\\hat{\\boldsymbol{n}}) \\hat{\\boldsymbol{s}}\\\\\n\\hat{\\boldsymbol{m}}\n&=\n\\begin{cases}\n\\frac{\\boldsymbol{m}}{\\|\\boldsymbol{m}\\|} & |\\hat{\\boldsymbol{s}}\\cdot\\hat{\\boldsymbol{n}}|\\lt 1\\\\\n\\boldsymbol{0} & \\text{otherwise}\n\\end{cases}\n\\end{align*}\n\\]\nその平面に対して反転すると次のようになる．\n\\[\n{}_{\\perp}\\boldsymbol{\\omega}^{'}\n=\n\\begin{cases}\n{}_{\\perp}\\boldsymbol{\\omega} - 2 (\\hat{\\boldsymbol{m}}\\cdot{}_{\\perp}\\boldsymbol{\\omega}) \\hat{\\boldsymbol{m}} & |\\hat{\\boldsymbol{s}}\\cdot\\hat{\\boldsymbol{t}}|\\lt 1\\\\\n{}_{\\perp}\\boldsymbol{\\omega} & \\text{otherwise}\n\\end{cases}\n\\]\nベクトルの鏡映式に代入すると，直感に従った結果を得る．\n\\[\n\\boldsymbol{\\omega}^{'}\n={}_{\\perp}\\boldsymbol{\\omega}^{'} - 2 ({}_{\\perp}\\boldsymbol{\\omega}^{'}\\cdot\\hat{\\boldsymbol{n}}) \\hat{\\boldsymbol{n}}\n\\]"
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-3.html#acknowledgements",
+    "href": "posts/building-an-orthonormal-basis-3.html#acknowledgements",
+    "title": "正規直交基底の構築 (3)",
+    "section": "2 Acknowledgements",
+    "text": "2 Acknowledgements\n鏡映を利用する方法を共有して頂いた mla 氏に感謝いたします．"
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-3.html#references",
+    "href": "posts/building-an-orthonormal-basis-3.html#references",
+    "title": "正規直交基底の構築 (3)",
+    "section": "3 References",
+    "text": "3 References\n\nWikipedia contributors. (2024, November 5). Reflection (mathematics). Wikipedia. https://en.wikipedia.org/w/index.php?title=Reflection_(mathematics)&oldid=1255601321"
+  },
+  {
+    "objectID": "posts/thoughts-on-morton-code.html",
+    "href": "posts/thoughts-on-morton-code.html",
+    "title": "モートン符号についての考察",
+    "section": "",
+    "text": "ここでは表示の都合上，2 次元で各軸が 4bits の 8bits を対象とする．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\\\n\\hline\ny_3 & x_3 & y_2 & x_2 & y_1 & x_1 & y_0 & x_0 \\\\\n\\end{array}\n\\]\n\n\nコード\nimport numpy as np\n\n\ndef interleave_bits(x):\n    x = np.asarray(x, dtype=np.uint32)\n    x = (x | (x &lt;&lt; 2)) & 0x00000033\n    x = (x | (x &lt;&lt; 1)) & 0x00000055\n    return x\n\n\ndef deinterleave_bits(x):\n    x = np.asarray(x, dtype=np.uint32)\n    x = x & 0x00000055\n    x = (x | (x &gt;&gt; 1)) & 0x00000033\n    x = (x | (x &gt;&gt; 2)) & 0x0000000F\n    return x\n\n\ndef encode_morton(v):\n    v = np.asarray(v)\n    v = interleave_bits(v)\n    x = np.take(v, 0, axis=-1)\n    y = np.take(v, 1, axis=-1)\n    return (y &lt;&lt; 1) | x\n\n\ndef decode_morton(code):\n    code = np.asarray(code)\n    x = deinterleave_bits(code)\n    y = deinterleave_bits(code &gt;&gt; 1)\n    return np.stack([x, y], axis=-1)"
+  },
+  {
+    "objectID": "posts/thoughts-on-morton-code.html#モートン符号の範囲",
+    "href": "posts/thoughts-on-morton-code.html#モートン符号の範囲",
+    "title": "モートン符号についての考察",
+    "section": "",
+    "text": "ここでは表示の都合上，2 次元で各軸が 4bits の 8bits を対象とする．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\\\n\\hline\ny_3 & x_3 & y_2 & x_2 & y_1 & x_1 & y_0 & x_0 \\\\\n\\end{array}\n\\]\n\n\nコード\nimport numpy as np\n\n\ndef interleave_bits(x):\n    x = np.asarray(x, dtype=np.uint32)\n    x = (x | (x &lt;&lt; 2)) & 0x00000033\n    x = (x | (x &lt;&lt; 1)) & 0x00000055\n    return x\n\n\ndef deinterleave_bits(x):\n    x = np.asarray(x, dtype=np.uint32)\n    x = x & 0x00000055\n    x = (x | (x &gt;&gt; 1)) & 0x00000033\n    x = (x | (x &gt;&gt; 2)) & 0x0000000F\n    return x\n\n\ndef encode_morton(v):\n    v = np.asarray(v)\n    v = interleave_bits(v)\n    x = np.take(v, 0, axis=-1)\n    y = np.take(v, 1, axis=-1)\n    return (y &lt;&lt; 1) | x\n\n\ndef decode_morton(code):\n    code = np.asarray(code)\n    x = deinterleave_bits(code)\n    y = deinterleave_bits(code &gt;&gt; 1)\n    return np.stack([x, y], axis=-1)"
+  },
+  {
+    "objectID": "posts/thoughts-on-morton-code.html#z-order-curve",
+    "href": "posts/thoughts-on-morton-code.html#z-order-curve",
+    "title": "モートン符号についての考察",
+    "section": "2 Z-order curve",
+    "text": "2 Z-order curve\nZ-order curve の由来である Z を可視化する．ただし，原点は左下とする．\n※ np.argsort を利用しているが，本来は基数ソートを用いる．例えば 30bits のモートン符号なら 6bits 単位で基数ソートをするなど．\n\n\nコード\nimport math\nimport matplotlib.pyplot as plt\n\n\n# print(plt.style.available)\nplt.style.use(\"seaborn-v0_8\")\n\n\ndef plot_z_order_curve(ax):\n    xx, yy = np.meshgrid(np.arange(16), np.arange(16), indexing=\"xy\")\n    points = np.stack([xx.ravel(), yy.ravel()], axis=1)\n    codes = encode_morton(points)\n    inds = np.argsort(codes, kind=\"stable\")  # Radix sort is preferable here, but not used for simplicity.\n    points[:] = points[inds]\n    codes[:] = codes[inds]\n\n    ax.plot(points[:, 0], points[:, 1], \"-o\")\n\n    for (x, y), code in zip(points, codes):\n        ax.text(x - 0.35, y + 0.1, f\"{code:08b}\", fontsize=6, color=\"gray\", rotation=20)\n\n\nfig, ax = plt.subplots(figsize=(6, 6), constrained_layout=True)\n\nplot_z_order_curve(ax)\n\n# Styling and layout\nax.set_title(\"Z-order curve\")\nax.set_xticks(np.arange(16))\nax.set_yticks(np.arange(16))\nax.set_aspect(\"equal\", adjustable=\"box\")\nax.grid(True)\n\nplt.show()"
+  },
+  {
+    "objectID": "posts/thoughts-on-morton-code.html#任意の点群への応用",
+    "href": "posts/thoughts-on-morton-code.html#任意の点群への応用",
+    "title": "モートン符号についての考察",
+    "section": "3 任意の点群への応用",
+    "text": "3 任意の点群への応用\n\n点群を囲む軸平行境界ボックスを求める\n各点の座標から境界ボックスの最小値を引いて相対座標を求める\n相対座標を境界ボックスで正規化する\n正規化された総体座標をスケールする\n\n\n\nコード\ndef sample_circle_boundary(u, *, radius=1.0):\n    theta = 2.0 * np.pi * u\n    x = radius * np.cos(theta)\n    y = radius * np.sin(theta)\n    return np.stack((x, y), axis=-1)\n\n\ndef sample_circle_interior(u0, u1, *, radius=1.0):\n    radius *= np.sqrt(u0)\n    theta = 2.0 * np.pi * u1\n    x = radius * np.cos(theta)\n    y = radius * np.sin(theta)\n    return np.stack((x, y), axis=-1)\n\n\ndef generate_points(size, radius, *, center=(0.0, 0.0)):\n    u0 = np.random.uniform(size=size)\n    u1 = np.random.uniform(size=size)\n    # points = sample_circle_boundary(u0, radius=radius)\n    points = sample_circle_interior(u0, u1, radius=radius)\n    points += np.asarray(center)\n    return points\n\n\n\n\nコード\nnp.random.seed(1)\n\npoints = generate_points(100, 7.5, center=(7.5, 7.5))\n\nlower = np.min(points, axis=0)\nupper = np.max(points, axis=0)\nextent = upper - lower\n\nnormalzied = (points - lower) / extent\nscaled = np.minimum(15, np.floor(normalzied * 16))\n\ncodes = encode_morton(scaled)\ninds = np.argsort(codes, kind=\"stable\")  # Radix sort is preferable here, but not used for simplicity.\n\npoints[:] = points[inds]\ncodes[:] = codes[inds]"
+  },
+  {
+    "objectID": "posts/thoughts-on-morton-code.html#範囲検索",
+    "href": "posts/thoughts-on-morton-code.html#範囲検索",
+    "title": "モートン符号についての考察",
+    "section": "4 範囲検索",
+    "text": "4 範囲検索\nモートン符号の任意の bit(s) に注目することで，領域に属する点群を検索することができる．いくつかの例を示す．\n\n\nコード\ndef plot_points(points, ax, **kwargs):\n    merged = dict(color=\"black\", markersize=7, alpha=0.5)\n    merged.update(kwargs)\n    ax.plot(points[:, 0], points[:, 1], \"o\", **merged)\n\n\ndef plot_bounds(lower, upper, ax, **kwargs):\n    merged = dict(fill=False, edgecolor=\"black\", linestyle=\"--\", linewidth=1, alpha=0.5)\n    merged.update(kwargs)\n    extent = upper - lower\n    rect = plt.Rectangle(lower, extent[0], extent[1], **merged)\n    ax.add_patch(rect)\n    ax.update_datalim(rect.get_path().vertices)\n    ax.autoscale_view()\n\n\ndef plot_region(points, codes, mask, value, ax):\n    plot_points(points, ax, markersize=3)\n\n    lower, upper = np.min(points, axis=0), np.max(points, axis=0)\n    plot_bounds(lower, upper, ax)\n\n    mask = (codes & mask) == value\n    matched_points = points[mask]\n    if matched_points.shape[0] &gt; 0:\n        plot_points(matched_points, ax, color=\"crimson\", markersize=6, markerfacecolor=\"none\", markeredgewidth=1)\n\n\ndef generate_regions(mask, width=8):\n    if mask == 0:\n        return []\n\n    # (~mask + 1) is used instead of -mask to avoid overflow warnings with np.uint32 (equivalent in two's complement).\n    # pos = int(mask & -mask).bit_length() - 1\n    pos = int(mask & (~mask + 1)).bit_length() - 1\n\n    length = mask &gt;&gt; pos\n    n_bits = int(length).bit_length()\n    n_values = length + 1\n\n    results = []\n    for i in range(n_values):\n        val = np.uint32(i &lt;&lt; pos)\n        val_str = f\"{val:0{width}b}\"\n        label = val_str[: width - pos] + \"x\" * pos\n        results.append((val, label))\n\n    return results\n\n\ndef plot_regeions(points, codes, mask, cols=None):\n    regions = generate_regions(mask)\n    num_regions = len(regions)\n\n    if cols is None:\n        cols = math.ceil(math.sqrt(num_regions))\n    else:\n        cols = min(cols, num_regions)\n\n    rows = math.ceil(num_regions / cols)\n\n    fig, axes = plt.subplots(rows, cols, figsize=(3 * cols, 3 * rows), constrained_layout=True)\n    axes = np.array(axes).ravel()\n    for i, region in enumerate(regions):\n        ax = axes[i]\n        plot_region(points, codes, mask, region[0], ax)\n        ax.set_title(region[1])\n        ax.set_xlim(-1, 16)\n        ax.set_ylim(-1, 16)\n        ax.set_xticks(np.arange(16))\n        ax.set_yticks(np.arange(16))\n        ax.tick_params(axis=\"both\", labelsize=8)\n        ax.set_aspect(\"equal\", adjustable=\"box\")\n        ax.grid(True)\n\n    plt.show()\n\n\n\n4.1 上位 1bit 目の領域\n全体を上下 1/2 に分割．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0\\\\\n\\hline\ny_3 & - & - & - & - & - & - & -\\\\\n\\end{array}\n\\]\n\n\nコード\nplot_regeions(points, codes, np.uint32(0b10000000), 4)\n\n\n\n\n\n\n\n\n\n\n\n4.2 上位 2bit 目の領域\n全体を左右 1/2 に分割．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0\\\\\n\\hline\n- & x_3 & - & - & - & - & - & -\\\\\n\\end{array}\n\\]\n\n\nコード\nplot_regeions(points, codes, np.uint32(0b01000000), 4)\n\n\n\n\n\n\n\n\n\n\n\n4.3 上位 3bit 目の領域\n全体を上下 1/2 に分割し，各々を上下 1/2 に分割．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0\\\\\n\\hline\n- & - & y_2 & - & - & - & - & -\\\\\n\\end{array}\n\\]\n\n\nコード\nplot_regeions(points, codes, np.uint32(0b00100000), 4)\n\n\n\n\n\n\n\n\n\n\n\n4.4 上位 4bit 目の領域\n全体を左右 1/2 に分割し，各々を左右 1/2 に分割．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0\\\\\n\\hline\n- & - & - & x_2 & - & - & - & -\\\\\n\\end{array}\n\\]\n\n\nコード\nplot_regeions(points, codes, np.uint32(0b00010000), 4)\n\n\n\n\n\n\n\n\n\n\n\n4.5 上位 2bits の領域\n全体を 1/4 で分けた領域．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0\\\\\n\\hline\ny_3 & x_3 & - & - & - & - & - & -\\\\\n\\end{array}\n\\]\n\n\nコード\nplot_regeions(points, codes, np.uint32(0b11000000), 4)\n\n\n\n\n\n\n\n\n\n\n\n4.6 上位 3bits の領域\n全体を 1/8 で分けた領域．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0\\\\\n\\hline\ny_3 & x_3 & y_2 & - & - & - & - & -\\\\\n\\end{array}\n\\]\n\n\nコード\nplot_regeions(points, codes, np.uint32(0b11100000), 4)\n\n\n\n\n\n\n\n\n\n\n\n4.7 上位 4bits の領域\n全体を 1/16 で分けた領域．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0\\\\\n\\hline\ny_3 & x_3 & y_2 & x_2 & - & - & - & -\\\\\n\\end{array}\n\\]\n\n\nコード\nplot_regeions(points, codes, np.uint32(0b11110000), 4)"
+  },
+  {
+    "objectID": "posts/thoughts-on-morton-code.html#references",
+    "href": "posts/thoughts-on-morton-code.html#references",
+    "title": "モートン符号についての考察",
+    "section": "5 References",
+    "text": "5 References\n\nWikipedia contributors. (2025, February 8). Z-order curve. Wikipedia. https://en.wikipedia.org/w/index.php?title=Z-order_curve&oldid=1274694704"
+  },
+  {
+    "objectID": "posts/gatsby-starter-lumen-archive-implementation/index.html",
+    "href": "posts/gatsby-starter-lumen-archive-implementation/index.html",
+    "title": "アーカイブ機能の実装",
+    "section": "",
+    "text": "下図のような機能を gatsby-starter-lumen へ実装することを目的とする．\n\n\n\nFig. 1. アーカイブ機能\n\n\n大まかには次のようになる．\n\nページの生成\nインターフェースの実装"
+  },
+  {
+    "objectID": "posts/gatsby-starter-lumen-archive-implementation/index.html#概要",
+    "href": "posts/gatsby-starter-lumen-archive-implementation/index.html#概要",
+    "title": "アーカイブ機能の実装",
+    "section": "",
+    "text": "下図のような機能を gatsby-starter-lumen へ実装することを目的とする．\n\n\n\nFig. 1. アーカイブ機能\n\n\n大まかには次のようになる．\n\nページの生成\nインターフェースの実装"
+  },
+  {
+    "objectID": "posts/gatsby-starter-lumen-archive-implementation/index.html#ページの生成",
+    "href": "posts/gatsby-starter-lumen-archive-implementation/index.html#ページの生成",
+    "title": "アーカイブ機能の実装",
+    "section": "2 ページの生成",
+    "text": "2 ページの生成\ngatsby-starter-lumen への適用範囲．\n.\n├── gatsby\n│   ├── create-pages.js\n│   ├── on-create-node.js\n│   └── pagination\n│       └── create-archives-pages.js [New]\n└── src\n     ├── templates\n     │    ├── monthly-archive-template.js [New]\n     │    └── yearly-archive-template.js [New]\n     └── types\n          └── index.js\n次のような形式で年・月別アーカイブページを生成する．\n\n年別アーカイブ\nhttps://hasenpfote-old.netlify.app/archives/1970\n月別アーカイブ\nhttps://hasenpfote-old.netlify.app/archives/1970-1\n\n\n2.1 GraphQL クエリ\n標準のままでは良い絞り込み方法がないためキーを追加する．\n\nfields___year\n年別アーカイブページ生成用\nfields___year_month\n月別アーカイブページ生成用\n\n追加方法は次のとおり．1\n**※以降，ファイル名の重複回避に”_“を”/“の代用として利用**\ngist:Hasenpfote/4413e4ec4685d320e0eb78c46781b5bd#gatsby_on-create-node.js?highlights=35-43\nキーが反映されないことは多々あるが gatsby clean で解消できる．\n\n2.1.1 アーカイブページ生成用クエリ\n追加したキーでグループ化をする．\ntotalCount には数量，fieldValue には年別なら4桁，月別なら1-2桁の数字が代入される．\nquery MyQuery {\n  yearly : allMarkdownRemark(\n    filter: {frontmatter: {template: {eq: \"post\"}, draft: {ne: true}}}\n  ) {\n    group(field: fields___year) {\n      totalCount\n      fieldValue\n    }\n  }\n  monthly : allMarkdownRemark(\n    filter: {frontmatter: {template: {eq: \"post\"}, draft: {ne: true}}}\n  ) {\n    group(field: fields___year_month) {\n      totalCount\n      fieldValue\n    }\n  }\n}\n\n\n\n2.2 生成の流れ\nページクエリ用の変数を追加．\ngist:Hasenpfote/4413e4ec4685d320e0eb78c46781b5bd#src_types_index.js?lines=15-24&highlights=18\nページ生成の共通部分．\ngist:Hasenpfote/4413e4ec4685d320e0eb78c46781b5bd#gatsby_pagination_create-archives-pages.js\n実際のページ生成部分はほぼ同等で冗長ではあるが分別しておく．\n\n2.2.1 年別アーカイブページ生成\ngist:Hasenpfote/4413e4ec4685d320e0eb78c46781b5bd#src_templates_yearly-archive-template.js\n\n\n2.2.2 月別アーカイブページ生成\ngist:Hasenpfote/4413e4ec4685d320e0eb78c46781b5bd#src_templates_monthly-archive-template.js\n\n\n2.2.3 呼び出し\ngist:Hasenpfote/4413e4ec4685d320e0eb78c46781b5bd#gatsby_create-pages.js?highlights=8,73"
+  },
+  {
+    "objectID": "posts/gatsby-starter-lumen-archive-implementation/index.html#インターフェースの実装",
+    "href": "posts/gatsby-starter-lumen-archive-implementation/index.html#インターフェースの実装",
+    "title": "アーカイブ機能の実装",
+    "section": "3 インターフェースの実装",
+    "text": "3 インターフェースの実装\ngatsby-starter-lumen への適用範囲．\n.\n└── src\n     ├── components\n     │   └── Sidebar\n     │        ├── ArchiveList [New]\n     │        │   ├── ArchiveList.js [New]\n     │        │   ├── ArchiveList.module.scss [New]\n     │        │   └── index.js [New]\n     │        └── Sidebar.js\n     └── hooks\n         ├── index.js\n         └── use-archives-list.js [New]\n\n3.1 下準備\n年月のグループと年を取得する GraphQL クエリーを用意．\ngist:Hasenpfote/2c20f52b70307e4a3cd4669c07558215#src_hooks_use-archives-list.js\ngist:Hasenpfote/2c20f52b70307e4a3cd4669c07558215#src_hooks_index.js?highlights=5\n\n\n3.2 実装\nクエリだけでは済まなかった泥臭い部分．\ngist:Hasenpfote/2c20f52b70307e4a3cd4669c07558215#src_components_Sidebar_ArchiveList_ArchiveList.js\ngist:Hasenpfote/2c20f52b70307e4a3cd4669c07558215#src_components_Sidebar_ArchiveList_ArchiveList.module.scss\ngist:Hasenpfote/2c20f52b70307e4a3cd4669c07558215#src_components_Sidebar_ArchiveList_index.js\n\n\n3.3 呼び出し\nサイドバーからの呼び出し部分．\ngist:Hasenpfote/2c20f52b70307e4a3cd4669c07558215#src_components_Sidebar_Sidebar.js?highlights=7,28"
+  },
+  {
+    "objectID": "posts/gatsby-starter-lumen-archive-implementation/index.html#footnotes",
+    "href": "posts/gatsby-starter-lumen-archive-implementation/index.html#footnotes",
+    "title": "アーカイブ機能の実装",
+    "section": "脚注",
+    "text": "脚注\n\n\nhttps://github.com/gatsbyjs/gatsby/issues/27163↩︎"
+  },
+  {
+    "objectID": "posts/joplin-workflow/index.html",
+    "href": "posts/joplin-workflow/index.html",
+    "title": "Joplin の運用方法",
+    "section": "",
+    "text": "クロスプラットフォームな Markdown 統合環境 Joplin の運用方法について．\n\n\n\n\n\ngraph TD\n  subgraph Cloud\n    A[(Joplin)]\n  end\n  subgraph Desktop\n    B[(Joplin)]\n  end\n  subgraph Laptop\n    C[(Joplin)]\n  end\n  subgraph Mobile\n    D[(Joplin)]\n  end\n  subgraph e[Other]\n    E[(Joplin)]\n  end\n  B & C & D & E ---|Sync| A\n\n\n\n\n\n\n管理方法の差異に拘りがなければ Typora で完結することも可能．\n\n\n\n\n\ngraph LR\n  subgraph Terminal\n    A[Typora] --- B[(Storage)]\n  end\n  subgraph Cloud\n    C[(Storage)]\n  end\n  B ---|Own Sync| C"
+  },
+  {
+    "objectID": "posts/joplin-workflow/index.html#概要",
+    "href": "posts/joplin-workflow/index.html#概要",
+    "title": "Joplin の運用方法",
+    "section": "",
+    "text": "クロスプラットフォームな Markdown 統合環境 Joplin の運用方法について．\n\n\n\n\n\ngraph TD\n  subgraph Cloud\n    A[(Joplin)]\n  end\n  subgraph Desktop\n    B[(Joplin)]\n  end\n  subgraph Laptop\n    C[(Joplin)]\n  end\n  subgraph Mobile\n    D[(Joplin)]\n  end\n  subgraph e[Other]\n    E[(Joplin)]\n  end\n  B & C & D & E ---|Sync| A\n\n\n\n\n\n\n管理方法の差異に拘りがなければ Typora で完結することも可能．\n\n\n\n\n\ngraph LR\n  subgraph Terminal\n    A[Typora] --- B[(Storage)]\n  end\n  subgraph Cloud\n    C[(Storage)]\n  end\n  B ---|Own Sync| C"
+  },
+  {
+    "objectID": "posts/joplin-workflow/index.html#設定",
+    "href": "posts/joplin-workflow/index.html#設定",
+    "title": "Joplin の運用方法",
+    "section": "2 設定",
+    "text": "2 設定\n動作確認は Linux Mint 19.3 Tricia で行った．\n\n2.1 クラウドサービスと同期\n実質 OneDrive 一択で流れに沿って登録するだけで済む．\nフェイルセーフのチェックを外すと絶望のどん底に突き落とされるので要注意．\n\n\n\nFig. 1. 同期\n\n\n\n\n2.2 外部エディタとの連携\nJoplin のまま編集をすることもできるが没入感を阻害されるので外部エディタとの連携を行う．\n\n\n\nFig. 2. 外部エディタ"
+  },
+  {
+    "objectID": "posts/joplin-workflow/index.html#ブラウザ",
+    "href": "posts/joplin-workflow/index.html#ブラウザ",
+    "title": "Joplin の運用方法",
+    "section": "3 ブラウザ",
+    "text": "3 ブラウザ\nオプション機能としては Chromium 派生ブラウザなら Joplin Web Clipper ．モバイル版は URL の保存しかできないので役に立たない．"
+  },
+  {
+    "objectID": "posts/joplin-workflow/index.html#モバイル",
+    "href": "posts/joplin-workflow/index.html#モバイル",
+    "title": "Joplin の運用方法",
+    "section": "4 モバイル",
+    "text": "4 モバイル\nAndroid なら公式の Joplin ．読み込み専用にすることで閲覧目的に利用すると使い勝手が良い．"
+  },
+  {
+    "objectID": "posts/dual-complex-numbers.html",
+    "href": "posts/dual-complex-numbers.html",
+    "title": "双対複素数",
+    "section": "",
+    "text": "二次元の剛体変換に非可換な双対複素数1を導入することを目的とする．複素数2と双対数3についての予備知識だけで概ね事足りる．後者についてはテイラー展開が重要になるので簡単に触れる．\n※ 四元数4や双対四元数5にも関連があるのでそれらの知識もあるとなお良い．\n双対数は二重数とも訳されるが前者で統一する．"
+  },
+  {
+    "objectID": "posts/dual-complex-numbers.html#概要",
+    "href": "posts/dual-complex-numbers.html#概要",
+    "title": "双対複素数",
+    "section": "",
+    "text": "二次元の剛体変換に非可換な双対複素数1を導入することを目的とする．複素数2と双対数3についての予備知識だけで概ね事足りる．後者についてはテイラー展開が重要になるので簡単に触れる．\n※ 四元数4や双対四元数5にも関連があるのでそれらの知識もあるとなお良い．\n双対数は二重数とも訳されるが前者で統一する．"
+  },
+  {
+    "objectID": "posts/dual-complex-numbers.html#双対数",
+    "href": "posts/dual-complex-numbers.html#双対数",
+    "title": "双対複素数",
+    "section": "2 双対数",
+    "text": "2 双対数\n双対数(Dual numbers)の環は次式で定義される剰余環．\n\\[\n\\hat{\\mathbb{R}}\n:=\\mathbb{R}[\\epsilon]/(\\epsilon^2)\n=\\{a + b \\epsilon \\mid a, b \\in \\mathbb{R}\\}\n\\]\n\n2.1 加法\n\\[\n(a + b \\epsilon) + (c + d \\epsilon)\n= (a + c) + (b + d) \\epsilon\n\\]\n\n\n2.2 乗法\n\\[\n(a + b \\epsilon)(c + d \\epsilon)\n=ac + (ad + bc) \\epsilon\n\\]\n\n\n2.3 乗法の逆元\n\\[\n\\begin{aligned}\n(a + b \\epsilon)^{-1}\n&=a^{-1}(1 - a^{-1} b \\epsilon) \\hspace{20pt} (a \\ne 0)\n\\end{aligned}\n\\]\n\n\n2.4 共役\n\\[\n\\overline{a + b \\epsilon}\n=a - b \\epsilon\n\\]\n\n\n2.5 絶対値\n\\[\n\\begin{aligned}\n|a + b \\epsilon|^2\n&=(a + b \\epsilon)(a - b \\epsilon)\n=a^2\\\\\n\\\\\n|a + b \\epsilon|\n&=\\sqrt{a^2}\n=|a|\n\\end{aligned}\n\\]\n\n\n2.6 テイラー展開\n\\[\n\\begin{aligned}\nf(a + b \\epsilon)\n&=\\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!} (b \\epsilon)^n\\\\\n&=f^{(0)}(a) + f^{(1)}(a) b \\epsilon + \\frac{f^{(2)}(a)}{2!} (b \\epsilon)^2 + \\cdots\\\\\n&=f^{(0)}(a) + f^{(1)}(a) b \\epsilon\n\\end{aligned}\n\\]\n例えば \\(\\sin(a + b \\epsilon)\\) なら\n\\[\n\\sin(a + b \\epsilon)\n=\\sin(a) + \\cos(a) b \\epsilon\n\\]"
+  },
+  {
+    "objectID": "posts/dual-complex-numbers.html#双対複素数",
+    "href": "posts/dual-complex-numbers.html#双対複素数",
+    "title": "双対複素数",
+    "section": "3 双対複素数",
+    "text": "3 双対複素数\n双対複素数(Dual Complex Numbers)の環は次式で定義される剰余環．\n\\[\n\\hat{\\mathbb{C}}\n:=\\mathbb{C}[\\epsilon]/(\\epsilon^2)\n=\\{p_0 + p_1 \\epsilon \\mid p_0, p_1 \\in \\mathbb{C}\\}\n\\]\n\\(\\hat{\\mathbb{C}}\\) の乗算について非可換な双対複素数を \\(\\check{\\mathbb{C}}\\) と定義する．\n\\(\\hat{p} \\in \\check{\\mathbb{C}}\\) は\n\\[\n\\begin{aligned}\n\\hat{p}\n&=p_0 + p_1 \\epsilon\\\\\n&=(p_a + p_b \\mathbb{i}) + (p_c + p_d \\mathbb{i}) \\epsilon\\\\\n&=p_a + p_b \\mathbb{i} + p_c \\epsilon + p_d \\mathbb{i} \\epsilon\n\\end{aligned}\n\\]\nここで \\(p_a, p_b, p_c, p_d \\in \\mathbb{R}\\)\n\n3.1 加法\n\\[\n\\hat{p} + \\hat{q} \\in \\check{\\mathbb{C}}\n\\]\n\n\\[\n\\hat{p} + \\hat{q}\n=(p_0 + p_1 \\epsilon) + (q_0 + q_1 \\epsilon)\n=(p_0 + q_0) + (p_1 + q_1) \\epsilon\n\\]\n\n\n3.1.1 結合性\n\\[\n\\hat{p} + (\\hat{q} + \\hat{r})\n=(\\hat{p} + \\hat{q}) + \\hat{r}\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p} + (\\hat{q} + \\hat{r})\n&=(p_0 + p_1 \\epsilon) + \\left((q_0 + q_1 \\epsilon) + (r_0 + r_1 \\epsilon)\\right)\\\\\n&=(p_0 + p_1 \\epsilon) + \\left((q_0 + r_0) + (q_1 + r_1) \\epsilon\\right)\\\\\n&=(p_0 + q_0 + r_0) + (p_1 + q_1 + r_1) \\epsilon\\\\\n\\\\\n(\\hat{p} + \\hat{q}) + \\hat{r}\n&=\\left((p_0 + q_0) + (p_1 + q_1) \\epsilon\\right) + (r_0 + r_1 \\epsilon)\\\\\n&=(p_0 + q_0 + r_0) + (p_1 + q_1 + r_1) \\epsilon\n\\end{aligned}\n\\]\n\n\n\n3.1.2 可換性\n\\[\n\\hat{p} + \\hat{q}\n=\\hat{q} + \\hat{p}\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p} + \\hat{q}\n&=(p_0 + p_1 \\epsilon) + (q_0 + q_1 \\epsilon)\\\\\n&=(p_0 + q_0) + (p_1 + q_1) \\epsilon\\\\\n\\\\\n\\hat{q} + \\hat{p}\n&=(q_0 + q_1 \\epsilon) + (p_0 + p_1 \\epsilon)\\\\\n&=(q_0 + p_0) + (q_1 + p_1)  \\epsilon\n\\end{aligned}\n\\]\n\n\n\n3.1.3 中立元の存在性\n\\[\n\\hat{p} + 0\n=\\hat{p}\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p} + 0\n&=(p_0 + p_1 \\epsilon) + (0 + 0 \\epsilon)\\\\\n&=(p_0 + 0) + (p_1 + 0) \\epsilon\n=\\hat{p}\n\\end{aligned}\n\\]\n\n\n\n3.1.4 反数の存在性\n\\[\n\\hat{p} + (- \\hat{p})\n=0\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p} + (- \\hat{p})\n&=(p_0 + p_1 \\epsilon) + \\left(- (p_0 + p_1 \\epsilon)\\right)\\\\\n&=(p_0 - p_0) + (p_1 - p_1) \\epsilon\n=0\n\\end{aligned}\n\\]\n\n\n\n\n3.2 乗法\n\\[\n\\hat{p} \\otimes \\hat{q} \\in \\check{\\mathbb{C}}\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p} \\otimes \\hat{q}\n&=(p_0 + p_1 \\epsilon) \\otimes (q_0 + q_1 \\epsilon)\\\\\n&=p_0 \\otimes q_0 + (p_0 \\otimes q_1 + p_1 \\otimes \\overline{q_0}) \\epsilon\n\\end{aligned}\n\\]\n\n\n3.2.1 乗法のルール\n乗積表(\\(\\mathbb{i} \\epsilon = - \\epsilon \\mathbb{i}\\) に注意)は\n\\[\n\\begin{aligned}\n\\begin{array}{c|cccc}\n  L \\backslash R & 1 & \\mathbb{i} & \\epsilon & \\mathbb{i} \\epsilon\\\\ \\hline\n    1 & 1 & \\mathbb{i} & \\epsilon & \\mathbb{i} \\epsilon\\\\\n    \\mathbb{i} & \\mathbb{i} & -1 & \\mathbb{i} \\epsilon & - \\epsilon\\\\\n    \\epsilon & \\epsilon & - \\mathbb{i} \\epsilon & 0 & 0\\\\\n    \\mathbb{i} \\epsilon & \\mathbb{i} \\epsilon & \\epsilon & 0 & 0\\\\\n\\end{array}\n\\end{aligned}\n\\]\n順序に注意し展開\n\\[\n\\begin{aligned}\n\\hat{p} \\otimes \\hat{q}\n&=(p_0 + p_1 \\epsilon) \\otimes (q_0 + q_1 \\epsilon)\\\\\n&=p_0 \\cdot q_0\n+ p_0 \\cdot q_1 \\epsilon\n+ p_1 \\epsilon \\cdot q_0\n+ p_1 \\epsilon \\cdot q_1 \\epsilon\\\\\n\\end{aligned}\n\\]\n第3項は\n\\[\n\\begin{aligned}\n\\epsilon \\cdot q_0\n&=\\epsilon \\cdot (q_a + q_b \\mathbb{i})\\\\\n&=q_a \\epsilon + q_b \\epsilon \\mathbb{i}\\\\\n&=q_a \\epsilon - q_b \\mathbb{i} \\epsilon\\\\\n&=(q_a - q_b \\mathbb{i}) \\epsilon\n=\\overline{q_0} \\epsilon\n\\end{aligned}\n\\]\n第4項は\n\\[\n\\begin{aligned}\n\\epsilon \\cdot q_1 \\epsilon\n&=\\epsilon \\cdot (q_c \\epsilon + q_d \\mathbb{i} \\epsilon)\\\\\n&=q_c \\epsilon \\epsilon + q_d \\epsilon \\mathbb{i} \\epsilon\\\\\n&=q_c \\epsilon^2 - q_d \\mathbb{i} \\epsilon^2\\\\\n&=(q_c - q_d \\mathbb{i}) \\epsilon^2\n=\\overline{q_1} \\epsilon^2\n\\end{aligned}\n\\]\nこれらから左側から \\(\\epsilon\\) を掛けると右側の複素数の複素共役を取り順序が入れ替わる．\n\n\n3.2.2 結合性\n\\[\n\\hat{p} \\otimes (\\hat{q} \\otimes \\hat{r})\n=(\\hat{p} \\otimes \\hat{q}) \\otimes \\hat{r}\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p} \\otimes (\\hat{q} \\otimes \\hat{r})\n&=(p_0 + p_1 \\epsilon) \\otimes \\left(q_0 r_0 + (q_0 r_1 + q_1 \\overline{r_0}) \\epsilon\\right)\\\\\n&=p_0 q_0 r_0 + (p_0 q_0 r_1 + p_0 q_1 \\overline{r_0} + p_1 \\overline{q_0 r_0}) \\epsilon\\\\\n\\\\\n(\\hat{p}\\hat{q}) \\otimes \\hat{r}\n&=\\left(p_0 q_0 + (p_0 q_1 + p_1 \\overline{q_0}) \\epsilon\\right) \\otimes (r_0 + r_1 \\epsilon)\\\\\n&=p_0 q_0 r_0 + (p_0 q_0 r_1 + p_0 q_1 \\overline{r_0} + p_1 \\overline{q_0} \\overline{r_0}) \\epsilon\n\\end{aligned}\n\\]\n\n\n\n3.2.3 可換性\n\\[\n\\hat{p} \\otimes \\hat{q}\n\\ne \\hat{q} \\otimes \\hat{p}\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p} \\otimes \\hat{q}\n&=p_0 q_0 + (p_0 q_1 + p_1 \\overline{q_0}) \\epsilon\\\\\n\\\\\n\\hat{q} \\otimes \\hat{p}\n&=q_0 p_0 + (q_0 p_1 + q_1 \\overline{p_0}) \\epsilon\n\\end{aligned}\n\\]\n\n\n\n3.2.4 中立元の存在\n\\[\n\\hat{p} \\otimes 1\n=\\hat{p}\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p} \\otimes 1\n&=(p_0 + p_1 \\epsilon) \\otimes (1 + 0 \\epsilon)\\\\\n&=p_0 + p_1 \\epsilon\n=\\hat{p}\n\\end{aligned}\n\\]\n\n\n\n\n3.3 分配性\n\\[\n\\hat{p} \\otimes (\\hat{q} + \\hat{r})\n=\\hat{p} \\otimes \\hat{q} + \\hat{p} \\otimes \\hat{r}\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p} \\otimes (\\hat{q} + \\hat{r})\n&=(p_0 + p_1 \\epsilon) \\otimes \\left((q_0 + r_0) + (q_1 + r_1) \\epsilon\\right)\\\\\n&=p_0 q_0 + p_0 r_0 + (p_0 q_1 + p_0 r_1 + p_1 \\overline{q_0} + p_1 \\overline{r_0}) \\epsilon\\\\\n&=\\hat{p} \\otimes \\hat{q} + \\hat{p} \\otimes \\hat{r}\n\\end{aligned}\n\\]\n\n\\[\n(\\hat{p} + \\hat{q}) \\otimes \\hat{r}\n=\\hat{p} \\otimes \\hat{r} + \\hat{q} \\otimes \\hat{r}\n\\]\n\n\\[\n\\begin{aligned}\n(\\hat{p} + \\hat{q}) \\otimes \\hat{r}\n&=\\left((p_0 + q_0) + (p_1 + q_1) \\epsilon\\right) \\otimes (r_0 + r_1 \\epsilon)\\\\\n&=p_0 r_0 + q_0 r_0 + (p_0 r_1 + q_0 r_1 + p_1\\overline{r_0} + q_1 \\overline{r_0}) \\epsilon\\\\\n&=\\hat{p}\\otimes \\hat{r} + \\hat{q} \\otimes \\hat{r}\n\\end{aligned}\n\\]\n\n\n\n3.4 乗法の逆元\n\\[\n\\hat{p}^{-1}\n=\\frac{1}{\\hat{p}}\n=\\frac{\\overline{p_0} - p_1 \\epsilon}{|p_0|^2}\n\\]\n\n\\[\n\\begin{aligned}\n\\frac{1}{p_0 + p_1 \\epsilon}\n&=\\frac{1}{p_0 + p_1 \\epsilon}\\frac{\\overline{p_0} - p_1 \\epsilon}{\\overline{p_0} - p_1 \\epsilon}\n=\\frac{\\overline{p_0} - p_1 \\epsilon}{p_0 \\overline{p_0} + (p_1 p_0 - p_0 p_1) \\epsilon}\\\\\n\\end{aligned}\n\\]\n\n\\[\n\\hat{p} \\otimes \\hat{p}^{-1}\n=\\hat{p}^{-1} \\otimes \\hat{p}=1\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p} \\otimes \\hat{p}^{-1}\n&=(p_0 + p_1 \\epsilon) \\otimes \\frac{\\overline{p_0} - p_1 \\epsilon}{|p_0|^2}\\\\\n&=\\frac{p_0 \\overline{p_0} - p_0 p_1 \\epsilon}{|p_0|^2} + \\frac{p_1 p_0 \\epsilon}{|p_0|^2}\n=\\frac{p_0 \\overline{p_0}}{|p_0|^2}=1\\\\\n\\\\\n\\hat{p}^{-1} \\otimes \\hat{p}\n&=\\frac{\\overline{p_0} - p_1 \\epsilon}{|p_0|^2} \\otimes (p_0 + p_1 \\epsilon)\\\\\n&=\\frac{\\overline{p_0} p_0 - p_1 \\overline{p_0} \\epsilon}{|p_0|^2} + \\frac{\\overline{p_0} p_1 \\epsilon}{|p_0|^2}\n=\\frac{\\overline{p_0} p_0}{|p_0|^2}=1\n\\end{aligned}\n\\]\n\n\n\n3.5 絶対値\n\\[\n\\begin{aligned}\n|\\hat{p}|^2\n&=(p_0 + p_1 \\epsilon)(\\overline{p_0} - p_1 \\epsilon)\n=|p_0|^2\\\\\n\\\\\n|\\hat{p}|\n&=|p_0|\n\\end{aligned}\n\\]\n\n\n3.6 単位双対複素数\n単位双対複素数の定義は\n\\[\n\\begin{aligned}\n\\check{\\mathbb{C}}_1:&=\\{\\hat{p} \\in \\check{\\mathbb{C}} \\mid |\\hat{p}| = 1\\}\\\\\n&=\\{e^{\\theta\\mathbb{i}} + p_1 \\epsilon \\in \\check{\\mathbb{C}} \\mid \\theta \\in \\mathbb{R}, p_1 \\in \\mathbb{C}\\}\n\\end{aligned}\n\\]\n乗法の逆元は\n\\[\n(e^{\\theta\\mathbb{i}} + p_1 \\epsilon)^{-1}\n=e^{-\\theta\\mathbb{i}} - p_1 \\epsilon\n\\]\n\n補足\n\\[\n\\begin{aligned}\n\\overline{e^{\\theta\\mathbb{i}}}\n&=\\overline{\\cos(\\theta) + \\sin(\\theta)\\mathbb{i}}\\\\\n&=\\cos(\\theta) - \\sin(\\theta)\\mathbb{i}\\\\\n&=\\cos(-\\theta) + \\sin(-\\theta)\\mathbb{i}\\\\\n&=e^{-\\theta\\mathbb{i}}\\\\\n\\end{aligned}\n\\]\n\n\n3.6.1 共役による \\(\\check{\\mathbb{C}}\\) 上の \\(\\check{\\mathbb{C}}_1\\) の作用\n\\(\\mathbb{C}=\\mathbb{R}^2\\) とし \\(v \\in \\mathbb{C}\\) を \\(1 + v \\epsilon \\in \\check{\\mathbb{C}}\\) と同一視すると \\(\\hat{p} = p_0 + p_1 \\epsilon \\in  \\check{\\mathbb{C}}_1\\) が剛体変換として作用する．\n\\[\n\\begin{aligned}\n\\hat{p} \\diamond (1 + v \\epsilon)\n&=(p_0 + p_1 \\epsilon)(1 + v \\epsilon)(\\overline{p_0} + p_1 \\epsilon)\\\\\n&=(p_0 + p_1 \\epsilon)\\left(\\overline{p_0} + (p_1 + v p_0) \\epsilon \\right)\\\\\n&=p_0\\overline{p_0} + (p_0 p_1 + p_0 v p_0 + p_1 p_0) \\epsilon\\\\\n&=|p_0|^2 + (p_0^{2} v + 2 p_0 p_1) \\epsilon\\\\\n&=1 + (p_0^{2} v + 2 p_0 p_1) \\epsilon\n\\end{aligned}\n\\]\n\n\\(p_1 = 0\\)\n\\(v \\in \\mathbb{C}\\) は \\({p_0}^{2} v\\) に写像される． \\(|p_0| = 1\\) なので原点を中心に \\(2 \\arg(p_0)\\) 回転をする．\n\\(p_0 = 1\\)\n\\(v + 2 p_1\\) の変位をする．\n\n\n3.6.1.1 回転と変位の表現\n回転の表現は \\(\\theta \\in \\mathbb{R}\\) とすると\n\\[\n\\hat{p}_{rot}\n=e^{\\frac{\\theta}{2}\\mathbb{i}} + 0 \\epsilon\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p}_{rot} \\diamond (1 + v \\epsilon)\n&=\\left(e^{\\frac{\\theta}{2}\\mathbb{i}} + 0 \\epsilon\\right) \\otimes (1 + v \\epsilon) \\otimes \\left(\\overline{e^{\\frac{\\theta}{2}\\mathbb{i}}} + 0 \\epsilon\\right)\\\\\n&=\\left(e^{\\frac{\\theta}{2}\\mathbb{i}} + 0 \\epsilon\\right) \\otimes (1 + v \\epsilon) \\otimes \\left(e^{-\\frac{\\theta}{2}\\mathbb{i}} + 0 \\epsilon\\right)\\\\\n&=1 + e^{\\theta\\mathbb{i}} v \\epsilon\n\\end{aligned}\n\\]\n複素数の半角形式(スピノル表現)での回転について\n\\[\ne^{\\theta\\mathbb{i}} v\n=\\left(e^{\\frac{\\theta}{2}\\mathbb{i}}\\right)^2 v\n=e^{\\frac{\\theta}{2}\\mathbb{i}} v e^{\\frac{\\theta}{2}\\mathbb{i}}\n\\]\nまた符号を反転しても同じ回転を表現する\n\\[\n\\left(- e^{\\frac{\\theta}{2}\\mathbb{i}}\\right)^2\n=e^{\\theta\\mathbb{i}}\n\\]\n\n\n\n\n\nFig. 1. 回転と補間\n\n\n\n\n変位の表現は \\(d \\in \\mathbb{C}\\) とすると\n\\[\n\\hat{p}_{disp}\n=1 + \\frac{d}{2} \\epsilon\n\\]\n\n\\[\n\\begin{aligned}\n\\hat{p}_{disp} \\diamond (1 + v \\epsilon)\n&=\\left(1 + \\frac{d}{2} \\epsilon\\right) \\otimes (1 + v \\epsilon) \\otimes \\left(1 + \\frac{d}{2} \\epsilon\\right)\\\\\n&=1 + (v + d) \\epsilon\n\\end{aligned}\n\\]\n\n例\n\n原点を中心に \\(\\theta \\in \\mathbb{R}\\) 回転後に \\(d \\in \\mathbb{C}\\) の変位を表現する変換\n\\(\\hat{p} = \\hat{p}_{disp} \\otimes \\hat{p}_{rot} \\in \\check{\\mathbb{C}}_1\\)\n\n\n\n\n\nFig. 2. 原点を中心に回転後に変位\n\n\n\n\\(d \\in \\mathbb{C}\\) の変位後に原点を中心に \\(\\theta \\in \\mathbb{R}\\) 回転を表現する変換\n\\(\\hat{p} = \\hat{p}_{rot} \\otimes \\hat{p}_{disp} \\in \\check{\\mathbb{C}}_1\\)\n\n\n\n\n\nFig. 3. 変位後に原点を中心に回転\n\n\n\n階層構造\n\\(\\hat{p} = \\hat{P}_{disp} \\otimes \\hat{P}_{rot} \\otimes \\hat{C}_{disp} \\otimes \\hat{C}_{rot} \\in \\check{\\mathbb{C}}_1\\)\n\n\n\n\n\nFig. 3. 変位後に原点を中心に回転\n\n\n\n\n\n\n3.6.1.2 性質\n符号を反転した変換は符号を反転した回転による変換と同じになる．\n\\[\n\\begin{aligned}\n- (\\hat{p}_{disp} \\otimes \\hat{p}_{rot})\n&=\\hat{p}_{disp} \\otimes \\hat{p}_{-rot}\n\\end{aligned}\n\\]\n\n\\[\n\\begin{aligned}\n- \\hat{p}_{disp} \\otimes \\hat{p}_{rot}\n&=- \\left(1 + \\frac{d}{2} \\epsilon\\right)\\otimes (e^{\\frac{\\theta}{2}\\mathbb{i}} + 0 \\epsilon)\\\\\n&=- \\left(e^{\\frac{\\theta}{2}\\mathbb{i}} + \\frac{d}{2} e^{- \\frac{\\theta}{2}\\mathbb{i}} \\epsilon\\right)\\\\\n\\\\\n\\hat{p}_{disp} \\otimes \\hat{p}_{-rot}\n&=\\left(1 + \\frac{d}{2} \\epsilon\\right) \\otimes (- e^{\\frac{\\theta}{2}\\mathbb{i}} + 0 \\epsilon)\\\\\n&=-e^{\\frac{\\theta}{2}\\mathbb{i}} - \\frac{d}{2} e^{- \\frac{\\theta}{2}\\mathbb{i}} \\epsilon\\\\\n&=- \\left(e^{\\frac{\\theta}{2}\\mathbb{i}} + \\frac{d}{2} e^{- \\frac{\\theta}{2}\\mathbb{i}} \\epsilon\\right)\n\\end{aligned}\n\\]\n\n\\[\n\\begin{aligned}\n- (\\hat{p}_{rot} \\otimes \\hat{p}_{disp})\n&=\\hat{p}_{-rot} \\otimes \\hat{p}_{disp}\n\\end{aligned}\n\\]\n\n\\[\n\\begin{aligned}\n- (\\hat{p}_{rot} \\otimes \\hat{p}_{disp})\n&=- (e^{\\frac{\\theta}{2}\\mathbb{i}} + 0 \\epsilon) \\otimes \\left(1 + \\frac{d}{2} \\epsilon\\right)\\\\\n&=- \\left(e^{\\frac{\\theta}{2}\\mathbb{i}} + e^{\\frac{\\theta}{2}\\mathbb{i}} \\frac{d}{2} \\epsilon\\right)\\\\\n\\\\\n\\hat{p}_{-rot} \\otimes \\hat{p}_{disp}\n&=(- e^{\\frac{\\theta}{2}\\mathbb{i}} + 0 \\epsilon) \\otimes \\left(1 + \\frac{d}{2} \\epsilon\\right)\\\\\n&=- e^{\\frac{\\theta}{2}\\mathbb{i}} -  e^{\\frac{\\theta}{2}\\mathbb{i}} \\frac{d}{2} \\epsilon\\\\\n&=- \\left(e^{\\frac{\\theta}{2}\\mathbb{i}} + e^{\\frac{\\theta}{2}\\mathbb{i}} \\frac{d}{2} \\epsilon\\right)\n\\end{aligned}\n\\]\n\nよって符号を反転した変換は，元と同じ変換を表現する．\n\n\n\n\n3.7 補間\n\n3.7.1 Dual complex number Linear Blending\n\\(\\hat{p}_i \\in \\check{\\mathbb{C}}_1, \\hspace{5pt} w_i \\in \\mathbb{R}\\) とした補間を次のように定義．\n\\[\n\\operatorname{DLB}{(\\hat{p}_1,\\cdots ,\\hat{p}_n; w_1,\\cdots ,w_n)}\n=\\frac{w_1 \\hat{p}_1 + \\cdots + w_n \\hat{p}_n}{|w_1 \\hat{p}_1 + \\cdots + w_n \\hat{p}_n|}\n\\]\n加重平均の正規化なので分母が \\(0\\) の場合は定義ができない．\n\n3.7.1.1 正規化\n\\[\n\\frac{\\hat{p}}{|\\hat{p}|}\n=\\frac{p_0 + p_1 \\epsilon}{|p_0|}\n\\]\n\n\\[\n\\left|\\frac{\\hat{p}}{|\\hat{p}|}\\right|\n=\\left|\\frac{p_0}{|p_0|}\\right|\n=1\n\\]\n\n\n\n\n3.7.2 Spherical Linear interpolation\n\\(\\hat{p} \\in \\check{\\mathbb{C}}_1\\) から \\(\\hat{q} \\in \\check{\\mathbb{C}}_1\\) への \\(h \\in \\mathbb{R}\\) での補間を次のように定義．\n\\[\n\\begin{aligned}\n\\operatorname{SLERP}(\\hat{p}, \\hat{q}; h)\n&=\\hat{p} \\otimes (\\hat{p}^{-1} \\otimes \\hat{q})^{h}\\\\\n&=\\hat{p} \\otimes \\exp\\left(h \\log(\\hat{p}^{-1} \\otimes \\hat{q})\\right)\n\\end{aligned}\n\\]\n\n3.7.2.1 指数関数と対数関数\n指数関数\n\\[\n\\begin{aligned}\n\\exp{(\\hat{p})}\n&=\\exp{(p_0 + p_1 \\epsilon)}\\\\\n&=\\exp{(p_0)} + \\exp{(p_0)} p_1 \\epsilon\\\\\n&=\\exp{(p_0)}\\left(1 + p_1 \\epsilon\\right)\n\\end{aligned}\n\\]\n対数関数\n\\[\n\\begin{aligned}\n\\log{(\\hat{p})}\n&=\\log{(p_0 + p_1 \\epsilon)}\\\\\n&=\\log{(p_0)} + \\frac{p_1}{p_0} \\epsilon\n\\end{aligned}\n\\]\n性質\n\\[\n\\log{(\\exp{(\\hat{p})})}\n=\\exp{(\\log{(\\hat{p})})}\n=\\hat{p}\n\\]\n\n\\[\n\\begin{aligned}\n\\log{(\\exp{(\\hat{p})})}\n&=\\log{(\\exp{(p_0)})} + \\frac{\\exp{(p_0)} p_1 \\epsilon}{\\exp{(p_0)}}\\\\\n&=p_0 + p_1 \\epsilon\n=\\hat{p}\\\\\n\\\\\n\\exp{(\\log{(\\hat{p})})}\n&=\\exp{\\left(\\log{(p_0)}\\right)} \\otimes \\left(1 + \\frac{p_1}{p_0} \\epsilon\\right)\\\\\n&=p_0 \\otimes \\left(1 + \\frac{p_1}{p_0} \\epsilon\\right)\\\\\n&=p_0 + p_1 \\epsilon\n=\\hat{p}\n\\end{aligned}\n\\]\n\n\n\n3.7.2.2 性質\n回転と変位の表現で合成された変換を \\(\\hat{p}, \\hat{q} \\in \\check{\\mathbb{C}}_1\\) とする．\n\nなす角が180度を超えても最短円弧で補間をしない．\n\\(\\langle p_0, q_0 \\rangle \\lt 0\\) の時に一方の符号を反転 (\\(\\operatorname{SLERP}(\\hat{p}, -\\hat{q}; h)\\)) すると最短円弧での補間となる．\n\n\n\n\n\n3.8 変換の行列表現\n\n3.8.1 積の行列表現\n\\(\\hat{p} = p_0 + p_1 \\epsilon, \\hspace{5pt} \\hat{q} = q_0 + q_1 \\epsilon \\in \\check{\\mathbb{C}}\\) の積は\n\\[\n\\begin{aligned}\n\\hat{p} \\otimes \\hat{q}\n&=(p_0 + p_1 \\epsilon) \\otimes (q_0 + q_1 \\epsilon)\\\\\n&=p_0 \\otimes q_0 + (p_0 \\otimes q_1 + p_1 \\otimes \\overline{q_0}) \\epsilon\\\\\n&=(p_a q_a - p_b q_b)\\\\\n&\\hspace{13pt}\n+(p_a q_b + p_b q_a) \\mathbb{i}\\\\\n&\\hspace{13pt}\n+(p_a q_c - p_b q_d + p_c q_a + p_d q_b) \\epsilon\\\\\n&\\hspace{13pt}\n+(p_a q_d + p_b q_c - p_c q_b + p_d q_a) \\mathbb{i}\\epsilon\n\\end{aligned}\n\\]\n成分計算は \\(\\hat{p} = (p_a + p_b \\mathbb{i}) + (p_c + p_d \\mathbb{i}) \\epsilon\\) とした．\n\\(\\hat{q}\\) に対し左から \\(\\hat{p}\\) をかける行列は\n\\[\n\\begin{aligned}\nP_L q\n&=\n\\left(\n\\begin{array}{cccc}\n  p_a & - p_b & 0 & 0\\\\\n  p_b & p_a & 0 & 0\\\\\n  p_c & p_d & p_a & - p_b\\\\\n  p_d & - p_c & p_b & p_a\n\\end{array}\n\\right)\n\\left(\n\\begin{array}{c}\n  q_a\\\\\n  q_b\\\\\n  q_c\\\\\n  q_d\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n\\(\\hat{p}\\) に対し右から \\(\\hat{q}\\) を掛ける行列は\n\\[\n\\begin{aligned}\nQ_R p\n&=\n\\left(\n\\begin{array}{cccc}\n  q_a & - q_b & 0 & 0\\\\\n  q_b & q_a & 0 & 0\\\\\n  q_c & - q_d & q_a & q_b\\\\\n  q_d & q_c & - q_b & q_a\n\\end{array}\n\\right)\n\\left(\n\\begin{array}{c}\n  p_a\\\\\n  p_b\\\\\n  p_c\\\\\n  p_d\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n\n\n3.8.2 変換の行列表現\n\\(\\hat{p} \\in \\check{\\mathbb{C}}_1\\) での変換に対する次のような行列を考える．\n\\[\n\\begin{aligned}\n\\hat{p} \\diamond (1 + v \\epsilon)\n&=(p_0 + p_1 \\epsilon) \\otimes (1 + v \\epsilon) \\otimes (\\overline{p_0} + p_1 \\epsilon)\\\\\n&=M v\\\\\n&=M_L M_R v\n\\end{aligned}\n\\]\n\\[\n\\begin{aligned}\nM\n&=M_L M_R\\\\\n&=\n\\left(\n\\begin{array}{cccc}\n  p_a & - p_b & 0 & 0\\\\\n  p_b & p_a & 0 & 0\\\\\n  p_c & p_d & p_a & - p_b\\\\\n  p_d & - p_c & p_b & p_a\n\\end{array}\n\\right)\n\\left(\n\\begin{array}{cccc}\n  p_a & p_b & 0 & 0\\\\\n  - p_b & p_a & 0 & 0\\\\\n  p_c & - p_d & p_a & - p_b\\\\\n  p_d & p_c & p_b & p_a\n\\end{array}\n\\right)\\\\\n&=\n\\left(\n\\begin{array}{cccc}\n  p_a p_a + p_b p_b & p_a p_b - p_b p_a & 0 & 0\\\\\n  p_b p_a - p_a p_b & p_b p_b + p_a p_a & 0 & 0\\\\\n  p_c p_a - p_d p_b + p_a p_c - p_b p_d &\n  p_c p_b + p_d p_a - p_a p_d - p_b p_c &\n  p_a p_a - p_b p_b &\n  - p_a p_b - p_b p_a\\\\\n  p_d p_a + p_c p_b + p_b p_c + p_a p_d &\n  p_d p_b - p_c p_a - p_b p_d + p_a p_c &\n  p_b p_a + p_a p_b &\n  - p_b p_b + p_a p_a\n\\end{array}\n\\right)\\\\\n&=\n\\left(\n\\begin{array}{cccc}\n  {p_a}^2 + {p_b}^2 & 0 & 0 & 0\\\\\n  0 & {p_a}^2 + {p_b}^2 & 0 & 0\\\\\n  2(p_a p_c - p_b p_d) & 0 & {p_a}^2 - {p_b}^2 & - 2 p_a p_b\\\\\n  2(p_a p_d + p_b p_c) & 0 & 2 p_a p_b & {p_a}^2 - {p_b}^2\n\\end{array}\n\\right)\\\\\n&=\n\\left(\n\\begin{array}{cccc}\n  1 & 0 & 0 & 0\\\\\n  0 & 1 & 0 & 0\\\\\n  2(p_a p_c - p_b p_d) & 0 & {p_a}^2 - {p_b}^2 & - 2 p_a p_b\\\\\n  2(p_a p_d + p_b p_c) & 0 & 2 p_a p_b & {p_a}^2 - {p_b}^2\n\\end{array}\n\\right)\\\\\n&=\n\\left(\n\\begin{array}{cccc}\n  1 & 0 & 0 & 0\\\\\n  0 & 1 & 0 & 0\\\\\n  \\mathfrak{Re}(2 p_0 p_1) & 0 & \\mathfrak{Re}({p_0}^2) & -  \\mathfrak{Im}({p_0}^2)\\\\\n  \\mathfrak{Im}(2 p_0 p_1) & 0 & \\mathfrak{Im}({p_0}^2) & \\mathfrak{Re}({p_0}^2)\\\\\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\nここで \\({p_a}^2 + {p_b}^2 = |p_0|^2 = 1\\) を利用した．\nまた \\(\\mathfrak{Re}, \\mathfrak{Im}\\) は実部と虚部とする．\n\n\\[\n\\begin{aligned}\nM v\n&=\n\\left(\n\\begin{array}{cccc}\n1 & 0 & 0 & 0\\\\\n0 & 1 & 0 & 0\\\\\n\\mathfrak{Re}(2 p_0 p_1) & 0 & \\mathfrak{Re}({p_0}^2) & -  \\mathfrak{Im}({p_0}^2)\\\\\n\\mathfrak{Im}(2 p_0 p_1) & 0 & \\mathfrak{Im}({p_0}^2) & \\mathfrak{Re}({p_0}^2)\n\\end{array}\n\\right)\n\\left(\n\\begin{array}{c}\n1\\\\\n0\\\\\nx\\\\\ny\n\\end{array}\n\\right)\\\\\n&=\n\\left(\n\\begin{array}{c}\n1\\\\\n0\\\\\n\\mathfrak{Re}(2 p_0 p_1) + \\mathfrak{Re}({p_0}^2) x - \\mathfrak{Im}({p_0}^2) y\\\\\n\\mathfrak{Im}(2 p_0 p_1) + \\mathfrak{Im}({p_0}^2) x +  \\mathfrak{Re}({p_0}^2) y\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n\n\n\n3.8.3 同次変換行列\n4次正方行列では都合が良くない場合もあるので2次元の同次変換行列にする．\n\\[\n\\begin{aligned}\nM\n&=\n\\left(\n\\begin{array}{ccc}\n  \\mathfrak{Re}({p_0}^2) & - \\mathfrak{Im}({p_0}^2) & \\mathfrak{Re}(2 p_0 p_1)\\\\\n  \\mathfrak{Im}({p_0}^2) & \\mathfrak{Re}({p_0}^2) &  \\mathfrak{Im}(2 p_0 p_1)\\\\\n  0 & 0 & 1\n\\end{array}\n\\right)\n\\end{aligned}\n\\]\n\n\\[\n\\begin{aligned}\nM v\n&=\n\\left(\n\\begin{array}{ccc}\n\\mathfrak{Re}({p_0}^2) & - \\mathfrak{Im}({p_0}^2) &  \\mathfrak{Re}(2 p_0 p_1)\\\\\n\\mathfrak{Im}({p_0}^2) & \\mathfrak{Re}({p_0}^2) &  \\mathfrak{Im}(2 p_0 p_1)\\\\\n0 & 0 & 1\n\\end{array}\n\\right)\n\\left(\n\\begin{array}{c}\nx\\\\\ny\\\\\n1\n\\end{array}\n\\right)\\\\\n&=\n\\left(\n\\begin{array}{c}\n\\mathfrak{Re}({p_0}^2) x - \\mathfrak{Im}({p_0}^2) y +  \\mathfrak{Re}(2 p_0 p_1)\\\\\n\\mathfrak{Im}({p_0}^2) x + \\mathfrak{Re}({p_0}^2) y +  \\mathfrak{Im}(2 p_0 p_1)\\\\\n1\n\\end{array}\n\\right)\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "posts/dual-complex-numbers.html#a-c-library",
+    "href": "posts/dual-complex-numbers.html#a-c-library",
+    "title": "双対複素数",
+    "section": "4 A C++ Library",
+    "text": "4 A C++ Library\n\nhttps://github.com/Hasenpfote/dualcomplex"
+  },
+  {
+    "objectID": "posts/dual-complex-numbers.html#参考文献",
+    "href": "posts/dual-complex-numbers.html#参考文献",
+    "title": "双対複素数",
+    "section": "5 参考文献",
+    "text": "5 参考文献\n\nGENKI MATSUDA, SHIZUO KAJI, HIROYUKI OCHIAI 2016 ANTI-COMMUTATIVE DUAL COMPLEX NUMBERS AND 2D RIGID TRANSFORMATION"
+  },
+  {
+    "objectID": "posts/dual-complex-numbers.html#footnotes",
+    "href": "posts/dual-complex-numbers.html#footnotes",
+    "title": "双対複素数",
+    "section": "脚注",
+    "text": "脚注\n\n\nhttps://en.wikipedia.org/wiki/Dual-complex_number↩︎\nhttps://en.wikipedia.org/wiki/Complex_number↩︎\nhttps://en.wikipedia.org/wiki/Dual_number↩︎\nhttps://en.wikipedia.org/wiki/Quaternion↩︎\nhttps://en.wikipedia.org/wiki/Dual_quaternion↩︎"
+  },
+  {
+    "objectID": "posts/crt-shader/index.html",
+    "href": "posts/crt-shader/index.html",
+    "title": "CRT shader",
+    "section": "",
+    "text": "ここでは，LCD モニタの出力映像に CRT モニタ特有の雰囲気を適用する方法について模索をする．\n\n\n\nCRT shader"
+  },
+  {
+    "objectID": "posts/crt-shader/index.html#概要",
+    "href": "posts/crt-shader/index.html#概要",
+    "title": "CRT shader",
+    "section": "",
+    "text": "ここでは，LCD モニタの出力映像に CRT モニタ特有の雰囲気を適用する方法について模索をする．\n\n\n\nCRT shader"
+  },
+  {
+    "objectID": "posts/crt-shader/index.html#はじめに",
+    "href": "posts/crt-shader/index.html#はじめに",
+    "title": "CRT shader",
+    "section": "2 はじめに",
+    "text": "2 はじめに\n似たような課題の中，代表的なものは次のとおり．\n\n第 6 世代ゲーム機以前の映像を LCD モニタで再現\n解像度間のピクセル 1:1 対応など，エミュレータ界隈の課題．\n空間内で CRT モニタを表現\n一般的な現実感を追求する課題．\n出力映像に CRT モニタ特有の雰囲気を適用\n1 番目の逆方向\n\n3 番目が主目的となる．"
+  },
+  {
+    "objectID": "posts/crt-shader/index.html#理論と実践",
+    "href": "posts/crt-shader/index.html#理論と実践",
+    "title": "CRT shader",
+    "section": "3 理論と実践",
+    "text": "3 理論と実践\n\n3.1 基本機能\n\n3.1.1 Mask\nMask とは，蛍光面と平行に配置された有孔の金属板. 電子銃から発射された電子線が，対応する蛍光体以外に当たらないよう陰をつくる. 類似する技術としては Shadow mask や Slot mask，Aperture grille があり，ここでは Mask と総称する．\n\n\n\nCRT pixel array\n\n\n表現するにあたっては，Mask と蛍光面をまとめて扱う. 表現としての Mask は，実際の画面解像度に大きく影響を受ける. 実装は，FHD/4K/8K 毎に考慮する点に注意. 配列やテクスチャによる繰り返しパターンによる実装が一般的．\n// GLSL code\nvec3 red     = vec3(1., 0., 0.);\nvec3 blue    = vec3(0., 0., 1.);\nvec3 yellow  = vec3(1., 1., 0.);\nvec3 cyan    = vec3(0., 1., 1.);\n\n// for Aperture grille\nvec3 pattern[4] = vec3[](red, yellow, cyan, blue);\n\nvec3 mask(in vec2 pos){\n    int index = int(mod(pos.x, 4.));\n    return pattern[index];\n}\n\n\n3.1.2 Pixelation\nMask を通り，蛍光体に照射される電子線を表現するには，ピクセル化が必要になる．また，代表値は考慮する余地があり，算術平均の他に幾何平均の利用なども考えられる．幾何平均は,\n\\[\n\\left(\\prod_{i=1}^{n} a_{i} \\right)^{\\frac{1}{n}}\n=\\exp{\\left(\\frac{1}{n} \\sum_{i=1}^{n} \\ln{a_{i}}\\right)}\n\\]\n0 では未定義になるので，0 にも意味を持たせるように補正をすると,\n\\[\n\\left(\\prod_{i=1}^{n} (a_{i}+1) \\right)^{\\frac{1}{n}} - 1\n=\\exp{\\left(\\frac{1}{n} \\sum_{i=1}^{n} \\ln{(a_{i}+1)}\\right)} - 1\n\\]\n形状については Ian Mallett 氏の記事 より,\n\nThe most immediate concern is how the 2D square grid of the pixel data maps onto the non-square display. I haven’t found anyone willing to say definitively what happens, but probably it’s done by resampling, explicitly or implicitly—not by e.g. shifting alternate rows of the grid and squashing. Evidence in favor of this is the claim that CRT monitors are inherently multisync, and have no native resolution, as well as my own experiments on PenTile displays which showed that neighboring pixels can contribute to the same subpixel.\n\nこれは，正方形でのピクセル化が広く採用されている理由の一因かも知れない．\n\n\n\n\n\nFig. 2a. 実装例 (resume で操作可/詳細はImageタグ)\n\n\n\n一方で，サイズと形状に焦点を当てると,\n\nAperture grille\n原点が (0.5, 0.5) な gl_FragCoord.xy を \\(\\boldsymbol{p} \\in \\mathbb{R}^2\\)，ピクセル化サイズを \\(N \\in \\mathbb{N}\\)，変換後の座標を \\(\\boldsymbol{q} \\in \\mathbb{R}^2\\) とすると,\n\\[\n\\boldsymbol{q} = \\boldsymbol{p} - (\\lfloor \\boldsymbol{p} \\rfloor \\bmod N)\n\\]\nSlot mask\nAperture grille の定義に加え，\\(y_{offset} \\in \\mathbb{R}\\) とすると,\n\\[\ny_{offset}=\n\\begin{cases}\n  0 & \\text{if $\\lfloor\\frac{p_{x}}{N}\\rfloor$ even}\\\\\n  \\lfloor\\frac{N}{2}\\rfloor & \\text{otherwise}\n\\end{cases}\n\\]\nこの値を \\(p_{y}\\) に減算代入し，Aperture grille の変換式を用いる．\nShadow mask\n図は，三つ組の同じ背景色が同じ行であることを示しており，T 形状が必要になることを示唆している．しかし，忠実に再現をすると解像度が水平方向は 3/2，垂直方向は 1/2 となるので，妥協が必要．\n\n\n\n\nFig. 2b. Aperture grille\n\n\n\n\n\nFig. 2c. Slot mask\n\n\n\n\n\nFig. 2d. Shadow mask\n\n\n\n\n\n\n\nFig. 2e. 妥協した結果\n\n\n\n表現すること自体は難しくないようだ．\n\n\n\n\n\nFig. 2f. 実装例 (resume で操作可/詳細はImageタグ)\n\n\n\n\n\n3.1.3 Scanline\nある瞬間の電子銃は電子線を一点に発射している. Scanline とは，高速で動く電子銃が発射する電子線が蛍光体に当たった残光の軌跡により，画面上の一行と知覚される線のようなものである. これは遠目に見ても色線と黒線と認識ができる．\n\n\n\nMitsubishi CS-40307 CRT Television Close-up\n\n\nこれを表現するには，Shadow mask，Pixelation 同様に，サイズに応じた間隔での描画が必要になる．\nTimothyLottes 氏の FixingPixelArt で採用されているガウス関数を元にした実装では，水平方向と垂直方向で役割が異なる処理をしている．\n\n\n\n\n\nFig. 3a. 水平方向は軌跡を表現\n\n\n\n\n\n\n\n\nFig. 3b. 垂直方向は色線と黒線を表現\n\n\n\nこの垂直方向のガウス関数を使った方法は制御がし易く，自然な仕上がりになる．\nまた，周辺 3 行を対象にすることで，次のような効果も得ているようだ．\n\n輝度の増幅\nマスクを適用すると暗くなりがちなので有用. 電子線の軌跡のようなものと捉えるべきか?\nスキャンラインのアンチエイリアシング\n歪曲収差を適用するとモアレが発生するので有用. 1次元の Quincunx AA のようなものか．\n\n\n\n\n\n\nFig. 3c. 実装例 (resume で操作可/詳細はImageタグ)\n\n\n\n\n\n\n3.2 追加機能\n\n3.2.1 Distortion\nCRT モニタには，電子線の焦点の大きさが一定になるよう湾曲しているものとそうでないものがあり，広く知られているのは前者である．\n\n\n\nCinescopio per televisore a schermo rettangolare, 13 pollici, deflessione 90°, bianco e nero - Museo scienza tecnologia Milano 10082 dia\n\n\n樽型の放射方向歪曲収差で表現する. Brown-Conrady モデル，または除算モデルを利用する．\n\\[\n\\begin{aligned}\nx_u = x_c + \\frac{x_d - x_c}{1 + K_1 r^2 + K_2 r^4 + \\cdots}\\\\\ny_u = y_c + \\frac{y_d - y_c}{1 + K_1 r^2 + K_2 r^4 + \\cdots}\n\\end{aligned}\n\\]\n\n\n\n\n\nFig. 4a. 除算モデルによるサンプリング\n\n\n\n\n\n\n\n\nFig. 4b. 実装例 (resume で操作可/詳細はImageタグ)\n\n\n\nこの処理で変換した座標を，異なる処理で使うと意図しない出力を得る可能性がある．\n\nテクスチャフェッチ\n最近傍テクセルになるよう座標を調整することで回避可．\n\\[\n\\boldsymbol{q}_{d} = 0.5 + \\lfloor \\boldsymbol{p}_{d} \\rfloor\n\\]\nMask\n規則的なパターンが不規則となりモアレが発生する．ピクセル化サイズが十分小さいなら，変換した座標を使わないことも回避策のひとつ．\nScanline\n規則的なパターンが不規則となりモアレが発生する．目立たないよう消極的な回避策で妥協するかは課題となる．\n\n\n\n\n\n\nFig. 4c. 典型例\n\n\n\n\n\n3.2.2 Vignetting\n周辺減光，あるいはケラレ．\n\n\n\nSwanson tennis center\n\n\n円や楕円では適用範囲が限定されるため，超楕円を利用する．\n\\[\n\\left|\\frac{x}{a}\\right|^n + \\left|\\frac{y}{b}\\right|^n = 1\n\\]\n形状としては，\\(a=b=1, \\, n\\ge 5\\) が適当. ただし，冪演算を回避するため代替手段を採る．\n\\[\nuv(1 - u)(1 -v) \\quad (0\\le u \\le 1, \\, 0\\le v \\le 1)\n\\]\n\n\n\n\n\nFig. 5a. Vignetting\n\n\n\n\n\n\n\n\nFig. 5b. 実装例 (resume で操作可/詳細はImageタグ)\n\n\n\n\n\n3.2.3 Color fringing\nColor fringing は色縁や色縞，あるいは色のずれを指し，各色の電子線が蛍光体上で意図しない位置を照射している場合に生じる現象．帯磁や劣化など原因は多岐にわたる．\n\n\n\nA degaussing in progress on a Dell Ultra Scan P991\n\n\nまた，画面中央と周辺領域で蛍光体の面積が異なるような平面に近い CRT モニタでも生じる．\nこれを表現するには，光学系の倍率色収差を利用する．\n\n\n\n\n\nFig. 6a. 基本的なモデル\n\n\n\n基本的なモデルでは，全体に色のずれが発生している. ダメージを負った CRT モニタの表現としては良いかもしれないが，少々主張が激しい．Vignetting 同様に適用範囲を考えると，周辺領域に適用されるのが望ましい．\nここでは，Lesovoi 氏の記事を参考に考察を行う．\n\n物理ベース\n必要性がないので除外\n周辺領域への適用\nユークリッド距離では円や楕円となり，中央領域への影響が未だ大きい．より周辺領域に寄せるため，チェビシェフ距離に置き換える．\n\n\n\n\nFig. 6b. 同パラメータ時のユークリッド距離での効果(赤色は処理不要領域の可視化)\n\n\n\n\n\nFig. 6c. 同パラメータ時のチェビシェフ距離での効果(赤色は処理不要領域の可視化)\n\n\n\n\n\n\n\nFig. 6c. 実装例 (resume で操作可/詳細はImageタグ)\n\n\n\n\n\n\n3.3 デモ\n選択肢がある機能は次のとおり．\n\nMask\nすべて\nPixelation\nModel:4 の層化サンプリング下での算術平均\nScanline\nModel:2 のガウス関数\nVignetting\nModel:4 の超楕円の代替\nColor fringing\nModel:4 のチェビシェフ距離による周辺領域への適用\n\n通常，Mask や Scanline を導入した時点で画面が暗くなる．許容できない場合は，適当なガンマ補正やトーンマッピングを導入することになる．\n\n\n\n\n\nFig. 7a. 実装例 (resume で操作可/詳細はImageタグ)"
+  },
+  {
+    "objectID": "posts/crt-shader/index.html#まとめ",
+    "href": "posts/crt-shader/index.html#まとめ",
+    "title": "CRT shader",
+    "section": "4 まとめ",
+    "text": "4 まとめ\n各機能の選択に，これといった正解がないのが面白い課題．"
+  },
+  {
+    "objectID": "posts/crt-shader/index.html#参考文献",
+    "href": "posts/crt-shader/index.html#参考文献",
+    "title": "CRT shader",
+    "section": "5 参考文献",
+    "text": "5 参考文献\n\nNew Anti-Aliasing and Depth of Field Techniques for Games Graphics."
+  },
+  {
+    "objectID": "posts/crt-shader/index.html#参考記事",
+    "href": "posts/crt-shader/index.html#参考記事",
+    "title": "CRT shader",
+    "section": "6 参考記事",
+    "text": "6 参考記事\n\nCRT shader masks - Filthy Pants: A Computer Blog\nSubpixel Zoo - geometrian.com\nFixingPixelArt - shadertoy.com\nCRT shaders - emulation.gametechwiki.com\nCathode-ray tube - en.wikipedia.org\nShadow mask - en.wikipedia.org\nScan_line - en.wikipedia.org\nDistortion (optics) - en.wikipedia.org\nVignetting - en.wikipedia.org\nSuperellipse - en.wikipedia.org\nArmored Warfare: Проект Армата. Хроматическая аберрация - lesha_lesovoy\nEuclidean distance - en.wikipedia.org\nChebyshev distance - en.wikipedia.org"
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-2.html",
+    "href": "posts/building-an-orthonormal-basis-2.html",
+    "title": "正規直交基底の構築 (2)",
+    "section": "",
+    "text": "Duff et al. [2017] では，Frisvad の方法の問題点と改善案を提示している．特異点付近で大きな誤差が生じることから，行列式が負になることもあり，誤った座標フレームが使用される．\\(n_{z}\\) が \\(-1\\) に近くない場合は適切に動作することから，\\(n_{z}\\lt 0\\) の場合は \\(-n\\) のフレームを計算し，その結果を反転することで対処している．\nFrisvad の方法では，基底は次のように定義される.\n\\[\n\\begin{align*}\n\\vec{b}_{1}\n&=\n\\left(\n1 - \\frac{n^{2}_{x}}{1 + n_{z}}, - \\frac{n_{x} n_{y}}{1 + n_{z}}, - n_{x}\n\\right)^{\\mathsf{T}}\\\\\n\\vec{b}_{2}\n&=\n\\left(\n- \\frac{n_{x} n_{y}}{1 + n_{z}}, 1 - \\frac{n^{2}_{y}}{1 + n_{z}}, - n_{y}\n\\right)^{\\mathsf{T}}\\\\\n\\vec{n}\n&=\n\\left(\nn_{x}, n_{y}, n_{z}\n\\right)^{\\mathsf{T}}\n\\end{align*}\n\\]\n\\(n_{z}\\lt 0\\) の場合は，\\(\\vec{b}_{1}, \\vec{b}_{2}\\) に \\(-\\vec{n}\\) を代入し，\\(\\vec{b}_{2}\\) を反転すると次のようになる.\n\\[\n\\begin{align*}\n\\vec{b}_{1}\n&=\n\\left(\n1 - \\frac{n^{2}_{x}}{1 - n_{z}}, - \\frac{n_{x} n_{y}}{1 - n_{z}}, n_{x}\n\\right)^{\\mathsf{T}}\\\\\n\\vec{b}_{2}\n&=\n\\left(\n\\frac{n_{x} n_{y}}{1 - n_{z}}, \\frac{n^{2}_{y}}{1 - n_{z}} - 1, - n_{y}\n\\right)^{\\mathsf{T}}\\\\\n\\vec{n}\n&=\n\\left(\nn_{x}, n_{y}, n_{z}\n\\right)^{\\mathsf{T}}\n\\end{align*}\n\\]\n\n\n\n\n\n\nノート\n\n\n\n四元数を基礎として得られた接ベクトルの方向の一貫性を失う.\n\n\n実装は次のようになる.\n// Listing 2. The code of Listing 1, revised to avoid catastrophic cancellation.\nvoid revisedONB(const Vec3f &n, Vec3f &b1, Vec3f &b2)\n{\n    if(n.z&lt;0.){\n        const float a = 1.0f / (1.0f - n.z);\n        const float b = n.x * n.y * a;\n        b1 = Vec3f(1.0f - n.x * n.x * a, -b, n.x);\n        b2 = Vec3f(b, n.y * n.y*a - 1.0f, -n.y);\n    }\n    else{\n        const float a = 1.0f / (1.0f + n.z);\n        const float b = -n.x * n.y * a;\n        b1 = Vec3f(1.0f - n.x * n.x * a, b, -n.x);\n        b2 = Vec3f(b, 1.0f - n.y * n.y * a, -n.y);\n    }\n}\n// Listing 3. A branchless version of Listing 2, using copysignf to eliminate the test.\nvoid branchlessONB(const Vec3f &n, Vec3f &b1, Vec3f &b2)\n{\n    float sign = copysignf(1.0f, n.z); // n.z&gt;=0.0f ? 1.0f : -1.0f\n    const float a = -1.0f / (sign + n.z);\n    const float b = n.x * n.y * a;\n    b1 = Vec3f(1.0f + sign * n.x * n.x * a, sign * b, -sign * n.x);\n    b2 = Vec3f(b, sign + n.y * n.y * a, -n.y);\n}\nComparing ONB Accuracy で違いを確認するには，次の箇所を変更しコンパイルする.\n/**\n * 0: frisvad vs max\n * 1: frisvad vs pixar\n * 2: max vs pixar\n */\n#define COMPARISON_MODE 1\n\n\n\nPros\n\nFrisvad の方法と遜色のない速度を維持する\n特異点がなく平均誤差も小さい\n\nCons\n\n四元数を基礎として得られた接ベクトルの方向の一貫性を失う\n接空間の \\(z\\) 軸に対称な分布に適用するような場合は問題ない"
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-2.html#pixar-の方法",
+    "href": "posts/building-an-orthonormal-basis-2.html#pixar-の方法",
+    "title": "正規直交基底の構築 (2)",
+    "section": "",
+    "text": "Duff et al. [2017] では，Frisvad の方法の問題点と改善案を提示している．特異点付近で大きな誤差が生じることから，行列式が負になることもあり，誤った座標フレームが使用される．\\(n_{z}\\) が \\(-1\\) に近くない場合は適切に動作することから，\\(n_{z}\\lt 0\\) の場合は \\(-n\\) のフレームを計算し，その結果を反転することで対処している．\nFrisvad の方法では，基底は次のように定義される.\n\\[\n\\begin{align*}\n\\vec{b}_{1}\n&=\n\\left(\n1 - \\frac{n^{2}_{x}}{1 + n_{z}}, - \\frac{n_{x} n_{y}}{1 + n_{z}}, - n_{x}\n\\right)^{\\mathsf{T}}\\\\\n\\vec{b}_{2}\n&=\n\\left(\n- \\frac{n_{x} n_{y}}{1 + n_{z}}, 1 - \\frac{n^{2}_{y}}{1 + n_{z}}, - n_{y}\n\\right)^{\\mathsf{T}}\\\\\n\\vec{n}\n&=\n\\left(\nn_{x}, n_{y}, n_{z}\n\\right)^{\\mathsf{T}}\n\\end{align*}\n\\]\n\\(n_{z}\\lt 0\\) の場合は，\\(\\vec{b}_{1}, \\vec{b}_{2}\\) に \\(-\\vec{n}\\) を代入し，\\(\\vec{b}_{2}\\) を反転すると次のようになる.\n\\[\n\\begin{align*}\n\\vec{b}_{1}\n&=\n\\left(\n1 - \\frac{n^{2}_{x}}{1 - n_{z}}, - \\frac{n_{x} n_{y}}{1 - n_{z}}, n_{x}\n\\right)^{\\mathsf{T}}\\\\\n\\vec{b}_{2}\n&=\n\\left(\n\\frac{n_{x} n_{y}}{1 - n_{z}}, \\frac{n^{2}_{y}}{1 - n_{z}} - 1, - n_{y}\n\\right)^{\\mathsf{T}}\\\\\n\\vec{n}\n&=\n\\left(\nn_{x}, n_{y}, n_{z}\n\\right)^{\\mathsf{T}}\n\\end{align*}\n\\]\n\n\n\n\n\n\nノート\n\n\n\n四元数を基礎として得られた接ベクトルの方向の一貫性を失う.\n\n\n実装は次のようになる.\n// Listing 2. The code of Listing 1, revised to avoid catastrophic cancellation.\nvoid revisedONB(const Vec3f &n, Vec3f &b1, Vec3f &b2)\n{\n    if(n.z&lt;0.){\n        const float a = 1.0f / (1.0f - n.z);\n        const float b = n.x * n.y * a;\n        b1 = Vec3f(1.0f - n.x * n.x * a, -b, n.x);\n        b2 = Vec3f(b, n.y * n.y*a - 1.0f, -n.y);\n    }\n    else{\n        const float a = 1.0f / (1.0f + n.z);\n        const float b = -n.x * n.y * a;\n        b1 = Vec3f(1.0f - n.x * n.x * a, b, -n.x);\n        b2 = Vec3f(b, 1.0f - n.y * n.y * a, -n.y);\n    }\n}\n// Listing 3. A branchless version of Listing 2, using copysignf to eliminate the test.\nvoid branchlessONB(const Vec3f &n, Vec3f &b1, Vec3f &b2)\n{\n    float sign = copysignf(1.0f, n.z); // n.z&gt;=0.0f ? 1.0f : -1.0f\n    const float a = -1.0f / (sign + n.z);\n    const float b = n.x * n.y * a;\n    b1 = Vec3f(1.0f + sign * n.x * n.x * a, sign * b, -sign * n.x);\n    b2 = Vec3f(b, sign + n.y * n.y * a, -n.y);\n}\nComparing ONB Accuracy で違いを確認するには，次の箇所を変更しコンパイルする.\n/**\n * 0: frisvad vs max\n * 1: frisvad vs pixar\n * 2: max vs pixar\n */\n#define COMPARISON_MODE 1\n\n\n\nPros\n\nFrisvad の方法と遜色のない速度を維持する\n特異点がなく平均誤差も小さい\n\nCons\n\n四元数を基礎として得られた接ベクトルの方向の一貫性を失う\n接空間の \\(z\\) 軸に対称な分布に適用するような場合は問題ない"
+  },
+  {
+    "objectID": "posts/building-an-orthonormal-basis-2.html#references",
+    "href": "posts/building-an-orthonormal-basis-2.html#references",
+    "title": "正規直交基底の構築 (2)",
+    "section": "2 References",
+    "text": "2 References\n\nDuff, T., Burgess, J., Christensen, P., Hery, C., Kensler, A., Liani, M., & Villemin, R. (2017). Building an orthonormal basis, revisited. Journal of Computer Graphics Techniques (JCGT), 6(1), 1–8. http://jcgt.org/published/0006/01/01/"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html",
+    "title": "複素数における回転の表現と補間",
+    "section": "",
+    "text": "複素数における回転の表現と補間について簡単に整理をする．"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#概要",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#概要",
+    "title": "複素数における回転の表現と補間",
+    "section": "",
+    "text": "複素数における回転の表現と補間について簡単に整理をする．"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#回転の表現",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#回転の表現",
+    "title": "複素数における回転の表現と補間",
+    "section": "2 回転の表現",
+    "text": "2 回転の表現\n定義は\n\\[\n\\mathbb{C}_1 := \\{p \\in \\mathbb{C} \\mid |p|=1 \\}=\\{e^{\\theta\\mathbb{i}} \\mid \\theta \\in \\mathbb{R} \\}\n\\]\n\\(e^{\\theta\\mathbb{i}}\\) はオイラーの公式1で\n\\[\ne^{\\theta\\mathbb{i}}\n=\\cos{(\\theta)} + \\sin{(\\theta)} \\mathbb{i}\n\\]"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#補間の方法",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#補間の方法",
+    "title": "複素数における回転の表現と補間",
+    "section": "3 補間の方法",
+    "text": "3 補間の方法\n\\(p=a+b\\mathbb{i}, \\hspace{3pt} q=c+d\\mathbb{i} \\in \\mathbb{C}_1\\) 間を \\(h \\in \\mathbb{R}\\) で補間する方法．\n\n3.1 線形補間\n定義は\n\\[\n\\operatorname{LERP}(p,q;h)\n=(1-h)p + hq\n\\]\n特徴は\n\n大きさを維持しない\n速度は不定\n\n\n\n3.2 正規化線形補間\n定義は\n\\[\n\\operatorname{nLERP}(p,q;h)\n=\\frac{\\operatorname{LERP}(p,q;h)}{|\\operatorname{LERP}(p,q;h)|}\n\\]\n特徴は\n\n大きさを維持\n速度は不定\n\n\n\n3.3 球面線形補間\n定義は\n\\[\n\\operatorname{SLERP}(p,q;h)\n=p \\cdot (p^{-1} \\cdot q)^h\n=p \\cdot \\exp{(h \\log{(p^{-1} \\cdot q)})}\n\\]\n特徴は\n\n大きさを維持\n速度は一定\n\n\n\n3.4 スプライン補間\n定義は\n\\[\n\\operatorname{SQUAD}(p_{i}, p_{i+1}, s_{i}, s{i+1}; h)\n=\\operatorname{SLERP}(\\operatorname{SLERP}(p_{i}, p_{i+1}; h), \\operatorname{SLERP}(s_{i}, s_{i+1}; h), 2h(1-h))\n\\]\nここで \\(p_{i}, p_{i+1}, s_{i}, s_{i+1} \\in \\mathbb{C}_1\\) で \\(s_{i}\\) は次式で表される．\n\\[\ns_{i}\n=p_{i} \\exp{\\left(- \\frac{\\log{(p_{i}^{-1} p_{i-1})} + \\log{(p_{i}^{-1} p_{i+1})}}{4}\\right)}\n\\]"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#ethetamathbbi-の補間",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#ethetamathbbi-の補間",
+    "title": "複素数における回転の表現と補間",
+    "section": "4 \\(e^{\\theta\\mathbb{i}}\\) の補間",
+    "text": "4 \\(e^{\\theta\\mathbb{i}}\\) の補間\n一般的な回転を表現する複素数での補間は，常に最短円弧を描く補間となる．\n\n\n\n\n\nFig. 1. 最短円弧を描く補間\n\n\n\nなす角が180度を超える場合に最長円弧を描く補間にするには2\n\n複素数の偏角の主値の範囲を \\((-\\pi, \\pi]\\) とし \\(p, q\\) の角度を \\([0,\\pi)\\) で求める\n\n\\[\n  \\begin{aligned}\n  \\phi=\n  \\begin{cases}\n    Arg{(p)} + 2\\pi & \\text{if } Arg{(p)} &lt; 0\\\\\n    Arg{(p)} & \\text{otherwise}\n  \\end{cases}\\\\\n  \\\\\n  \\psi=\n  \\begin{cases}\n    Arg{(q)} + 2\\pi & \\text{if } Arg{(q)} &lt; 0\\\\\n    Arg{(q)} & \\text{otherwise}\n  \\end{cases}\n  \\end{aligned}\n  \\]\n\n向きを求める\n\n\\[\n  \\begin{aligned}\n  d=\n  \\begin{vmatrix}\n  p.x & q.x\\\\\n  p.y & q.y\n  \\end{vmatrix}\n  =p.x \\cdot q.y - p.y \\cdot q.x\n  \\end{aligned}\n  \\]\n\nなす角を決定する\n\n\\[\n  \\begin{aligned}\n  \\alpha=\n  \\begin{cases}\n  \\begin{cases}\n    \\cos^{-1}{(\\langle p, q \\rangle)} & \\text{if } d &lt; 0\\\\\n    2 \\pi - \\cos^{-1}{(\\langle p, q \\rangle)} & \\text{otherwise}\n  \\end{cases}\n  & \\text{if } \\psi - \\phi &lt; 0\\\\\n  \\begin{cases}\n    2 \\pi - \\cos^{-1}{(\\langle p, q \\rangle)} & \\text{if } d &lt; 0\\\\\n    \\cos^{-1}{(\\langle p, q \\rangle)} & \\text{otherwise}\n  \\end{cases}\n  & \\text{otherwise}\n  \\end{cases}\n  \\end{aligned}\n  \\]\n\n\n\n\n\nFig. 2. 最長円弧を描く補間"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#efractheta2mathbbi-の補間",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#efractheta2mathbbi-の補間",
+    "title": "複素数における回転の表現と補間",
+    "section": "5 \\(e^{\\frac{\\theta}{2}\\mathbb{i}}\\) の補間",
+    "text": "5 \\(e^{\\frac{\\theta}{2}\\mathbb{i}}\\) の補間\n半角形式の補間は，なす角が180度を超えると最長円弧を描く補間となる．半角形式は半円で360度を表現し残りは繰り返しとなるので \\(\\pm e^{\\frac{\\theta}{2}\\mathbb{i}}\\) は同じ回転を表現する．\n\n\n\n\n\nFig. 3. 半角形式の補間\n\n\n\nなす角が180度を超える場合に最短円弧を描く補間にするには3\n\nなす角が180度を超える場合に片方の符号を反転し補間を行う\n符号を反転しても同じ回転を表現することを利用\n\\[\n\\begin{aligned}\nr=\n\\begin{cases}\n-q & \\text{if } \\langle p, q \\rangle \\lt 0\\\\\n+q & \\text{otherwise}\n\\end{cases}\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#球面線形補間の別形式",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#球面線形補間の別形式",
+    "title": "複素数における回転の表現と補間",
+    "section": "6 球面線形補間の別形式",
+    "text": "6 球面線形補間の別形式\n指数・対数関数を用いない形式について．\\(z_0=a+b\\mathbb{i}, \\hspace{3pt} z_1=c+d\\mathbb{i} \\in \\mathbb{C}_1\\) のなす角を \\(\\alpha\\) とし \\(h \\in \\mathbb{R}\\) で補間した \\(z_h \\in \\mathbb{C}_1\\) を求める．この時 \\(z_1\\) を元に \\(z_0\\) に垂直な軸を \\(z^{'}_1\\) とすると\n\\[\nz_h\n=\\cos{(\\alpha h)} z_0 + \\sin{(\\alpha h)} z^{'}_1\n\\]\n\n\n\n\n\nFig. 4. 球面線形補間\n\n\n\n\\(z^{'}_1\\) は二次元の場合は90度回転として求められる．\n\\[\nz^{'}_1\n=- b + a \\mathbb{i}\n\\]\nより一般的には\n\\[\nz^{'}_1\n=\\frac{z_1 - \\langle z_0, z_1 \\rangle z_0}{|z_1 - \\langle z_0, z_1 \\rangle z_0|}\n\\]\nまたは簡潔に\n\\[\nz^{'}_1\n=\\frac{z_1 - \\cos{(\\alpha)} z_0}{\\sin{(\\alpha)}}\n\\]\n\n\\(s=\\langle z_0, z_1 \\rangle=\\cos{(\\alpha)}\\) とすると分母は\n\\[\n\\begin{aligned}\n|z_1 - \\langle z_0, z_1 \\rangle z_0|\n&=|z_1 - s z_0|\\\\\n&=\\sqrt{(c-sa)^2 + (d-sb)^2}\\\\\n&=\\sqrt{s^2 |z_0|^2 - 2s \\langle z_0,z_1 \\rangle + |z_1|^2}\\\\\n&=\\sqrt{s^2 - 2s^2 + 1}\\\\\n&=\\sqrt{1 - s^2}\\\\\n&=\\sqrt{1 - \\cos^{2}{(\\alpha)}}\\\\\n&=\\sqrt{\\sin^{2}{(\\alpha)}}\n=\\sin{(\\alpha)}\n\\end{aligned}\n\\]\n\n\\(z^{'}_1\\) を \\(z_h\\) に代入すると\n\\[\n\\begin{aligned}\nz_{h}\n&=\\cos(\\alpha h) z_0 + \\sin(\\alpha h) z^{'}_1\\\\\n&=\\cos(\\alpha h) z_0 + \\sin(\\alpha h) \\frac{z_1 - \\cos(\\alpha) z_0}{\\sin(\\alpha)}\\\\\n&=\\cos(\\alpha h)z_{0} + \\frac{\\sin(\\alpha h)}{\\sin(\\alpha)}z_{1} - \\frac{\\sin(\\alpha h)\\cos(\\alpha)}{\\sin(\\alpha)}z_{0}\\\\\n&=\\frac{\\sin(\\alpha)\\cos(\\alpha h) - \\cos(\\alpha)\\sin(\\alpha h)}{\\sin(\\alpha)}z_{0} + \\frac{\\sin(\\alpha h)}{\\sin(\\alpha)}z_{1}\\\\\n&=\\frac{\\sin(\\alpha(1 - h))}{\\sin(\\alpha)}z_{0} + \\frac{\\sin(\\alpha h)}{\\sin(\\alpha)}z_{1}\n\\end{aligned}\n\\]\n途中，三角関数の加法定理を利用した．\nこのままでは分母に \\(\\sin{(\\alpha)}\\) があるため \\(\\alpha \\to 0\\) で発散するので，\\(1 - |\\langle z_0, z_1 \\rangle| \\le \\epsilon\\) ならば線形補間に切り替え回避をする．"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#スプライン補間の補足",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#スプライン補間の補足",
+    "title": "複素数における回転の表現と補間",
+    "section": "7 スプライン補間の補足",
+    "text": "7 スプライン補間の補足\n未知数 \\(s_{i}\\) の導出方法．\n\n\\(\\operatorname{SLERP}\\) の微分\n\\[\n\\begin{aligned}\n\\frac{d}{dh} \\operatorname{SLERP}(p,q;h)\n&=\\frac{d}{dh} p \\cdot (\\overline{p} \\cdot q)^{h}\\\\\n&=p \\cdot \\frac{d}{dh} \\exp{(h \\log{(\\overline{p} \\cdot q)})}\\\\\n&=p \\cdot \\exp{(h \\log{(\\overline{p} \\cdot q)})} \\cdot \\log{(\\overline{p} \\cdot q)}\\\\\n&=\\operatorname{SLERP}(p,q;h) \\cdot \\log{(\\overline{p} \\cdot q)}\n\\end{aligned}\n\\]\n\\(\\operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}, 1) = \\operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}, 0)\\)\n\\[\n\\begin{aligned}\n\\operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}; 1)\n&=\\operatorname{SLERP}(\\operatorname{SLERP}(p_{i-1}, p_{i}; 1), \\operatorname{SLERP}(s_{i-1}, s_{i}; 1); 0)\\\\\n&=\\operatorname{SLERP}(p_{i}, s_{i}; 0)\\\\\n&=p_{i}\\\\\n\\\\\n\\operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}; 0)\n&=\\operatorname{SLERP}(\\operatorname{SLERP}(p_{i}, p_{i+1}; 0), \\operatorname{SLERP}(s_{i}, s_{i+1}; 0), 0)\\\\\n&=\\operatorname{SLERP}(p_{i}, s_{i}; 0)\\\\\n&=p_{i}\n\\end{aligned}\n\\]\n\\(\\operatorname{SQUAD}\\) の微分\n\\(g_{i}(h) = \\overline{\\operatorname{SLERP}(p_{i}, p_{i+1}; h)} \\cdot \\operatorname{SLERP}(s_{i}, s_{i+1}; h)\\) とすると\n\\[\n\\begin{aligned}\n\\frac{d}{dh} \\operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}; h)\n&=\\frac{d}{dh} \\operatorname{SLERP}(\\operatorname{SLERP}(p_{i}, p_{i+1}; h), \\operatorname{SLERP}(s_{i}, s_{i+1}; h), 2h(1-h))\\\\\n&=\\frac{d}{dh} \\operatorname{SLERP}(p_{i}, p_{i+1}; h) \\cdot g_{i}(h)^{2h(1-h)}\\\\\n&=\\left(\\frac{d}{dh} \\operatorname{SLERP}(p_{i}, p_{i+1}; h)\\right) \\cdot g_{i}(h)^{2h(1-h)}\n- \\operatorname{SLERP}(p_{i}, p_{i+1}; h) \\cdot \\left(\\frac{d}{dh} g_{i}(h)^{2h(1-h)}\\right)\\\\\n&=\\operatorname{SLERP}(p_{i}, p_{i+1}; h) \\cdot \\log{(\\overline{p_{i}} \\cdot p_{i+1})} \\cdot g_{i}(h)^{2h(1-h)}\n- \\operatorname{SLERP}(p_{i}, p_{i+1}; h) \\cdot \\left(\\frac{d}{dh} g_{i}(h)^{2h(1-h)}\\right)\n\\end{aligned}\n\\]\n\\(g_{i}(h)^{2h(1-h)}\\) の微分\n\\(g_{i}(h)=\\cos{(\\theta_{g_{i}(h)})} + \\sin{(\\theta_{g_{i}(h)})} \\mathbb{i}, \\hspace{5pt} f(h)=2h(1-h)\\) と置いて\n\\[\n\\begin{aligned}\n\\frac{d}{dh} g_{i}(h)^{2h(1-h)}\n&=\\frac{d}{dh} \\exp{(f(h) \\cdot \\log{(g_{i}(h))})}\\\\\n&=\\frac{d}{dh} \\exp{(f(h) \\cdot \\theta_{g_{i}(h)} \\mathbb{i})}\\\\\n&=\\frac{d}{dh} \\left(\\cos{(f(h) \\cdot \\theta_{g_{i}(h)})} + \\sin{(f(h) \\cdot \\theta_{g_{i}(h)})} \\mathbb{i}\\right)\\\\\n&=-\\sin{(f(h) \\cdot \\theta_{g_{i}(h)})} \\cdot \\left(\\frac{d}{dh} f(h) \\cdot \\theta_{g_{i}(h)}\\right)\n- \\cos{(f(h) \\cdot \\theta_{g_{i}(h)})} \\cdot \\left(\\frac{d}{dh} f(h) \\cdot \\theta_{g_{i}(h)}\\right) \\mathbb{i}\\\\\n&=-\\sin{(f(h) \\cdot \\theta_{g_{i}(h)})} \\cdot \\left(\\left(\\frac{d}{dh} f(h)\\right) \\cdot \\theta_{g_{i}(h)} + f(h) \\cdot \\left(\\frac{d}{dh} \\theta_{g_{i}(h)}\\right)\\right)\n\\\\&\\hspace{11pt}\n- \\cos{(f(h) \\cdot \\theta_{g_{i}(h)})} \\cdot \\left(\\left(\\frac{d}{dh} f(h)\\right) \\cdot \\theta_{g_{i}(h)} + f(h) \\cdot \\left(\\frac{d}{dh} \\theta_{g_{i}(h)}\\right)\\right) \\mathbb{i}\n\\end{aligned}\n\\]\n\\(\\frac{d}{dh} \\operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}, 1) =  \\frac{d}{dh} \\operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}, 0)\\)\n\\[\n\\begin{aligned}\n\\frac{d}{dh} \\operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}, 1)\n&=\\operatorname{SLERP}(p_{i-1}, p_{i}; 1) \\cdot \\log{(\\overline{p_{i-1}} \\cdot p_{i})}\n- \\operatorname{SLERP}(p_{i-1}, p_{i}; 1) \\cdot \\left(\\frac{d}{dh} g_{i-1}(h)^{2h(1-h)}\\right)(1)\\\\\n&=p_{i} \\cdot \\log{(\\overline{p_{i-1}} \\cdot p_{i})}\n- 2 p_{i} \\cdot \\theta_{g_{i-1}(1)} \\mathbb{i}\\\\\n&=p_{i} \\cdot \\left(\\log{(\\overline{p_{i-1}} \\cdot p_{i})}\n- 2 \\log(g_{i-1}(1))\\right)\\\\\n&=p_{i} \\cdot \\left(\\log{(\\overline{p_{i-1}} \\cdot p_{i})}\n- 2 \\log(\\overline{p_{i}} \\cdot s_{i})\\right)\\\\\n\\\\\n\\frac{d}{dh} \\operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}, 0)\n&=\\operatorname{SLERP}(p_{i}, p_{i+1}; 0) \\cdot \\log{(\\overline{p_{i}} \\cdot p_{i+1})}\n- \\operatorname{SLERP}(p_{i}, p_{i+1}; 0) \\cdot \\left(\\frac{d}{dh} g_{i}(h)^{2h(1-h)}\\right)(0)\\\\\n&=p_{i} \\cdot \\log{(\\overline{p_{i}} \\cdot p_{i+1})}\n- 2 p_{i} \\cdot \\theta_{g_{i}(0)} \\mathbb{i}\\\\\n&=p_{i} \\cdot \\left(\\log{(\\overline{p_{i}} \\cdot p_{i+1})}\n- 2 \\log{(g_{i}(0))}\\right)\\\\\n&=p_{i} \\cdot \\left(\\log{(\\overline{p_{i}} \\cdot p_{i+1})}\n- 2 \\log{(\\overline{p_{i}} \\cdot s_{i})}\\right)\n\\end{aligned}\n\\]\n上式より\n\\[\n\\begin{aligned}\np_{i} \\cdot \\left(\\log{(\\overline{p_{i-1}} \\cdot p_{i})}\n- 2 \\log(\\overline{p_{i}} \\cdot s_{i})\\right)\n&=p_{i} \\cdot \\left(\\log{(\\overline{p_{i}} \\cdot p_{i+1})}\n- 2 \\log{(\\overline{p_{i}} \\cdot s_{i})}\\right)\\\\\n\\\\\n\\log{(\\overline{p_{i-1}} \\cdot p_{i})}\n- 2 \\log(\\overline{p_{i}} \\cdot s_{i})\n&=\\log{(\\overline{p_{i}} \\cdot p_{i+1})}\n- 2 \\log{(\\overline{p_{i}} \\cdot s_{i})}\\\\\n4 \\log{(\\overline{p_{i}} \\cdot s_{i})}\n&=\\log{(\\overline{p_{i-1}} \\cdot p_{i})} - \\log{(\\overline{p_{i}} \\cdot p_{i+1})}\\\\\n\\\\\n\\overline{p_{i}} \\cdot s_{i}\n&=\\exp{\\left(\\frac{\\log{(\\overline{p_{i-1}} \\cdot p_{i})} - \\log{(\\overline{p_{i}} \\cdot p_{i+1})}}{4}\\right)}\\\\\n\\\\\ns_{i}\n&=p_{i} \\cdot \\exp{\\left(\\frac{\\log{(\\overline{p_{i-1}} \\cdot p_{i})} - \\log{(\\overline{p_{i}} \\cdot p_{i+1})}}{4}\\right)}\n\\end{aligned}\n\\]\n\\(\\overline{p_1 \\cdot p_2}=\\overline{p_1} \\cdot \\overline{p_2}, \\hspace{3pt} \\log(\\overline{p})=-\\log(p), \\hspace{3pt} \\overline{p}=p^{-1}\\) を利用し\n\\[\n\\begin{aligned}\ns_{i}\n&=p_{i} \\cdot \\exp{\\left(\\frac{\\log{(\\overline{p_{i-1}} \\cdot p_{i})} - \\log{(\\overline{p_{i}} \\cdot p_{i+1})}}{4}\\right)}\\\\\n&=p_{i} \\cdot \\exp{\\left(\\frac{\\log{(\\overline{p_{i-1} \\cdot \\overline{p_{i}}})} - \\log{(\\overline{p_{i}} \\cdot p_{i+1})}}{4}\\right)}\\\\\n&=p_{i} \\cdot \\exp{\\left(- \\frac{\\log{(\\overline{p_{i}} \\cdot p_{i-1})} - \\log{(\\overline{p_{i}} \\cdot p_{i+1})}}{4}\\right)}\\\\\n&=p_{i} \\cdot \\exp{\\left(- \\frac{\\log{(p_{i}^{-1} \\cdot p_{i-1})} - \\log{(p_{i}^{-1} \\cdot p_{i+1})}}{4}\\right)}\n\\end{aligned}\n\\]\n四元数 \\(p_{i} \\in {H}_1\\) なら \\(\\overline{p_1 \\otimes p_2}=\\overline{p_2} \\otimes \\overline{p_1}\\)\n\n四元数のスプライン補間4と同様となる．\n\n\n\n\n\nFig. 5. スプライン補間"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#c-での実装例",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#c-での実装例",
+    "title": "複素数における回転の表現と補間",
+    "section": "8 C++ での実装例",
+    "text": "8 C++ での実装例\nGitHub Gist"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#参考文献",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#参考文献",
+    "title": "複素数における回転の表現と補間",
+    "section": "9 参考文献",
+    "text": "9 参考文献\n\nJim Van Verth 2012 Understanding Rotations\nErik B. Dam, Martin Koch, Martin Lillholm 1998 Quaternions, Interpolation and Animation"
+  },
+  {
+    "objectID": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#footnotes",
+    "href": "posts/representation-and-interpolation-of-rotations-in-complex-numbers.html#footnotes",
+    "title": "複素数における回転の表現と補間",
+    "section": "脚注",
+    "text": "脚注\n\n\nhttps://en.wikipedia.org/wiki/Euler's_formula↩︎\n後述の \\(e^{\\frac{\\theta}{2}\\mathbb{i}}\\) の補間での Default 動作↩︎\n前述の \\(e^{\\theta\\mathbb{i}}\\) の補間での Default 動作↩︎\n参考文献 [2] を参照．↩︎"
+  },
+  {
+    "objectID": "posts/zotero-workflow/index.html",
+    "href": "posts/zotero-workflow/index.html",
+    "title": "Zotero の運用方法",
+    "section": "",
+    "text": "クロスプラットフォームな文献管理ソフトウェア Zotero の運用方法について．\n方針は\n\nZotero DB は Zotero Stotage と同期\n文献(PDF など)は他クラウドサービスと同期\n\n\n\n\n\n\ngraph TD\n  subgraph Zotero\n    A[(Zotero)]\n  end\n  subgraph Cloud\n    B[(Storage)]\n  end\n  subgraph Desktop\n    C[(Zotero)]\n  end\n  subgraph Laptop\n    D[(Zotero)]\n  end\n  subgraph Mobile\n    E[(Zotero)]\n  end\n  subgraph Other\n    F[(Zotero)]\n  end\n  A ---|Zotero Sync| C & D & E & F ---|Own Sync| B\n\n\n\n\n\n\n分離する理由は\n\nフリープランは 300Mの制限\nリスクマネジメント(最低でも文献が読めれば良い)"
+  },
+  {
+    "objectID": "posts/zotero-workflow/index.html#概要",
+    "href": "posts/zotero-workflow/index.html#概要",
+    "title": "Zotero の運用方法",
+    "section": "",
+    "text": "クロスプラットフォームな文献管理ソフトウェア Zotero の運用方法について．\n方針は\n\nZotero DB は Zotero Stotage と同期\n文献(PDF など)は他クラウドサービスと同期\n\n\n\n\n\n\ngraph TD\n  subgraph Zotero\n    A[(Zotero)]\n  end\n  subgraph Cloud\n    B[(Storage)]\n  end\n  subgraph Desktop\n    C[(Zotero)]\n  end\n  subgraph Laptop\n    D[(Zotero)]\n  end\n  subgraph Mobile\n    E[(Zotero)]\n  end\n  subgraph Other\n    F[(Zotero)]\n  end\n  A ---|Zotero Sync| C & D & E & F ---|Own Sync| B\n\n\n\n\n\n\n分離する理由は\n\nフリープランは 300Mの制限\nリスクマネジメント(最低でも文献が読めれば良い)"
+  },
+  {
+    "objectID": "posts/zotero-workflow/index.html#設定",
+    "href": "posts/zotero-workflow/index.html#設定",
+    "title": "Zotero の運用方法",
+    "section": "2 設定",
+    "text": "2 設定\n動作確認は Linux Mint 19.3 Tricia で行った．\n\n2.1 Zotero DB を Zotero Storage と同期\n\n\n\n\n\ngraph LR\n  subgraph Zotero\n    A[(Zotero)]\n  end\n  subgraph Terminal\n    B[(Zotero)]\n  end\n  B ---|Zotero Sync| A\n\n\n\n\n\n\n\nZotero アカウントを設定\nファイルの同期にはチェックをしない\n\n\n\n\nFig. 1. 設定 1\n\n\n\n\n2.2 文献を他クラウドサービスと同期\n\n\n\n\n\ngraph LR\n  subgraph Cloud\n    A[(Storage)]\n  end\n  subgraph Terminal\n    B[(Storage)]\n  end\n  B ---|Own Sync| A\n\n\n\n\n\n\nここでは文献の置き場所を分離し，独自の同期を行うことを想定する．\n\n\n\nFig. 2. 設定 2"
+  },
+  {
+    "objectID": "posts/zotero-workflow/index.html#クラウドサービスと同期",
+    "href": "posts/zotero-workflow/index.html#クラウドサービスと同期",
+    "title": "Zotero の運用方法",
+    "section": "3 クラウドサービスと同期",
+    "text": "3 クラウドサービスと同期\nフリー前提で宗教上の特段の理由でもない限り OneDrive がバランス良．Linux では公式クライアントがないので OneDrive Client for Linux で代替．"
+  },
+  {
+    "objectID": "posts/zotero-workflow/index.html#ブラウザ",
+    "href": "posts/zotero-workflow/index.html#ブラウザ",
+    "title": "Zotero の運用方法",
+    "section": "4 ブラウザ",
+    "text": "4 ブラウザ\nChromium 派生ブラウザなら Zotero Connector ． ブラウジング時に文献を Zotero に放り込んでくれる．"
+  },
+  {
+    "objectID": "posts/zotero-workflow/index.html#モバイル",
+    "href": "posts/zotero-workflow/index.html#モバイル",
+    "title": "Zotero の運用方法",
+    "section": "5 モバイル",
+    "text": "5 モバイル\nAndroid なら ZotEZ² 一択．Zotero DB と同期を行い，ユーザがクリックした時だけ文献をDLする仕組みにできる．"
+  },
+  {
+    "objectID": "posts/thoughts-on-rr.html",
+    "href": "posts/thoughts-on-rr.html",
+    "title": "ロシアンルーレットについての考察",
+    "section": "",
+    "text": "ロシアンルーレットは，確率的に処理を打ち切ることで計算コストを削減しつつ，期待値を保つ手法であり，今回はその動作原理を確認してみる．"
+  },
+  {
+    "objectID": "posts/thoughts-on-rr.html#ロシアンルーレットの定義",
+    "href": "posts/thoughts-on-rr.html#ロシアンルーレットの定義",
+    "title": "ロシアンルーレットについての考察",
+    "section": "1 ロシアンルーレットの定義",
+    "text": "1 ロシアンルーレットの定義\n確率変数 \\(X\\) と \\(\\zeta\\sim U(0,1)\\) が独立であり，\\(0\\lt q\\lt 1\\) とする． このとき，次のように定義する．\n\\[\nX_{rr}\n=\n\\begin{cases}\n\\frac{X}{q} & \\zeta\\lt q\\\\\n0 & \\text{otherwise}\n\\end{cases}\n\\]\nこの期待値は,\n\\[\n\\begin{align*}\nE[X_{rr}]\n&=E\\left[\\frac{X}{q}\\middle|\\zeta\\lt q\\right]\\,P(\\zeta\\lt q) + E[0|\\zeta\\ge q]\\,P(\\zeta\\ge q)\\\\\n&=\\frac{1}{q}\\,E[X]\\,q + E[0]\\,(1-q)\n=E[X]\n\\end{align*}\n\\]\nとなり，期待値は保存される．この性質により，確率的な打ち切りを行っても，統計的に偏りのない推定が可能になる．\n\n1.1 補足: 期待値について\n期待値に全確率の定理を適用すると,\n\\[\n\\begin{align*}\nE[X]\n&=\\sum_{i} x_{i}\\,P(X=x_{i})\\\\\n&=\\sum_{i} x_{i} \\sum_{j} P(X=x_{i}|Y_{j})\\,P(Y_{j}) \\quad \\text{(Law of total probability)}\\\\\n&=\\sum_{j} \\left(\\sum_{i} x_{i}\\,P(X=x_{i}|Y_{j})\\right) P(Y_{j})\\\\\n&=\\sum_{j} E[X|Y_{j}]\\,P(Y_{j})\n\\end{align*}\n\\]\n\n\n\n\n\n\n条件付き確率による全確率の定理\n\n\n\n標本空間 \\(\\Omega\\) が互いに排反な \\(N\\) 個の事象 \\(B_{1},\\dots,B_{N}\\) によって分割されているとする．このとき，任意の事象 \\(A\\) に対して次が成り立つ．\n\\[\nP(A)\n=\\sum_{i} P(A\\cap B_{i})\n\\]\nさらに \\(P(B_{i})\\gt 0\\) であるとき，条件付き確率の定義より,\n\\[\nP(A|B_{i})\n=\\frac{P(A\\cap B_{i})}{P(B_{i})}\n\\]\nこれを用いると，\\(P(A)\\) は次のように表せる．\n\\[\nP(A)\n=\\sum_{i} P(A|B_{i})\\,P(B_{i})\n\\]"
+  },
+  {
+    "objectID": "posts/thoughts-on-rr.html#指示関数を使った表記",
+    "href": "posts/thoughts-on-rr.html#指示関数を使った表記",
+    "title": "ロシアンルーレットについての考察",
+    "section": "2 指示関数を使った表記",
+    "text": "2 指示関数を使った表記\n\\(\\zeta\\sim U(0,1)\\) に対して，指示関数 \\(1_{\\zeta\\lt q}\\) を\n\\[\n1_{\\zeta\\lt q}\n=\n\\begin{cases}\n1 & \\zeta\\lt q\\\\\n0 & \\text{otherwise}\n\\end{cases}\n\\]\nと定義すると，\\(X_{rr}=\\frac{X}{q}\\,1_{\\zeta\\lt q}\\) と書ける．\\(X\\) と \\(\\zeta\\) は独立であることから,\n\\[\nE[X_{rr}]\n=E\\left[\\frac{X}{q}\\,1_{\\zeta\\lt q}\\right]\n=E\\left[\\frac{X}{q}\\right]\\,E[1_{\\zeta\\lt q}]\n=\\frac{1}{q}\\,E[X]\\,P(\\zeta\\lt q)\n=\\frac{1}{q}\\,E[X]\\,q\n=E[X]\n\\]"
+  },
+  {
+    "objectID": "posts/thoughts-on-rr.html#繰り返しと打ち切り",
+    "href": "posts/thoughts-on-rr.html#繰り返しと打ち切り",
+    "title": "ロシアンルーレットについての考察",
+    "section": "3 繰り返しと打ち切り",
+    "text": "3 繰り返しと打ち切り\n次のような絶対収束する無限級数を考える．\n\\[\nS\n=\\sum_{k=0}^{\\infty} a_{k}\n\\]\nこの和を有限の試行回数で評価したいとする．そこで，各項 \\(a_{k}\\) を確率 \\(q\\) で次に進めるとし，打ち切り確率を \\(1-q\\) とする．このような設定で，確率変数 \\(N\\sim G(1-q)\\) に従って，次のような近似的な和を定義できる．\n\\[\nS_{rr}\n=\\sum_{k=0}^{N} \\frac{a_{k}}{P(N\\ge k)}\n\\]\n幾何分布 \\(G(1-q)\\) の性質から \\(P(N\\ge k)=q^{k}\\) なので,\n\\[\nS_{rr}\n=\\sum_{k=0}^{N} \\frac{a_{k}}{q^{k}}\n\\]\nこの期待値は,\n\\[\n\\begin{align*}\nE[S_{rr}]\n&=E\\left[\\sum_{k=0}^{\\infty} \\frac{a_{k}}{q^{k}}\\,1_{k\\le N}\\right]\\\\\n&=\\sum_{k=0}^{\\infty} \\frac{a_{k}}{q^{k}}\\,E\\left[1_{k\\le N}\\right]\\\\\n&=\\sum_{k=0}^{\\infty} \\frac{a_{k}}{q^{k}}\\,P(N\\ge k)\\\\\n&=\\sum_{k=0}^{\\infty} \\frac{a_{k}}{q^{k}}\\,q^{k}\n=\\sum_{k=0}^{\\infty} a_{k}\n=S\n\\end{align*}\n\\]\n\n3.1 例: 指数関数のマクローリン展開\n指数関数のマクローリン展開は次のように表される．\n\\[\ne^{x}\n=\\sum_{k=0}^{\\infty} \\frac{x^{k}}{k!}\n\\]\nこの展開に対しても，近似的な和を定義できる．\n\\[\nS_{rr}\n=\\sum_{k=0}^{N} \\frac{x^{k}}{k!\\,P(N\\ge k)}\n\\]\nこの期待値は,\n\\[\nE[S_{rr}]\n=E\\left[\\sum_{k=0}^{\\infty} \\frac{x^{k}}{k!\\,P(N\\ge k)}\\,1_{k\\le N}\\right]\n=\\sum_{k=0}^{\\infty} \\frac{x^{k}}{k!}\n=e^{x}\n\\]"
+  },
+  {
+    "objectID": "posts/thoughts-on-rr.html#まとめ",
+    "href": "posts/thoughts-on-rr.html#まとめ",
+    "title": "ロシアンルーレットについての考察",
+    "section": "4 まとめ",
+    "text": "4 まとめ\n今回は，固定された \\(q\\) を用いてロシアンルーレットの基本的な性質を確認した．実際の応用，例えばパストレーシングでは，経路の貢献度に応じて \\(q\\) を動的に調整することで，より柔軟かつ効率的な処理が行われる．"
+  },
+  {
+    "objectID": "posts/thoughts-on-rr.html#appendix-notebook",
+    "href": "posts/thoughts-on-rr.html#appendix-notebook",
+    "title": "ロシアンルーレットについての考察",
+    "section": "5 Appendix: notebook",
+    "text": "5 Appendix: notebook\n\nhttps://gist.github.com/Hasenpfote/3703d424966523a2e3aba4e1007529d9"
+  },
+  {
+    "objectID": "posts/thoughts-on-rr.html#references",
+    "href": "posts/thoughts-on-rr.html#references",
+    "title": "ロシアンルーレットについての考察",
+    "section": "6 References",
+    "text": "6 References\n\nPharr, M., Jakob, W., & Humphreys, G. (2016). Russian roulette and splitting. In Physically based rendering: From theory to implementation (3rd ed.). Morgan Kaufmann. https://pbr-book.org/3ed-2018/Monte_Carlo_Integration/Russian_Roulette_and_Splitting"
+  },
+  {
+    "objectID": "posts/netlify-playwright-build-error.html",
+    "href": "posts/netlify-playwright-build-error.html",
+    "title": "Netlify と Playwright とビルドエラー",
+    "section": "",
+    "text": "Astro ブログで図表を出力できるよう rehype-mermaid を利用し，生成は Playwright に丸投げする方法を採用している．"
+  },
+  {
+    "objectID": "posts/netlify-playwright-build-error.html#問題",
+    "href": "posts/netlify-playwright-build-error.html#問題",
+    "title": "Netlify と Playwright とビルドエラー",
+    "section": "1 問題",
+    "text": "1 問題\nhttps://answers.netlify.com/t/build-fails-because-of-playwright-install/123506/\nNetlify でも動作できるようフォーラムの情報を頼りに package.json に次のような記述をした．\n\n\npackage.json\n\n  \"scripts\": {\n    ...,\n    \"postinstall\": \"pnpm dlx playwright-core install chromium\"\n  },\n  ...\n\n(前略)少し前までは特に問題もなく(中略)ある日突然デプロイに失敗していた．\n...\nbrowserType.launch: Executable doesn't exist at /opt/buildhome/.cache/ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell\n╔═════════════════════════════════════════════════════════════════════════╗\n12:59:07 PM: ║ Looks like Playwright Test or Playwright was just installed or updated. ║\n12:59:07 PM: ║ Please run the following command to download new browsers:              ║\n12:59:07 PM: ║                                                                         ║\n12:59:07 PM: ║     pnpm exec playwright install                                        ║\n12:59:07 PM: ║                                                                         ║\n12:59:07 PM: ║ &lt;3 Playwright Team                                                      ║\n12:59:07 PM: ╚═════════════════════════════════════════════════════════════════════════╝\n12:59:07 PM:      at getBrowser (/opt/build/repo/node_modules/.pnpm/mermaid-isomorphic@3.0.0_playwright@1.49.1/node_modules/mermaid-isomorphic/dist/mermaid-isomorphic.js:93:39)\n...\n実行ファイルが存在しないとは理解に苦しむが，デプロイが成功していた時と比べると playwright build v1155 となっており，バージョンが異なるようだ．\n...\n12:58:39 PM: Already up to date\n12:58:39 PM: &gt; fuwari@0.0.1 postinstall /opt/build/repo\n12:58:39 PM: &gt; pnpm dlx playwright-core install chromium\n12:58:40 PM: Progress: resolved 1, reused 0, downloaded 0, added 0\n12:58:40 PM: Packages: +1\n12:58:40 PM: +\n12:58:40 PM: Progress: resolved 1, reused 0, downloaded 1, added 1, done\n12:58:41 PM: Downloading Chromium 133.0.6943.16 (playwright build v1155) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1155/chromium-linux.zip\n..."
+  },
+  {
+    "objectID": "posts/netlify-playwright-build-error.html#原因",
+    "href": "posts/netlify-playwright-build-error.html#原因",
+    "title": "Netlify と Playwright とビルドエラー",
+    "section": "2 原因",
+    "text": "2 原因\nhttps://github.com/microsoft/playwright/issues/19562#issuecomment-1362552705\n\nMore concretely pnpm dlx / pnpx does not respect the version specified in package.json, but npx does.\n\n叩くコマンドによって挙動が違うようだ．"
+  },
+  {
+    "objectID": "posts/netlify-playwright-build-error.html#解決策",
+    "href": "posts/netlify-playwright-build-error.html#解決策",
+    "title": "Netlify と Playwright とビルドエラー",
+    "section": "3 解決策",
+    "text": "3 解決策\npackage.json を次のように変更する．\n\n\npackage.json\n\n  \"scripts\": {\n    ...,\n    \"postinstall\": \"pnpm exec playwright install chromium\"\n  },\n  ...\n\n今回の環境では playwright build v1148 となり問題が解消した．\n...\n6:05:19 PM: Already up to date\n6:05:20 PM: &gt; fuwari@0.0.1 postinstall /opt/build/repo\n6:05:20 PM: &gt; pnpm exec playwright install chromium\n6:05:21 PM: Downloading Chromium 131.0.6778.33 (playwright build v1148) from https://playwright.azureedge.net/builds/chromium/1148/chromium-linux.zip\n..."
+  },
+  {
+    "objectID": "posts/thoughts-on-pluecker-coordinates.html",
+    "href": "posts/thoughts-on-pluecker-coordinates.html",
+    "title": "プリュッカー座標の考察",
+    "section": "",
+    "text": "プリュッカー座標についての備忘録．\n大昔に John Carmack が Quake の衝突判定に利用した記憶がある．"
+  },
+  {
+    "objectID": "posts/thoughts-on-pluecker-coordinates.html#概要",
+    "href": "posts/thoughts-on-pluecker-coordinates.html#概要",
+    "title": "プリュッカー座標の考察",
+    "section": "",
+    "text": "プリュッカー座標についての備忘録．\n大昔に John Carmack が Quake の衝突判定に利用した記憶がある．"
+  },
+  {
+    "objectID": "posts/thoughts-on-pluecker-coordinates.html#用途",
+    "href": "posts/thoughts-on-pluecker-coordinates.html#用途",
+    "title": "プリュッカー座標の考察",
+    "section": "2 用途",
+    "text": "2 用途\n例えば\n\n衝突判定\nレイトレーシング\n双対四元数\nスクリュー理論の土台\nロボティクス"
+  },
+  {
+    "objectID": "posts/thoughts-on-pluecker-coordinates.html#考察",
+    "href": "posts/thoughts-on-pluecker-coordinates.html#考察",
+    "title": "プリュッカー座標の考察",
+    "section": "3 考察",
+    "text": "3 考察\n追記予定．\n\n3.1 光線と三角形の交差判定\nreciprocal product は\n\\[\n\\{l_{1}:m_{1}\\}*\\{l_{2}:m_{2}\\}\n\\equiv l_{1} \\cdot m_{2} + l_{2} \\cdot m_{1}\n\\]\n三角形内に交点があるかを見る程度なら reciprocal product を最大三回実行すればよい．また直線の正規化なども不要．デモでは光線のプリュッカー座標と三角形(CCWを表面とした)の交差判定を行っている．\\(P\\) または \\(Q\\) をドラッグし光線の方向を変えることで挙動が確認できる．\ngeogebra demo"
+  },
+  {
+    "objectID": "posts/thoughts-on-pluecker-coordinates.html#a-c-library",
+    "href": "posts/thoughts-on-pluecker-coordinates.html#a-c-library",
+    "title": "プリュッカー座標の考察",
+    "section": "4 A C++ Library",
+    "text": "4 A C++ Library\n\nhttps://github.com/Hasenpfote/plucker\nShoemake をベースに Mason で実装．"
+  },
+  {
+    "objectID": "posts/thoughts-on-pluecker-coordinates.html#参考文献",
+    "href": "posts/thoughts-on-pluecker-coordinates.html#参考文献",
+    "title": "プリュッカー座標の考察",
+    "section": "5 参考文献",
+    "text": "5 参考文献\n\nKen Shoemake 1998 Plücker Coordinate Tutorial\nMatthew T. Mason - Mechanics of Manipulation\nYan-Bin Jia 2020 Plücker Coordinates for Lines in the Space∗\nBartholomew Randall 2013 Plücker Coordinate of a Line in 3-Space"
+  },
+  {
+    "objectID": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html",
+    "href": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html",
+    "title": "How to start a simplest-blog quickly with Gatsby",
+    "section": "",
+    "text": "graph LR\n  id1[Markdown] --- id2\n  subgraph ide1[Build and Deploy]\n    id2[GitHub] --- id3[Netlify]\n  end\n  id3 --&gt;|Release| id4[Blog]\n\n\n\n\n\n\nMarkdown ファイルを GitHub の専用リポジトリに git push すれば Blog が出来るの図．"
+  },
+  {
+    "objectID": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#概要",
+    "href": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#概要",
+    "title": "How to start a simplest-blog quickly with Gatsby",
+    "section": "",
+    "text": "graph LR\n  id1[Markdown] --- id2\n  subgraph ide1[Build and Deploy]\n    id2[GitHub] --- id3[Netlify]\n  end\n  id3 --&gt;|Release| id4[Blog]\n\n\n\n\n\n\nMarkdown ファイルを GitHub の専用リポジトリに git push すれば Blog が出来るの図．"
+  },
+  {
+    "objectID": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#方針",
+    "href": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#方針",
+    "title": "How to start a simplest-blog quickly with Gatsby",
+    "section": "2 方針",
+    "text": "2 方針\n\nMarkdown を中心に据える\nTypora や Joplin との互換性を最優先とする\n数式や図表を扱う\nコード断片を扱う\n退屈・面倒なことはしない"
+  },
+  {
+    "objectID": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#starter-library-gatsby",
+    "href": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#starter-library-gatsby",
+    "title": "How to start a simplest-blog quickly with Gatsby",
+    "section": "3 Starter Library | Gatsby",
+    "text": "3 Starter Library | Gatsby\nあらゆる手を抜くため gatsby-starter-lumen を選定．\n(実質必須な)後からやるべき退屈な作業に概ね対応している．"
+  },
+  {
+    "objectID": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#不足機能の実装",
+    "href": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#不足機能の実装",
+    "title": "How to start a simplest-blog quickly with Gatsby",
+    "section": "4 不足機能の実装",
+    "text": "4 不足機能の実装\n\n4.1 数式の表示\nJan 5, 2021 - デフォルトで入っているのでスキップ．\n数式を書き殴るのに KaTeX が必要．\n\ngatsby-remark-katex\n\n煩わしいこと(エスケープなど)を考える必要性は一切ない．\nVisit demo"
+  },
+  {
+    "objectID": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#ダイアグラムの表示",
+    "href": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#ダイアグラムの表示",
+    "title": "How to start a simplest-blog quickly with Gatsby",
+    "section": "5 ダイアグラムの表示",
+    "text": "5 ダイアグラムの表示\nMermaid が必要．\n\ngatsby-remark-graph\n\nVisit demo\n\n5.1 コードブロックの表示\nLinuxコマンドなど比較的短めなコード断片の表示を行うのに必要．\n表示する以外の機能は Typora や Joplin との互換性を維持できないので要注意．\n\ngatsby-remark-prismjs\n\nテーマ 毎にレイアウトを弄る必要がある．\n特に行番号はデフォルトで表示がずれているので要修正．\nデフォルトテーマは実質 OKAIDIA 一択．\nテーマを追加する場合は prism-themes から持ってくる．\nVisit demo\n\n\n5.2 GitHub Gist の埋め込み\nコードブロック関連はこちらが本命．\n\ngatsby-remark-embed-gist\n\nVisit demo\n\n\n5.3 カテゴリやタグのリスト表示 [optional]\nデフォルトでは機能として存在するだけなので何かしら手を加える必要がある．\n下記が参考になる．\n\nタグを全部表示するコンポーネントを作成する\nカテゴリーを全部表示するコンポーネントを作成する\n\n\n\n5.4 目次の表示 [optional]\n特定のプラグインが Markdown 内の特別な記述ブロックを読み込み，目次を生成するというパターンがある．\n便利ではあるが 互換性の観点から異物注入は回避したい．\nTypora は見出しタグから自動生成しているようなのでこれに従う．\n\ngatsby製のblogにちゃんとしたtable of content（目次）を付ける\n\n極めてシンプルな実装例が参考になる．\nVisit demo\n\n\n5.5 環境変数について\n特定のサービスとの連携を考慮．\n包含したくないもの(IDやKEY)を退避する術．\n\nEnvironment Variables\n\n\n\n5.6 サイト内検索 [optional]\n任意の投稿をカテゴリとタグだけでは絞りきれないことを考慮．\n一番シンプルな奴 だ．\n\nAdding Search with Algolia\n\nタイトルと概要から検索する程度なら公式のままで良い．\nAlgolia への登録が必要．"
+  },
+  {
+    "objectID": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#サポート機能の有効化",
+    "href": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#サポート機能の有効化",
+    "title": "How to start a simplest-blog quickly with Gatsby",
+    "section": "6 サポート機能の有効化",
+    "text": "6 サポート機能の有効化\ngatsby-starter-lumen の良いところ．\n\n6.1 Google Analytics\ngatsby-config.js から辿ると config.js で設定することを確認できる．\nGoogle Analytics への登録が必要．\n\n\n6.2 Disqus Comments [optional]\ngatsby-config.js から辿ると config.js で設定することを確認できる．\nDISQUS への登録が必要．"
+  },
+  {
+    "objectID": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#ホスティングサービス",
+    "href": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#ホスティングサービス",
+    "title": "How to start a simplest-blog quickly with Gatsby",
+    "section": "7 ホスティングサービス",
+    "text": "7 ホスティングサービス\n\n7.1 Gatsby Cloud\n\nアカウントを登録\nGitHub リポジトリを指定\n必要なら環境変数の設定 [Site Settings] タブの [General] -&gt; [Environment variables]\n\n以降は次のタイミングで Build & Deploy, Release の流れになる．\n\n自動: git push 毎\n手動: Trigger build ボタン\n\n最初に本家のサービスということで試した．\nGoogle Search Console に\nsitemap.xml を送信後に任意の URL 検査を行ったところ，すべての URL に noindex が付与される状態が確認できた．\nrobots.txt を配置しても状況は変わらず．\n同じ状況に陥っているケースを発見するも役に立たない．\nx-robots-tag: none” on Gatsby site hosted by Gatsby Cloud with Contentful\n後述の Netlify で同作業を行うと何ら問題がなかった．\nフリープランへの呪縛ということで諦めた．\n\n\n7.2 Netlify\n\nアカウントを登録\nGitHub リポジトリを指定\n必要なら環境変数の設定 [Site settings] タブの [Build & deploy] -&gt; [Environment]\n\n以降は次のタイミングで Build & Deploy, Release の流れになる．\n\n自動: git push 毎\n手動: Trigger deploy ボタン"
+  },
+  {
+    "objectID": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#seo",
+    "href": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#seo",
+    "title": "How to start a simplest-blog quickly with Gatsby",
+    "section": "8 SEO",
+    "text": "8 SEO\n\n8.1 検索エンジンへ sitemap.xml を送信\nsitemap.xml は gatsby-starter-lumen が自動生成．\n\n8.1.1 Google\n\nGoogle Analytics へ登録\nGoogle Search Console へ登録 上記で連携\n\n\n\n8.1.2 Bing\n\nWebmaster Tools - Bing へ登録\nGoogle Search Console からインポート\n\n\n\n\n8.2 robots.txt\ngatsby-plugin-robots-txt\n\n\n8.3 canonical links\ngatsby-plugin-canonical-urls"
+  },
+  {
+    "objectID": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#トラブルシューティング",
+    "href": "posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html#トラブルシューティング",
+    "title": "How to start a simplest-blog quickly with Gatsby",
+    "section": "9 トラブルシューティング",
+    "text": "9 トラブルシューティング\n\n別の環境で git clone し gatsby develop したらエラー node_modules がないのが原因なので npm install でインストール．\n投稿を弄ったり削除した直後に GraphQL エラー云々 Markdown 内の特殊ブロック(特にソーシャル画像関連)を弄ると高確率で生じる． ファイルを削除しても元の位置に戻しても状況は変化しない． 可能ならエラーが発生する前の状態に戻し特殊ブロックの変更は慎重に行う． 最終手段としては gatsby clean で .cache と public フォルダを削除する． 内部のハッシュ値との不整合がエラー発生の要因と思われる．"
+  },
+  {
+    "objectID": "posts/toy-box.html",
+    "href": "posts/toy-box.html",
+    "title": "Toy Box",
+    "section": "",
+    "text": "In this section, repositories are summarized by programming languages.\n\n\n\n\nhttps://github.com/Hasenpfote/dualcomplex/\n“dualcomplex” is a cross-platform C++ template library that provides operations for dual complex numbers. It can be used as a header-only library and supports C++11 or later.\nhttps://github.com/Hasenpfote/dualquat/\n“dualquat” is a cross-platform C++ template library that provides operations on dual quaternions using Eigen. It can be used as a header-only library and supports C++11 and later.\nhttps://github.com/Hasenpfote/plucker/\n“plucker” is a cross-platform C++ template library that provides operations on Plücker coordinates of lines. It can be used as a header-only library and supports C++11 and later.\n\n\n\nhttps://github.com/Hasenpfote/CMakeExamples/\nThis is a collection of examples that use CMake for each case of a C++ project.\nhttps://github.com/Hasenpfote/CPPExamples/\nThis is a collection of examples that use C++11.\n\nBitonicSort\nComparingFloatingPointNumbers\nConvertString\nExpressionTemplate\nHalfPrecisionFloatingPoint\nLUDecomposition\nLogger\nPimplIdiom\nParseFntFile\nRange\nServiceLocator\nSingleton\nSpecificInterface\nThreadPool\nOther\n\nhttps://github.com/Hasenpfote/cpp_examples/\nThis is a collection of examples that use C++14 or C++17.\n\ncircular_buffer\n\nCircular buffer implemented using only the standard library.\n\nstack_resource\n\nA stack memory allocator using only the standard library.\n\npubsub_event\n\nThis is a Publish-Subscribe messaging model implemented using only the standard library.\n\ndual\n\nHeader-only class template for dual numbers using only the standard library.\nhttps://github.com/Hasenpfote/mark-and-sweep-gc/\nThis is an example of a simple mark-and-sweep garbage collection using C++.\nhttps://github.com/Hasenpfote/OpenGLExamples/\nThis is a collection of examples of real-time rendering techniques using OpenGL.\nIt supports C++11 or later and OpenGL 4.x.\n\nAdaptiveTerrainTessellation\nBillboardBeam\nBloom\nDithering\nKawaseBlur\nLightStreak\nRadialBlur\nToneMapping\nOther\n\n\n\n\n\n\n\nhttps://github.com/Hasenpfote/RecursiveDimensionalClustering/\nThis is an example of Recursive Dimensional Clustering, one of the fast algorithms for finding collisions or clusters in a dataset.\n\n\n\n\n\n\nhttps://github.com/Hasenpfote/fpq/\nThis package provides modules for manipulating floating point numbers quantization using NumPy.\nhttps://github.com/Hasenpfote/image_packer/\nPack multiple images of different sizes or formats into one image.\nhttps://github.com/Hasenpfote/malloc_tracer/\nThis is a debugging tool for tracing malloc that occurs inside a function or class.\nhttps://github.com/Hasenpfote/perfbench/\nperfbench measures execution time of code snippets with Timeit and uses Plotly to visualize the results.\n\n\n\nhttps://github.com/Hasenpfote/python-poetry-example/\nA simple example of how to use pyenv + poetry + tox + pytest.\nhttps://github.com/Hasenpfote/quaternion/\nThis package provides a class for manipulating quaternion objects."
+  },
+  {
+    "objectID": "posts/toy-box.html#repositories",
+    "href": "posts/toy-box.html#repositories",
+    "title": "Toy Box",
+    "section": "",
+    "text": "In this section, repositories are summarized by programming languages.\n\n\n\n\nhttps://github.com/Hasenpfote/dualcomplex/\n“dualcomplex” is a cross-platform C++ template library that provides operations for dual complex numbers. It can be used as a header-only library and supports C++11 or later.\nhttps://github.com/Hasenpfote/dualquat/\n“dualquat” is a cross-platform C++ template library that provides operations on dual quaternions using Eigen. It can be used as a header-only library and supports C++11 and later.\nhttps://github.com/Hasenpfote/plucker/\n“plucker” is a cross-platform C++ template library that provides operations on Plücker coordinates of lines. It can be used as a header-only library and supports C++11 and later.\n\n\n\nhttps://github.com/Hasenpfote/CMakeExamples/\nThis is a collection of examples that use CMake for each case of a C++ project.\nhttps://github.com/Hasenpfote/CPPExamples/\nThis is a collection of examples that use C++11.\n\nBitonicSort\nComparingFloatingPointNumbers\nConvertString\nExpressionTemplate\nHalfPrecisionFloatingPoint\nLUDecomposition\nLogger\nPimplIdiom\nParseFntFile\nRange\nServiceLocator\nSingleton\nSpecificInterface\nThreadPool\nOther\n\nhttps://github.com/Hasenpfote/cpp_examples/\nThis is a collection of examples that use C++14 or C++17.\n\ncircular_buffer\n\nCircular buffer implemented using only the standard library.\n\nstack_resource\n\nA stack memory allocator using only the standard library.\n\npubsub_event\n\nThis is a Publish-Subscribe messaging model implemented using only the standard library.\n\ndual\n\nHeader-only class template for dual numbers using only the standard library.\nhttps://github.com/Hasenpfote/mark-and-sweep-gc/\nThis is an example of a simple mark-and-sweep garbage collection using C++.\nhttps://github.com/Hasenpfote/OpenGLExamples/\nThis is a collection of examples of real-time rendering techniques using OpenGL.\nIt supports C++11 or later and OpenGL 4.x.\n\nAdaptiveTerrainTessellation\nBillboardBeam\nBloom\nDithering\nKawaseBlur\nLightStreak\nRadialBlur\nToneMapping\nOther\n\n\n\n\n\n\n\nhttps://github.com/Hasenpfote/RecursiveDimensionalClustering/\nThis is an example of Recursive Dimensional Clustering, one of the fast algorithms for finding collisions or clusters in a dataset.\n\n\n\n\n\n\nhttps://github.com/Hasenpfote/fpq/\nThis package provides modules for manipulating floating point numbers quantization using NumPy.\nhttps://github.com/Hasenpfote/image_packer/\nPack multiple images of different sizes or formats into one image.\nhttps://github.com/Hasenpfote/malloc_tracer/\nThis is a debugging tool for tracing malloc that occurs inside a function or class.\nhttps://github.com/Hasenpfote/perfbench/\nperfbench measures execution time of code snippets with Timeit and uses Plotly to visualize the results.\n\n\n\nhttps://github.com/Hasenpfote/python-poetry-example/\nA simple example of how to use pyenv + poetry + tox + pytest.\nhttps://github.com/Hasenpfote/quaternion/\nThis package provides a class for manipulating quaternion objects."
+  },
+  {
+    "objectID": "posts/toy-box.html#code-snippets",
+    "href": "posts/toy-box.html#code-snippets",
+    "title": "Toy Box",
+    "section": "2 Code snippets",
+    "text": "2 Code snippets\nThis section summarizes code snippets by themes/topics.\n\n2.1 Mathematics\n\n\n\nTopic\nLinks\nLanguage / Libraries\n\n\n\n\nComplex number\nRepresentation and interpolation of rotations\nC++\n\n\nGeometry\nDelaunay triangulation\nPython\n\n\n\nNormal vectors to a 2D curve\nPython (matplotlib / numpy / sympy)\n\n\n\nNormal vectors to a surface\nPython (matplotlib / numpy / sympy)\n\n\nAnalysis\nTaylor series\nPython (matplotlib / numpy / sympy)\n\n\nVector calculus\nLaplacian (utils)\nPython (matplotlib / numpy)\n\n\n\nFrenet–Serret formulas in 2D\nPython (matplotlib / numpy / sympy)\n\n\n\nFrenet–Serret formulas\nPython (matplotlib / numpy / sympy)\n\n\nSet theory\nPairing function\nPython (matplotlib / numpy)\n\n\nProbability theory\nInverse transform sampling\nPython (matplotlib / numpy)\n\n\n\nMonte Carlo Integration\nPython (matplotlib / numpy / scipy)\n\n\n\n\n\n2.2 Physics\n\n\n\nTopic\nLinks\nLanguage / Libraries\n\n\n\n\nRigid body dynamics\nTranslational and rotational motions\nPython (numpy)\n\n\n\nTranslational and rotational motions (using quaternion)\nPython (numpy)\n\n\n\n\n\n2.3 Computer science\n\n\n\nTopic\nLinks\nLanguage / Libraries\n\n\n\n\nFloating point number\nFloating-point comparison\nC++\n\n\nColor\nCIE1931_color_spaceCIE_daylight_components, BabelColor_spectral_data\nPython (matplotlib / numpy / pandas / scipy)\n\n\nNoise\nPerlin noise - 1D/2D/3D/4D\nPython (matplotlib / numpy)\n\n\nSort\nBitonic sort\nC++\n\n\nRussian Roulette\nThoughts on Russian Roulette\nPython (altair / numpy / pandas)\n\n\nk-d tree\nThoughts on k-d tree\nPython (matplotlib / numpy / anytree)\n\n\n\n\n\n2.4 Python\n\n\n\nTopic\nLinks\nLanguage / Libraries\n\n\n\n\nPython\nHow to limit concurrency with asyncio\n\n\n\n\nHow to hook properties with Python3 dataclasses\n\n\n\nmatplotlib\nCustomized colormap\n\n\n\n\nDiscrete colormap\n\n\n\npytorch\nDifferential\n\n\n\n\nConfusion matrix"
+  },
+  {
+    "objectID": "posts/gatsby-add-custom-font.html",
+    "href": "posts/gatsby-add-custom-font.html",
+    "title": "Gatsby ブログに任意のフォントを追加する方法",
+    "section": "",
+    "text": "任意のフォントとは\n\nGoogle Fonts などのウェブフォント(Web fonts)\n自サーバに配置するフォント(Self-hosted fonts)\n\nこれらを Gatsby ブログに追加する方法について．\n手法は色々あるが Gatsby Omni Font Loader が楽な上に素晴らしい機能を有している．\n\nFeatures\n\nSupports web fonts & self-hosted fonts\nPreloads the files & preconnects to the URL\nLoads fonts asynchronously to avoid render blocking\nImplemented with fast loading snippets\nLoading status listener for avoiding FOUT\nSmall size & minimal footprint"
+  },
+  {
+    "objectID": "posts/gatsby-add-custom-font.html#概要",
+    "href": "posts/gatsby-add-custom-font.html#概要",
+    "title": "Gatsby ブログに任意のフォントを追加する方法",
+    "section": "",
+    "text": "任意のフォントとは\n\nGoogle Fonts などのウェブフォント(Web fonts)\n自サーバに配置するフォント(Self-hosted fonts)\n\nこれらを Gatsby ブログに追加する方法について．\n手法は色々あるが Gatsby Omni Font Loader が楽な上に素晴らしい機能を有している．\n\nFeatures\n\nSupports web fonts & self-hosted fonts\nPreloads the files & preconnects to the URL\nLoads fonts asynchronously to avoid render blocking\nImplemented with fast loading snippets\nLoading status listener for avoiding FOUT\nSmall size & minimal footprint"
+  },
+  {
+    "objectID": "posts/gatsby-add-custom-font.html#自サーバに配置するフォント",
+    "href": "posts/gatsby-add-custom-font.html#自サーバに配置するフォント",
+    "title": "Gatsby ブログに任意のフォントを追加する方法",
+    "section": "2 自サーバに配置するフォント",
+    "text": "2 自サーバに配置するフォント\nここでは Awesome フォントのレギュラー版を例にする．\n準備ができれば適当な css ファイル内で font-family: Awesome とすればよい．\n\n2.1 配置場所\n配置場所と必要なファイルは次のようになる．\n.\n└── static\n    └── fonts\n        └── Awesome [New]\n            ├── Awesome-Regular.woff2 [New]\n            └── stylesheet.css [New]\nstylesheet.css は例えば次のような記述．\n\n\nstylesheet.css\n\n@font-face {\n    font-family: 'Awesome';\n    src: url('Awesome-Regular.woff2') format('woff2');\n    font-weight: normal;\n    font-style: normal;\n    font-display: swap;\n}\n\n\n\n2.2 設定\n様々なオプションがあるが．ここでは非同期読み込みにする．\n\n\ngatsby-config.js\n\n{\n  /* Include plugin */\n  resolve: \"gatsby-omni-font-loader\",\n\n  /* Plugin options */\n  options: {\n\n    /* Font loading mode */\n    mode: \"async\",\n\n    /* Enable font loading listener to handle FOUT */\n    enableListener: true,\n\n    /* Self-hosted fonts config. Add font files and font CSS files to \"static\" folder */\n    custom: [\n      {\n        /* Exact name of the font as defied in @font-face CSS rule */\n        name: [\"Awesome\", ],\n        /* Path to the font CSS file inside the \"static\" folder with @font-face definition */\n        file: \"/fonts/Awesome/stylesheet.css\",\n      },\n    ],\n  },\n}\n\n\n\n2.3 フォントの変換\nfonttools のコマンド pyftsubset を利用する．\nttf から woff2 への変換例は\npyftsubset Awesome-Regular.ttf --text-file=./subset.txt --layout-features='*' --flavor=woff2 --output-file=Awesome-Regular.woff2\nsubset.txt は例えば\n\n常用漢字\nひらがな\nカタカナ\n全角英数字\n半角英数字\n記号\n\nなど．\n\n\nsubset.txt\n\n亜哀挨愛曖悪握圧扱宛嵐安案暗以衣位囲医依委威為畏胃尉異移萎偉椅彙意違維慰遺緯域育一壱逸茨芋引印因咽姻員院淫陰飲隠韻右宇羽雨唄鬱畝浦運雲永泳英映栄営詠影鋭衛易疫益液駅悦越謁閲円延沿炎宴怨媛援園煙猿遠鉛塩演縁艶汚王凹央応往押旺欧殴桜翁奥横岡屋億憶臆虞乙俺卸音恩温穏下化火加可仮何花佳価果河苛科架夏家荷華菓貨渦過嫁暇禍靴寡歌箇稼課蚊牙瓦我画芽賀雅餓介回灰会快戒改怪拐悔海界皆械絵開階塊楷解潰壊懐諧貝外劾害崖涯街慨蓋該概骸垣柿各角拡革格核殻郭覚較隔閣確獲嚇穫学岳楽額顎掛潟括活喝渇割葛滑褐轄且株釜鎌刈干刊甘汗缶完肝官冠巻看陥乾勘患貫寒喚堪換敢棺款間閑勧寛幹感漢慣管関歓監緩憾還館環簡観韓艦鑑丸含岸岩玩眼頑顔願企伎危机気岐希忌汽奇祈季紀軌既記起飢鬼帰基寄規亀喜幾揮期棋貴棄毀旗器畿輝機騎技宜偽欺義疑儀戯擬犠議菊吉喫詰却客脚逆虐九久及弓丘旧休吸朽臼求究泣急級糾宮救球給嗅窮牛去巨居拒拠挙虚許距魚御漁凶共叫狂京享供協況峡挟狭恐恭胸脅強教郷境橋矯鏡競響驚仰暁業凝曲局極玉巾斤均近金菌勤琴筋僅禁緊錦謹襟吟銀区句苦駆具惧愚空偶遇隅串屈掘窟熊繰君訓勲薫軍郡群兄刑形系径茎係型契計恵啓掲渓経蛍敬景軽傾携継詣慶憬稽憩警鶏芸迎鯨隙劇撃激桁欠穴血決結傑潔月犬件見券肩建研県倹兼剣拳軒健険圏堅検嫌献絹遣権憲賢謙鍵繭顕験懸元幻玄言弦限原現舷減源厳己戸古呼固孤弧股虎故枯個庫湖雇誇鼓錮顧五互午呉後娯悟碁語誤護口工公勾孔功巧広甲交光向后好江考行坑孝抗攻更効幸拘肯侯厚恒洪皇紅荒郊香候校耕航貢降高康控梗黄喉慌港硬絞項溝鉱構綱酵稿興衡鋼講購乞号合拷剛傲豪克告谷刻国黒穀酷獄骨駒込頃今困昆恨根婚混痕紺魂墾懇左佐沙査砂唆差詐鎖座挫才再災妻采砕宰栽彩採済祭斎細菜最裁債催塞歳載際埼在材剤財罪崎作削昨柵索策酢搾錯咲冊札刷刹拶殺察撮擦雑皿三山参桟蚕惨産傘散算酸賛残斬暫士子支止氏仕史司四市矢旨死糸至伺志私使刺始姉枝祉肢姿思指施師恣紙脂視紫詞歯嗣試詩資飼誌雌摯賜諮示字寺次耳自似児事侍治持時滋慈辞磁餌璽鹿式識軸七叱失室疾執湿嫉漆質実芝写社車舎者射捨赦斜煮遮謝邪蛇尺借酌釈爵若弱寂手主守朱取狩首殊珠酒腫種趣寿受呪授需儒樹収囚州舟秀周宗拾秋臭修袖終羞習週就衆集愁酬醜蹴襲十汁充住柔重従渋銃獣縦叔祝宿淑粛縮塾熟出述術俊春瞬旬巡盾准殉純循順準潤遵処初所書庶暑署緒諸女如助序叙徐除小升少召匠床抄肖尚招承昇松沼昭宵将消症祥称笑唱商渉章紹訟勝掌晶焼焦硝粧詔証象傷奨照詳彰障憧衝賞償礁鐘上丈冗条状乗城浄剰常情場畳蒸縄壌嬢錠譲醸色拭食植殖飾触嘱織職辱尻心申伸臣芯身辛侵信津神唇娠振浸真針深紳進森診寝慎新審震薪親人刃仁尽迅甚陣尋腎須図水吹垂炊帥粋衰推酔遂睡穂随髄枢崇数据杉裾寸瀬是井世正生成西声制姓征性青斉政星牲省凄逝清盛婿晴勢聖誠精製誓静請整醒税夕斥石赤昔析席脊隻惜戚責跡積績籍切折拙窃接設雪摂節説舌絶千川仙占先宣専泉浅洗染扇栓旋船戦煎羨腺詮践箋銭潜線遷選薦繊鮮全前善然禅漸膳繕狙阻祖租素措粗組疎訴塑遡礎双壮早争走奏相荘草送倉捜挿桑巣掃曹曽爽窓創喪痩葬装僧想層総遭槽踪操燥霜騒藻造像増憎蔵贈臓即束足促則息捉速側測俗族属賊続卒率存村孫尊損遜他多汰打妥唾堕惰駄太対体耐待怠胎退帯泰堆袋逮替貸隊滞態戴大代台第題滝宅択沢卓拓託濯諾濁但達脱奪棚誰丹旦担単炭胆探淡短嘆端綻誕鍛団男段断弾暖談壇地池知値恥致遅痴稚置緻竹畜逐蓄築秩窒茶着嫡中仲虫沖宙忠抽注昼柱衷酎鋳駐著貯丁弔庁兆町長挑帳張彫眺釣頂鳥朝貼超腸跳徴嘲潮澄調聴懲直勅捗沈珍朕陳賃鎮追椎墜通痛塚漬坪爪鶴低呈廷弟定底抵邸亭貞帝訂庭逓停偵堤提程艇締諦泥的笛摘滴適敵溺迭哲鉄徹撤天典店点展添転塡田伝殿電斗吐妬徒途都渡塗賭土奴努度怒刀冬灯当投豆東到逃倒凍唐島桃討透党悼盗陶塔搭棟湯痘登答等筒統稲踏糖頭謄藤闘騰同洞胴動堂童道働銅導瞳峠匿特得督徳篤毒独読栃凸突届屯豚頓貪鈍曇丼那奈内梨謎鍋南軟難二尼弐匂肉虹日入乳尿任妊忍認寧熱年念捻粘燃悩納能脳農濃把波派破覇馬婆罵拝杯背肺俳配排敗廃輩売倍梅培陪媒買賠白伯拍泊迫剝舶博薄麦漠縛爆箱箸畑肌八鉢発髪伐抜罰閥反半氾犯帆汎伴判坂阪板版班畔般販斑飯搬煩頒範繁藩晩番蛮盤比皮妃否批彼披肥非卑飛疲秘被悲扉費碑罷避尾眉美備微鼻膝肘匹必泌筆姫百氷表俵票評漂標苗秒病描猫品浜貧賓頻敏瓶不夫父付布扶府怖阜附訃負赴浮婦符富普腐敷膚賦譜侮武部舞封風伏服副幅復福腹複覆払沸仏物粉紛雰噴墳憤奮分文聞丙平兵併並柄陛閉塀幣弊蔽餅米壁璧癖別蔑片辺返変偏遍編弁便勉歩保哺捕補舗母募墓慕暮簿方包芳邦奉宝抱放法泡胞俸倣峰砲崩訪報蜂豊飽褒縫亡乏忙坊妨忘防房肪某冒剖紡望傍帽棒貿貌暴膨謀頰北木朴牧睦僕墨撲没勃堀本奔翻凡盆麻摩磨魔毎妹枚昧埋幕膜枕又末抹万満慢漫未味魅岬密蜜脈妙民眠矛務無夢霧娘名命明迷冥盟銘鳴滅免面綿麺茂模毛妄盲耗猛網目黙門紋問冶夜野弥厄役約訳薬躍闇由油喩愉諭輸癒唯友有勇幽悠郵湧猶裕遊雄誘憂融優与予余誉預幼用羊妖洋要容庸揚揺葉陽溶腰様瘍踊窯養擁謡曜抑沃浴欲翌翼拉裸羅来雷頼絡落酪辣乱卵覧濫藍欄吏利里理痢裏履璃離陸立律慄略柳流留竜粒隆硫侶旅虜慮了両良料涼猟陵量僚領寮療瞭糧力緑林厘倫輪隣臨瑠涙累塁類令礼冷励戻例鈴零霊隷齢麗暦歴列劣烈裂恋連廉練錬呂炉賂路露老労弄郎朗浪廊楼漏籠六録麓論和話賄脇惑枠湾腕ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ　 、。，．・：；？！゛゜´｀¨＾￣＿ヽヾゝゞ〃仝々〆〇ー―‐／＼～∥｜…‥‘’“”（）〔〕［］｛｝〈〉《》「」『』【】＋－±×÷＝≠＜＞≦≧∞∴♂♀°′″℃￥¥＄￠￡％＃＆＊＠§☆★○●◎◇◆□■△▲▽▼※〒→←↑↓〓∈∋⊆⊇⊂⊃∪∩∧∨￢⇒⇔∀∃∠⊥⌒∂∇≡≒≪≫√∽∝∵∫∬Å‰♯♭♪ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψωАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя─│┌┐┘└├┬┤┴┼━┃┏┓┛┗┣┳┫┻╋┠┯┨┷┿┝┰┥┸╂｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ≒≡∫∮∑√⊥∠∟⊿∵∩∪ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ０１２３４５６７８９abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 !\"#$%&'()-^\\@[;:],./\\=~|`{+*}&lt;&gt;?_"
+  },
+  {
+    "objectID": "archive.html",
+    "href": "archive.html",
+    "title": "Archive",
+    "section": "",
+    "text": "日付\n\n\n\n題名\n\n\n\n分類\n\n\n\n\n\n\n\n\n2025-07-10\n\n\nスラブ法についての考察\n\n\ncomputerscience, slabmethod\n\n\n\n\n\n\n2025-07-06\n\n\nモートン符号についての考察\n\n\ncomputerscience, mortoncode\n\n\n\n\n\n\n2025-06-02\n\n\nロシアンルーレットについての考察\n\n\ncomputerscience\n\n\n\n\n\n\n2025-01-26\n\n\nNetlify と Playwright とビルドエラー\n\n\nweb, pnpm, netlify, playwright\n\n\n\n\n\n\n2025-01-15\n\n\n正規直交基底の構築 (3)\n\n\ncomputerscience, onb, orthonormal, basis\n\n\n\n\n\n\n2025-01-13\n\n\n正規直交基底の構築 (2)\n\n\ncomputerscience, onb, orthonormal, basis\n\n\n\n\n\n\n2025-01-13\n\n\n正規直交基底の構築 (1)\n\n\ncomputerscience, onb, orthonormal, basis\n\n\n\n\n\n\n2023-12-31\n\n\nCRT shader\n\n\ncomputergraphics, glsl, shadertoy\n\n\n\n\n\n\n2021-06-30\n\n\nCalibre-Web on TS-220\n\n\nweb, qnap, ts220, calibreweb, python\n\n\n\n\n\n\n2021-06-09\n\n\n剛体シム覚書\n\n\nphysics, rigidbody, python\n\n\n\n\n\n\n2021-02-19\n\n\nプリュッカー座標の考察\n\n\nmath, plückercoordinates, cpp\n\n\n\n\n\n\n2021-01-22\n\n\nGatsby ブログに任意のフォントを追加する方法\n\n\nweb, gatsby\n\n\n\n\n\n\n2021-01-19\n\n\nアーカイブ機能の実装\n\n\nweb, gatsby\n\n\n\n\n\n\n2021-01-12\n\n\n複素数における回転の表現と補間\n\n\nmath, complexnumbers, cpp\n\n\n\n\n\n\n2021-01-05\n\n\n双対複素数\n\n\nmath, dualcomplexnumbers, cpp\n\n\n\n\n\n\n2020-12-27\n\n\nZotero の運用方法\n\n\nsoftware, zotero\n\n\n\n\n\n\n2020-12-27\n\n\nJoplin の運用方法\n\n\nsoftware, joplin\n\n\n\n\n\n\n2020-12-26\n\n\nHow to start a simplest-blog quickly with Gatsby\n\n\nweb, gatsby\n\n\n\n\n\n\n1970-01-01\n\n\nToy Box\n\n\nrepository, codesnippet\n\n\n\n\n\n\n一致なし\n トップに戻る"
+  }
+]

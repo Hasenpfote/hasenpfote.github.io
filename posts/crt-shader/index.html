@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="CRT モニタ特有の雰囲気を適用する方法について">
+
+<title>CRT shader – /var/log/little-things</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0348920b7671f696dc9078d39bff215e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4bd7901cb00417bfaa1de38a7f09accc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-e1d00fa3f6bb02239827e0c4ce910647.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-4bd7901cb00417bfaa1de38a7f09accc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">/var/log/little-things</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../archive.html"> 
+<span class="menu-text">Archive</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts/toy-box.html"> 
+<span class="menu-text">Toy Box</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.shadertoy.com/user/hasenpfote"> 
+<span class="menu-text">Shadertoy</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Hasenpfote"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="ダークモードの切り替え"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="リーダーモードの切り替え">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">CRT shader</h1>
+                  <div>
+        <div class="description">
+          CRT モニタ特有の雰囲気を適用する方法について
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">computergraphics</div>
+                <div class="quarto-category">glsl</div>
+                <div class="quarto-category">shadertoy</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">公開</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">2023年12月31日</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#概要" id="toc-概要" class="nav-link active" data-scroll-target="#概要"><span class="header-section-number">1</span> 概要</a></li>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link" data-scroll-target="#はじめに"><span class="header-section-number">2</span> はじめに</a></li>
+  <li><a href="#理論と実践" id="toc-理論と実践" class="nav-link" data-scroll-target="#理論と実践"><span class="header-section-number">3</span> 理論と実践</a>
+  <ul>
+  <li><a href="#基本機能" id="toc-基本機能" class="nav-link" data-scroll-target="#基本機能"><span class="header-section-number">3.1</span> 基本機能</a>
+  <ul>
+  <li><a href="#mask" id="toc-mask" class="nav-link" data-scroll-target="#mask"><span class="header-section-number">3.1.1</span> Mask</a></li>
+  <li><a href="#pixelation" id="toc-pixelation" class="nav-link" data-scroll-target="#pixelation"><span class="header-section-number">3.1.2</span> Pixelation</a></li>
+  <li><a href="#scanline" id="toc-scanline" class="nav-link" data-scroll-target="#scanline"><span class="header-section-number">3.1.3</span> Scanline</a></li>
+  </ul></li>
+  <li><a href="#追加機能" id="toc-追加機能" class="nav-link" data-scroll-target="#追加機能"><span class="header-section-number">3.2</span> 追加機能</a>
+  <ul>
+  <li><a href="#distortion" id="toc-distortion" class="nav-link" data-scroll-target="#distortion"><span class="header-section-number">3.2.1</span> Distortion</a></li>
+  <li><a href="#vignetting" id="toc-vignetting" class="nav-link" data-scroll-target="#vignetting"><span class="header-section-number">3.2.2</span> Vignetting</a></li>
+  <li><a href="#color-fringing" id="toc-color-fringing" class="nav-link" data-scroll-target="#color-fringing"><span class="header-section-number">3.2.3</span> Color fringing</a></li>
+  </ul></li>
+  <li><a href="#デモ" id="toc-デモ" class="nav-link" data-scroll-target="#デモ"><span class="header-section-number">3.3</span> デモ</a></li>
+  </ul></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ"><span class="header-section-number">4</span> まとめ</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献"><span class="header-section-number">5</span> 参考文献</a></li>
+  <li><a href="#参考記事" id="toc-参考記事" class="nav-link" data-scroll-target="#参考記事"><span class="header-section-number">6</span> 参考記事</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Hasenpfote/quarto-blog/edit/main/posts/crt-shader/index.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/blob/main/posts/crt-shader/index.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+
+<section id="概要" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="概要"><span class="header-section-number">1</span> 概要</h2>
+<p>ここでは，LCD モニタの出力映像に CRT モニタ特有の雰囲気を適用する方法について模索をする．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="crt_shader.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="CRT shader"><img src="crt_shader.png" class="img-fluid figure-img" alt="CRT shader"></a></p>
+<figcaption>CRT shader</figcaption>
+</figure>
+</div>
+</section>
+<section id="はじめに" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="はじめに"><span class="header-section-number">2</span> はじめに</h2>
+<p>似たような課題の中，代表的なものは次のとおり．</p>
+<ol type="1">
+<li><p>第 6 世代ゲーム機以前の映像を LCD モニタで再現<br>
+解像度間のピクセル 1:1 対応など，エミュレータ界隈の課題．</p></li>
+<li><p>空間内で CRT モニタを表現<br>
+一般的な現実感を追求する課題．</p></li>
+<li><p>出力映像に CRT モニタ特有の雰囲気を適用<br>
+1 番目の逆方向</p></li>
+</ol>
+<p>3 番目が主目的となる．</p>
+</section>
+<section id="理論と実践" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="理論と実践"><span class="header-section-number">3</span> 理論と実践</h2>
+<section id="基本機能" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="基本機能"><span class="header-section-number">3.1</span> 基本機能</h3>
+<section id="mask" class="level4" data-number="3.1.1">
+<h4 data-number="3.1.1" class="anchored" data-anchor-id="mask"><span class="header-section-number">3.1.1</span> Mask</h4>
+<p>Mask とは，蛍光面と平行に配置された有孔の金属板. 電子銃から発射された電子線が，対応する蛍光体以外に当たらないよう陰をつくる. 類似する技術としては Shadow mask や Slot mask，Aperture grille があり，ここでは Mask と総称する．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/CRT_pixel_array.jpg/512px-CRT_pixel_array.jpg?20070103111210" class="img-fluid figure-img"></p>
+<figcaption>CRT pixel array</figcaption>
+</figure>
+</div>
+<p>表現するにあたっては，Mask と蛍光面をまとめて扱う. 表現としての Mask は，実際の画面解像度に大きく影響を受ける. 実装は，FHD/4K/8K 毎に考慮する点に注意. 配列やテクスチャによる繰り返しパターンによる実装が一般的．</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode glsl code-with-copy"><code class="sourceCode glsl"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// GLSL code</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">vec3</span> red     <span class="op">=</span> <span class="dt">vec3</span><span class="op">(</span><span class="fl">1.</span><span class="op">,</span> <span class="fl">0.</span><span class="op">,</span> <span class="fl">0.</span><span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">vec3</span> blue    <span class="op">=</span> <span class="dt">vec3</span><span class="op">(</span><span class="fl">0.</span><span class="op">,</span> <span class="fl">0.</span><span class="op">,</span> <span class="fl">1.</span><span class="op">);</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">vec3</span> yellow  <span class="op">=</span> <span class="dt">vec3</span><span class="op">(</span><span class="fl">1.</span><span class="op">,</span> <span class="fl">1.</span><span class="op">,</span> <span class="fl">0.</span><span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">vec3</span> cyan    <span class="op">=</span> <span class="dt">vec3</span><span class="op">(</span><span class="fl">0.</span><span class="op">,</span> <span class="fl">1.</span><span class="op">,</span> <span class="fl">1.</span><span class="op">);</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">// for Aperture grille</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">vec3</span> pattern<span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">=</span> <span class="dt">vec3</span><span class="op">[](</span>red<span class="op">,</span> yellow<span class="op">,</span> cyan<span class="op">,</span> blue<span class="op">);</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">vec3</span> <span class="fu">mask</span><span class="op">(</span><span class="dt">in</span> <span class="dt">vec2</span> pos<span class="op">){</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="dt">index</span> <span class="op">=</span> <span class="dt">int</span><span class="op">(</span><span class="bu">mod</span><span class="op">(</span>pos<span class="op">.</span><span class="fu">x</span><span class="op">,</span> <span class="fl">4.</span><span class="op">));</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> pattern<span class="op">[</span><span class="dt">index</span><span class="op">];</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="pixelation" class="level4" data-number="3.1.2">
+<h4 data-number="3.1.2" class="anchored" data-anchor-id="pixelation"><span class="header-section-number">3.1.2</span> Pixelation</h4>
+<p>Mask を通り，蛍光体に照射される電子線を表現するには，ピクセル化が必要になる．また，代表値は考慮する余地があり，算術平均の他に幾何平均の利用なども考えられる．幾何平均は,</p>
+<p><span class="math display">\[
+\left(\prod_{i=1}^{n} a_{i} \right)^{\frac{1}{n}}
+=\exp{\left(\frac{1}{n} \sum_{i=1}^{n} \ln{a_{i}}\right)}
+\]</span></p>
+<p>0 では未定義になるので，0 にも意味を持たせるように補正をすると,</p>
+<p><span class="math display">\[
+\left(\prod_{i=1}^{n} (a_{i}+1) \right)^{\frac{1}{n}} - 1
+=\exp{\left(\frac{1}{n} \sum_{i=1}^{n} \ln{(a_{i}+1)}\right)} - 1
+\]</span></p>
+<p>形状については Ian Mallett 氏の<a href="https://geometrian.com/programming/reference/subpixelzoo/index.php">記事</a> より,</p>
+<blockquote class="blockquote">
+<p>The most immediate concern is how the 2D square grid of the pixel data maps onto the non-square display. I haven’t found anyone willing to say definitively what happens, but probably it’s done by resampling, explicitly or implicitly—not by e.g.&nbsp;shifting alternate rows of the grid and squashing. Evidence in favor of this is the claim that CRT monitors are inherently multisync, and have no native resolution, as well as my own experiments on PenTile displays which showed that neighboring pixels can contribute to the same subpixel.</p>
+</blockquote>
+<p>これは，正方形でのピクセル化が広く採用されている理由の一因かも知れない．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.shadertoy.com/embed/mtlfDs?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen="">
+</iframe>
+<figcaption>
+Fig. 2a. 実装例 (resume で操作可/詳細はImageタグ)
+</figcaption>
+</figure>
+</div>
+<p>一方で，サイズと形状に焦点を当てると,</p>
+<ul>
+<li><p>Aperture grille<br>
+<strong>原点が (0.5, 0.5) な <a href="https://registry.khronos.org/OpenGL-Refpages/gl4/html/gl_FragCoord.xhtml">gl_FragCoord.xy</a></strong> を <span class="math inline">\(\boldsymbol{p} \in \mathbb{R}^2\)</span>，ピクセル化サイズを <span class="math inline">\(N \in \mathbb{N}\)</span>，変換後の座標を <span class="math inline">\(\boldsymbol{q} \in \mathbb{R}^2\)</span> とすると,</p>
+<p><span class="math display">\[
+\boldsymbol{q} = \boldsymbol{p} - (\lfloor \boldsymbol{p} \rfloor \bmod N)
+\]</span></p></li>
+<li><p>Slot mask<br>
+Aperture grille の定義に加え，<span class="math inline">\(y_{offset} \in \mathbb{R}\)</span> とすると,</p>
+<p><span class="math display">\[
+y_{offset}=
+\begin{cases}
+  0 &amp; \text{if $\lfloor\frac{p_{x}}{N}\rfloor$ even}\\
+  \lfloor\frac{N}{2}\rfloor &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<p>この値を <span class="math inline">\(p_{y}\)</span> に減算代入し，Aperture grille の変換式を用いる．</p></li>
+<li><p>Shadow mask<br>
+図は，三つ組の同じ背景色が同じ行であることを示しており，T 形状が必要になることを示唆している．しかし，忠実に再現をすると解像度が水平方向は 3/2，垂直方向は 1/2 となるので，妥協が必要．</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="crt_shader_aperture_grille.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Fig. 2b. Aperture grille"><img src="crt_shader_aperture_grille.png" class="img-fluid figure-img" alt="Fig. 2b. Aperture grille"></a></p>
+<figcaption>Fig. 2b. Aperture grille</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="crt_shader_slot_mask.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Fig. 2c. Slot mask"><img src="crt_shader_slot_mask.png" class="img-fluid figure-img" alt="Fig. 2c. Slot mask"></a></p>
+<figcaption>Fig. 2c. Slot mask</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="crt_shader_shadow_mask.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Fig. 2d. Shadow mask"><img src="crt_shader_shadow_mask.png" class="img-fluid figure-img" alt="Fig. 2d. Shadow mask"></a></p>
+<figcaption>Fig. 2d. Shadow mask</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.shadertoy.com/embed/DldyzH?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen="">
+</iframe>
+<figcaption>
+Fig. 2e. 妥協した結果
+</figcaption>
+</figure>
+</div>
+<p>表現すること自体は難しくないようだ．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.shadertoy.com/embed/DdcBzj?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen="">
+</iframe>
+<figcaption>
+Fig. 2f. 実装例 (resume で操作可/詳細はImageタグ)
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="scanline" class="level4" data-number="3.1.3">
+<h4 data-number="3.1.3" class="anchored" data-anchor-id="scanline"><span class="header-section-number">3.1.3</span> Scanline</h4>
+<p>ある瞬間の電子銃は電子線を一点に発射している. Scanline とは，高速で動く電子銃が発射する電子線が蛍光体に当たった残光の軌跡により，画面上の一行と知覚される線のようなものである. これは遠目に見ても色線と黒線と認識ができる．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Mitsubishi_CS-40307_CRT_Television_Close-up.jpg/512px-Mitsubishi_CS-40307_CRT_Television_Close-up.jpg?20230709150134" class="img-fluid figure-img"></p>
+<figcaption>Mitsubishi CS-40307 CRT Television Close-up</figcaption>
+</figure>
+</div>
+<p>これを表現するには，Shadow mask，Pixelation 同様に，サイズに応じた間隔での描画が必要になる．</p>
+<p>TimothyLottes 氏の <a href="https://www.shadertoy.com/view/XsjSzR">FixingPixelArt</a> で採用されているガウス関数を元にした実装では，水平方向と垂直方向で役割が異なる処理をしている．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/rj7a2xozbr?embed=">
+</iframe>
+<figcaption>
+Fig. 3a. 水平方向は軌跡を表現
+</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/4gtjci6rbo?embed=">
+</iframe>
+<figcaption>
+Fig. 3b. 垂直方向は色線と黒線を表現
+</figcaption>
+</figure>
+</div>
+<p>この垂直方向のガウス関数を使った方法は制御がし易く，自然な仕上がりになる．</p>
+<p>また，周辺 3 行を対象にすることで，次のような効果も得ているようだ．</p>
+<ul>
+<li><p>輝度の増幅<br>
+マスクを適用すると暗くなりがちなので有用. 電子線の軌跡のようなものと捉えるべきか?</p></li>
+<li><p>スキャンラインのアンチエイリアシング<br>
+歪曲収差を適用するとモアレが発生するので有用. 1次元の <a href="https://www.researchgate.net/publication/221024360_New_Anti-Aliasing_and_Depth_of_Field_Techniques_for_Games_Graphics">Quincunx AA</a> のようなものか．</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.shadertoy.com/embed/DsGyzR?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen="">
+</iframe>
+<figcaption>
+Fig. 3c. 実装例 (resume で操作可/詳細はImageタグ)
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="追加機能" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="追加機能"><span class="header-section-number">3.2</span> 追加機能</h3>
+<section id="distortion" class="level4" data-number="3.2.1">
+<h4 data-number="3.2.1" class="anchored" data-anchor-id="distortion"><span class="header-section-number">3.2.1</span> Distortion</h4>
+<p>CRT モニタには，電子線の焦点の大きさが一定になるよう湾曲しているものとそうでないものがあり，広く知られているのは前者である．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Cinescopio_per_televisore_a_schermo_rettangolare%2C_13_pollici%2C_deflessione_90%C2%B0%2C_bianco_e_nero_-_Museo_scienza_tecnologia_Milano_10082_dia.jpg/512px-Cinescopio_per_televisore_a_schermo_rettangolare%2C_13_pollici%2C_deflessione_90%C2%B0%2C_bianco_e_nero_-_Museo_scienza_tecnologia_Milano_10082_dia.jpg?20160521133507" class="img-fluid figure-img"></p>
+<figcaption>Cinescopio per televisore a schermo rettangolare, 13 pollici, deflessione 90°, bianco e nero - Museo scienza tecnologia Milano 10082 dia</figcaption>
+</figure>
+</div>
+<p>樽型の放射方向歪曲収差で表現する. Brown-Conrady モデル，または除算モデルを利用する．</p>
+<p><span class="math display">\[
+\begin{aligned}
+x_u = x_c + \frac{x_d - x_c}{1 + K_1 r^2 + K_2 r^4 + \cdots}\\
+y_u = y_c + \frac{y_d - y_c}{1 + K_1 r^2 + K_2 r^4 + \cdots}
+\end{aligned}
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/ssop8renbo?embed=">
+</iframe>
+<figcaption>
+Fig. 4a. 除算モデルによるサンプリング
+</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.shadertoy.com/embed/Dd3cWs?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen="">
+</iframe>
+<figcaption>
+Fig. 4b. 実装例 (resume で操作可/詳細はImageタグ)
+</figcaption>
+</figure>
+</div>
+<p>この処理で変換した座標を，異なる処理で使うと意図しない出力を得る可能性がある．</p>
+<ul>
+<li><p>テクスチャフェッチ<br>
+最近傍テクセルになるよう座標を調整することで回避可．</p>
+<p><span class="math display">\[
+\boldsymbol{q}_{d} = 0.5 + \lfloor \boldsymbol{p}_{d} \rfloor
+\]</span></p></li>
+<li><p>Mask<br>
+規則的なパターンが不規則となりモアレが発生する．ピクセル化サイズが十分小さいなら，変換した座標を使わないことも回避策のひとつ．</p></li>
+<li><p>Scanline<br>
+規則的なパターンが不規則となりモアレが発生する．目立たないよう消極的な回避策で妥協するかは課題となる．</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.shadertoy.com/embed/DtccDM?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen="">
+</iframe>
+<figcaption>
+Fig. 4c. 典型例
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="vignetting" class="level4" data-number="3.2.2">
+<h4 data-number="3.2.2" class="anchored" data-anchor-id="vignetting"><span class="header-section-number">3.2.2</span> Vignetting</h4>
+<p>周辺減光，あるいはケラレ．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Swanson_tennis_center.jpg/512px-Swanson_tennis_center.jpg?20110422124228" class="img-fluid figure-img"></p>
+<figcaption>Swanson tennis center</figcaption>
+</figure>
+</div>
+<p>円や楕円では適用範囲が限定されるため，<a href="https://en.wikipedia.org/wiki/Superellipse">超楕円</a>を利用する．</p>
+<p><span class="math display">\[
+\left|\frac{x}{a}\right|^n + \left|\frac{y}{b}\right|^n = 1
+\]</span></p>
+<p>形状としては，<span class="math inline">\(a=b=1, \, n\ge 5\)</span> が適当. ただし，冪演算を回避するため代替手段を採る．</p>
+<p><span class="math display">\[
+uv(1 - u)(1 -v) \quad (0\le u \le 1, \, 0\le v \le 1)
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/uds59cfch6?embed=">
+</iframe>
+<figcaption>
+Fig. 5a. Vignetting
+</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.shadertoy.com/embed/msdyDf?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen="">
+</iframe>
+<figcaption>
+Fig. 5b. 実装例 (resume で操作可/詳細はImageタグ)
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="color-fringing" class="level4" data-number="3.2.3">
+<h4 data-number="3.2.3" class="anchored" data-anchor-id="color-fringing"><span class="header-section-number">3.2.3</span> Color fringing</h4>
+<p>Color fringing は色縁や色縞，あるいは色のずれを指し，各色の電子線が蛍光体上で意図しない位置を照射している場合に生じる現象．帯磁や劣化など原因は多岐にわたる．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Degauss-in-progress_at_Dell-Trinitron-monitor.jpg?20110309153130" class="img-fluid figure-img"></p>
+<figcaption>A degaussing in progress on a Dell Ultra Scan P991</figcaption>
+</figure>
+</div>
+<p>また，画面中央と周辺領域で蛍光体の面積が異なるような平面に近い CRT モニタでも生じる．</p>
+<p>これを表現するには，光学系の倍率色収差を利用する．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/pxyvntbxnf?embed=">
+</iframe>
+<figcaption>
+Fig. 6a. 基本的なモデル
+</figcaption>
+</figure>
+</div>
+<p>基本的なモデルでは，全体に色のずれが発生している. ダメージを負った CRT モニタの表現としては良いかもしれないが，少々主張が激しい．Vignetting 同様に適用範囲を考えると，周辺領域に適用されるのが望ましい．</p>
+<p>ここでは，Lesovoi 氏の<a href="https://habr.com/ru/companies/vk/articles/510330/">記事</a>を参考に考察を行う．</p>
+<ul>
+<li><p>物理ベース<br>
+必要性がないので除外</p></li>
+<li><p>周辺領域への適用<br>
+<a href="https://en.wikipedia.org/wiki/Euclidean_distance">ユークリッド距離</a>では円や楕円となり，中央領域への影響が未だ大きい．より周辺領域に寄せるため，<a href="https://en.wikipedia.org/wiki/Chebyshev_distance">チェビシェフ距離</a>に置き換える．</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="crt_shader_ca_01.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Fig. 6b. 同パラメータ時のユークリッド距離での効果(赤色は処理不要領域の可視化)"><img src="crt_shader_ca_01.png" class="img-fluid figure-img" alt="Fig. 6b. 同パラメータ時のユークリッド距離での効果(赤色は処理不要領域の可視化)"></a></p>
+<figcaption>Fig. 6b. 同パラメータ時のユークリッド距離での効果(赤色は処理不要領域の可視化)</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="crt_shader_ca_02.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Fig. 6c. 同パラメータ時のチェビシェフ距離での効果(赤色は処理不要領域の可視化)"><img src="crt_shader_ca_02.png" class="img-fluid figure-img" alt="Fig. 6c. 同パラメータ時のチェビシェフ距離での効果(赤色は処理不要領域の可視化)"></a></p>
+<figcaption>Fig. 6c. 同パラメータ時のチェビシェフ距離での効果(赤色は処理不要領域の可視化)</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.shadertoy.com/embed/ctsfz2?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen="">
+</iframe>
+<figcaption>
+Fig. 6c. 実装例 (resume で操作可/詳細はImageタグ)
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="デモ" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="デモ"><span class="header-section-number">3.3</span> デモ</h3>
+<p>選択肢がある機能は次のとおり．</p>
+<ul>
+<li><p>Mask<br>
+すべて</p></li>
+<li><p>Pixelation<br>
+Model:4 の層化サンプリング下での算術平均</p></li>
+<li><p>Scanline<br>
+Model:2 のガウス関数</p></li>
+<li><p>Vignetting<br>
+Model:4 の超楕円の代替</p></li>
+<li><p>Color fringing<br>
+Model:4 のチェビシェフ距離による周辺領域への適用</p></li>
+</ul>
+<p>通常，Mask や Scanline を導入した時点で画面が暗くなる．許容できない場合は，適当なガンマ補正やトーンマッピングを導入することになる．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.shadertoy.com/embed/mt3cDB?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen="">
+</iframe>
+<figcaption>
+Fig. 7a. 実装例 (resume で操作可/詳細はImageタグ)
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="まとめ" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="まとめ"><span class="header-section-number">4</span> まとめ</h2>
+<p>各機能の選択に，これといった正解がないのが面白い課題．</p>
+</section>
+<section id="参考文献" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="参考文献"><span class="header-section-number">5</span> 参考文献</h2>
+<ol type="1">
+<li><a href="https://www.researchgate.net/publication/221024360_New_Anti-Aliasing_and_Depth_of_Field_Techniques_for_Games_Graphics">New Anti-Aliasing and Depth of Field Techniques for Games Graphics.</a></li>
+</ol>
+</section>
+<section id="参考記事" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="参考記事"><span class="header-section-number">6</span> 参考記事</h2>
+<ol type="1">
+<li><a href="http://filthypants.blogspot.com/2020/02/crt-shader-masks.html">CRT shader masks - Filthy Pants: A Computer Blog</a></li>
+<li><a href="https://geometrian.com/programming/reference/subpixelzoo/index.php">Subpixel Zoo - geometrian.com</a></li>
+<li><a href="https://www.shadertoy.com/view/XsjSzR">FixingPixelArt - shadertoy.com</a></li>
+<li><a href="https://emulation.gametechwiki.com/index.php/CRT_shaders">CRT shaders - emulation.gametechwiki.com</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cathode-ray_tube">Cathode-ray tube - en.wikipedia.org</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Shadow_mask">Shadow mask - en.wikipedia.org</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Scan_line">Scan_line - en.wikipedia.org</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Distortion_(optics)">Distortion (optics) - en.wikipedia.org</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Vignetting">Vignetting - en.wikipedia.org</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Superellipse">Superellipse - en.wikipedia.org</a></li>
+<li><a href="https://habr.com/ru/companies/vk/articles/510330/">Armored Warfare: Проект Армата. Хроматическая аберрация - lesha_lesovoy</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean distance - en.wikipedia.org</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Chebyshev_distance">Chebyshev distance - en.wikipedia.org</a></li>
+</ol>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/hasenpfote\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      if (authorPrefersDark) {
+          [baseTheme, altTheme] = [altTheme, baseTheme];
+      }
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "Hasenpfote/blog-comments";
+    script.dataset.repoId = "R_kgDOI-oVeg";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOI-oVes4CUQGw";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://quarto.org">
+<p>Built with Quarto</p>
+</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ © 2020-2025 Hasenpfote
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Hasenpfote/quarto-blog/edit/main/posts/crt-shader/index.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/blob/main/posts/crt-shader/index.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../index.xml">
+<p>RSS</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../sitemap.xml">
+<p>Sitemap</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

@@ -1,0 +1,50 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/thoughts-on-slab-method.html",
+      "/posts/thoughts-on-morton-code.html",
+      "/posts/thoughts-on-rr.html",
+      "/posts/netlify-playwright-build-error.html",
+      "/posts/building-an-orthonormal-basis-3.html",
+      "/posts/building-an-orthonormal-basis-2.html",
+      "/posts/building-an-orthonormal-basis-1.html",
+      "/posts/crt-shader/index.html",
+      "/posts/calibre-web-on-ts-220.html",
+      "/posts/rigid-body-simulation-notes.html",
+      "/posts/thoughts-on-pluecker-coordinates.html",
+      "/posts/gatsby-add-custom-font.html",
+      "/posts/gatsby-starter-lumen-archive-implementation/index.html",
+      "/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html",
+      "/posts/dual-complex-numbers.html",
+      "/posts/zotero-workflow/index.html",
+      "/posts/joplin-workflow/index.html",
+      "/posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html",
+      "/posts/toy-box.html"
+    ]
+  },
+  {
+    "listing": "/archive.html",
+    "items": [
+      "/posts/thoughts-on-slab-method.html",
+      "/posts/thoughts-on-morton-code.html",
+      "/posts/thoughts-on-rr.html",
+      "/posts/netlify-playwright-build-error.html",
+      "/posts/building-an-orthonormal-basis-3.html",
+      "/posts/building-an-orthonormal-basis-2.html",
+      "/posts/building-an-orthonormal-basis-1.html",
+      "/posts/crt-shader/index.html",
+      "/posts/calibre-web-on-ts-220.html",
+      "/posts/rigid-body-simulation-notes.html",
+      "/posts/thoughts-on-pluecker-coordinates.html",
+      "/posts/gatsby-add-custom-font.html",
+      "/posts/gatsby-starter-lumen-archive-implementation/index.html",
+      "/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html",
+      "/posts/dual-complex-numbers.html",
+      "/posts/zotero-workflow/index.html",
+      "/posts/joplin-workflow/index.html",
+      "/posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html",
+      "/posts/toy-box.html"
+    ]
+  }
+]

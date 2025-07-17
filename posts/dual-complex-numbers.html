@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="双対複素数について">
+
+<title>双対複素数 – /var/log/little-things</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0348920b7671f696dc9078d39bff215e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4bd7901cb00417bfaa1de38a7f09accc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-e1d00fa3f6bb02239827e0c4ce910647.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4bd7901cb00417bfaa1de38a7f09accc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">/var/log/little-things</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../archive.html"> 
+<span class="menu-text">Archive</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../posts/toy-box.html"> 
+<span class="menu-text">Toy Box</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.shadertoy.com/user/hasenpfote"> 
+<span class="menu-text">Shadertoy</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Hasenpfote"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="ダークモードの切り替え"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="リーダーモードの切り替え">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">双対複素数</h1>
+                  <div>
+        <div class="description">
+          双対複素数について
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">math</div>
+                <div class="quarto-category">dualcomplexnumbers</div>
+                <div class="quarto-category">cpp</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">公開</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">2021年1月5日</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#概要" id="toc-概要" class="nav-link active" data-scroll-target="#概要"><span class="header-section-number">1</span> 概要</a></li>
+  <li><a href="#双対数" id="toc-双対数" class="nav-link" data-scroll-target="#双対数"><span class="header-section-number">2</span> 双対数</a>
+  <ul>
+  <li><a href="#加法" id="toc-加法" class="nav-link" data-scroll-target="#加法"><span class="header-section-number">2.1</span> 加法</a></li>
+  <li><a href="#乗法" id="toc-乗法" class="nav-link" data-scroll-target="#乗法"><span class="header-section-number">2.2</span> 乗法</a></li>
+  <li><a href="#乗法の逆元" id="toc-乗法の逆元" class="nav-link" data-scroll-target="#乗法の逆元"><span class="header-section-number">2.3</span> 乗法の逆元</a></li>
+  <li><a href="#共役" id="toc-共役" class="nav-link" data-scroll-target="#共役"><span class="header-section-number">2.4</span> 共役</a></li>
+  <li><a href="#絶対値" id="toc-絶対値" class="nav-link" data-scroll-target="#絶対値"><span class="header-section-number">2.5</span> 絶対値</a></li>
+  <li><a href="#テイラー展開" id="toc-テイラー展開" class="nav-link" data-scroll-target="#テイラー展開"><span class="header-section-number">2.6</span> テイラー展開</a></li>
+  </ul></li>
+  <li><a href="#双対複素数" id="toc-双対複素数" class="nav-link" data-scroll-target="#双対複素数"><span class="header-section-number">3</span> 双対複素数</a>
+  <ul>
+  <li><a href="#加法-1" id="toc-加法-1" class="nav-link" data-scroll-target="#加法-1"><span class="header-section-number">3.1</span> 加法</a>
+  <ul>
+  <li><a href="#結合性" id="toc-結合性" class="nav-link" data-scroll-target="#結合性"><span class="header-section-number">3.1.1</span> 結合性</a></li>
+  <li><a href="#可換性" id="toc-可換性" class="nav-link" data-scroll-target="#可換性"><span class="header-section-number">3.1.2</span> 可換性</a></li>
+  <li><a href="#中立元の存在性" id="toc-中立元の存在性" class="nav-link" data-scroll-target="#中立元の存在性"><span class="header-section-number">3.1.3</span> 中立元の存在性</a></li>
+  <li><a href="#反数の存在性" id="toc-反数の存在性" class="nav-link" data-scroll-target="#反数の存在性"><span class="header-section-number">3.1.4</span> 反数の存在性</a></li>
+  </ul></li>
+  <li><a href="#乗法-1" id="toc-乗法-1" class="nav-link" data-scroll-target="#乗法-1"><span class="header-section-number">3.2</span> 乗法</a>
+  <ul>
+  <li><a href="#乗法のルール" id="toc-乗法のルール" class="nav-link" data-scroll-target="#乗法のルール"><span class="header-section-number">3.2.1</span> 乗法のルール</a></li>
+  <li><a href="#結合性-1" id="toc-結合性-1" class="nav-link" data-scroll-target="#結合性-1"><span class="header-section-number">3.2.2</span> 結合性</a></li>
+  <li><a href="#可換性-1" id="toc-可換性-1" class="nav-link" data-scroll-target="#可換性-1"><span class="header-section-number">3.2.3</span> 可換性</a></li>
+  <li><a href="#中立元の存在" id="toc-中立元の存在" class="nav-link" data-scroll-target="#中立元の存在"><span class="header-section-number">3.2.4</span> 中立元の存在</a></li>
+  </ul></li>
+  <li><a href="#分配性" id="toc-分配性" class="nav-link" data-scroll-target="#分配性"><span class="header-section-number">3.3</span> 分配性</a></li>
+  <li><a href="#乗法の逆元-1" id="toc-乗法の逆元-1" class="nav-link" data-scroll-target="#乗法の逆元-1"><span class="header-section-number">3.4</span> 乗法の逆元</a></li>
+  <li><a href="#絶対値-1" id="toc-絶対値-1" class="nav-link" data-scroll-target="#絶対値-1"><span class="header-section-number">3.5</span> 絶対値</a></li>
+  <li><a href="#単位双対複素数" id="toc-単位双対複素数" class="nav-link" data-scroll-target="#単位双対複素数"><span class="header-section-number">3.6</span> 単位双対複素数</a>
+  <ul>
+  <li><a href="#共役による-checkmathbbc-上の-checkmathbbc_1-の作用" id="toc-共役による-checkmathbbc-上の-checkmathbbc_1-の作用" class="nav-link" data-scroll-target="#共役による-checkmathbbc-上の-checkmathbbc_1-の作用"><span class="header-section-number">3.6.1</span> 共役による <span class="math inline">\(\check{\mathbb{C}}\)</span> 上の <span class="math inline">\(\check{\mathbb{C}}_1\)</span> の作用</a>
+  <ul class="collapse">
+  <li><a href="#回転と変位の表現" id="toc-回転と変位の表現" class="nav-link" data-scroll-target="#回転と変位の表現"><span class="header-section-number">3.6.1.1</span> 回転と変位の表現</a></li>
+  <li><a href="#性質" id="toc-性質" class="nav-link" data-scroll-target="#性質"><span class="header-section-number">3.6.1.2</span> 性質</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#補間" id="toc-補間" class="nav-link" data-scroll-target="#補間"><span class="header-section-number">3.7</span> 補間</a>
+  <ul>
+  <li><a href="#dual-complex-number-linear-blending" id="toc-dual-complex-number-linear-blending" class="nav-link" data-scroll-target="#dual-complex-number-linear-blending"><span class="header-section-number">3.7.1</span> Dual complex number Linear Blending</a>
+  <ul class="collapse">
+  <li><a href="#正規化" id="toc-正規化" class="nav-link" data-scroll-target="#正規化"><span class="header-section-number">3.7.1.1</span> 正規化</a></li>
+  </ul></li>
+  <li><a href="#spherical-linear-interpolation" id="toc-spherical-linear-interpolation" class="nav-link" data-scroll-target="#spherical-linear-interpolation"><span class="header-section-number">3.7.2</span> Spherical Linear interpolation</a>
+  <ul class="collapse">
+  <li><a href="#指数関数と対数関数" id="toc-指数関数と対数関数" class="nav-link" data-scroll-target="#指数関数と対数関数"><span class="header-section-number">3.7.2.1</span> 指数関数と対数関数</a></li>
+  <li><a href="#性質-1" id="toc-性質-1" class="nav-link" data-scroll-target="#性質-1"><span class="header-section-number">3.7.2.2</span> 性質</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#変換の行列表現" id="toc-変換の行列表現" class="nav-link" data-scroll-target="#変換の行列表現"><span class="header-section-number">3.8</span> 変換の行列表現</a>
+  <ul>
+  <li><a href="#積の行列表現" id="toc-積の行列表現" class="nav-link" data-scroll-target="#積の行列表現"><span class="header-section-number">3.8.1</span> 積の行列表現</a></li>
+  <li><a href="#変換の行列表現-1" id="toc-変換の行列表現-1" class="nav-link" data-scroll-target="#変換の行列表現-1"><span class="header-section-number">3.8.2</span> 変換の行列表現</a></li>
+  <li><a href="#同次変換行列" id="toc-同次変換行列" class="nav-link" data-scroll-target="#同次変換行列"><span class="header-section-number">3.8.3</span> 同次変換行列</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#a-c-library" id="toc-a-c-library" class="nav-link" data-scroll-target="#a-c-library"><span class="header-section-number">4</span> A C++ Library</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献"><span class="header-section-number">5</span> 参考文献</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Hasenpfote/quarto-blog/edit/main/posts/dual-complex-numbers.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/blob/main/posts/dual-complex-numbers.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+
+<section id="概要" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="概要"><span class="header-section-number">1</span> 概要</h2>
+<p>二次元の剛体変換に非可換な双対複素数<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>を導入することを目的とする．複素数<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>と双対数<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>についての予備知識だけで概ね事足りる．後者についてはテイラー展開が重要になるので簡単に触れる．</p>
+<p>※ 四元数<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>や双対四元数<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>にも関連があるのでそれらの知識もあるとなお良い．</p>
+<p>双対数は二重数とも訳されるが前者で統一する．</p>
+</section>
+<section id="双対数" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="双対数"><span class="header-section-number">2</span> 双対数</h2>
+<p>双対数(Dual numbers)の環は次式で定義される剰余環．</p>
+<p><span class="math display">\[
+\hat{\mathbb{R}}
+:=\mathbb{R}[\epsilon]/(\epsilon^2)
+=\{a + b \epsilon \mid a, b \in \mathbb{R}\}
+\]</span></p>
+<section id="加法" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="加法"><span class="header-section-number">2.1</span> 加法</h3>
+<p><span class="math display">\[
+(a + b \epsilon) + (c + d \epsilon)
+= (a + c) + (b + d) \epsilon
+\]</span></p>
+</section>
+<section id="乗法" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="乗法"><span class="header-section-number">2.2</span> 乗法</h3>
+<p><span class="math display">\[
+(a + b \epsilon)(c + d \epsilon)
+=ac + (ad + bc) \epsilon
+\]</span></p>
+</section>
+<section id="乗法の逆元" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="乗法の逆元"><span class="header-section-number">2.3</span> 乗法の逆元</h3>
+<p><span class="math display">\[
+\begin{aligned}
+(a + b \epsilon)^{-1}
+&amp;=a^{-1}(1 - a^{-1} b \epsilon) \hspace{20pt} (a \ne 0)
+\end{aligned}
+\]</span></p>
+</section>
+<section id="共役" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="共役"><span class="header-section-number">2.4</span> 共役</h3>
+<p><span class="math display">\[
+\overline{a + b \epsilon}
+=a - b \epsilon
+\]</span></p>
+</section>
+<section id="絶対値" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="絶対値"><span class="header-section-number">2.5</span> 絶対値</h3>
+<p><span class="math display">\[
+\begin{aligned}
+|a + b \epsilon|^2
+&amp;=(a + b \epsilon)(a - b \epsilon)
+=a^2\\
+\\
+|a + b \epsilon|
+&amp;=\sqrt{a^2}
+=|a|
+\end{aligned}
+\]</span></p>
+</section>
+<section id="テイラー展開" class="level3" data-number="2.6">
+<h3 data-number="2.6" class="anchored" data-anchor-id="テイラー展開"><span class="header-section-number">2.6</span> テイラー展開</h3>
+<p><span class="math display">\[
+\begin{aligned}
+f(a + b \epsilon)
+&amp;=\sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (b \epsilon)^n\\
+&amp;=f^{(0)}(a) + f^{(1)}(a) b \epsilon + \frac{f^{(2)}(a)}{2!} (b \epsilon)^2 + \cdots\\
+&amp;=f^{(0)}(a) + f^{(1)}(a) b \epsilon
+\end{aligned}
+\]</span></p>
+<p>例えば <span class="math inline">\(\sin(a + b \epsilon)\)</span> なら</p>
+<p><span class="math display">\[
+\sin(a + b \epsilon)
+=\sin(a) + \cos(a) b \epsilon
+\]</span></p>
+</section>
+</section>
+<section id="双対複素数" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="双対複素数"><span class="header-section-number">3</span> 双対複素数</h2>
+<p>双対複素数(Dual Complex Numbers)の環は次式で定義される剰余環．</p>
+<p><span class="math display">\[
+\hat{\mathbb{C}}
+:=\mathbb{C}[\epsilon]/(\epsilon^2)
+=\{p_0 + p_1 \epsilon \mid p_0, p_1 \in \mathbb{C}\}
+\]</span></p>
+<p><span class="math inline">\(\hat{\mathbb{C}}\)</span> の乗算について非可換な双対複素数を <span class="math inline">\(\check{\mathbb{C}}\)</span> と定義する．</p>
+<p><span class="math inline">\(\hat{p} \in \check{\mathbb{C}}\)</span> は</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p}
+&amp;=p_0 + p_1 \epsilon\\
+&amp;=(p_a + p_b \mathbb{i}) + (p_c + p_d \mathbb{i}) \epsilon\\
+&amp;=p_a + p_b \mathbb{i} + p_c \epsilon + p_d \mathbb{i} \epsilon
+\end{aligned}
+\]</span></p>
+<p>ここで <span class="math inline">\(p_a, p_b, p_c, p_d \in \mathbb{R}\)</span></p>
+<section id="加法-1" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="加法-1"><span class="header-section-number">3.1</span> 加法</h3>
+<p><span class="math display">\[
+\hat{p} + \hat{q} \in \check{\mathbb{C}}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\hat{p} + \hat{q}
+=(p_0 + p_1 \epsilon) + (q_0 + q_1 \epsilon)
+=(p_0 + q_0) + (p_1 + q_1) \epsilon
+\]</span></p>
+</blockquote>
+<section id="結合性" class="level4" data-number="3.1.1">
+<h4 data-number="3.1.1" class="anchored" data-anchor-id="結合性"><span class="header-section-number">3.1.1</span> 結合性</h4>
+<p><span class="math display">\[
+\hat{p} + (\hat{q} + \hat{r})
+=(\hat{p} + \hat{q}) + \hat{r}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} + (\hat{q} + \hat{r})
+&amp;=(p_0 + p_1 \epsilon) + \left((q_0 + q_1 \epsilon) + (r_0 + r_1 \epsilon)\right)\\
+&amp;=(p_0 + p_1 \epsilon) + \left((q_0 + r_0) + (q_1 + r_1) \epsilon\right)\\
+&amp;=(p_0 + q_0 + r_0) + (p_1 + q_1 + r_1) \epsilon\\
+\\
+(\hat{p} + \hat{q}) + \hat{r}
+&amp;=\left((p_0 + q_0) + (p_1 + q_1) \epsilon\right) + (r_0 + r_1 \epsilon)\\
+&amp;=(p_0 + q_0 + r_0) + (p_1 + q_1 + r_1) \epsilon
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+<section id="可換性" class="level4" data-number="3.1.2">
+<h4 data-number="3.1.2" class="anchored" data-anchor-id="可換性"><span class="header-section-number">3.1.2</span> 可換性</h4>
+<p><span class="math display">\[
+\hat{p} + \hat{q}
+=\hat{q} + \hat{p}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} + \hat{q}
+&amp;=(p_0 + p_1 \epsilon) + (q_0 + q_1 \epsilon)\\
+&amp;=(p_0 + q_0) + (p_1 + q_1) \epsilon\\
+\\
+\hat{q} + \hat{p}
+&amp;=(q_0 + q_1 \epsilon) + (p_0 + p_1 \epsilon)\\
+&amp;=(q_0 + p_0) + (q_1 + p_1)  \epsilon
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+<section id="中立元の存在性" class="level4" data-number="3.1.3">
+<h4 data-number="3.1.3" class="anchored" data-anchor-id="中立元の存在性"><span class="header-section-number">3.1.3</span> 中立元の存在性</h4>
+<p><span class="math display">\[
+\hat{p} + 0
+=\hat{p}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} + 0
+&amp;=(p_0 + p_1 \epsilon) + (0 + 0 \epsilon)\\
+&amp;=(p_0 + 0) + (p_1 + 0) \epsilon
+=\hat{p}
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+<section id="反数の存在性" class="level4" data-number="3.1.4">
+<h4 data-number="3.1.4" class="anchored" data-anchor-id="反数の存在性"><span class="header-section-number">3.1.4</span> 反数の存在性</h4>
+<p><span class="math display">\[
+\hat{p} + (- \hat{p})
+=0
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} + (- \hat{p})
+&amp;=(p_0 + p_1 \epsilon) + \left(- (p_0 + p_1 \epsilon)\right)\\
+&amp;=(p_0 - p_0) + (p_1 - p_1) \epsilon
+=0
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+</section>
+<section id="乗法-1" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="乗法-1"><span class="header-section-number">3.2</span> 乗法</h3>
+<p><span class="math display">\[
+\hat{p} \otimes \hat{q} \in \check{\mathbb{C}}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} \otimes \hat{q}
+&amp;=(p_0 + p_1 \epsilon) \otimes (q_0 + q_1 \epsilon)\\
+&amp;=p_0 \otimes q_0 + (p_0 \otimes q_1 + p_1 \otimes \overline{q_0}) \epsilon
+\end{aligned}
+\]</span></p>
+</blockquote>
+<section id="乗法のルール" class="level4" data-number="3.2.1">
+<h4 data-number="3.2.1" class="anchored" data-anchor-id="乗法のルール"><span class="header-section-number">3.2.1</span> 乗法のルール</h4>
+<p>乗積表(<span class="math inline">\(\mathbb{i} \epsilon = - \epsilon \mathbb{i}\)</span> に注意)は</p>
+<p><span class="math display">\[
+\begin{aligned}
+\begin{array}{c|cccc}
+  L \backslash R &amp; 1 &amp; \mathbb{i} &amp; \epsilon &amp; \mathbb{i} \epsilon\\ \hline
+    1 &amp; 1 &amp; \mathbb{i} &amp; \epsilon &amp; \mathbb{i} \epsilon\\
+    \mathbb{i} &amp; \mathbb{i} &amp; -1 &amp; \mathbb{i} \epsilon &amp; - \epsilon\\
+    \epsilon &amp; \epsilon &amp; - \mathbb{i} \epsilon &amp; 0 &amp; 0\\
+    \mathbb{i} \epsilon &amp; \mathbb{i} \epsilon &amp; \epsilon &amp; 0 &amp; 0\\
+\end{array}
+\end{aligned}
+\]</span></p>
+<p>順序に注意し展開</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} \otimes \hat{q}
+&amp;=(p_0 + p_1 \epsilon) \otimes (q_0 + q_1 \epsilon)\\
+&amp;=p_0 \cdot q_0
++ p_0 \cdot q_1 \epsilon
++ p_1 \epsilon \cdot q_0
++ p_1 \epsilon \cdot q_1 \epsilon\\
+\end{aligned}
+\]</span></p>
+<p>第3項は</p>
+<p><span class="math display">\[
+\begin{aligned}
+\epsilon \cdot q_0
+&amp;=\epsilon \cdot (q_a + q_b \mathbb{i})\\
+&amp;=q_a \epsilon + q_b \epsilon \mathbb{i}\\
+&amp;=q_a \epsilon - q_b \mathbb{i} \epsilon\\
+&amp;=(q_a - q_b \mathbb{i}) \epsilon
+=\overline{q_0} \epsilon
+\end{aligned}
+\]</span></p>
+<p>第4項は</p>
+<p><span class="math display">\[
+\begin{aligned}
+\epsilon \cdot q_1 \epsilon
+&amp;=\epsilon \cdot (q_c \epsilon + q_d \mathbb{i} \epsilon)\\
+&amp;=q_c \epsilon \epsilon + q_d \epsilon \mathbb{i} \epsilon\\
+&amp;=q_c \epsilon^2 - q_d \mathbb{i} \epsilon^2\\
+&amp;=(q_c - q_d \mathbb{i}) \epsilon^2
+=\overline{q_1} \epsilon^2
+\end{aligned}
+\]</span></p>
+<p>これらから左側から <span class="math inline">\(\epsilon\)</span> を掛けると右側の複素数の複素共役を取り順序が入れ替わる．</p>
+</section>
+<section id="結合性-1" class="level4" data-number="3.2.2">
+<h4 data-number="3.2.2" class="anchored" data-anchor-id="結合性-1"><span class="header-section-number">3.2.2</span> 結合性</h4>
+<p><span class="math display">\[
+\hat{p} \otimes (\hat{q} \otimes \hat{r})
+=(\hat{p} \otimes \hat{q}) \otimes \hat{r}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} \otimes (\hat{q} \otimes \hat{r})
+&amp;=(p_0 + p_1 \epsilon) \otimes \left(q_0 r_0 + (q_0 r_1 + q_1 \overline{r_0}) \epsilon\right)\\
+&amp;=p_0 q_0 r_0 + (p_0 q_0 r_1 + p_0 q_1 \overline{r_0} + p_1 \overline{q_0 r_0}) \epsilon\\
+\\
+(\hat{p}\hat{q}) \otimes \hat{r}
+&amp;=\left(p_0 q_0 + (p_0 q_1 + p_1 \overline{q_0}) \epsilon\right) \otimes (r_0 + r_1 \epsilon)\\
+&amp;=p_0 q_0 r_0 + (p_0 q_0 r_1 + p_0 q_1 \overline{r_0} + p_1 \overline{q_0} \overline{r_0}) \epsilon
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+<section id="可換性-1" class="level4" data-number="3.2.3">
+<h4 data-number="3.2.3" class="anchored" data-anchor-id="可換性-1"><span class="header-section-number">3.2.3</span> 可換性</h4>
+<p><span class="math display">\[
+\hat{p} \otimes \hat{q}
+\ne \hat{q} \otimes \hat{p}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} \otimes \hat{q}
+&amp;=p_0 q_0 + (p_0 q_1 + p_1 \overline{q_0}) \epsilon\\
+\\
+\hat{q} \otimes \hat{p}
+&amp;=q_0 p_0 + (q_0 p_1 + q_1 \overline{p_0}) \epsilon
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+<section id="中立元の存在" class="level4" data-number="3.2.4">
+<h4 data-number="3.2.4" class="anchored" data-anchor-id="中立元の存在"><span class="header-section-number">3.2.4</span> 中立元の存在</h4>
+<p><span class="math display">\[
+\hat{p} \otimes 1
+=\hat{p}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} \otimes 1
+&amp;=(p_0 + p_1 \epsilon) \otimes (1 + 0 \epsilon)\\
+&amp;=p_0 + p_1 \epsilon
+=\hat{p}
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+</section>
+<section id="分配性" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="分配性"><span class="header-section-number">3.3</span> 分配性</h3>
+<p><span class="math display">\[
+\hat{p} \otimes (\hat{q} + \hat{r})
+=\hat{p} \otimes \hat{q} + \hat{p} \otimes \hat{r}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} \otimes (\hat{q} + \hat{r})
+&amp;=(p_0 + p_1 \epsilon) \otimes \left((q_0 + r_0) + (q_1 + r_1) \epsilon\right)\\
+&amp;=p_0 q_0 + p_0 r_0 + (p_0 q_1 + p_0 r_1 + p_1 \overline{q_0} + p_1 \overline{r_0}) \epsilon\\
+&amp;=\hat{p} \otimes \hat{q} + \hat{p} \otimes \hat{r}
+\end{aligned}
+\]</span></p>
+</blockquote>
+<p><span class="math display">\[
+(\hat{p} + \hat{q}) \otimes \hat{r}
+=\hat{p} \otimes \hat{r} + \hat{q} \otimes \hat{r}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+(\hat{p} + \hat{q}) \otimes \hat{r}
+&amp;=\left((p_0 + q_0) + (p_1 + q_1) \epsilon\right) \otimes (r_0 + r_1 \epsilon)\\
+&amp;=p_0 r_0 + q_0 r_0 + (p_0 r_1 + q_0 r_1 + p_1\overline{r_0} + q_1 \overline{r_0}) \epsilon\\
+&amp;=\hat{p}\otimes \hat{r} + \hat{q} \otimes \hat{r}
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+<section id="乗法の逆元-1" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="乗法の逆元-1"><span class="header-section-number">3.4</span> 乗法の逆元</h3>
+<p><span class="math display">\[
+\hat{p}^{-1}
+=\frac{1}{\hat{p}}
+=\frac{\overline{p_0} - p_1 \epsilon}{|p_0|^2}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\frac{1}{p_0 + p_1 \epsilon}
+&amp;=\frac{1}{p_0 + p_1 \epsilon}\frac{\overline{p_0} - p_1 \epsilon}{\overline{p_0} - p_1 \epsilon}
+=\frac{\overline{p_0} - p_1 \epsilon}{p_0 \overline{p_0} + (p_1 p_0 - p_0 p_1) \epsilon}\\
+\end{aligned}
+\]</span></p>
+</blockquote>
+<p><span class="math display">\[
+\hat{p} \otimes \hat{p}^{-1}
+=\hat{p}^{-1} \otimes \hat{p}=1
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} \otimes \hat{p}^{-1}
+&amp;=(p_0 + p_1 \epsilon) \otimes \frac{\overline{p_0} - p_1 \epsilon}{|p_0|^2}\\
+&amp;=\frac{p_0 \overline{p_0} - p_0 p_1 \epsilon}{|p_0|^2} + \frac{p_1 p_0 \epsilon}{|p_0|^2}
+=\frac{p_0 \overline{p_0}}{|p_0|^2}=1\\
+\\
+\hat{p}^{-1} \otimes \hat{p}
+&amp;=\frac{\overline{p_0} - p_1 \epsilon}{|p_0|^2} \otimes (p_0 + p_1 \epsilon)\\
+&amp;=\frac{\overline{p_0} p_0 - p_1 \overline{p_0} \epsilon}{|p_0|^2} + \frac{\overline{p_0} p_1 \epsilon}{|p_0|^2}
+=\frac{\overline{p_0} p_0}{|p_0|^2}=1
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+<section id="絶対値-1" class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="絶対値-1"><span class="header-section-number">3.5</span> 絶対値</h3>
+<p><span class="math display">\[
+\begin{aligned}
+|\hat{p}|^2
+&amp;=(p_0 + p_1 \epsilon)(\overline{p_0} - p_1 \epsilon)
+=|p_0|^2\\
+\\
+|\hat{p}|
+&amp;=|p_0|
+\end{aligned}
+\]</span></p>
+</section>
+<section id="単位双対複素数" class="level3" data-number="3.6">
+<h3 data-number="3.6" class="anchored" data-anchor-id="単位双対複素数"><span class="header-section-number">3.6</span> 単位双対複素数</h3>
+<p>単位双対複素数の定義は</p>
+<p><span class="math display">\[
+\begin{aligned}
+\check{\mathbb{C}}_1:&amp;=\{\hat{p} \in \check{\mathbb{C}} \mid |\hat{p}| = 1\}\\
+&amp;=\{e^{\theta\mathbb{i}} + p_1 \epsilon \in \check{\mathbb{C}} \mid \theta \in \mathbb{R}, p_1 \in \mathbb{C}\}
+\end{aligned}
+\]</span></p>
+<p>乗法の逆元は</p>
+<p><span class="math display">\[
+(e^{\theta\mathbb{i}} + p_1 \epsilon)^{-1}
+=e^{-\theta\mathbb{i}} - p_1 \epsilon
+\]</span></p>
+<blockquote class="blockquote">
+<p>補足</p>
+<p><span class="math display">\[
+\begin{aligned}
+\overline{e^{\theta\mathbb{i}}}
+&amp;=\overline{\cos(\theta) + \sin(\theta)\mathbb{i}}\\
+&amp;=\cos(\theta) - \sin(\theta)\mathbb{i}\\
+&amp;=\cos(-\theta) + \sin(-\theta)\mathbb{i}\\
+&amp;=e^{-\theta\mathbb{i}}\\
+\end{aligned}
+\]</span></p>
+</blockquote>
+<section id="共役による-checkmathbbc-上の-checkmathbbc_1-の作用" class="level4" data-number="3.6.1">
+<h4 data-number="3.6.1" class="anchored" data-anchor-id="共役による-checkmathbbc-上の-checkmathbbc_1-の作用"><span class="header-section-number">3.6.1</span> 共役による <span class="math inline">\(\check{\mathbb{C}}\)</span> 上の <span class="math inline">\(\check{\mathbb{C}}_1\)</span> の作用</h4>
+<p><span class="math inline">\(\mathbb{C}=\mathbb{R}^2\)</span> とし <span class="math inline">\(v \in \mathbb{C}\)</span> を <span class="math inline">\(1 + v \epsilon \in \check{\mathbb{C}}\)</span> と同一視すると <span class="math inline">\(\hat{p} = p_0 + p_1 \epsilon \in  \check{\mathbb{C}}_1\)</span> が剛体変換として作用する．</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} \diamond (1 + v \epsilon)
+&amp;=(p_0 + p_1 \epsilon)(1 + v \epsilon)(\overline{p_0} + p_1 \epsilon)\\
+&amp;=(p_0 + p_1 \epsilon)\left(\overline{p_0} + (p_1 + v p_0) \epsilon \right)\\
+&amp;=p_0\overline{p_0} + (p_0 p_1 + p_0 v p_0 + p_1 p_0) \epsilon\\
+&amp;=|p_0|^2 + (p_0^{2} v + 2 p_0 p_1) \epsilon\\
+&amp;=1 + (p_0^{2} v + 2 p_0 p_1) \epsilon
+\end{aligned}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(p_1 = 0\)</span><br>
+<span class="math inline">\(v \in \mathbb{C}\)</span> は <span class="math inline">\({p_0}^{2} v\)</span> に写像される． <span class="math inline">\(|p_0| = 1\)</span> なので原点を中心に <span class="math inline">\(2 \arg(p_0)\)</span> 回転をする．</li>
+<li><span class="math inline">\(p_0 = 1\)</span><br>
+<span class="math inline">\(v + 2 p_1\)</span> の変位をする．</li>
+</ul>
+<section id="回転と変位の表現" class="level5" data-number="3.6.1.1">
+<h5 data-number="3.6.1.1" class="anchored" data-anchor-id="回転と変位の表現"><span class="header-section-number">3.6.1.1</span> 回転と変位の表現</h5>
+<p>回転の表現は <span class="math inline">\(\theta \in \mathbb{R}\)</span> とすると</p>
+<p><span class="math display">\[
+\hat{p}_{rot}
+=e^{\frac{\theta}{2}\mathbb{i}} + 0 \epsilon
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p}_{rot} \diamond (1 + v \epsilon)
+&amp;=\left(e^{\frac{\theta}{2}\mathbb{i}} + 0 \epsilon\right) \otimes (1 + v \epsilon) \otimes \left(\overline{e^{\frac{\theta}{2}\mathbb{i}}} + 0 \epsilon\right)\\
+&amp;=\left(e^{\frac{\theta}{2}\mathbb{i}} + 0 \epsilon\right) \otimes (1 + v \epsilon) \otimes \left(e^{-\frac{\theta}{2}\mathbb{i}} + 0 \epsilon\right)\\
+&amp;=1 + e^{\theta\mathbb{i}} v \epsilon
+\end{aligned}
+\]</span></p>
+<p>複素数の半角形式(スピノル表現)での回転について</p>
+<p><span class="math display">\[
+e^{\theta\mathbb{i}} v
+=\left(e^{\frac{\theta}{2}\mathbb{i}}\right)^2 v
+=e^{\frac{\theta}{2}\mathbb{i}} v e^{\frac{\theta}{2}\mathbb{i}}
+\]</span></p>
+<p>また<strong>符号を反転しても同じ回転を表現</strong>する</p>
+<p><span class="math display">\[
+\left(- e^{\frac{\theta}{2}\mathbb{i}}\right)^2
+=e^{\theta\mathbb{i}}
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/usdbcrfr30?embed=">
+</iframe>
+<figcaption>
+Fig. 1. 回転と補間
+</figcaption>
+</figure>
+</div>
+</blockquote>
+<p>変位の表現は <span class="math inline">\(d \in \mathbb{C}\)</span> とすると</p>
+<p><span class="math display">\[
+\hat{p}_{disp}
+=1 + \frac{d}{2} \epsilon
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p}_{disp} \diamond (1 + v \epsilon)
+&amp;=\left(1 + \frac{d}{2} \epsilon\right) \otimes (1 + v \epsilon) \otimes \left(1 + \frac{d}{2} \epsilon\right)\\
+&amp;=1 + (v + d) \epsilon
+\end{aligned}
+\]</span></p>
+</blockquote>
+<p>例</p>
+<ul>
+<li><p>原点を中心に <span class="math inline">\(\theta \in \mathbb{R}\)</span> 回転後に <span class="math inline">\(d \in \mathbb{C}\)</span> の変位を表現する変換<br>
+<span class="math inline">\(\hat{p} = \hat{p}_{disp} \otimes \hat{p}_{rot} \in \check{\mathbb{C}}_1\)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/2cliapnche?embed=">
+</iframe>
+<figcaption>
+Fig. 2. 原点を中心に回転後に変位
+</figcaption>
+</figure>
+</div></li>
+<li><p><span class="math inline">\(d \in \mathbb{C}\)</span> の変位後に原点を中心に <span class="math inline">\(\theta \in \mathbb{R}\)</span> 回転を表現する変換<br>
+<span class="math inline">\(\hat{p} = \hat{p}_{rot} \otimes \hat{p}_{disp} \in \check{\mathbb{C}}_1\)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/8rg6yvogcl?embed=">
+</iframe>
+<figcaption>
+Fig. 3. 変位後に原点を中心に回転
+</figcaption>
+</figure>
+</div></li>
+<li><p>階層構造<br>
+<span class="math inline">\(\hat{p} = \hat{P}_{disp} \otimes \hat{P}_{rot} \otimes \hat{C}_{disp} \otimes \hat{C}_{rot} \in \check{\mathbb{C}}_1\)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/f6wgqv6brr?embed=">
+</iframe>
+<figcaption>
+Fig. 3. 変位後に原点を中心に回転
+</figcaption>
+</figure>
+</div></li>
+</ul>
+</section>
+<section id="性質" class="level5" data-number="3.6.1.2">
+<h5 data-number="3.6.1.2" class="anchored" data-anchor-id="性質"><span class="header-section-number">3.6.1.2</span> 性質</h5>
+<p>符号を反転した変換は符号を反転した回転による変換と同じになる．</p>
+<p><span class="math display">\[
+\begin{aligned}
+- (\hat{p}_{disp} \otimes \hat{p}_{rot})
+&amp;=\hat{p}_{disp} \otimes \hat{p}_{-rot}
+\end{aligned}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+- \hat{p}_{disp} \otimes \hat{p}_{rot}
+&amp;=- \left(1 + \frac{d}{2} \epsilon\right)\otimes (e^{\frac{\theta}{2}\mathbb{i}} + 0 \epsilon)\\
+&amp;=- \left(e^{\frac{\theta}{2}\mathbb{i}} + \frac{d}{2} e^{- \frac{\theta}{2}\mathbb{i}} \epsilon\right)\\
+\\
+\hat{p}_{disp} \otimes \hat{p}_{-rot}
+&amp;=\left(1 + \frac{d}{2} \epsilon\right) \otimes (- e^{\frac{\theta}{2}\mathbb{i}} + 0 \epsilon)\\
+&amp;=-e^{\frac{\theta}{2}\mathbb{i}} - \frac{d}{2} e^{- \frac{\theta}{2}\mathbb{i}} \epsilon\\
+&amp;=- \left(e^{\frac{\theta}{2}\mathbb{i}} + \frac{d}{2} e^{- \frac{\theta}{2}\mathbb{i}} \epsilon\right)
+\end{aligned}
+\]</span></p>
+</blockquote>
+<p><span class="math display">\[
+\begin{aligned}
+- (\hat{p}_{rot} \otimes \hat{p}_{disp})
+&amp;=\hat{p}_{-rot} \otimes \hat{p}_{disp}
+\end{aligned}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+- (\hat{p}_{rot} \otimes \hat{p}_{disp})
+&amp;=- (e^{\frac{\theta}{2}\mathbb{i}} + 0 \epsilon) \otimes \left(1 + \frac{d}{2} \epsilon\right)\\
+&amp;=- \left(e^{\frac{\theta}{2}\mathbb{i}} + e^{\frac{\theta}{2}\mathbb{i}} \frac{d}{2} \epsilon\right)\\
+\\
+\hat{p}_{-rot} \otimes \hat{p}_{disp}
+&amp;=(- e^{\frac{\theta}{2}\mathbb{i}} + 0 \epsilon) \otimes \left(1 + \frac{d}{2} \epsilon\right)\\
+&amp;=- e^{\frac{\theta}{2}\mathbb{i}} -  e^{\frac{\theta}{2}\mathbb{i}} \frac{d}{2} \epsilon\\
+&amp;=- \left(e^{\frac{\theta}{2}\mathbb{i}} + e^{\frac{\theta}{2}\mathbb{i}} \frac{d}{2} \epsilon\right)
+\end{aligned}
+\]</span></p>
+</blockquote>
+<p>よって<strong>符号を反転した変換は，元と同じ変換を表現</strong>する．</p>
+</section>
+</section>
+</section>
+<section id="補間" class="level3" data-number="3.7">
+<h3 data-number="3.7" class="anchored" data-anchor-id="補間"><span class="header-section-number">3.7</span> 補間</h3>
+<section id="dual-complex-number-linear-blending" class="level4" data-number="3.7.1">
+<h4 data-number="3.7.1" class="anchored" data-anchor-id="dual-complex-number-linear-blending"><span class="header-section-number">3.7.1</span> Dual complex number Linear Blending</h4>
+<p><span class="math inline">\(\hat{p}_i \in \check{\mathbb{C}}_1, \hspace{5pt} w_i \in \mathbb{R}\)</span> とした補間を次のように定義．</p>
+<p><span class="math display">\[
+\operatorname{DLB}{(\hat{p}_1,\cdots ,\hat{p}_n; w_1,\cdots ,w_n)}
+=\frac{w_1 \hat{p}_1 + \cdots + w_n \hat{p}_n}{|w_1 \hat{p}_1 + \cdots + w_n \hat{p}_n|}
+\]</span></p>
+<p>加重平均の正規化なので分母が <span class="math inline">\(0\)</span> の場合は定義ができない．</p>
+<section id="正規化" class="level5" data-number="3.7.1.1">
+<h5 data-number="3.7.1.1" class="anchored" data-anchor-id="正規化"><span class="header-section-number">3.7.1.1</span> 正規化</h5>
+<p><span class="math display">\[
+\frac{\hat{p}}{|\hat{p}|}
+=\frac{p_0 + p_1 \epsilon}{|p_0|}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\left|\frac{\hat{p}}{|\hat{p}|}\right|
+=\left|\frac{p_0}{|p_0|}\right|
+=1
+\]</span></p>
+</blockquote>
+</section>
+</section>
+<section id="spherical-linear-interpolation" class="level4" data-number="3.7.2">
+<h4 data-number="3.7.2" class="anchored" data-anchor-id="spherical-linear-interpolation"><span class="header-section-number">3.7.2</span> Spherical Linear interpolation</h4>
+<p><span class="math inline">\(\hat{p} \in \check{\mathbb{C}}_1\)</span> から <span class="math inline">\(\hat{q} \in \check{\mathbb{C}}_1\)</span> への <span class="math inline">\(h \in \mathbb{R}\)</span> での補間を次のように定義．</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{SLERP}(\hat{p}, \hat{q}; h)
+&amp;=\hat{p} \otimes (\hat{p}^{-1} \otimes \hat{q})^{h}\\
+&amp;=\hat{p} \otimes \exp\left(h \log(\hat{p}^{-1} \otimes \hat{q})\right)
+\end{aligned}
+\]</span></p>
+<section id="指数関数と対数関数" class="level5" data-number="3.7.2.1">
+<h5 data-number="3.7.2.1" class="anchored" data-anchor-id="指数関数と対数関数"><span class="header-section-number">3.7.2.1</span> 指数関数と対数関数</h5>
+<p>指数関数</p>
+<p><span class="math display">\[
+\begin{aligned}
+\exp{(\hat{p})}
+&amp;=\exp{(p_0 + p_1 \epsilon)}\\
+&amp;=\exp{(p_0)} + \exp{(p_0)} p_1 \epsilon\\
+&amp;=\exp{(p_0)}\left(1 + p_1 \epsilon\right)
+\end{aligned}
+\]</span></p>
+<p>対数関数</p>
+<p><span class="math display">\[
+\begin{aligned}
+\log{(\hat{p})}
+&amp;=\log{(p_0 + p_1 \epsilon)}\\
+&amp;=\log{(p_0)} + \frac{p_1}{p_0} \epsilon
+\end{aligned}
+\]</span></p>
+<p>性質</p>
+<p><span class="math display">\[
+\log{(\exp{(\hat{p})})}
+=\exp{(\log{(\hat{p})})}
+=\hat{p}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+\log{(\exp{(\hat{p})})}
+&amp;=\log{(\exp{(p_0)})} + \frac{\exp{(p_0)} p_1 \epsilon}{\exp{(p_0)}}\\
+&amp;=p_0 + p_1 \epsilon
+=\hat{p}\\
+\\
+\exp{(\log{(\hat{p})})}
+&amp;=\exp{\left(\log{(p_0)}\right)} \otimes \left(1 + \frac{p_1}{p_0} \epsilon\right)\\
+&amp;=p_0 \otimes \left(1 + \frac{p_1}{p_0} \epsilon\right)\\
+&amp;=p_0 + p_1 \epsilon
+=\hat{p}
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+<section id="性質-1" class="level5" data-number="3.7.2.2">
+<h5 data-number="3.7.2.2" class="anchored" data-anchor-id="性質-1"><span class="header-section-number">3.7.2.2</span> 性質</h5>
+<p>回転と変位の表現で合成された変換を <span class="math inline">\(\hat{p}, \hat{q} \in \check{\mathbb{C}}_1\)</span> とする．</p>
+<ul>
+<li>なす角が180度を超えても最短円弧で補間をしない．<br>
+<span class="math inline">\(\langle p_0, q_0 \rangle \lt 0\)</span> の時に一方の符号を反転 (<span class="math inline">\(\operatorname{SLERP}(\hat{p}, -\hat{q}; h)\)</span>) すると最短円弧での補間となる．</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="変換の行列表現" class="level3" data-number="3.8">
+<h3 data-number="3.8" class="anchored" data-anchor-id="変換の行列表現"><span class="header-section-number">3.8</span> 変換の行列表現</h3>
+<section id="積の行列表現" class="level4" data-number="3.8.1">
+<h4 data-number="3.8.1" class="anchored" data-anchor-id="積の行列表現"><span class="header-section-number">3.8.1</span> 積の行列表現</h4>
+<p><span class="math inline">\(\hat{p} = p_0 + p_1 \epsilon, \hspace{5pt} \hat{q} = q_0 + q_1 \epsilon \in \check{\mathbb{C}}\)</span> の積は</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} \otimes \hat{q}
+&amp;=(p_0 + p_1 \epsilon) \otimes (q_0 + q_1 \epsilon)\\
+&amp;=p_0 \otimes q_0 + (p_0 \otimes q_1 + p_1 \otimes \overline{q_0}) \epsilon\\
+&amp;=(p_a q_a - p_b q_b)\\
+&amp;\hspace{13pt}
++(p_a q_b + p_b q_a) \mathbb{i}\\
+&amp;\hspace{13pt}
++(p_a q_c - p_b q_d + p_c q_a + p_d q_b) \epsilon\\
+&amp;\hspace{13pt}
++(p_a q_d + p_b q_c - p_c q_b + p_d q_a) \mathbb{i}\epsilon
+\end{aligned}
+\]</span></p>
+<p>成分計算は <span class="math inline">\(\hat{p} = (p_a + p_b \mathbb{i}) + (p_c + p_d \mathbb{i}) \epsilon\)</span> とした．</p>
+<p><span class="math inline">\(\hat{q}\)</span> に対し左から <span class="math inline">\(\hat{p}\)</span> をかける行列は</p>
+<p><span class="math display">\[
+\begin{aligned}
+P_L q
+&amp;=
+\left(
+\begin{array}{cccc}
+  p_a &amp; - p_b &amp; 0 &amp; 0\\
+  p_b &amp; p_a &amp; 0 &amp; 0\\
+  p_c &amp; p_d &amp; p_a &amp; - p_b\\
+  p_d &amp; - p_c &amp; p_b &amp; p_a
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+  q_a\\
+  q_b\\
+  q_c\\
+  q_d
+\end{array}
+\right)
+\end{aligned}
+\]</span></p>
+<p><span class="math inline">\(\hat{p}\)</span> に対し右から <span class="math inline">\(\hat{q}\)</span> を掛ける行列は</p>
+<p><span class="math display">\[
+\begin{aligned}
+Q_R p
+&amp;=
+\left(
+\begin{array}{cccc}
+  q_a &amp; - q_b &amp; 0 &amp; 0\\
+  q_b &amp; q_a &amp; 0 &amp; 0\\
+  q_c &amp; - q_d &amp; q_a &amp; q_b\\
+  q_d &amp; q_c &amp; - q_b &amp; q_a
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+  p_a\\
+  p_b\\
+  p_c\\
+  p_d
+\end{array}
+\right)
+\end{aligned}
+\]</span></p>
+</section>
+<section id="変換の行列表現-1" class="level4" data-number="3.8.2">
+<h4 data-number="3.8.2" class="anchored" data-anchor-id="変換の行列表現-1"><span class="header-section-number">3.8.2</span> 変換の行列表現</h4>
+<p><span class="math inline">\(\hat{p} \in \check{\mathbb{C}}_1\)</span> での変換に対する次のような行列を考える．</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} \diamond (1 + v \epsilon)
+&amp;=(p_0 + p_1 \epsilon) \otimes (1 + v \epsilon) \otimes (\overline{p_0} + p_1 \epsilon)\\
+&amp;=M v\\
+&amp;=M_L M_R v
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+M
+&amp;=M_L M_R\\
+&amp;=
+\left(
+\begin{array}{cccc}
+  p_a &amp; - p_b &amp; 0 &amp; 0\\
+  p_b &amp; p_a &amp; 0 &amp; 0\\
+  p_c &amp; p_d &amp; p_a &amp; - p_b\\
+  p_d &amp; - p_c &amp; p_b &amp; p_a
+\end{array}
+\right)
+\left(
+\begin{array}{cccc}
+  p_a &amp; p_b &amp; 0 &amp; 0\\
+  - p_b &amp; p_a &amp; 0 &amp; 0\\
+  p_c &amp; - p_d &amp; p_a &amp; - p_b\\
+  p_d &amp; p_c &amp; p_b &amp; p_a
+\end{array}
+\right)\\
+&amp;=
+\left(
+\begin{array}{cccc}
+  p_a p_a + p_b p_b &amp; p_a p_b - p_b p_a &amp; 0 &amp; 0\\
+  p_b p_a - p_a p_b &amp; p_b p_b + p_a p_a &amp; 0 &amp; 0\\
+  p_c p_a - p_d p_b + p_a p_c - p_b p_d &amp;
+  p_c p_b + p_d p_a - p_a p_d - p_b p_c &amp;
+  p_a p_a - p_b p_b &amp;
+  - p_a p_b - p_b p_a\\
+  p_d p_a + p_c p_b + p_b p_c + p_a p_d &amp;
+  p_d p_b - p_c p_a - p_b p_d + p_a p_c &amp;
+  p_b p_a + p_a p_b &amp;
+  - p_b p_b + p_a p_a
+\end{array}
+\right)\\
+&amp;=
+\left(
+\begin{array}{cccc}
+  {p_a}^2 + {p_b}^2 &amp; 0 &amp; 0 &amp; 0\\
+  0 &amp; {p_a}^2 + {p_b}^2 &amp; 0 &amp; 0\\
+  2(p_a p_c - p_b p_d) &amp; 0 &amp; {p_a}^2 - {p_b}^2 &amp; - 2 p_a p_b\\
+  2(p_a p_d + p_b p_c) &amp; 0 &amp; 2 p_a p_b &amp; {p_a}^2 - {p_b}^2
+\end{array}
+\right)\\
+&amp;=
+\left(
+\begin{array}{cccc}
+  1 &amp; 0 &amp; 0 &amp; 0\\
+  0 &amp; 1 &amp; 0 &amp; 0\\
+  2(p_a p_c - p_b p_d) &amp; 0 &amp; {p_a}^2 - {p_b}^2 &amp; - 2 p_a p_b\\
+  2(p_a p_d + p_b p_c) &amp; 0 &amp; 2 p_a p_b &amp; {p_a}^2 - {p_b}^2
+\end{array}
+\right)\\
+&amp;=
+\left(
+\begin{array}{cccc}
+  1 &amp; 0 &amp; 0 &amp; 0\\
+  0 &amp; 1 &amp; 0 &amp; 0\\
+  \mathfrak{Re}(2 p_0 p_1) &amp; 0 &amp; \mathfrak{Re}({p_0}^2) &amp; -  \mathfrak{Im}({p_0}^2)\\
+  \mathfrak{Im}(2 p_0 p_1) &amp; 0 &amp; \mathfrak{Im}({p_0}^2) &amp; \mathfrak{Re}({p_0}^2)\\
+\end{array}
+\right)
+\end{aligned}
+\]</span></p>
+<p>ここで <span class="math inline">\({p_a}^2 + {p_b}^2 = |p_0|^2 = 1\)</span> を利用した．</p>
+<p>また <span class="math inline">\(\mathfrak{Re}, \mathfrak{Im}\)</span> は実部と虚部とする．</p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+M v
+&amp;=
+\left(
+\begin{array}{cccc}
+1 &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0 &amp; 0\\
+\mathfrak{Re}(2 p_0 p_1) &amp; 0 &amp; \mathfrak{Re}({p_0}^2) &amp; -  \mathfrak{Im}({p_0}^2)\\
+\mathfrak{Im}(2 p_0 p_1) &amp; 0 &amp; \mathfrak{Im}({p_0}^2) &amp; \mathfrak{Re}({p_0}^2)
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+1\\
+0\\
+x\\
+y
+\end{array}
+\right)\\
+&amp;=
+\left(
+\begin{array}{c}
+1\\
+0\\
+\mathfrak{Re}(2 p_0 p_1) + \mathfrak{Re}({p_0}^2) x - \mathfrak{Im}({p_0}^2) y\\
+\mathfrak{Im}(2 p_0 p_1) + \mathfrak{Im}({p_0}^2) x +  \mathfrak{Re}({p_0}^2) y
+\end{array}
+\right)
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+<section id="同次変換行列" class="level4" data-number="3.8.3">
+<h4 data-number="3.8.3" class="anchored" data-anchor-id="同次変換行列"><span class="header-section-number">3.8.3</span> 同次変換行列</h4>
+<p>4次正方行列では都合が良くない場合もあるので2次元の同次変換行列にする．</p>
+<p><span class="math display">\[
+\begin{aligned}
+M
+&amp;=
+\left(
+\begin{array}{ccc}
+  \mathfrak{Re}({p_0}^2) &amp; - \mathfrak{Im}({p_0}^2) &amp; \mathfrak{Re}(2 p_0 p_1)\\
+  \mathfrak{Im}({p_0}^2) &amp; \mathfrak{Re}({p_0}^2) &amp;  \mathfrak{Im}(2 p_0 p_1)\\
+  0 &amp; 0 &amp; 1
+\end{array}
+\right)
+\end{aligned}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\begin{aligned}
+M v
+&amp;=
+\left(
+\begin{array}{ccc}
+\mathfrak{Re}({p_0}^2) &amp; - \mathfrak{Im}({p_0}^2) &amp;  \mathfrak{Re}(2 p_0 p_1)\\
+\mathfrak{Im}({p_0}^2) &amp; \mathfrak{Re}({p_0}^2) &amp;  \mathfrak{Im}(2 p_0 p_1)\\
+0 &amp; 0 &amp; 1
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+x\\
+y\\
+1
+\end{array}
+\right)\\
+&amp;=
+\left(
+\begin{array}{c}
+\mathfrak{Re}({p_0}^2) x - \mathfrak{Im}({p_0}^2) y +  \mathfrak{Re}(2 p_0 p_1)\\
+\mathfrak{Im}({p_0}^2) x + \mathfrak{Re}({p_0}^2) y +  \mathfrak{Im}(2 p_0 p_1)\\
+1
+\end{array}
+\right)
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+</section>
+</section>
+<section id="a-c-library" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="a-c-library"><span class="header-section-number">4</span> A C++ Library</h2>
+<ul>
+<li><a href="https://github.com/Hasenpfote/dualcomplex">https://github.com/Hasenpfote/dualcomplex</a></li>
+</ul>
+</section>
+<section id="参考文献" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="参考文献"><span class="header-section-number">5</span> 参考文献</h2>
+<ol type="1">
+<li><a href="https://arxiv.org/abs/1601.01754v1">GENKI MATSUDA, SHIZUO KAJI, HIROYUKI OCHIAI 2016 ANTI-COMMUTATIVE DUAL COMPLEX NUMBERS AND 2D RIGID TRANSFORMATION</a></li>
+</ol>
+
+
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">脚注</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Dual-complex_number" class="uri">https://en.wikipedia.org/wiki/Dual-complex_number</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://en.wikipedia.org/wiki/Complex_number" class="uri">https://en.wikipedia.org/wiki/Complex_number</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://en.wikipedia.org/wiki/Dual_number" class="uri">https://en.wikipedia.org/wiki/Dual_number</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://en.wikipedia.org/wiki/Quaternion" class="uri">https://en.wikipedia.org/wiki/Quaternion</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://en.wikipedia.org/wiki/Dual_quaternion" class="uri">https://en.wikipedia.org/wiki/Dual_quaternion</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/hasenpfote\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      if (authorPrefersDark) {
+          [baseTheme, altTheme] = [altTheme, baseTheme];
+      }
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "Hasenpfote/blog-comments";
+    script.dataset.repoId = "R_kgDOI-oVeg";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOI-oVes4CUQGw";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://quarto.org">
+<p>Built with Quarto</p>
+</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ © 2020-2025 Hasenpfote
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Hasenpfote/quarto-blog/edit/main/posts/dual-complex-numbers.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/blob/main/posts/dual-complex-numbers.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../index.xml">
+<p>RSS</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../sitemap.xml">
+<p>Sitemap</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

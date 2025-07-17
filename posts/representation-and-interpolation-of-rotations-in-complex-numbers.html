@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="複素数における回転の表現と補間について">
+
+<title>複素数における回転の表現と補間 – /var/log/little-things</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0348920b7671f696dc9078d39bff215e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4bd7901cb00417bfaa1de38a7f09accc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-e1d00fa3f6bb02239827e0c4ce910647.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4bd7901cb00417bfaa1de38a7f09accc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">/var/log/little-things</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../archive.html"> 
+<span class="menu-text">Archive</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../posts/toy-box.html"> 
+<span class="menu-text">Toy Box</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.shadertoy.com/user/hasenpfote"> 
+<span class="menu-text">Shadertoy</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Hasenpfote"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="ダークモードの切り替え"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="リーダーモードの切り替え">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">複素数における回転の表現と補間</h1>
+                  <div>
+        <div class="description">
+          複素数における回転の表現と補間について
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">math</div>
+                <div class="quarto-category">complexnumbers</div>
+                <div class="quarto-category">cpp</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">公開</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">2021年1月12日</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#概要" id="toc-概要" class="nav-link active" data-scroll-target="#概要"><span class="header-section-number">1</span> 概要</a></li>
+  <li><a href="#回転の表現" id="toc-回転の表現" class="nav-link" data-scroll-target="#回転の表現"><span class="header-section-number">2</span> 回転の表現</a></li>
+  <li><a href="#補間の方法" id="toc-補間の方法" class="nav-link" data-scroll-target="#補間の方法"><span class="header-section-number">3</span> 補間の方法</a>
+  <ul>
+  <li><a href="#線形補間" id="toc-線形補間" class="nav-link" data-scroll-target="#線形補間"><span class="header-section-number">3.1</span> 線形補間</a></li>
+  <li><a href="#正規化線形補間" id="toc-正規化線形補間" class="nav-link" data-scroll-target="#正規化線形補間"><span class="header-section-number">3.2</span> 正規化線形補間</a></li>
+  <li><a href="#球面線形補間" id="toc-球面線形補間" class="nav-link" data-scroll-target="#球面線形補間"><span class="header-section-number">3.3</span> 球面線形補間</a></li>
+  <li><a href="#スプライン補間" id="toc-スプライン補間" class="nav-link" data-scroll-target="#スプライン補間"><span class="header-section-number">3.4</span> スプライン補間</a></li>
+  </ul></li>
+  <li><a href="#ethetamathbbi-の補間" id="toc-ethetamathbbi-の補間" class="nav-link" data-scroll-target="#ethetamathbbi-の補間"><span class="header-section-number">4</span> <span class="math inline">\(e^{\theta\mathbb{i}}\)</span> の補間</a></li>
+  <li><a href="#efractheta2mathbbi-の補間" id="toc-efractheta2mathbbi-の補間" class="nav-link" data-scroll-target="#efractheta2mathbbi-の補間"><span class="header-section-number">5</span> <span class="math inline">\(e^{\frac{\theta}{2}\mathbb{i}}\)</span> の補間</a></li>
+  <li><a href="#球面線形補間の別形式" id="toc-球面線形補間の別形式" class="nav-link" data-scroll-target="#球面線形補間の別形式"><span class="header-section-number">6</span> 球面線形補間の別形式</a></li>
+  <li><a href="#スプライン補間の補足" id="toc-スプライン補間の補足" class="nav-link" data-scroll-target="#スプライン補間の補足"><span class="header-section-number">7</span> スプライン補間の補足</a></li>
+  <li><a href="#c-での実装例" id="toc-c-での実装例" class="nav-link" data-scroll-target="#c-での実装例"><span class="header-section-number">8</span> C++ での実装例</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献"><span class="header-section-number">9</span> 参考文献</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Hasenpfote/quarto-blog/edit/main/posts/representation-and-interpolation-of-rotations-in-complex-numbers.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/blob/main/posts/representation-and-interpolation-of-rotations-in-complex-numbers.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+
+<section id="概要" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="概要"><span class="header-section-number">1</span> 概要</h2>
+<p>複素数における回転の表現と補間について簡単に整理をする．</p>
+</section>
+<section id="回転の表現" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="回転の表現"><span class="header-section-number">2</span> 回転の表現</h2>
+<p>定義は</p>
+<p><span class="math display">\[
+\mathbb{C}_1 := \{p \in \mathbb{C} \mid |p|=1 \}=\{e^{\theta\mathbb{i}} \mid \theta \in \mathbb{R} \}
+\]</span></p>
+<p><span class="math inline">\(e^{\theta\mathbb{i}}\)</span> はオイラーの公式<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>で</p>
+<p><span class="math display">\[
+e^{\theta\mathbb{i}}
+=\cos{(\theta)} + \sin{(\theta)} \mathbb{i}
+\]</span></p>
+</section>
+<section id="補間の方法" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="補間の方法"><span class="header-section-number">3</span> 補間の方法</h2>
+<p><span class="math inline">\(p=a+b\mathbb{i}, \hspace{3pt} q=c+d\mathbb{i} \in \mathbb{C}_1\)</span> 間を <span class="math inline">\(h \in \mathbb{R}\)</span> で補間する方法．</p>
+<section id="線形補間" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="線形補間"><span class="header-section-number">3.1</span> 線形補間</h3>
+<p>定義は</p>
+<p><span class="math display">\[
+\operatorname{LERP}(p,q;h)
+=(1-h)p + hq
+\]</span></p>
+<p>特徴は</p>
+<ul>
+<li>大きさを維持しない</li>
+<li>速度は不定</li>
+</ul>
+</section>
+<section id="正規化線形補間" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="正規化線形補間"><span class="header-section-number">3.2</span> 正規化線形補間</h3>
+<p>定義は</p>
+<p><span class="math display">\[
+\operatorname{nLERP}(p,q;h)
+=\frac{\operatorname{LERP}(p,q;h)}{|\operatorname{LERP}(p,q;h)|}
+\]</span></p>
+<p>特徴は</p>
+<ul>
+<li>大きさを維持</li>
+<li>速度は不定</li>
+</ul>
+</section>
+<section id="球面線形補間" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="球面線形補間"><span class="header-section-number">3.3</span> 球面線形補間</h3>
+<p>定義は</p>
+<p><span class="math display">\[
+\operatorname{SLERP}(p,q;h)
+=p \cdot (p^{-1} \cdot q)^h
+=p \cdot \exp{(h \log{(p^{-1} \cdot q)})}
+\]</span></p>
+<p>特徴は</p>
+<ul>
+<li>大きさを維持</li>
+<li>速度は一定</li>
+</ul>
+</section>
+<section id="スプライン補間" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="スプライン補間"><span class="header-section-number">3.4</span> スプライン補間</h3>
+<p>定義は</p>
+<p><span class="math display">\[
+\operatorname{SQUAD}(p_{i}, p_{i+1}, s_{i}, s{i+1}; h)
+=\operatorname{SLERP}(\operatorname{SLERP}(p_{i}, p_{i+1}; h), \operatorname{SLERP}(s_{i}, s_{i+1}; h), 2h(1-h))
+\]</span></p>
+<p>ここで <span class="math inline">\(p_{i}, p_{i+1}, s_{i}, s_{i+1} \in \mathbb{C}_1\)</span> で <span class="math inline">\(s_{i}\)</span> は次式で表される．</p>
+<p><span class="math display">\[
+s_{i}
+=p_{i} \exp{\left(- \frac{\log{(p_{i}^{-1} p_{i-1})} + \log{(p_{i}^{-1} p_{i+1})}}{4}\right)}
+\]</span></p>
+</section>
+</section>
+<section id="ethetamathbbi-の補間" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="ethetamathbbi-の補間"><span class="header-section-number">4</span> <span class="math inline">\(e^{\theta\mathbb{i}}\)</span> の補間</h2>
+<p>一般的な回転を表現する複素数での補間は，常に最短円弧を描く補間となる．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/vpaaszozce?embed=">
+</iframe>
+<figcaption>
+Fig. 1. 最短円弧を描く補間
+</figcaption>
+</figure>
+</div>
+<p>なす角が180度を超える場合に最長円弧を描く補間にするには<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<ol type="1">
+<li>複素数の偏角の主値の範囲を <span class="math inline">\((-\pi, \pi]\)</span> とし <span class="math inline">\(p, q\)</span> の角度を <span class="math inline">\([0,\pi)\)</span> で求める</li>
+</ol>
+<p><span class="math display">\[
+  \begin{aligned}
+  \phi=
+  \begin{cases}
+    Arg{(p)} + 2\pi &amp; \text{if } Arg{(p)} &lt; 0\\
+    Arg{(p)} &amp; \text{otherwise}
+  \end{cases}\\
+  \\
+  \psi=
+  \begin{cases}
+    Arg{(q)} + 2\pi &amp; \text{if } Arg{(q)} &lt; 0\\
+    Arg{(q)} &amp; \text{otherwise}
+  \end{cases}
+  \end{aligned}
+  \]</span></p>
+<ol start="2" type="1">
+<li>向きを求める</li>
+</ol>
+<p><span class="math display">\[
+  \begin{aligned}
+  d=
+  \begin{vmatrix}
+  p.x &amp; q.x\\
+  p.y &amp; q.y
+  \end{vmatrix}
+  =p.x \cdot q.y - p.y \cdot q.x
+  \end{aligned}
+  \]</span></p>
+<ol start="3" type="1">
+<li>なす角を決定する</li>
+</ol>
+<p><span class="math display">\[
+  \begin{aligned}
+  \alpha=
+  \begin{cases}
+  \begin{cases}
+    \cos^{-1}{(\langle p, q \rangle)} &amp; \text{if } d &lt; 0\\
+    2 \pi - \cos^{-1}{(\langle p, q \rangle)} &amp; \text{otherwise}
+  \end{cases}
+  &amp; \text{if } \psi - \phi &lt; 0\\
+  \begin{cases}
+    2 \pi - \cos^{-1}{(\langle p, q \rangle)} &amp; \text{if } d &lt; 0\\
+    \cos^{-1}{(\langle p, q \rangle)} &amp; \text{otherwise}
+  \end{cases}
+  &amp; \text{otherwise}
+  \end{cases}
+  \end{aligned}
+  \]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/z9ucokttw8?embed=">
+</iframe>
+<figcaption>
+Fig. 2. 最長円弧を描く補間
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="efractheta2mathbbi-の補間" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="efractheta2mathbbi-の補間"><span class="header-section-number">5</span> <span class="math inline">\(e^{\frac{\theta}{2}\mathbb{i}}\)</span> の補間</h2>
+<p>半角形式の補間は，なす角が180度を超えると最長円弧を描く補間となる．半角形式は半円で360度を表現し残りは繰り返しとなるので <span class="math inline">\(\pm e^{\frac{\theta}{2}\mathbb{i}}\)</span> は同じ回転を表現する．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/usdbcrfr30?embed=">
+</iframe>
+<figcaption>
+Fig. 3. 半角形式の補間
+</figcaption>
+</figure>
+</div>
+<p>なす角が180度を超える場合に最短円弧を描く補間にするには<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<ul>
+<li><p>なす角が180度を超える場合に片方の符号を反転し補間を行う</p>
+<p><strong>符号を反転しても同じ回転を表現することを利用</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+r=
+\begin{cases}
+-q &amp; \text{if } \langle p, q \rangle \lt 0\\
++q &amp; \text{otherwise}
+\end{cases}
+\end{aligned}
+\]</span></p></li>
+</ul>
+</section>
+<section id="球面線形補間の別形式" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="球面線形補間の別形式"><span class="header-section-number">6</span> 球面線形補間の別形式</h2>
+<p>指数・対数関数を用いない形式について．<span class="math inline">\(z_0=a+b\mathbb{i}, \hspace{3pt} z_1=c+d\mathbb{i} \in \mathbb{C}_1\)</span> のなす角を <span class="math inline">\(\alpha\)</span> とし <span class="math inline">\(h \in \mathbb{R}\)</span> で補間した <span class="math inline">\(z_h \in \mathbb{C}_1\)</span> を求める．この時 <span class="math inline">\(z_1\)</span> を元に <span class="math inline">\(z_0\)</span> に垂直な軸を <span class="math inline">\(z^{'}_1\)</span> とすると</p>
+<p><span class="math display">\[
+z_h
+=\cos{(\alpha h)} z_0 + \sin{(\alpha h)} z^{'}_1
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/6mnn9miiyf?embed=">
+</iframe>
+<figcaption>
+Fig. 4. 球面線形補間
+</figcaption>
+</figure>
+</div>
+<p><span class="math inline">\(z^{'}_1\)</span> は二次元の場合は90度回転として求められる．</p>
+<p><span class="math display">\[
+z^{'}_1
+=- b + a \mathbb{i}
+\]</span></p>
+<p>より一般的には</p>
+<p><span class="math display">\[
+z^{'}_1
+=\frac{z_1 - \langle z_0, z_1 \rangle z_0}{|z_1 - \langle z_0, z_1 \rangle z_0|}
+\]</span></p>
+<p>または簡潔に</p>
+<p><span class="math display">\[
+z^{'}_1
+=\frac{z_1 - \cos{(\alpha)} z_0}{\sin{(\alpha)}}
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math inline">\(s=\langle z_0, z_1 \rangle=\cos{(\alpha)}\)</span> とすると分母は</p>
+<p><span class="math display">\[
+\begin{aligned}
+|z_1 - \langle z_0, z_1 \rangle z_0|
+&amp;=|z_1 - s z_0|\\
+&amp;=\sqrt{(c-sa)^2 + (d-sb)^2}\\
+&amp;=\sqrt{s^2 |z_0|^2 - 2s \langle z_0,z_1 \rangle + |z_1|^2}\\
+&amp;=\sqrt{s^2 - 2s^2 + 1}\\
+&amp;=\sqrt{1 - s^2}\\
+&amp;=\sqrt{1 - \cos^{2}{(\alpha)}}\\
+&amp;=\sqrt{\sin^{2}{(\alpha)}}
+=\sin{(\alpha)}
+\end{aligned}
+\]</span></p>
+</blockquote>
+<p><span class="math inline">\(z^{'}_1\)</span> を <span class="math inline">\(z_h\)</span> に代入すると</p>
+<p><span class="math display">\[
+\begin{aligned}
+z_{h}
+&amp;=\cos(\alpha h) z_0 + \sin(\alpha h) z^{'}_1\\
+&amp;=\cos(\alpha h) z_0 + \sin(\alpha h) \frac{z_1 - \cos(\alpha) z_0}{\sin(\alpha)}\\
+&amp;=\cos(\alpha h)z_{0} + \frac{\sin(\alpha h)}{\sin(\alpha)}z_{1} - \frac{\sin(\alpha h)\cos(\alpha)}{\sin(\alpha)}z_{0}\\
+&amp;=\frac{\sin(\alpha)\cos(\alpha h) - \cos(\alpha)\sin(\alpha h)}{\sin(\alpha)}z_{0} + \frac{\sin(\alpha h)}{\sin(\alpha)}z_{1}\\
+&amp;=\frac{\sin(\alpha(1 - h))}{\sin(\alpha)}z_{0} + \frac{\sin(\alpha h)}{\sin(\alpha)}z_{1}
+\end{aligned}
+\]</span></p>
+<p><strong>途中，三角関数の加法定理を利用した．</strong></p>
+<p>このままでは分母に <span class="math inline">\(\sin{(\alpha)}\)</span> があるため <span class="math inline">\(\alpha \to 0\)</span> で発散するので，<span class="math inline">\(1 - |\langle z_0, z_1 \rangle| \le \epsilon\)</span> ならば線形補間に切り替え回避をする．</p>
+</section>
+<section id="スプライン補間の補足" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="スプライン補間の補足"><span class="header-section-number">7</span> スプライン補間の補足</h2>
+<p>未知数 <span class="math inline">\(s_{i}\)</span> の導出方法．</p>
+<ul>
+<li><p><span class="math inline">\(\operatorname{SLERP}\)</span> の微分</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{d}{dh} \operatorname{SLERP}(p,q;h)
+&amp;=\frac{d}{dh} p \cdot (\overline{p} \cdot q)^{h}\\
+&amp;=p \cdot \frac{d}{dh} \exp{(h \log{(\overline{p} \cdot q)})}\\
+&amp;=p \cdot \exp{(h \log{(\overline{p} \cdot q)})} \cdot \log{(\overline{p} \cdot q)}\\
+&amp;=\operatorname{SLERP}(p,q;h) \cdot \log{(\overline{p} \cdot q)}
+\end{aligned}
+\]</span></p></li>
+<li><p><span class="math inline">\(\operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}, 1) = \operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}, 0)\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}; 1)
+&amp;=\operatorname{SLERP}(\operatorname{SLERP}(p_{i-1}, p_{i}; 1), \operatorname{SLERP}(s_{i-1}, s_{i}; 1); 0)\\
+&amp;=\operatorname{SLERP}(p_{i}, s_{i}; 0)\\
+&amp;=p_{i}\\
+\\
+\operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}; 0)
+&amp;=\operatorname{SLERP}(\operatorname{SLERP}(p_{i}, p_{i+1}; 0), \operatorname{SLERP}(s_{i}, s_{i+1}; 0), 0)\\
+&amp;=\operatorname{SLERP}(p_{i}, s_{i}; 0)\\
+&amp;=p_{i}
+\end{aligned}
+\]</span></p></li>
+<li><p><span class="math inline">\(\operatorname{SQUAD}\)</span> の微分</p>
+<p><span class="math inline">\(g_{i}(h) = \overline{\operatorname{SLERP}(p_{i}, p_{i+1}; h)} \cdot \operatorname{SLERP}(s_{i}, s_{i+1}; h)\)</span> とすると</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{d}{dh} \operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}; h)
+&amp;=\frac{d}{dh} \operatorname{SLERP}(\operatorname{SLERP}(p_{i}, p_{i+1}; h), \operatorname{SLERP}(s_{i}, s_{i+1}; h), 2h(1-h))\\
+&amp;=\frac{d}{dh} \operatorname{SLERP}(p_{i}, p_{i+1}; h) \cdot g_{i}(h)^{2h(1-h)}\\
+&amp;=\left(\frac{d}{dh} \operatorname{SLERP}(p_{i}, p_{i+1}; h)\right) \cdot g_{i}(h)^{2h(1-h)}
+- \operatorname{SLERP}(p_{i}, p_{i+1}; h) \cdot \left(\frac{d}{dh} g_{i}(h)^{2h(1-h)}\right)\\
+&amp;=\operatorname{SLERP}(p_{i}, p_{i+1}; h) \cdot \log{(\overline{p_{i}} \cdot p_{i+1})} \cdot g_{i}(h)^{2h(1-h)}
+- \operatorname{SLERP}(p_{i}, p_{i+1}; h) \cdot \left(\frac{d}{dh} g_{i}(h)^{2h(1-h)}\right)
+\end{aligned}
+\]</span></p></li>
+<li><p><span class="math inline">\(g_{i}(h)^{2h(1-h)}\)</span> の微分</p>
+<p><span class="math inline">\(g_{i}(h)=\cos{(\theta_{g_{i}(h)})} + \sin{(\theta_{g_{i}(h)})} \mathbb{i}, \hspace{5pt} f(h)=2h(1-h)\)</span> と置いて</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{d}{dh} g_{i}(h)^{2h(1-h)}
+&amp;=\frac{d}{dh} \exp{(f(h) \cdot \log{(g_{i}(h))})}\\
+&amp;=\frac{d}{dh} \exp{(f(h) \cdot \theta_{g_{i}(h)} \mathbb{i})}\\
+&amp;=\frac{d}{dh} \left(\cos{(f(h) \cdot \theta_{g_{i}(h)})} + \sin{(f(h) \cdot \theta_{g_{i}(h)})} \mathbb{i}\right)\\
+&amp;=-\sin{(f(h) \cdot \theta_{g_{i}(h)})} \cdot \left(\frac{d}{dh} f(h) \cdot \theta_{g_{i}(h)}\right)
+- \cos{(f(h) \cdot \theta_{g_{i}(h)})} \cdot \left(\frac{d}{dh} f(h) \cdot \theta_{g_{i}(h)}\right) \mathbb{i}\\
+&amp;=-\sin{(f(h) \cdot \theta_{g_{i}(h)})} \cdot \left(\left(\frac{d}{dh} f(h)\right) \cdot \theta_{g_{i}(h)} + f(h) \cdot \left(\frac{d}{dh} \theta_{g_{i}(h)}\right)\right)
+\\&amp;\hspace{11pt}
+- \cos{(f(h) \cdot \theta_{g_{i}(h)})} \cdot \left(\left(\frac{d}{dh} f(h)\right) \cdot \theta_{g_{i}(h)} + f(h) \cdot \left(\frac{d}{dh} \theta_{g_{i}(h)}\right)\right) \mathbb{i}
+\end{aligned}
+\]</span></p></li>
+<li><p><span class="math inline">\(\frac{d}{dh} \operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}, 1) =  \frac{d}{dh} \operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}, 0)\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{d}{dh} \operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}, 1)
+&amp;=\operatorname{SLERP}(p_{i-1}, p_{i}; 1) \cdot \log{(\overline{p_{i-1}} \cdot p_{i})}
+- \operatorname{SLERP}(p_{i-1}, p_{i}; 1) \cdot \left(\frac{d}{dh} g_{i-1}(h)^{2h(1-h)}\right)(1)\\
+&amp;=p_{i} \cdot \log{(\overline{p_{i-1}} \cdot p_{i})}
+- 2 p_{i} \cdot \theta_{g_{i-1}(1)} \mathbb{i}\\
+&amp;=p_{i} \cdot \left(\log{(\overline{p_{i-1}} \cdot p_{i})}
+- 2 \log(g_{i-1}(1))\right)\\
+&amp;=p_{i} \cdot \left(\log{(\overline{p_{i-1}} \cdot p_{i})}
+- 2 \log(\overline{p_{i}} \cdot s_{i})\right)\\
+\\
+\frac{d}{dh} \operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}, 0)
+&amp;=\operatorname{SLERP}(p_{i}, p_{i+1}; 0) \cdot \log{(\overline{p_{i}} \cdot p_{i+1})}
+- \operatorname{SLERP}(p_{i}, p_{i+1}; 0) \cdot \left(\frac{d}{dh} g_{i}(h)^{2h(1-h)}\right)(0)\\
+&amp;=p_{i} \cdot \log{(\overline{p_{i}} \cdot p_{i+1})}
+- 2 p_{i} \cdot \theta_{g_{i}(0)} \mathbb{i}\\
+&amp;=p_{i} \cdot \left(\log{(\overline{p_{i}} \cdot p_{i+1})}
+- 2 \log{(g_{i}(0))}\right)\\
+&amp;=p_{i} \cdot \left(\log{(\overline{p_{i}} \cdot p_{i+1})}
+- 2 \log{(\overline{p_{i}} \cdot s_{i})}\right)
+\end{aligned}
+\]</span></p></li>
+<li><p>上式より</p>
+<p><span class="math display">\[
+\begin{aligned}
+p_{i} \cdot \left(\log{(\overline{p_{i-1}} \cdot p_{i})}
+- 2 \log(\overline{p_{i}} \cdot s_{i})\right)
+&amp;=p_{i} \cdot \left(\log{(\overline{p_{i}} \cdot p_{i+1})}
+- 2 \log{(\overline{p_{i}} \cdot s_{i})}\right)\\
+\\
+\log{(\overline{p_{i-1}} \cdot p_{i})}
+- 2 \log(\overline{p_{i}} \cdot s_{i})
+&amp;=\log{(\overline{p_{i}} \cdot p_{i+1})}
+- 2 \log{(\overline{p_{i}} \cdot s_{i})}\\
+4 \log{(\overline{p_{i}} \cdot s_{i})}
+&amp;=\log{(\overline{p_{i-1}} \cdot p_{i})} - \log{(\overline{p_{i}} \cdot p_{i+1})}\\
+\\
+\overline{p_{i}} \cdot s_{i}
+&amp;=\exp{\left(\frac{\log{(\overline{p_{i-1}} \cdot p_{i})} - \log{(\overline{p_{i}} \cdot p_{i+1})}}{4}\right)}\\
+\\
+s_{i}
+&amp;=p_{i} \cdot \exp{\left(\frac{\log{(\overline{p_{i-1}} \cdot p_{i})} - \log{(\overline{p_{i}} \cdot p_{i+1})}}{4}\right)}
+\end{aligned}
+\]</span></p>
+<p><span class="math inline">\(\overline{p_1 \cdot p_2}=\overline{p_1} \cdot \overline{p_2}, \hspace{3pt} \log(\overline{p})=-\log(p), \hspace{3pt} \overline{p}=p^{-1}\)</span> を利用し</p>
+<p><span class="math display">\[
+\begin{aligned}
+s_{i}
+&amp;=p_{i} \cdot \exp{\left(\frac{\log{(\overline{p_{i-1}} \cdot p_{i})} - \log{(\overline{p_{i}} \cdot p_{i+1})}}{4}\right)}\\
+&amp;=p_{i} \cdot \exp{\left(\frac{\log{(\overline{p_{i-1} \cdot \overline{p_{i}}})} - \log{(\overline{p_{i}} \cdot p_{i+1})}}{4}\right)}\\
+&amp;=p_{i} \cdot \exp{\left(- \frac{\log{(\overline{p_{i}} \cdot p_{i-1})} - \log{(\overline{p_{i}} \cdot p_{i+1})}}{4}\right)}\\
+&amp;=p_{i} \cdot \exp{\left(- \frac{\log{(p_{i}^{-1} \cdot p_{i-1})} - \log{(p_{i}^{-1} \cdot p_{i+1})}}{4}\right)}
+\end{aligned}
+\]</span></p>
+<p><strong>四元数 <span class="math inline">\(p_{i} \in {H}_1\)</span> なら <span class="math inline">\(\overline{p_1 \otimes p_2}=\overline{p_2} \otimes \overline{p_1}\)</span></strong></p></li>
+</ul>
+<p>四元数のスプライン補間<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>と同様となる．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/kmrffw5ldr?embed=">
+</iframe>
+<figcaption>
+Fig. 5. スプライン補間
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="c-での実装例" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="c-での実装例"><span class="header-section-number">8</span> C++ での実装例</h2>
+<p><a href="https://gist.github.com/Hasenpfote/566a04b7a5f9563921dff7fe1c1b5a01">GitHub Gist</a></p>
+</section>
+<section id="参考文献" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="参考文献"><span class="header-section-number">9</span> 参考文献</h2>
+<ol type="1">
+<li><a href="https://www.essentialmath.com/GDC2012/GDC2012_JMV_Rotations.pdf">Jim Van Verth 2012 Understanding Rotations</a></li>
+<li><a href="https://web.mit.edu/2.998/www/QuaternionReport1.pdf">Erik B. Dam, Martin Koch, Martin Lillholm 1998 Quaternions, Interpolation and Animation</a></li>
+</ol>
+
+
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">脚注</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Euler's_formula" class="uri">https://en.wikipedia.org/wiki/Euler's_formula</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>後述の <span class="math inline">\(e^{\frac{\theta}{2}\mathbb{i}}\)</span> の補間での Default 動作<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>前述の <span class="math inline">\(e^{\theta\mathbb{i}}\)</span> の補間での Default 動作<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>参考文献 [2] を参照．<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/hasenpfote\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      if (authorPrefersDark) {
+          [baseTheme, altTheme] = [altTheme, baseTheme];
+      }
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "Hasenpfote/blog-comments";
+    script.dataset.repoId = "R_kgDOI-oVeg";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOI-oVes4CUQGw";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://quarto.org">
+<p>Built with Quarto</p>
+</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ © 2020-2025 Hasenpfote
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Hasenpfote/quarto-blog/edit/main/posts/representation-and-interpolation-of-rotations-in-complex-numbers.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/blob/main/posts/representation-and-interpolation-of-rotations-in-complex-numbers.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../index.xml">
+<p>RSS</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../sitemap.xml">
+<p>Sitemap</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

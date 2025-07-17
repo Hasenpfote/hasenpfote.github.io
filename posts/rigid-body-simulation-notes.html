@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="剛体シムの最初の最初">
+
+<title>剛体シム覚書 – /var/log/little-things</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0348920b7671f696dc9078d39bff215e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4bd7901cb00417bfaa1de38a7f09accc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-e1d00fa3f6bb02239827e0c4ce910647.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4bd7901cb00417bfaa1de38a7f09accc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">/var/log/little-things</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../archive.html"> 
+<span class="menu-text">Archive</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../posts/toy-box.html"> 
+<span class="menu-text">Toy Box</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.shadertoy.com/user/hasenpfote"> 
+<span class="menu-text">Shadertoy</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Hasenpfote"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="ダークモードの切り替え"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="リーダーモードの切り替え">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">剛体シム覚書</h1>
+                  <div>
+        <div class="description">
+          剛体シムの最初の最初
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">physics</div>
+                <div class="quarto-category">rigidbody</div>
+                <div class="quarto-category">python</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">公開</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">2021年6月9日</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#慣性テンソル" id="toc-慣性テンソル" class="nav-link active" data-scroll-target="#慣性テンソル"><span class="header-section-number">1</span> 慣性テンソル</a></li>
+  <li><a href="#座標系" id="toc-座標系" class="nav-link" data-scroll-target="#座標系"><span class="header-section-number">2</span> 座標系</a></li>
+  <li><a href="#力の適用" id="toc-力の適用" class="nav-link" data-scroll-target="#力の適用"><span class="header-section-number">3</span> 力の適用</a>
+  <ul>
+  <li><a href="#並進運動" id="toc-並進運動" class="nav-link" data-scroll-target="#並進運動"><span class="header-section-number">3.1</span> 並進運動</a>
+  <ul>
+  <li><a href="#力を適用する場合" id="toc-力を適用する場合" class="nav-link" data-scroll-target="#力を適用する場合"><span class="header-section-number">3.1.1</span> 力を適用する場合</a></li>
+  <li><a href="#力積を適用する場合" id="toc-力積を適用する場合" class="nav-link" data-scroll-target="#力積を適用する場合"><span class="header-section-number">3.1.2</span> 力積を適用する場合</a></li>
+  </ul></li>
+  <li><a href="#回転運動" id="toc-回転運動" class="nav-link" data-scroll-target="#回転運動"><span class="header-section-number">3.2</span> 回転運動</a>
+  <ul>
+  <li><a href="#トルクを適用する場合" id="toc-トルクを適用する場合" class="nav-link" data-scroll-target="#トルクを適用する場合"><span class="header-section-number">3.2.1</span> トルクを適用する場合</a></li>
+  <li><a href="#力積を適用する場合-1" id="toc-力積を適用する場合-1" class="nav-link" data-scroll-target="#力積を適用する場合-1"><span class="header-section-number">3.2.2</span> 力積を適用する場合</a></li>
+  </ul></li>
+  <li><a href="#合成運動" id="toc-合成運動" class="nav-link" data-scroll-target="#合成運動"><span class="header-section-number">3.3</span> 合成運動</a>
+  <ul>
+  <li><a href="#力を適用する場合-1" id="toc-力を適用する場合-1" class="nav-link" data-scroll-target="#力を適用する場合-1"><span class="header-section-number">3.3.1</span> 力を適用する場合</a></li>
+  <li><a href="#力積を適用する場合-2" id="toc-力積を適用する場合-2" class="nav-link" data-scroll-target="#力積を適用する場合-2"><span class="header-section-number">3.3.2</span> 力積を適用する場合</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#更新" id="toc-更新" class="nav-link" data-scroll-target="#更新"><span class="header-section-number">4</span> 更新</a>
+  <ul>
+  <li><a href="#並進運動-1" id="toc-並進運動-1" class="nav-link" data-scroll-target="#並進運動-1"><span class="header-section-number">4.1</span> 並進運動</a></li>
+  <li><a href="#回転運動-1" id="toc-回転運動-1" class="nav-link" data-scroll-target="#回転運動-1"><span class="header-section-number">4.2</span> 回転運動</a></li>
+  </ul></li>
+  <li><a href="#回転運動のパラメータについて" id="toc-回転運動のパラメータについて" class="nav-link" data-scroll-target="#回転運動のパラメータについて"><span class="header-section-number">5</span> 回転運動のパラメータについて</a>
+  <ul>
+  <li><a href="#トルクを適用する場合-1" id="toc-トルクを適用する場合-1" class="nav-link" data-scroll-target="#トルクを適用する場合-1"><span class="header-section-number">5.1</span> トルクを適用する場合</a></li>
+  <li><a href="#力積を適用する場合-3" id="toc-力積を適用する場合-3" class="nav-link" data-scroll-target="#力積を適用する場合-3"><span class="header-section-number">5.2</span> 力積を適用する場合</a></li>
+  </ul></li>
+  <li><a href="#記号について" id="toc-記号について" class="nav-link" data-scroll-target="#記号について"><span class="header-section-number">6</span> 記号について</a></li>
+  <li><a href="#python-による実装例" id="toc-python-による実装例" class="nav-link" data-scroll-target="#python-による実装例"><span class="header-section-number">7</span> Python による実装例</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Hasenpfote/quarto-blog/edit/main/posts/rigid-body-simulation-notes.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/blob/main/posts/rigid-body-simulation-notes.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+
+<section id="慣性テンソル" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="慣性テンソル"><span class="header-section-number">1</span> 慣性テンソル</h2>
+<p>慣性テンソル <span class="math inline">\(\boldsymbol{I}\)</span> は次のような対称行列である．</p>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{I}
+&amp;=
+\left(
+\begin{array}{ccc}
+I_{xx} &amp; I_{xy} &amp; I_{xz}\\
+I_{yx} &amp; I_{yy} &amp; I_{yz}\\
+I_{zx} &amp; I_{zy} &amp; I_{zz}
+\end{array}
+\right)
+=\int \rho d\boldsymbol{V}
+\left(
+\begin{array}{ccc}
+y^2 + z^2 &amp; -xy &amp; -xz\\
+-xy &amp; z^2 + x^2 &amp; -yz\\
+-xz &amp; -yz &amp; x^2 + y^2
+\end{array}
+\right)
+\end{aligned}
+\]</span></p>
+<p>対角項を慣性モーメント，非対角項を慣性乗積という．対称行列なので，ある直交行列 <span class="math inline">\(\boldsymbol{O}\)</span> で対角化をすれば慣性乗積をすべて0にできる．対角化された慣性テンソル <span class="math inline">\(\boldsymbol{I}_{I}\)</span> は</p>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{I}_{I}
+&amp;=\boldsymbol{O}^{-1} \boldsymbol{I} \boldsymbol{O}
+=
+\left(
+\begin{array}{ccc}
+I_{1} &amp; 0 &amp; 0\\
+0 &amp; I_{2} &amp; 0\\
+    0 &amp; 0 &amp; I_{3}
+\end{array}
+\right)
+\end{aligned}
+\]</span></p>
+<p>対角成分を主慣性モーメント，それが成立する座標系を慣性主軸という．回転対称性のない一般の剛体の場合，慣性主軸を求めることは固有値問題に帰着する．</p>
+<p><span class="math display">\[
+\boldsymbol{I} \boldsymbol{\omega}
+=\lambda \boldsymbol{\omega}
+\]</span></p>
+<p>上式を満たす <span class="math inline">\(\boldsymbol{\omega}\)</span> の方向は，行列 <span class="math inline">\(\boldsymbol{I}\)</span> の固有ベクトルの方向と一致する．固有値 <span class="math inline">\(\lambda_{i}\)</span> と固有ベクトル <span class="math inline">\(\boldsymbol{\omega}_{i}\)</span> より</p>
+<p><span class="math display">\[
+\begin{aligned}
+\left(
+\begin{array}{c}
+I_{1}\\
+I_{2}\\
+I_{3}
+\end{array}
+\right)
+&amp;=
+\left(
+\begin{array}{c}
+\lambda_{1}\\
+\lambda_{2}\\
+\lambda_{3}
+\end{array}
+\right)\\
+\\
+\boldsymbol{O}
+&amp;=
+\left(
+\begin{array}{ccc}
+\frac{\boldsymbol{\omega}_{0}}{\|\boldsymbol{\omega}_{0}\|} &amp;
+\frac{\boldsymbol{\omega}_{1}}{\|\boldsymbol{\omega}_{1}\|} &amp;
+\frac{\boldsymbol{\omega}_{2}}{\|\boldsymbol{\omega}_{2}\|}\\
+\end{array}
+\right)
+\end{aligned}
+\]</span></p>
+<p>主慣性モーメント <span class="math inline">\(I_{i}\)</span> は，それに対応する慣性主軸(<span class="math inline">\(I_{i}\)</span> に対応する固有ベクトル <span class="math inline">\(\boldsymbol{\omega}_{i}\)</span> の方向) の周りの慣性モーメントである．</p>
+<blockquote class="blockquote">
+<p>回転対称性のある剛体は慣性テンソルが対角行列になっているので直交行列 <span class="math inline">\(\boldsymbol{O}\)</span> は単位行列．</p>
+<p>cf.&nbsp;<a href="http://hooktail.sub.jp/mechanics/inertiaTable1/">色々な物体の慣性モーメント１</a></p>
+</blockquote>
+</section>
+<section id="座標系" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="座標系"><span class="header-section-number">2</span> 座標系</h2>
+<p>座標系は [慣性主軸] → [ローカル座標] → [ワールド座標] とする．角運動量 <span class="math inline">\(\boldsymbol{L}\)</span> と角速度 <span class="math inline">\(\boldsymbol{\omega}\)</span> の関係式より</p>
+<ul>
+<li><p>慣性主軸</p>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{L}_{I}
+&amp;=\boldsymbol{I}_{I} \boldsymbol{\omega}_{I}\\
+&amp;=(\boldsymbol{O}^{-1} \boldsymbol{I} \boldsymbol{O}) \boldsymbol{\omega}_{I}\\
+\end{aligned}
+\]</span></p></li>
+<li><p>ローカル座標</p>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{L}_{local}
+&amp;=\boldsymbol{I}_{local} \, \boldsymbol{\omega}_{local}\\
+\boldsymbol{O} \boldsymbol{L}_{I}
+&amp;=\boldsymbol{O} \boldsymbol{I}_{I} \boldsymbol{\omega}_{I}\\
+&amp;=(\boldsymbol{O} \boldsymbol{I}_{I} \boldsymbol{O}^{-1}) \boldsymbol{O} \boldsymbol{\omega}_{I}\\
+&amp;=\boldsymbol{I} \, \boldsymbol{O} \boldsymbol{\omega}_{I}
+\end{aligned}
+\]</span></p></li>
+<li><p>ワールド座標</p>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{L}_{world}
+&amp;=\boldsymbol{I}_{world} \, \boldsymbol{\omega}_{world}\\
+\boldsymbol{R} \boldsymbol{L}_{local}
+&amp;=\boldsymbol{R} \boldsymbol{I}_{local} \, \boldsymbol{\omega}_{local}\\
+&amp;=(\boldsymbol{R} \boldsymbol{I}_{local} \boldsymbol{R}^{-1}) \, \boldsymbol{R} \boldsymbol{\omega}_{local}\\
+&amp;=(\boldsymbol{R} (\boldsymbol{O} \boldsymbol{I}_{I} \boldsymbol{O}^{-1}) \boldsymbol{R}^{-1}) \, \boldsymbol{R} \boldsymbol{\omega}_{local}\\
+&amp;=(\boldsymbol{R} \boldsymbol{I} \boldsymbol{R}^{-1}) \, \boldsymbol{R} \boldsymbol{\omega}_{local}
+\end{aligned}
+\]</span></p></li>
+</ul>
+</section>
+<section id="力の適用" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="力の適用"><span class="header-section-number">3</span> 力の適用</h2>
+<p>剛体の重心へ作用し必要に応じて何度でも適用する．</p>
+<section id="並進運動" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="並進運動"><span class="header-section-number">3.1</span> 並進運動</h3>
+<p><span class="math display">\[
+\begin{aligned}
+\begin{array}{l|l}
+\text{パラメータ} &amp; \text{解説}\\ \hline
+    \boldsymbol{x} \in \mathbb{R}^{3} &amp; \text{位置}\\
+    \boldsymbol{v} \in \mathbb{R}^{3} &amp; \text{速度}\\
+    m  \in \mathbb{R} &amp; \text{質量}\\
+    \boldsymbol{F} \in \mathbb{R}^{3} &amp; \text{力}\\
+    \boldsymbol{J} \in \mathbb{R}^{3} &amp; \text{力積}\\
+    \Delta t \in \mathbb{R} &amp; \text{タイムステップ}
+\end{array}
+\end{aligned}
+\]</span></p>
+<section id="力を適用する場合" class="level4" data-number="3.1.1">
+<h4 data-number="3.1.1" class="anchored" data-anchor-id="力を適用する場合"><span class="header-section-number">3.1.1</span> 力を適用する場合</h4>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{v}_{t+1}
+&amp;=\boldsymbol{v}_{t} + \frac{\boldsymbol{F}}{m} \Delta t
+\end{aligned}
+\]</span></p>
+</section>
+<section id="力積を適用する場合" class="level4" data-number="3.1.2">
+<h4 data-number="3.1.2" class="anchored" data-anchor-id="力積を適用する場合"><span class="header-section-number">3.1.2</span> 力積を適用する場合</h4>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{v}_{t+1}
+&amp;=\boldsymbol{v}_{t} + \frac{\boldsymbol{J}}{m}
+\end{aligned}
+\]</span></p>
+<blockquote class="blockquote">
+<p>撃力は運動量 <span class="math inline">\(\boldsymbol{p}(t)=m\boldsymbol{v}(t)\)</span> を用いて</p>
+<p><span class="math display">\[
+\begin{aligned}
+\int^{t + \Delta t}_{t} \frac{d \boldsymbol{p}(t)}{dt} dt
+&amp;=\int^{t + \Delta t}_{t} \boldsymbol{F}(t) dt\\
+\\
+\left[\boldsymbol{p}(t) \right]^{t + \Delta t}_{t}
+&amp;\simeq \boldsymbol{F}(t) \Delta t\\
+\\
+\underbrace{m \Delta \boldsymbol{v}}_{Change \hspace{2pt} in \hspace{2pt} momentum}
+&amp;\simeq \underbrace{\boldsymbol{F}(t) \Delta t}_{impulse}
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+</section>
+<section id="回転運動" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="回転運動"><span class="header-section-number">3.2</span> 回転運動</h3>
+<p><span class="math display">\[
+\begin{aligned}
+\begin{array}{l|l}
+\text{パラメータ} &amp; \text{解説}\\ \hline
+    \boldsymbol{q}_{r} \in \mathbb{H}_{1} &amp; \text{剛体の回転}\\
+    \boldsymbol{I} \in \mathbb{R}^{3\times 3} &amp; \text{慣性テンソル}\\
+    \boldsymbol{I}_{world} \in \mathbb{R}^{3\times 3} &amp; \text{慣性テンソル}\\
+    \boldsymbol{\omega} \in \mathbb{R}^{3} &amp; \text{角速度}\\
+    \boldsymbol{L} \in \mathbb{R}^{3} &amp; \text{角運動量}\\
+    \boldsymbol{\tau} \in \mathbb{R}^{3} &amp; \text{トルク}\\
+    \boldsymbol{H} \in \mathbb{R}^{3} &amp; \text{力積}\\
+    \Delta t \in \mathbb{R} &amp; \text{タイムステップ}
+\end{array}
+\end{aligned}
+\]</span></p>
+<section id="トルクを適用する場合" class="level4" data-number="3.2.1">
+<h4 data-number="3.2.1" class="anchored" data-anchor-id="トルクを適用する場合"><span class="header-section-number">3.2.1</span> トルクを適用する場合</h4>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{R}_{t}
+&amp;=({\boldsymbol{q}_{r}}_{t}) \text{ as matrix}\\
+\\
+\boldsymbol{I}_{world}
+&amp;=\boldsymbol{R}_{t} \boldsymbol{I} \boldsymbol{R}_{t}^{-1}\\
+\\
+\boldsymbol{I}^{-1}_{world}
+&amp;=\boldsymbol{R}_{t} \boldsymbol{I}^{-1} \boldsymbol{R}_{t}^{-1}\\
+\\
+\boldsymbol{L}_{t}
+&amp;=\boldsymbol{I}_{world} \boldsymbol{\omega}_{t}\\
+\\
+\boldsymbol{L}_{t+1}
+&amp;=\boldsymbol{L}_{t} + \boldsymbol{\tau}_{t} \Delta t\\
+\\
+\boldsymbol{\omega}_{t+1}
+&amp;=\boldsymbol{I}^{-1}_{world} \boldsymbol{L}_{t+1}\\
+\end{aligned}
+\]</span></p>
+</section>
+<section id="力積を適用する場合-1" class="level4" data-number="3.2.2">
+<h4 data-number="3.2.2" class="anchored" data-anchor-id="力積を適用する場合-1"><span class="header-section-number">3.2.2</span> 力積を適用する場合</h4>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{R}_{t}
+&amp;=({\boldsymbol{q}_{r}}_{t}) \text{ as matrix}\\
+\\
+\boldsymbol{I}_{world}
+&amp;=\boldsymbol{R}_{t} \boldsymbol{I} \boldsymbol{R}_{t}^{-1}\\
+\\
+\boldsymbol{I}^{-1}_{world}
+&amp;=\boldsymbol{R}_{t} \boldsymbol{I}^{-1} \boldsymbol{R}_{t}^{-1}\\
+\\
+\boldsymbol{L}_{t}
+&amp;=\boldsymbol{I}_{world} \boldsymbol{\omega}_{t}\\
+\\
+\boldsymbol{L}_{t+1}
+&amp;=\boldsymbol{L}_{t} + \boldsymbol{H}_{t}\\
+\\
+\boldsymbol{\omega}_{t+1}
+&amp;=\boldsymbol{I}^{-1}_{world} \boldsymbol{L}_{t+1}\\
+\end{aligned}
+\]</span></p>
+<blockquote class="blockquote">
+<p>撃力は角運動量 <span class="math inline">\(\boldsymbol{L}\)</span> を用いて</p>
+<p><span class="math display">\[
+\begin{aligned}
+\int^{t + \Delta t}_{t} \frac{d \boldsymbol{L}(t)}{dt} dt
+&amp;=\int^{t + \Delta t}_{t} \boldsymbol{\tau}(t) dt\\
+\\
+\left[\boldsymbol{L}(t) \right]^{t + \Delta t}_{t}
+&amp;\simeq \boldsymbol{\tau}(t) \Delta t\\
+\\
+\underbrace{\Delta \boldsymbol{L}}_{Change \hspace{2pt} in \hspace{2pt} momentum}
+&amp;\simeq \underbrace{\boldsymbol{\tau}(t) \Delta t}_{impulse}
+\end{aligned}
+\]</span></p>
+<p>または</p>
+<p><span class="math display">\[
+\begin{aligned}
+\int^{t + \Delta t}_{t} \frac{d \boldsymbol{L}(t)}{dt} dt
+&amp;=\boldsymbol{r} \times \int^{t + \Delta t}_{t} \boldsymbol{F}(t) dt\\
+\\
+\left[\boldsymbol{L}(t) \right]^{t + \Delta t}_{t}
+&amp;\simeq \boldsymbol{r} \times \boldsymbol{F}(t) \Delta t\\
+\\
+\underbrace{\Delta \boldsymbol{L}}_{Change \hspace{2pt} in \hspace{2pt} momentum}
+&amp;\simeq \underbrace{\boldsymbol{r} \times \boldsymbol{F}(t) \Delta t}_{impulse}
+\end{aligned}
+\]</span></p>
+</blockquote>
+</section>
+</section>
+<section id="合成運動" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="合成運動"><span class="header-section-number">3.3</span> 合成運動</h3>
+<p>剛体上のある位置へ力や撃力を適用する場合について．剛体の中心(重心)から剛体上のある位置 <span class="math inline">\(\boldsymbol{p}\)</span> へのベクトルを <span class="math inline">\(\boldsymbol{r}=\boldsymbol{p}\ - \boldsymbol{x}\)</span> とする．</p>
+<section id="力を適用する場合-1" class="level4" data-number="3.3.1">
+<h4 data-number="3.3.1" class="anchored" data-anchor-id="力を適用する場合-1"><span class="header-section-number">3.3.1</span> 力を適用する場合</h4>
+<ol type="1">
+<li>並進運動を行う</li>
+<li><span class="math inline">\(\boldsymbol{\tau}=\boldsymbol{r} \times \boldsymbol{F}\)</span> として回転運動を行う</li>
+</ol>
+</section>
+<section id="力積を適用する場合-2" class="level4" data-number="3.3.2">
+<h4 data-number="3.3.2" class="anchored" data-anchor-id="力積を適用する場合-2"><span class="header-section-number">3.3.2</span> 力積を適用する場合</h4>
+<ol type="1">
+<li>並進運動を行う</li>
+<li><span class="math inline">\(\boldsymbol{H}=\boldsymbol{r} \times \boldsymbol{J}\)</span> として回転運動を行う</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="更新" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="更新"><span class="header-section-number">4</span> 更新</h2>
+<p>最終的な速度や角速度を用い，位置や姿勢を更新する．</p>
+<section id="並進運動-1" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="並進運動-1"><span class="header-section-number">4.1</span> 並進運動</h3>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{x}_{t+1}
+&amp;=\boldsymbol{x}_{t} + \boldsymbol{v}_{t+1} \Delta t
+\end{aligned}
+\]</span></p>
+</section>
+<section id="回転運動-1" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="回転運動-1"><span class="header-section-number">4.2</span> 回転運動</h3>
+<p><span class="math display">\[
+\begin{aligned}
+{\boldsymbol{q}_{r}}_{t+1}
+&amp;=\frac{{\boldsymbol{q}_{r}}_{t} + \dot{\boldsymbol{q}_{r}}_{t+1} \Delta t}{\|{\boldsymbol{q}_{r}}_{t} + \dot{\boldsymbol{q}_{r}}_{t+1} \Delta t\|}
+\end{aligned}
+\]</span></p>
+<blockquote class="blockquote">
+<p>四元数の時間微分について</p>
+<p><span class="math display">\[
+\begin{aligned}
+\dot{\boldsymbol{q}}(t)
+&amp;=\frac{d}{dt} \boldsymbol{q}(t)\\
+&amp;=\frac{1}{2} \left\{\omega_{x}(t) \boldsymbol{i} + \omega_{y}(t) \boldsymbol{j} + \omega_{z}(t) \boldsymbol{k}\right\} \otimes \boldsymbol{q}(t)
+\end{aligned}
+\]</span></p>
+<p>オイラー法による時間積分</p>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{q}(t+\Delta t)
+&amp;=\frac{\boldsymbol{q}(t) + \dot{\boldsymbol{q}}(t) \Delta t}{\|\boldsymbol{q}(t) + \dot{\boldsymbol{q}}(t) \Delta t\|}
+\end{aligned}
+\]</span></p>
+<p>大きさが安定しないので正規化が必須．</p>
+</blockquote>
+</section>
+</section>
+<section id="回転運動のパラメータについて" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="回転運動のパラメータについて"><span class="header-section-number">5</span> 回転運動のパラメータについて</h2>
+<p>対角化された慣性テンソルに着目する．主慣性モーメントをベクトルとして扱えばストレージサイズが 1/3 となる．それに伴い計算は四元数が主となる．</p>
+<p><span class="math display">\[
+\begin{aligned}
+\begin{array}{c|l}
+\text{パラメータ} &amp; \text{解説}\\ \hline
+    \boldsymbol{I}_{d} \in \mathbb{R}^{3} &amp; \text{主慣性モーメント}\\
+    \boldsymbol{q}_{o} \in \mathbb{H}_{1} &amp; \boldsymbol{O} \text{ を四元数化}\\
+    \boldsymbol{q}_{r} \in \mathbb{H}_{1} &amp; \boldsymbol{R} \text{ を四元数化}\\
+\end{array}
+\end{aligned}
+\]</span></p>
+<p>ただし</p>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{I}^{-1}_{d}
+&amp;\equiv
+\left(
+\begin{array}{c}
+\frac{1}{{I_{1}}}\\
+\frac{1}{{I_{2}}}\\
+\frac{1}{{I_{3}}}
+\end{array}
+\right)
+\end{aligned}
+\]</span></p>
+<section id="トルクを適用する場合-1" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="トルクを適用する場合-1"><span class="header-section-number">5.1</span> トルクを適用する場合</h3>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{q}_{t}
+&amp;={\boldsymbol{q}_{r}}_{t} \otimes {\boldsymbol{q}_{o}}_{t}\\
+\boldsymbol{q}^{-1}_{t}
+&amp;={\boldsymbol{q}_{o}}^{-1}_{t} \otimes {\boldsymbol{q}_{r}}^{-1}_{t}\\
+\\
+\boldsymbol{L}_{t}
+&amp;=\boldsymbol{q}_{t} \diamond (\boldsymbol{I}_{d} \odot (\boldsymbol{q}^{-1}_{t} \diamond \boldsymbol{\omega}_{t}))\\
+\boldsymbol{L}_{t+1}
+&amp;=\boldsymbol{L}_{t} + \boldsymbol{\tau}_{t} \Delta t\\
+\\
+\boldsymbol{\omega}_{t+1}
+&amp;=\boldsymbol{q}_{t} \diamond \left(\boldsymbol{I}^{-1}_{d} \odot (\boldsymbol{q}^{-1}_{t} \diamond \boldsymbol{L}_{t+1}) \right)
+\end{aligned}
+\]</span></p>
+</section>
+<section id="力積を適用する場合-3" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="力積を適用する場合-3"><span class="header-section-number">5.2</span> 力積を適用する場合</h3>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{q}_{t}
+&amp;={\boldsymbol{q}_{r}}_{t} \otimes {\boldsymbol{q}_{o}}_{t}\\
+\boldsymbol{q}^{-1}_{t}
+&amp;={\boldsymbol{q}_{o}}^{-1}_{t} \otimes {\boldsymbol{q}_{r}}^{-1}_{t}\\
+\\
+\boldsymbol{L}_{t}
+&amp;=\boldsymbol{q}_{t} \diamond (\boldsymbol{I}_{d} \odot (\boldsymbol{q}^{-1}_{t} \diamond \boldsymbol{\omega}_{t}))\\
+\boldsymbol{L}_{t+1}
+&amp;=\boldsymbol{L}_{t} + \boldsymbol{H}_{t}\\
+\\
+\boldsymbol{\omega}_{t+1}
+&amp;=\boldsymbol{q}_{t} \diamond \left(\boldsymbol{I}^{-1}_{d} \odot (\boldsymbol{q}^{-1}_{t} \diamond \boldsymbol{L}_{t+1}) \right)
+\end{aligned}
+\]</span></p>
+</section>
+</section>
+<section id="記号について" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="記号について"><span class="header-section-number">6</span> 記号について</h2>
+<p><span class="math display">\[
+\begin{aligned}
+\begin{array}{c|l}
+\text{記号} &amp; \text{解説}\\ \hline
+    \odot &amp; \text{アダマール積}\\
+    \otimes &amp; \text{四元数の積}\\
+    \diamond &amp; \text{四元数によるベクトルの回転: } \boldsymbol{p}^{'} = \boldsymbol{q} \boldsymbol{p} \boldsymbol{q}^{-1}\\
+\end{array}
+\end{aligned}
+\]</span></p>
+</section>
+<section id="python-による実装例" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="python-による実装例"><span class="header-section-number">7</span> Python による実装例</h2>
+<ul>
+<li><p>基本的な実装例</p>
+<p><a href="https://gist.github.com/Hasenpfote/034cc499827da562fed3c8f676b868f0#file-rigid-body-dynamics-ipynb">rigid-body-dynamics.ipynb</a></p></li>
+<li><p>「回転運動のパラメータについて」で考察した実装例</p>
+<p><a href="https://gist.github.com/Hasenpfote/034cc499827da562fed3c8f676b868f0#file-rigid-body-dynamics-2-ipynb">rigid-body-dynamics-2.ipynb</a></p></li>
+</ul>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/hasenpfote\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      if (authorPrefersDark) {
+          [baseTheme, altTheme] = [altTheme, baseTheme];
+      }
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "Hasenpfote/blog-comments";
+    script.dataset.repoId = "R_kgDOI-oVeg";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOI-oVes4CUQGw";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://quarto.org">
+<p>Built with Quarto</p>
+</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ © 2020-2025 Hasenpfote
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Hasenpfote/quarto-blog/edit/main/posts/rigid-body-simulation-notes.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/blob/main/posts/rigid-body-simulation-notes.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/quarto-blog/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../index.xml">
+<p>RSS</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../sitemap.xml">
+<p>Sitemap</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
