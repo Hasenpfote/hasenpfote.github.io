@@ -21,6 +21,7 @@
 
 
 
+<p><a href="https://colab.research.google.com/github/Hasenpfote/hasenpfote.github.io/blob/main/posts/thoughts-on-slab-method.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a><a href=""></a></p>
 <section id="スラブ法の概要" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="スラブ法の概要"><span class="header-section-number">1</span> スラブ法の概要</h2>
 <p>光線は，始点ベクトル <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bo%7D"> と方向ベクトル <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bd%7D"> を用いて，次のようなパラメトリック形式で表される．</p>
@@ -33,7 +34,7 @@
 </section>
 <section id="テストシーン共通データセット" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="テストシーン共通データセット"><span class="header-section-number">2</span> テストシーン（共通データセット）</h2>
-<div id="cell-3" class="cell" data-execution_count="1">
+<div id="cell-4" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
@@ -91,7 +92,7 @@ font-style: inherit;">/</span> rd</span></code></pre></div>
 <section id="スラブのパラメータ区間の可視化" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="スラブのパラメータ区間の可視化"><span class="header-section-number">3</span> スラブのパラメータ区間の可視化</h2>
 <p>光線パラメータ <img src="https://latex.codecogs.com/png.latex?t"> を横軸に，縦軸に各軸方向のスラブ区間を並べ，光線がその区間を通過する様子を視覚的に示す．</p>
-<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:262}}" data-outputid="2be53519-f339-4064-84b4-f3e8521fb57d" data-execution_count="2">
+<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:262}}" data-outputid="2be53519-f339-4064-84b4-f3e8521fb57d" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
@@ -529,7 +530,7 @@ font-style: inherit;">8</span>),</span>
 <li>最小値・最大値の計算においては，NaN を無視する必要がある</li>
 <li>比較操作は NaN の性質を利用する</li>
 </ul>
-<div id="cell-7" class="cell" data-execution_count="3">
+<div id="cell-8" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
@@ -616,7 +617,7 @@ background-color: null;
 font-style: inherit;">&lt;</span> t_max, t_min, t_max</span></code></pre></div>
 </details>
 </div>
-<div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="df741772-7297-4f26-bc0c-ea8a0e37bea8" data-execution_count="4">
+<div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="df741772-7297-4f26-bc0c-ea8a0e37bea8" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">is_hit, t_min, t_max <span class="op" style="color: #5E5E5E;
@@ -656,7 +657,7 @@ font-style: inherit;">"</span>)</span></code></pre></div>
 <pre><code>is_hit=np.True_, t_min=np.float64(1.118033988749895), t_max=np.float64(3.3541019662496847)</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:312}}" data-outputid="050d303a-6dd4-47c5-f071-98188bc76ab2" data-execution_count="5">
+<div id="cell-10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:312}}" data-outputid="050d303a-6dd4-47c5-f071-98188bc76ab2" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="kw" style="color: #003B4F;
@@ -968,7 +969,7 @@ font-style: inherit;">8</span>),</span>
 </section>
 <section id="appendix-3次元での可視化" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="appendix-3次元での可視化"><span class="header-section-number">5</span> Appendix: 3次元での可視化</h2>
-<div id="cell-11" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="d4a2708a-e409-40d3-ef00-5761fc204376" data-execution_count="6">
+<div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="d4a2708a-e409-40d3-ef00-5761fc204376" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">ro, rd <span class="op" style="color: #5E5E5E;
@@ -1063,7 +1064,7 @@ font-style: inherit;">"</span>)</span></code></pre></div>
 <pre><code>is_hit=np.True_, t_min=np.float64(1.5), t_max=np.float64(3.0)</code></pre>
 </div>
 </div>
-<div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:433}}" data-outputid="d16203ea-b76e-48b3-9491-e9c287fb8db3" data-execution_count="7">
+<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:433}}" data-outputid="d16203ea-b76e-48b3-9491-e9c287fb8db3" data-execution_count="7">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="im" style="color: #00769E;
@@ -1532,11 +1533,12 @@ font-style: inherit;">8</span>),</span>
 
 
 
+<p><a href="https://colab.research.google.com/github/Hasenpfote/hasenpfote.github.io/blob/main/posts/thoughts-on-morton-code.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a><a href=""></a></p>
 <section id="モートン符号の範囲" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="モートン符号の範囲"><span class="header-section-number">1</span> モートン符号の範囲</h2>
 <p>ここでは表示の都合上，2 次元で各軸が 4bits の 8bits を対象とする．</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bc%20c%20c%20c%7D%0A7%20&amp;%206%20&amp;%205%20&amp;%204%20&amp;%203%20&amp;%202%20&amp;%201%20&amp;%200%20%5C%5C%0A%5Chline%0Ay_3%20&amp;%20x_3%20&amp;%20y_2%20&amp;%20x_2%20&amp;%20y_1%20&amp;%20x_1%20&amp;%20y_0%20&amp;%20x_0%20%5C%5C%0A%5Cend%7Barray%7D%0A"></p>
-<div id="cell-2" class="cell" data-execution_count="1">
+<div id="cell-3" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
@@ -1707,7 +1709,7 @@ font-style: inherit;">1</span>)</span></code></pre></div>
 <h2 data-number="2" class="anchored" data-anchor-id="z-order-curve"><span class="header-section-number">2</span> Z-order curve</h2>
 <p>Z-order curve の由来である Z を可視化する．ただし，原点は左下とする．</p>
 <p><strong>※ <code>np.argsort</code> を利用しているが，本来は基数ソートを用いる．例えば 30bits のモートン符号なら 6bits 単位で基数ソートをするなど．</strong></p>
-<div id="cell-4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:628}}" data-outputid="5be0cfea-810b-48df-dc94-a3d54200a790" data-execution_count="2">
+<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:628}}" data-outputid="5be0cfea-810b-48df-dc94-a3d54200a790" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
@@ -1875,7 +1877,7 @@ font-style: inherit;">True</span>)</span>
 <li>相対座標を境界ボックスで正規化する</li>
 <li>正規化された総体座標をスケールする</li>
 </ol>
-<div id="cell-6" class="cell" data-execution_count="3">
+<div id="cell-7" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
@@ -1998,7 +2000,7 @@ font-weight: bold;
 font-style: inherit;">return</span> points</span></code></pre></div>
 </details>
 </div>
-<div id="cell-7" class="cell" data-execution_count="4">
+<div id="cell-8" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">np.random.seed(<span class="dv" style="color: #AD0000;
@@ -2085,7 +2087,7 @@ font-style: inherit;">=</span> codes[inds]</span></code></pre></div>
 <section id="範囲検索" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="範囲検索"><span class="header-section-number">4</span> 範囲検索</h2>
 <p>モートン符号の任意の bit(s) に注目することで，領域に属する点群を検索することができる．いくつかの例を示す．</p>
-<div id="cell-9" class="cell" data-execution_count="5">
+<div id="cell-10" class="cell" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
@@ -2484,7 +2486,7 @@ font-style: inherit;">True</span>)</span>
 <h3 data-number="4.1" class="anchored" data-anchor-id="上位-1bit-目の領域"><span class="header-section-number">4.1</span> 上位 1bit 目の領域</h3>
 <p>全体を上下 1/2 に分割．</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bc%20c%20c%20c%7D%0A7%20&amp;%206%20&amp;%205%20&amp;%204%20&amp;%203%20&amp;%202%20&amp;%201%20&amp;%200%5C%5C%0A%5Chline%0Ay_3%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%5C%5C%0A%5Cend%7Barray%7D%0A"></p>
-<div id="cell-11" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:330}}" data-outputid="bd019729-a470-4f3a-8ca3-6c1ea127c70b" data-execution_count="6">
+<div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:330}}" data-outputid="bd019729-a470-4f3a-8ca3-6c1ea127c70b" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">plot_regeions(points, codes, np.uint32(<span class="bn" style="color: #AD0000;
@@ -2506,7 +2508,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <h3 data-number="4.2" class="anchored" data-anchor-id="上位-2bit-目の領域"><span class="header-section-number">4.2</span> 上位 2bit 目の領域</h3>
 <p>全体を左右 1/2 に分割．</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bc%20c%20c%20c%7D%0A7%20&amp;%206%20&amp;%205%20&amp;%204%20&amp;%203%20&amp;%202%20&amp;%201%20&amp;%200%5C%5C%0A%5Chline%0A-%20&amp;%20x_3%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%5C%5C%0A%5Cend%7Barray%7D%0A"></p>
-<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:330}}" data-outputid="8e44bf20-420a-4bc6-9b8c-55d97471a987" data-execution_count="7">
+<div id="cell-14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:330}}" data-outputid="8e44bf20-420a-4bc6-9b8c-55d97471a987" data-execution_count="7">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">plot_regeions(points, codes, np.uint32(<span class="bn" style="color: #AD0000;
@@ -2528,7 +2530,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <h3 data-number="4.3" class="anchored" data-anchor-id="上位-3bit-目の領域"><span class="header-section-number">4.3</span> 上位 3bit 目の領域</h3>
 <p>全体を上下 1/2 に分割し，各々を上下 1/2 に分割．</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bc%20c%20c%20c%7D%0A7%20&amp;%206%20&amp;%205%20&amp;%204%20&amp;%203%20&amp;%202%20&amp;%201%20&amp;%200%5C%5C%0A%5Chline%0A-%20&amp;%20-%20&amp;%20y_2%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%5C%5C%0A%5Cend%7Barray%7D%0A"></p>
-<div id="cell-15" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:330}}" data-outputid="d803bc70-dcd9-4320-8dec-9a3c4360128b" data-execution_count="8">
+<div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:330}}" data-outputid="d803bc70-dcd9-4320-8dec-9a3c4360128b" data-execution_count="8">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">plot_regeions(points, codes, np.uint32(<span class="bn" style="color: #AD0000;
@@ -2550,7 +2552,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <h3 data-number="4.4" class="anchored" data-anchor-id="上位-4bit-目の領域"><span class="header-section-number">4.4</span> 上位 4bit 目の領域</h3>
 <p>全体を左右 1/2 に分割し，各々を左右 1/2 に分割．</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bc%20c%20c%20c%7D%0A7%20&amp;%206%20&amp;%205%20&amp;%204%20&amp;%203%20&amp;%202%20&amp;%201%20&amp;%200%5C%5C%0A%5Chline%0A-%20&amp;%20-%20&amp;%20-%20&amp;%20x_2%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%5C%5C%0A%5Cend%7Barray%7D%0A"></p>
-<div id="cell-17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:330}}" data-outputid="2930ceab-8e7b-4022-ee0c-3a8d40738037" data-execution_count="9">
+<div id="cell-18" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:330}}" data-outputid="2930ceab-8e7b-4022-ee0c-3a8d40738037" data-execution_count="9">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">plot_regeions(points, codes, np.uint32(<span class="bn" style="color: #AD0000;
@@ -2572,7 +2574,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <h3 data-number="4.5" class="anchored" data-anchor-id="上位-2bits-の領域"><span class="header-section-number">4.5</span> 上位 2bits の領域</h3>
 <p>全体を 1/4 で分けた領域．</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bc%20c%20c%20c%7D%0A7%20&amp;%206%20&amp;%205%20&amp;%204%20&amp;%203%20&amp;%202%20&amp;%201%20&amp;%200%5C%5C%0A%5Chline%0Ay_3%20&amp;%20x_3%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%5C%5C%0A%5Cend%7Barray%7D%0A"></p>
-<div id="cell-19" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:339}}" data-outputid="a3dd17ab-6203-41ea-decf-6268a5bd1465" data-execution_count="10">
+<div id="cell-20" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:339}}" data-outputid="a3dd17ab-6203-41ea-decf-6268a5bd1465" data-execution_count="10">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">plot_regeions(points, codes, np.uint32(<span class="bn" style="color: #AD0000;
@@ -2594,7 +2596,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <h3 data-number="4.6" class="anchored" data-anchor-id="上位-3bits-の領域"><span class="header-section-number">4.6</span> 上位 3bits の領域</h3>
 <p>全体を 1/8 で分けた領域．</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bc%20c%20c%20c%7D%0A7%20&amp;%206%20&amp;%205%20&amp;%204%20&amp;%203%20&amp;%202%20&amp;%201%20&amp;%200%5C%5C%0A%5Chline%0Ay_3%20&amp;%20x_3%20&amp;%20y_2%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%5C%5C%0A%5Cend%7Barray%7D%0A"></p>
-<div id="cell-21" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:628}}" data-outputid="8e9c30d4-99cb-45c3-db1b-30a42bfb188f" data-execution_count="11">
+<div id="cell-22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:628}}" data-outputid="8e9c30d4-99cb-45c3-db1b-30a42bfb188f" data-execution_count="11">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">plot_regeions(points, codes, np.uint32(<span class="bn" style="color: #AD0000;
@@ -2616,7 +2618,7 @@ font-style: inherit;">4</span>)</span></code></pre></div>
 <h3 data-number="4.7" class="anchored" data-anchor-id="上位-4bits-の領域"><span class="header-section-number">4.7</span> 上位 4bits の領域</h3>
 <p>全体を 1/16 で分けた領域．</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bc%20c%20c%20c%7D%0A7%20&amp;%206%20&amp;%205%20&amp;%204%20&amp;%203%20&amp;%202%20&amp;%201%20&amp;%200%5C%5C%0A%5Chline%0Ay_3%20&amp;%20x_3%20&amp;%20y_2%20&amp;%20x_2%20&amp;%20-%20&amp;%20-%20&amp;%20-%20&amp;%20-%5C%5C%0A%5Cend%7Barray%7D%0A"></p>
-<div id="cell-23" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="44c1cd75-5b96-4576-c343-85443f8e0b31" data-execution_count="12">
+<div id="cell-24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="44c1cd75-5b96-4576-c343-85443f8e0b31" data-execution_count="12">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">plot_regeions(points, codes, np.uint32(<span class="bn" style="color: #AD0000;

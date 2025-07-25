@@ -1,17 +1,10 @@
 [
   {
-    "objectID": "posts/thoughts-on-slab-method.html",
-    "href": "posts/thoughts-on-slab-method.html",
-    "title": "スラブ法についての考察",
-    "section": "",
-    "text": "光線は，始点ベクトル \\(\\boldsymbol{o}\\) と方向ベクトル \\(\\boldsymbol{d}\\) を用いて，次のようなパラメトリック形式で表される．\n\\[\n\\boldsymbol{P}(t)=\\boldsymbol{o}+t\\boldsymbol{d}\n\\]\n軸平行境界ボックス（Axis-Aligned Bounding Box, AABB）との交点を求めるには，光線が各境界面に到達するパラメータ \\(t\\) を計算すればよい．\n\\[\n\\begin{cases}\n\\boldsymbol{P}(t)=\\boldsymbol{b}_{min}\\\\\n\\boldsymbol{P}(t)=\\boldsymbol{b}_{max}\n\\end{cases}\n\\]\n各次元 \\(i\\) ごとに，光線がその軸方向のスラブ面（\\(b_{min,i},b_{max,i}\\)）に到達するパラメータ値は，次のように求められる．\n\\[\n\\begin{align*}\nt_{0, i}&=\\frac{b_{min,i} - o_{i}}{d_{i}}\\\\\nt_{1, i}&=\\frac{b_{max,i} - o_{i}}{d_{i}}\n\\end{align*}\n\\]\n各軸での交差区間の共通部分から，全体の交差区間を求めることができる．"
-  },
-  {
     "objectID": "posts/thoughts-on-slab-method.html#スラブ法の概要",
     "href": "posts/thoughts-on-slab-method.html#スラブ法の概要",
     "title": "スラブ法についての考察",
-    "section": "",
-    "text": "光線は，始点ベクトル \\(\\boldsymbol{o}\\) と方向ベクトル \\(\\boldsymbol{d}\\) を用いて，次のようなパラメトリック形式で表される．\n\\[\n\\boldsymbol{P}(t)=\\boldsymbol{o}+t\\boldsymbol{d}\n\\]\n軸平行境界ボックス（Axis-Aligned Bounding Box, AABB）との交点を求めるには，光線が各境界面に到達するパラメータ \\(t\\) を計算すればよい．\n\\[\n\\begin{cases}\n\\boldsymbol{P}(t)=\\boldsymbol{b}_{min}\\\\\n\\boldsymbol{P}(t)=\\boldsymbol{b}_{max}\n\\end{cases}\n\\]\n各次元 \\(i\\) ごとに，光線がその軸方向のスラブ面（\\(b_{min,i},b_{max,i}\\)）に到達するパラメータ値は，次のように求められる．\n\\[\n\\begin{align*}\nt_{0, i}&=\\frac{b_{min,i} - o_{i}}{d_{i}}\\\\\nt_{1, i}&=\\frac{b_{max,i} - o_{i}}{d_{i}}\n\\end{align*}\n\\]\n各軸での交差区間の共通部分から，全体の交差区間を求めることができる．"
+    "section": "1 スラブ法の概要",
+    "text": "1 スラブ法の概要\n光線は，始点ベクトル \\(\\boldsymbol{o}\\) と方向ベクトル \\(\\boldsymbol{d}\\) を用いて，次のようなパラメトリック形式で表される．\n\\[\n\\boldsymbol{P}(t)=\\boldsymbol{o}+t\\boldsymbol{d}\n\\]\n軸平行境界ボックス（Axis-Aligned Bounding Box, AABB）との交点を求めるには，光線が各境界面に到達するパラメータ \\(t\\) を計算すればよい．\n\\[\n\\begin{cases}\n\\boldsymbol{P}(t)=\\boldsymbol{b}_{min}\\\\\n\\boldsymbol{P}(t)=\\boldsymbol{b}_{max}\n\\end{cases}\n\\]\n各次元 \\(i\\) ごとに，光線がその軸方向のスラブ面（\\(b_{min,i},b_{max,i}\\)）に到達するパラメータ値は，次のように求められる．\n\\[\n\\begin{align*}\nt_{0, i}&=\\frac{b_{min,i} - o_{i}}{d_{i}}\\\\\nt_{1, i}&=\\frac{b_{max,i} - o_{i}}{d_{i}}\n\\end{align*}\n\\]\n各軸での交差区間の共通部分から，全体の交差区間を求めることができる．"
   },
   {
     "objectID": "posts/thoughts-on-slab-method.html#テストシーン共通データセット",
@@ -84,18 +77,11 @@
     "text": "4 モバイル\nAndroid なら公式の Joplin ．読み込み専用にすることで閲覧目的に利用すると使い勝手が良い．"
   },
   {
-    "objectID": "posts/thoughts-on-morton-code.html",
-    "href": "posts/thoughts-on-morton-code.html",
-    "title": "モートン符号についての考察",
-    "section": "",
-    "text": "ここでは表示の都合上，2 次元で各軸が 4bits の 8bits を対象とする．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\\\n\\hline\ny_3 & x_3 & y_2 & x_2 & y_1 & x_1 & y_0 & x_0 \\\\\n\\end{array}\n\\]\n\n\nコード\nimport numpy as np\n\n\ndef interleave_bits(x):\n    x = np.asarray(x, dtype=np.uint32)\n    x = (x | (x &lt;&lt; 2)) & 0x00000033\n    x = (x | (x &lt;&lt; 1)) & 0x00000055\n    return x\n\n\ndef deinterleave_bits(x):\n    x = np.asarray(x, dtype=np.uint32)\n    x = x & 0x00000055\n    x = (x | (x &gt;&gt; 1)) & 0x00000033\n    x = (x | (x &gt;&gt; 2)) & 0x0000000F\n    return x\n\n\ndef encode_morton(v):\n    v = np.asarray(v)\n    v = interleave_bits(v)\n    x = np.take(v, 0, axis=-1)\n    y = np.take(v, 1, axis=-1)\n    return (y &lt;&lt; 1) | x\n\n\ndef decode_morton(code):\n    code = np.asarray(code)\n    x = deinterleave_bits(code)\n    y = deinterleave_bits(code &gt;&gt; 1)\n    return np.stack([x, y], axis=-1)"
-  },
-  {
     "objectID": "posts/thoughts-on-morton-code.html#モートン符号の範囲",
     "href": "posts/thoughts-on-morton-code.html#モートン符号の範囲",
     "title": "モートン符号についての考察",
-    "section": "",
-    "text": "ここでは表示の都合上，2 次元で各軸が 4bits の 8bits を対象とする．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\\\n\\hline\ny_3 & x_3 & y_2 & x_2 & y_1 & x_1 & y_0 & x_0 \\\\\n\\end{array}\n\\]\n\n\nコード\nimport numpy as np\n\n\ndef interleave_bits(x):\n    x = np.asarray(x, dtype=np.uint32)\n    x = (x | (x &lt;&lt; 2)) & 0x00000033\n    x = (x | (x &lt;&lt; 1)) & 0x00000055\n    return x\n\n\ndef deinterleave_bits(x):\n    x = np.asarray(x, dtype=np.uint32)\n    x = x & 0x00000055\n    x = (x | (x &gt;&gt; 1)) & 0x00000033\n    x = (x | (x &gt;&gt; 2)) & 0x0000000F\n    return x\n\n\ndef encode_morton(v):\n    v = np.asarray(v)\n    v = interleave_bits(v)\n    x = np.take(v, 0, axis=-1)\n    y = np.take(v, 1, axis=-1)\n    return (y &lt;&lt; 1) | x\n\n\ndef decode_morton(code):\n    code = np.asarray(code)\n    x = deinterleave_bits(code)\n    y = deinterleave_bits(code &gt;&gt; 1)\n    return np.stack([x, y], axis=-1)"
+    "section": "1 モートン符号の範囲",
+    "text": "1 モートン符号の範囲\nここでは表示の都合上，2 次元で各軸が 4bits の 8bits を対象とする．\n\\[\n\\begin{array}{c c c c}\n7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\\\n\\hline\ny_3 & x_3 & y_2 & x_2 & y_1 & x_1 & y_0 & x_0 \\\\\n\\end{array}\n\\]\n\n\nコード\nimport numpy as np\n\n\ndef interleave_bits(x):\n    x = np.asarray(x, dtype=np.uint32)\n    x = (x | (x &lt;&lt; 2)) & 0x00000033\n    x = (x | (x &lt;&lt; 1)) & 0x00000055\n    return x\n\n\ndef deinterleave_bits(x):\n    x = np.asarray(x, dtype=np.uint32)\n    x = x & 0x00000055\n    x = (x | (x &gt;&gt; 1)) & 0x00000033\n    x = (x | (x &gt;&gt; 2)) & 0x0000000F\n    return x\n\n\ndef encode_morton(v):\n    v = np.asarray(v)\n    v = interleave_bits(v)\n    x = np.take(v, 0, axis=-1)\n    y = np.take(v, 1, axis=-1)\n    return (y &lt;&lt; 1) | x\n\n\ndef decode_morton(code):\n    code = np.asarray(code)\n    x = deinterleave_bits(code)\n    y = deinterleave_bits(code &gt;&gt; 1)\n    return np.stack([x, y], axis=-1)"
   },
   {
     "objectID": "posts/thoughts-on-morton-code.html#z-order-curve",

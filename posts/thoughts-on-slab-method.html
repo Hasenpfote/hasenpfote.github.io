@@ -421,6 +421,7 @@ window.Quarto = {
 
 
 
+<p><a href="https://colab.research.google.com/github/Hasenpfote/hasenpfote.github.io/blob/main/posts/thoughts-on-slab-method.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a><a href=""></a></p>
 <section id="スラブ法の概要" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="スラブ法の概要"><span class="header-section-number">1</span> スラブ法の概要</h2>
 <p>光線は，始点ベクトル <span class="math inline">\(\boldsymbol{o}\)</span> と方向ベクトル <span class="math inline">\(\boldsymbol{d}\)</span> を用いて，次のようなパラメトリック形式で表される．</p>
@@ -445,7 +446,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 </section>
 <section id="テストシーン共通データセット" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="テストシーン共通データセット"><span class="header-section-number">2</span> テストシーン（共通データセット）</h2>
-<div id="cell-3" class="cell" data-execution_count="1">
+<div id="cell-4" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -463,7 +464,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <section id="スラブのパラメータ区間の可視化" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="スラブのパラメータ区間の可視化"><span class="header-section-number">3</span> スラブのパラメータ区間の可視化</h2>
 <p>光線パラメータ <span class="math inline">\(t\)</span> を横軸に，縦軸に各軸方向のスラブ区間を並べ，光線がその区間を通過する様子を視覚的に示す．</p>
-<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:262}}" data-outputid="2be53519-f339-4064-84b4-f3e8521fb57d" data-execution_count="2">
+<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:262}}" data-outputid="2be53519-f339-4064-84b4-f3e8521fb57d" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -554,7 +555,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <li>最小値・最大値の計算においては，NaN を無視する必要がある</li>
 <li>比較操作は NaN の性質を利用する</li>
 </ul>
-<div id="cell-7" class="cell" data-execution_count="3">
+<div id="cell-8" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> intersect(ro: np.ndarray, rd: np.ndarray, b_min: np.ndarray, b_max: np.ndarray) <span class="op">-&gt;</span> <span class="bu">tuple</span>[<span class="bu">bool</span>, <span class="bu">float</span>, <span class="bu">float</span>]:</span>
@@ -575,7 +576,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t_min <span class="op">&lt;</span> t_max, t_min, t_max</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="df741772-7297-4f26-bc0c-ea8a0e37bea8" data-execution_count="4">
+<div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="df741772-7297-4f26-bc0c-ea8a0e37bea8" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>is_hit, t_min, t_max <span class="op">=</span> intersect(ro, rd, b_min, b_max)</span>
@@ -585,7 +586,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <pre><code>is_hit=np.True_, t_min=np.float64(1.118033988749895), t_max=np.float64(3.3541019662496847)</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:312}}" data-outputid="050d303a-6dd4-47c5-f071-98188bc76ab2" data-execution_count="5">
+<div id="cell-10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:312}}" data-outputid="050d303a-6dd4-47c5-f071-98188bc76ab2" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_scene(ro, rd, b_min, b_max, is_hit, t_min, t_max, ax):</span>
@@ -651,7 +652,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 </section>
 <section id="appendix-3次元での可視化" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="appendix-3次元での可視化"><span class="header-section-number">5</span> Appendix: 3次元での可視化</h2>
-<div id="cell-11" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="d4a2708a-e409-40d3-ef00-5761fc204376" data-execution_count="6">
+<div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="d4a2708a-e409-40d3-ef00-5761fc204376" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ro, rd <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>]), np.array([<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>])</span>
@@ -670,7 +671,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <pre><code>is_hit=np.True_, t_min=np.float64(1.5), t_max=np.float64(3.0)</code></pre>
 </div>
 </div>
-<div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:433}}" data-outputid="d16203ea-b76e-48b3-9491-e9c287fb8db3" data-execution_count="7">
+<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:433}}" data-outputid="d16203ea-b76e-48b3-9491-e9c287fb8db3" data-execution_count="7">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
