@@ -60,18 +60,20 @@ website:
 format:
   html:
     theme:
-      light: flatly
-      dark: darkly
+      # https://github.com/quarto-dev/quarto-cli/issues/6741
+      light: cosmo
+      dark: solar
     css: styles.css
     toc: true
     toc-depth: 5
     number-sections: true
     code-fold: show
+    #code-line-numbers: true
     fig-align: center
     lightbox: true
     link-external-newwindow: true
     lang: ja-JP
     # https://quarto.org/docs/output-formats/html-code.html
-#    code-block-bg: true
-#    code-block-border-left: true
-    highlight-style: github
+    #code-block-bg: true
+    #code-block-border-left: true
+    highlight-style: gruvbox
