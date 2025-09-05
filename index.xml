@@ -9,8 +9,2644 @@
 <link>https://hasenpfote.github.io/</link>
 <atom:link href="https://hasenpfote.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>A great sample blog</description>
-<generator>quarto-1.7.32</generator>
-<lastBuildDate>Wed, 16 Jul 2025 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.7.34</generator>
+<lastBuildDate>Tue, 19 Aug 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>幾何学的領域上のサンプリング方法</title>
+  <link>https://hasenpfote.github.io/posts/sampling-on-geometric-regions.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>幾何学的領域上のサンプリング手順（逆関数法ベース）</p>
+<ol type="1">
+<li>領域の定義と座標系の設定<br>
+対象領域を決定し，点を表す座標系を選ぶ（直交座標，極座標など）．</li>
+<li>同時確率密度関数（PDF）の決定<br>
+領域の測度（長さ・面積・体積）を <img src="https://latex.codecogs.com/png.latex?M"> とし，領域内で <img src="https://latex.codecogs.com/png.latex?p=%5Cfrac%7B1%7D%7BM%7D"> ，領域外で <img src="https://latex.codecogs.com/png.latex?p=0"> とする．一様分布だけでなく，任意の確率密度関数を設定することも可能．</li>
+<li>必要な変数の周辺確率密度関数の導出<br>
+多変数の場合は，周辺確率密度関数を導出する．変数間に依存関係がある場合や領域が複雑な場合には，条件付き確率密度関数や座標変換を考慮する．</li>
+<li>累積分布関数（CDF）の導出<br>
+各変数の確率密度関数を積分し，累積分布関数を導出する．</li>
+<li>逆関数の計算と乱数生成<br>
+一様乱数 <img src="https://latex.codecogs.com/png.latex?%5Czeta%5Csim%20U(0,1)"> を累積分布関数の逆関数に代入し，サンプル値を得る．</li>
+<li>必要に応じて座標変換<br>
+元の座標系に変換し，最終的なサンプル点を構成する．</li>
+</ol>
+<div id="cell-2" class="cell">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> math</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> np</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> inspect</span>
+<span id="cb1-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> plt</span>
+<span id="cb1-5"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> matplotlib.ticker <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> ticker</span>
+<span id="cb1-6"></span>
+<span id="cb1-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># from matplotlib import font_manager</span></span>
+<span id="cb1-8"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> typing <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> Any, Callable, Sequence, TypedDict</span>
+<span id="cb1-9"></span>
+<span id="cb1-10"></span>
+<span id="cb1-11">np.random.seed(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb1-12"></span>
+<span id="cb1-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># print(plt.style.available)</span></span>
+<span id="cb1-14">plt.style.use(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"seaborn-v0_8"</span>)</span>
+<span id="cb1-15"></span>
+<span id="cb1-16"></span>
+<span id="cb1-17"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> trim_axes(fig: plt.Figure, axs: np.ndarray, num_to_keep: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> np.ndarray:</span>
+<span id="cb1-18">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> ax <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> axs[num_to_keep:]:</span>
+<span id="cb1-19">        fig.delaxes(ax)</span>
+<span id="cb1-20"></span>
+<span id="cb1-21">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> axs[: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos)]</span>
+<span id="cb1-22"></span>
+<span id="cb1-23"></span>
+<span id="cb1-24"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># https://stackoverflow.com/a/50664367</span></span>
+<span id="cb1-25"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> compute_equal_axes_limits(ax):</span>
+<span id="cb1-26">    axes_lims <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (ax.get_xlim(), ax.get_ylim(), ax.get_zlim()) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">hasattr</span>(ax, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"get_zlim"</span>) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> (ax.get_xlim(), ax.get_ylim())</span>
+<span id="cb1-27">    limits <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.array(axes_lims)</span>
+<span id="cb1-28">    center <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> limits.mean(axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb1-29">    half_extent <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">max</span>(np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">abs</span>(limits[:, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> limits[:, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]))</span>
+<span id="cb1-30">    limits[:, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> center <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> half_extent</span>
+<span id="cb1-31">    limits[:, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> center <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> half_extent</span>
+<span id="cb1-32">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> limits</span>
+<span id="cb1-33"></span>
+<span id="cb1-34"></span>
+<span id="cb1-35"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> plot_distribution(ax: plt.Axes, fn, num_samples: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>, fn_kwargs: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">dict</span>[<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>, Any] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, scatter_args: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">dict</span>[<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>, Any] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>:</span>
+<span id="cb1-36">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> fn_kwargs <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">is</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>:</span>
+<span id="cb1-37">        fn_kwargs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {}</span>
+<span id="cb1-38"></span>
+<span id="cb1-39">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> scatter_args <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">is</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>:</span>
+<span id="cb1-40">        scatter_args <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"s"</span>: <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"alpha"</span>: <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.6</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"edgecolor"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"k"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"linewidth"</span>: <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.01</span>}</span>
+<span id="cb1-41"></span>
+<span id="cb1-42">    u_args <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {arg: np.random.uniform(size<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>num_samples) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> arg <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> inspect.getfullargspec(fn).args}</span>
+<span id="cb1-43">    points <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> fn(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span>u_args, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span>fn_kwargs)</span>
+<span id="cb1-44">    coords <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [points[:, i] <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(points.shape[<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>])]</span>
+<span id="cb1-45">    ax.scatter(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>coords, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span>scatter_args)</span>
+<span id="cb1-46"></span>
+<span id="cb1-47"></span>
+<span id="cb1-48"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">class</span> DistrInfo(TypedDict, total<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>):</span>
+<span id="cb1-49">    fn: Callable[..., Any]</span>
+<span id="cb1-50">    num_samples: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span></span>
+<span id="cb1-51">    fn_kwargs: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">dict</span>[<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>, Any] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span></span>
+<span id="cb1-52">    title: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span></span>
+<span id="cb1-53"></span>
+<span id="cb1-54"></span>
+<span id="cb1-55"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> plot_distributions_2d(distr_infos: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>[DistrInfo], nrows_ncols: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">tuple</span>[<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>):</span>
+<span id="cb1-56">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> nrows_ncols <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">is</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>:</span>
+<span id="cb1-57">        nrows_ncols <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos))</span>
+<span id="cb1-58"></span>
+<span id="cb1-59">    base_w, base_h <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> plt.rcParams.get(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"figure.figsize"</span>)</span>
+<span id="cb1-60">    figsize <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (base_w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> nrows_ncols[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span>, base_h <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> nrows_ncols[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.33</span>)</span>
+<span id="cb1-61">    subplot_kw <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"aspect"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"equal"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"xlabel"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"ylabel"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"y"</span>}</span>
+<span id="cb1-62"></span>
+<span id="cb1-63">    fig, axs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> plt.subplots(nrows<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>nrows_ncols[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>], ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>nrows_ncols[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>], sharex<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"all"</span>, sharey<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"all"</span>, subplot_kw<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>subplot_kw, figsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>figsize, constrained_layout<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb1-64">    axs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> trim_axes(fig, np.atleast_1d(axs).flatten(), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos))</span>
+<span id="cb1-65"></span>
+<span id="cb1-66">    fig.set_constrained_layout_pads(hspace<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span>, wspace<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span>)</span>
+<span id="cb1-67"></span>
+<span id="cb1-68">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> ax, distr_info <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">zip</span>(axs, distr_infos):</span>
+<span id="cb1-69">        plot_distribution(ax, distr_info[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>], distr_info[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>], distr_info.get(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn_kwargs"</span>, {}), scatter_args<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>)</span>
+<span id="cb1-70">        limits <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> compute_equal_axes_limits(ax)</span>
+<span id="cb1-71">        ax.set_xlim(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>limits[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>])</span>
+<span id="cb1-72">        ax.set_ylim(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>limits[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>])</span>
+<span id="cb1-73">        ax.grid(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>, which<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"both"</span>)</span>
+<span id="cb1-74">        ax.set_title(distr_info.get(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>))</span>
+<span id="cb1-75"></span>
+<span id="cb1-76">    plt.show()</span>
+<span id="cb1-77"></span>
+<span id="cb1-78"></span>
+<span id="cb1-79"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> plot_distributions_3d(distr_infos: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>[DistrInfo], nrows_ncols: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">tuple</span>[<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>:</span>
+<span id="cb1-80">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> nrows_ncols <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">is</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>:</span>
+<span id="cb1-81">        nrows_ncols <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos))</span>
+<span id="cb1-82"></span>
+<span id="cb1-83">    base_w, base_h <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> plt.rcParams.get(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"figure.figsize"</span>)</span>
+<span id="cb1-84">    figsize <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (base_w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> nrows_ncols[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span>, base_h <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> nrows_ncols[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.33</span>)</span>
+<span id="cb1-85">    subplot_kw <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"projection"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"3d"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"box_aspect"</span>: (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"xlabel"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"ylabel"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"y"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"zlabel"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"z"</span>}</span>
+<span id="cb1-86"></span>
+<span id="cb1-87">    fig, axs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> plt.subplots(nrows<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>nrows_ncols[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>], ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>nrows_ncols[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>], subplot_kw<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>subplot_kw, figsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>figsize, constrained_layout<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb1-88">    axs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> trim_axes(fig, np.atleast_1d(axs).flatten(), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos))</span>
+<span id="cb1-89"></span>
+<span id="cb1-90">    fig.set_constrained_layout_pads(hspace<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span>, wspace<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span>)</span>
+<span id="cb1-91"></span>
+<span id="cb1-92">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> ax, distr_info <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">zip</span>(axs, distr_infos):</span>
+<span id="cb1-93">        plot_distribution(ax, distr_info[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>], distr_info[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>], distr_info.get(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn_kwargs"</span>, {}), scatter_args<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>)</span>
+<span id="cb1-94">        limits <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> compute_equal_axes_limits(ax)</span>
+<span id="cb1-95">        ax.set_xlim(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>limits[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>])</span>
+<span id="cb1-96">        ax.set_ylim(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>limits[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>])</span>
+<span id="cb1-97">        ax.set_zlim(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>limits[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>])</span>
+<span id="cb1-98">        ax.grid(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>, which<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"both"</span>)</span>
+<span id="cb1-99">        ax.view_init(elev<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>, azim<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">45</span>)</span>
+<span id="cb1-100">        ax.set_title(distr_info.get(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>))</span>
+<span id="cb1-101"></span>
+<span id="cb1-102">    plt.show()</span>
+<span id="cb1-103"></span>
+<span id="cb1-104"></span>
+<span id="cb1-105">SAMPLE_SIZES <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">500</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2000</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8000</span>)</span></code></pre></div>
+</details>
+</div>
+<section id="次元サンプリング" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="次元サンプリング"><span class="header-section-number">1</span> １次元サンプリング</h2>
+<section id="円周circle上の一様分布" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="円周circle上の一様分布"><span class="header-section-number">1.1</span> 円周（circle）上の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が，曲線 <img src="https://latex.codecogs.com/png.latex?C"> 上に一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AC:%20%5Cboldsymbol%7Bx%7D(%5Cphi)=R(%5Ccos%5Cphi%5C,%5Cboldsymbol%7Bb%7D_%7B1%7D+%5Csin%5Cphi%5C,%5Cboldsymbol%7Bb%7D_%7B2%7D)%0A,%5Cquad%0A0%5Cle%5Cphi%5Clt%202%5Cpi%0A"></p>
+<p>同時確率密度関数は曲線 <img src="https://latex.codecogs.com/png.latex?C"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．線要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ads%0A=%5Cleft%5C%7C%5Cfrac%7Bd%5Cboldsymbol%7Bx%7D%7D%7Bd%5Cphi%7D%5Cright%5C%7C%5C,d%5Cphi%0A=R%5C,d%5Cphi%0A"></p>
+<p>したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Cint_%7BC%7D%20c%5C,ds%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%20cR%5C,d%5Cphi%0A=c%5Ccdot%202%5Cpi%20R%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B1%7D%7B2%5Cpi%20R%7D%0A,%5Cquad%0Ap_%7B%5CPhi%7D(%5Cphi)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7Bds%7D%7Bd%5Cphi%7D%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta)%0A=2%5Cpi%5Czeta%0A"></p>
+<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="e80e145e-1a02-41ef-866b-704573dd3d49">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_circle(u):</span>
+<span id="cb2-2">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u</span>
+<span id="cb2-3">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (np.cos(phi), np.sin(phi))</span>
+<span id="cb2-4">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb2-5"></span>
+<span id="cb2-6"></span>
+<span id="cb2-7">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_circle  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb2-8">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb2-9">distr_infos: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>[DistrInfo] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb2-10"></span>
+<span id="cb2-11">plot_distributions_2d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-3-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="扇形の円弧arc上の一様分布" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="扇形の円弧arc上の一様分布"><span class="header-section-number">1.2</span> 扇形の円弧（arc）上の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が，曲線 <img src="https://latex.codecogs.com/png.latex?C"> 上に一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AC:%20%5Cboldsymbol%7Bx%7D(%5Cphi)=R(%5Ccos%5Cphi%5C,%5Cboldsymbol%7Bb%7D_%7B1%7D+%5Csin%5Cphi%5C,%5Cboldsymbol%7Bb%7D_%7B2%7D)%0A,%5Cquad%0A-%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%5Cle%5Cphi%20%5Cle%20%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%0A"></p>
+<p>同時確率密度関数は曲線 <img src="https://latex.codecogs.com/png.latex?C"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．線要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ads%0A=%5Cleft%5C%7C%5Cfrac%7Bd%5Cboldsymbol%7Bx%7D%7D%7Bd%5Cphi%7D%5Cright%5C%7C%5C,d%5Cphi%0A=R%5C,d%5Cphi%0A"></p>
+<p>したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Cint_%7BC%7D%20c%5C,ds%0A=%5Cint_%7B-%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%5E%7B%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%20cR%5C,d%5Cphi%0A=c%5Ccdot%20R%5Cphi_%7B%5Ctext%7Bmax%7D%7D%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B1%7D%7BR%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%0A,%5Cquad%0Ap_%7B%5CPhi%7D(%5Cphi)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7Bds%7D%7Bd%5Cphi%7D%0A=%5Cfrac%7B1%7D%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B-%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi+%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta)%0A=%5Cphi_%7B%5Ctext%7Bmax%7D%7D%5Cleft(%5Czeta-%5Cfrac%7B1%7D%7B2%7D%5Cright)%0A"></p>
+<div id="cell-7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:459}}" data-outputid="2a6a2534-d42c-47e9-a322-fe5ae58a9c52">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_arc(u, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>, phi_max<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np.pi):</span>
+<span id="cb3-2">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> phi_max <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> (u <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>)</span>
+<span id="cb3-3">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (np.cos(phi), np.sin(phi))</span>
+<span id="cb3-4">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb3-5"></span>
+<span id="cb3-6"></span>
+<span id="cb3-7">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_arc  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb3-8">fn_kwargs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"phi_max"</span>: <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi}</span>
+<span id="cb3-9">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb3-10">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn_kwargs"</span>: fn_kwargs, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb3-11"></span>
+<span id="cb3-12">plot_distributions_2d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-4-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="次元サンプリング-1" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="次元サンプリング-1"><span class="header-section-number">2</span> ２次元サンプリング</h2>
+<section id="平行四辺形parallelogram内の一様分布" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="平行四辺形parallelogram内の一様分布"><span class="header-section-number">2.1</span> 平行四辺形（parallelogram）内の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が、平面上の領域 <img src="https://latex.codecogs.com/png.latex?S"> 内に一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AS:%20%5Cboldsymbol%7Bx%7D(u,v)=%5Cboldsymbol%7Bx%7D_%7B1%7D+u(%5Cboldsymbol%7Bx%7D_%7B2%7D-%5Cboldsymbol%7Bx%7D_%7B1%7D)+v(%5Cboldsymbol%7Bx%7D_%7B4%7D-%5Cboldsymbol%7Bx%7D_%7B1%7D)%0A,%5Cquad%0A0%5Cle%20u,v%5Cle%201%0A"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bx%7D_%7Bi%7D"> は平行四辺形の頂点であり，辺の対応は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bx%7D_%7B3%7D%0A=%5Cboldsymbol%7Bx%7D_%7B2%7D+%5Cboldsymbol%7Bx%7D_%7B4%7D-%5Cboldsymbol%7Bx%7D_%7B1%7D%0A"></p>
+<p>で定まるものとする．同時確率密度関数は領域 <img src="https://latex.codecogs.com/png.latex?S"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．面積要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AdS%0A=%5Cleft%5C%7C%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%20u%7D%5Ctimes%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%20v%7D%5Cright%5C%7C%5C,dudv%0A=A%5C,dudv%0A"></p>
+<p>ここで，平行四辺形の面積を <img src="https://latex.codecogs.com/png.latex?A=%5Cleft%5C%7C%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%20u%7D%5Ctimes%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%20v%7D%5Cright%5C%7C"> とした．したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Ciint_%7BS%7D%20c%5C,dS%0A=%5Cint_%7B0%7D%5E%7B1%7D%5Cint_%7B0%7D%5E%7B1%7D%20cA%5C,dudv%0A=c%5Ccdot%20A%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B1%7D%7BA%7D%0A,%5Cquad%0Ap_%7BU,V%7D(u,v)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7BdS%7D%7Bdudv%7D%0A=1%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7BU%7D(u)%0A=%5Cint_%7B0%7D%5E%7B1%7D%20p_%7BU,V%7D(u,v)%5C,dv%0A=1%0A,%5Cquad%0Ap_%7BV%7D(v)%0A=%5Cint_%7B0%7D%5E%7B1%7D%20p_%7BU,V%7D(u,v)%5C,du%0A=1%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7BU%7D(u)%0A=%5Cint_%7B0%7D%5E%7Bu%7D%20p_%7BU%7D(t)%5C,dt%0A=u%0A,%5Cquad%0AP_%7BV%7D(v)%0A=%5Cint_%7B0%7D%5E%7Bv%7D%20p_%7BV%7D(t)%5C,dt%0A=v%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7BU%7D(%5Czeta_%7B1%7D)%0A=%5Czeta_%7B1%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7BV%7D(%5Czeta_%7B2%7D)%0A=%5Czeta_%7B2%7D%0A"></p>
+<div id="cell-10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:456}}" data-outputid="15166c8c-6741-44a7-8bb6-ccc512201820">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_parallelogram(u0, u1):</span>
+<span id="cb4-2">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack((u0, u1), axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb4-3"></span>
+<span id="cb4-4"></span>
+<span id="cb4-5">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_parallelogram  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb4-6">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb4-7">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb4-8"></span>
+<span id="cb4-9">plot_distributions_2d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-5-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="三角形triangle内の一様分布" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="三角形triangle内の一様分布"><span class="header-section-number">2.2</span> 三角形（triangle）内の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が、平面上の領域 <img src="https://latex.codecogs.com/png.latex?S"> 内に一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AS:%20%5Cboldsymbol%7Bx%7D(%5Clambda_%7B1%7D,%5Clambda_%7B2%7D)=%5Clambda_%7B1%7D%5Cboldsymbol%7Bx%7D_%7B1%7D+%5Clambda_%7B2%7D%5Cboldsymbol%7Bx%7D_%7B2%7D+(1-%5Clambda_%7B1%7D-%5Clambda_%7B2%7D)%5Cboldsymbol%7Bx%7D_%7B3%7D%0A,%5Cquad%0A%5Clambda_%7Bi%7D%5Cge%200,%5C,%5Clambda_%7B1%7D+%5Clambda_%7B2%7D%5Cle%201%0A"></p>
+<p>同時確率密度関数は領域 <img src="https://latex.codecogs.com/png.latex?S"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．面積要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AdS%0A=%5Cleft%5C%7C%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%20%5Clambda_%7B1%7D%7D%5Ctimes%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%20%5Clambda_%7B2%7D%7D%5Cright%5C%7C%5C,d%5Clambda_%7B1%7Dd%5Clambda_%7B2%7D%0A=2A%5C,d%5Clambda_%7B1%7Dd%5Clambda_%7B2%7D%0A"></p>
+<p>ここで，三角形の面積を <img src="https://latex.codecogs.com/png.latex?A=%5Cfrac%7B1%7D%7B2%7D%5Cleft%5C%7C%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%5Clambda_%7B1%7D%7D%5Ctimes%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%5Clambda_%7B2%7D%7D%5Cright%5C%7C"> とした．したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Ciint_%7BS%7D%20c%5C,dS%0A=%5Cint_%7B0%7D%5E%7B1%7D%5Cint_%7B0%7D%5E%7B1-%5Clambda_%7B2%7D%7D%20c2A%5C,d%5Clambda_%7B1%7Dd%5Clambda_%7B2%7D%0A=c%5Ccdot%20A%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B1%7D%7BA%7D%0A,%5Cquad%0Ap_%7B%5CLambda_%7B1%7D,%5CLambda_%7B2%7D%7D(%5Clambda_%7B1%7D,%5Clambda_%7B2%7D)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7BdS%7D%7Bd%5Clambda_%7B1%7Dd%5Clambda_%7B2%7D%7D%0A=2%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5CLambda_%7B1%7D%7D(%5Clambda_%7B1%7D)%0A=%5Cint_%7B0%7D%5E%7B1-%5Clambda_%7B1%7D%7D%20p_%7B%5CLambda_%7B1%7D,%5CLambda_%7B2%7D%7D(%5Clambda_%7B1%7D,%5Clambda_%7B2%7D)%5C,d%5Clambda_%7B2%7D%0A=2(1-%5Clambda_%7B1%7D)%0A,%5Cquad%0Ap_%7B%5CLambda_%7B2%7D%7D(%5Clambda_%7B2%7D)%0A=%5Cint_%7B0%7D%5E%7B1-%5Clambda_%7B2%7D%7D%20p_%7B%5CLambda_%7B1%7D,%5CLambda_%7B2%7D%7D(%5Clambda_%7B1%7D,%5Clambda_%7B2%7D)%5C,d%5Clambda_%7B1%7D%0A=2(1-%5Clambda_%7B2%7D)%0A"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%5CLambda_%7B1%7D,%20%5CLambda_%7B2%7D"> は独立ではないので，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5CLambda_%7B2%7D%7C%5CLambda_%7B1%7D%7D(%5Clambda_%7B2%7D%7C%5Clambda_%7B1%7D)%0A=%5Cfrac%7Bp_%7B%5CLambda_%7B1%7D,%5CLambda_%7B2%7D%7D(%5Clambda_%7B1%7D,%5Clambda_%7B2%7D)%7D%7Bp_%7B%5CLambda_%7B1%7D%7D(%5Clambda_%7B1%7D)%7D%0A=%5Cfrac%7B1%7D%7B1-%5Clambda_%7B1%7D%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CLambda_%7B1%7D%7D(%5Clambda_%7B1%7D)%0A=%5Cint_%7B0%7D%5E%7B%5Clambda_%7B1%7D%7D%20p_%7B%5CLambda_%7B1%7D%7D(t)%5C,dt%0A=2%5Clambda_%7B1%7D-%5Clambda%5E%7B2%7D_%7B1%7D%0A,%5Cquad%0AP_%7B%5CLambda_%7B2%7D%7C%5CLambda_%7B1%7D%7D(%5Clambda_%7B2%7D%7C%5Clambda_%7B1%7D)%0A=%5Cint_%7B0%7D%5E%7B%5Clambda_%7B2%7D%7D%20p_%7B%5CLambda_%7B2%7D%7C%5CLambda_%7B1%7D%7D(t%7C%5Clambda_%7B1%7D)%5C,dt%0A=%5Cfrac%7B%5Clambda_%7B2%7D%7D%7B1-%5Clambda_%7B1%7D%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CLambda_%7B1%7D%7D(%5Czeta_%7B1%7D)%0A=1-%5Csqrt%7B1-%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CLambda_%7B2%7D%7C%5CLambda_%7B1%7D%7D(%5Czeta_%7B2%7D%7C%5Clambda_%7B1%7D)%0A=(1-%5Clambda_%7B1%7D)%5Czeta_%7B2%7D%0A"></p>
+<div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="60eabe59-45b7-4f96-d964-5810e58cd4b9">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_triangle(u0, u1):</span>
+<span id="cb5-2">    lambda0 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> np.sqrt(u0)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># np.sqrt(1.0 - u0)</span></span>
+<span id="cb5-3">    lambda1 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> lambda0) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb5-4">    x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (lambda0, lambda1)</span>
+<span id="cb5-5">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(x, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb5-6"></span>
+<span id="cb5-7"></span>
+<span id="cb5-8">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_triangle  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb5-9">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb5-10">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb5-11"></span>
+<span id="cb5-12">plot_distributions_2d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-6-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="円板disk内の一様分布" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="円板disk内の一様分布"><span class="header-section-number">2.3</span> 円板（disk）内の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が、平面上の領域 <img src="https://latex.codecogs.com/png.latex?S"> 内に一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AS:%20%5Cboldsymbol%7Bx%7D(%5Crho,%5Cphi)=%5Crho(%5Ccos%5Cphi%5C,%5Cboldsymbol%7Bb%7D_1+%5Csin%5Cphi%5C,%5Cboldsymbol%7Bb%7D_2)%0A,%5Cquad%0A0%5Cle%5Crho%5Cle%20R,%5C,%200%5Cle%5Cphi%5Clt%202%5Cpi%0A"></p>
+<p>同時確率密度関数は領域 <img src="https://latex.codecogs.com/png.latex?S"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．面積要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AdS%0A=%5Cleft%5C%7C%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%5Crho%7D%5Ctimes%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%5Cphi%7D%5Cright%5C%7C%5C,d%5Crho%20d%5Cphi%0A=%5Crho%5C,d%5Crho%20d%5Cphi%0A"></p>
+<p>したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Ciint_%7BS%7D%20c%5C,dS%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7BR%7D%20c%5Crho%5C,d%5Crho%20d%5Cphi%0A=c%5Ccdot%20%5Cpi%20R%5E%7B2%7D%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B1%7D%7B%5Cpi%20R%5E%7B2%7D%7D%0A,%5Cquad%0Ap_%7B%5Cmathrm%7BP%7D,%5CPhi%7D(%5Crho,%5Cphi)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7BdS%7D%7Bd%5Crho%20d%5Cphi%7D%0A=%5Cfrac%7B%5Crho%7D%7B%5Cpi%20R%5E%7B2%7D%7D%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cmathrm%7BP%7D%7D(%5Crho)%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%20p_%7B%5Cmathrm%7BP%7D,%5CPhi%7D(%5Crho,%5Cphi)%5C,d%5Cphi%0A=%5Cfrac%7B2%5Crho%7D%7BR%5E%7B2%7D%7D%0A,%5Cquad%0Ap_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7BR%7D%20p_%7B%5Cmathrm%7BP%7D,%5CPhi%7D(%5Crho,%5Cphi)%5C,d%5Crho%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5Cmathrm%7BP%7D%7D(%5Crho)%0A=%5Cint_%7B0%7D%5E%7B%5Crho%7D%20p_%7B%5Cmathrm%7BP%7D%7D(t)%5C,dt%0A=%5Cfrac%7B%5Crho%5E%7B2%7D%7D%7BR%5E%7B2%7D%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5Cmathrm%7BP%7D%7D(%5Czeta_%7B1%7D)%0A=R%5Csqrt%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
+<div id="cell-14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="fde51e34-4dfa-4ae1-c6a1-0b78cea9f34d">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_disk(u0, u1):</span>
+<span id="cb6-2">    rho <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(u0)</span>
+<span id="cb6-3">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb6-4">    x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (np.cos(phi), np.sin(phi))</span>
+<span id="cb6-5">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> rho[:, np.newaxis] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.stack(x, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb6-6"></span>
+<span id="cb6-7"></span>
+<span id="cb6-8">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_disk  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb6-9">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb6-10">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb6-11"></span>
+<span id="cb6-12">plot_distributions_2d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-7-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="扇形sector内の一様分布" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="扇形sector内の一様分布"><span class="header-section-number">2.4</span> 扇形（sector）内の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が、平面上の領域 <img src="https://latex.codecogs.com/png.latex?S"> 内に一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AS:%20%5Cboldsymbol%7Bx%7D(%5Crho,%5Cphi)=%5Crho(%5Ccos%5Cphi%5C,%5Cboldsymbol%7Bb%7D_1+%5Csin%5Cphi%5C,%5Cboldsymbol%7Bb%7D_2)%0A,%5Cquad%0A0%5Cle%5Crho%5Cle%20R,%5C,%20-%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%5Cle%5Cphi%5Cle%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%0A"></p>
+<p>同時確率密度関数は領域 <img src="https://latex.codecogs.com/png.latex?S"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．面積要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AdS%0A=%5Cleft%5C%7C%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%5Crho%7D%5Ctimes%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%5Cphi%7D%5Cright%5C%7C%5C,d%5Crho%20d%5Cphi%0A=%5Crho%5C,d%5Crho%20d%5Cphi%0A"></p>
+<p>したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Ciint_%7BS%7D%20c%5C,dS%0A=%5Cint_%7B-%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%5E%7B%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%5Cint_%7B0%7D%5E%7BR%7D%20c%5Crho%5C,d%5Crho%20d%5Cphi%0A=c%5Ccdot%20%5Cfrac%7BR%5E%7B2%7D%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B2%7D%7BR%5E%7B2%7D%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%0A,%5Cquad%0Ap_%7B%5Cmathrm%7BP%7D,%5Cphi%7D(%5Crho,%5Cphi)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7BdS%7D%7Bd%5Crho%20d%5Cphi%7D%0A=%5Cfrac%7B2%5Crho%7D%7BR%5E%7B2%7D%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cmathrm%7BP%7D%7D(%5Crho)%0A=%5Cint_%7B-%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%5E%7B%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%20p_%7B%5Cmathrm%7BP%7D,%5Cphi%7D(%5Crho,%5Cphi)%5C,d%5Cphi%0A=%5Cfrac%7B2%5Crho%7D%7BR%5E%7B2%7D%7D%0A,%5Cquad%0Ap_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7BR%7D%20p_%7B%5Cmathrm%7BP%7D,%5Cphi%7D(%5Crho,%5Cphi)%5C,d%5Crho%0A=%5Cfrac%7B1%7D%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5Cmathrm%7BP%7D%7D(%5Crho)%0A=%5Cint_%7B0%7D%5E%7B%5Crho%7D%20p_%7B%5Cmathrm%7BP%7D%7D(t)%5C,dt%0A=%5Cfrac%7B%5Crho%5E%7B2%7D%7D%7BR%5E%7B2%7D%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B-%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi+%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5Cmathrm%7BP%7D%7D(%5Czeta_%7B1%7D)%0A=R%5Csqrt%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=%5Cphi_%7B%5Ctext%7Bmax%7D%7D%5Cleft(%5Czeta_%7B2%7D-%5Cfrac%7B1%7D%7B2%7D%5Cright)%0A"></p>
+<div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:459}}" data-outputid="f21fe3dd-17ce-48aa-c607-9ce840ebcec9">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_sector(u0, u1, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>, phi_max<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np.pi):</span>
+<span id="cb7-2">    rho <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(u0)</span>
+<span id="cb7-3">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> phi_max <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> (u1 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>)</span>
+<span id="cb7-4">    x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (np.cos(phi), np.sin(phi))</span>
+<span id="cb7-5">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> rho[:, np.newaxis] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.stack(x, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb7-6"></span>
+<span id="cb7-7"></span>
+<span id="cb7-8">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_sector  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb7-9">fn_kwargs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"phi_max"</span>: <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.25</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi}</span>
+<span id="cb7-10">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb7-11">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn_kwargs"</span>: fn_kwargs, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb7-12"></span>
+<span id="cb7-13">plot_distributions_2d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="球sphere上の一様分布" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="球sphere上の一様分布"><span class="header-section-number">2.5</span> 球（sphere）上の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が，曲面 <img src="https://latex.codecogs.com/png.latex?S"> 上に一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AS:%20%5Cboldsymbol%7Bx%7D(%5Ctheta,%5Cphi)=%0A%5Cbegin%7Bpmatrix%7D%0AR%5Csin%5Ctheta%5Ccos%5Cphi%5C%5C%0AR%5Csin%5Ctheta%5Csin%5Cphi%5C%5C%0AR%5Ccos%5Ctheta%0A%5Cend%7Bpmatrix%7D%0A,%5Cquad%0A0%5Cle%5Ctheta%5Cle%5Cpi,%5C,0%5Cle%5Cphi%5Clt%202%5Cpi%0A"></p>
+<p>同時確率密度関数は曲面 <img src="https://latex.codecogs.com/png.latex?S"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．面積要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AdS%0A=%5Cleft%5C%7C%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%5Ctheta%7D%5Ctimes%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%5Cphi%7D%5Cright%5C%7C%5C,d%5Ctheta%20d%5Cphi%0A=R%5E%7B2%7D%5Csin%5Ctheta%5C,d%5Ctheta%20d%5Cphi%0A"></p>
+<p>したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Cint_%7BS%7D%20c%5C,dS%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7B%5Cpi%7D%20cR%5E%7B2%7D%5Csin%5Ctheta%5C,d%5Ctheta%20d%5Cphi%0A=c%5Ccdot%204%5Cpi%20R%5E%7B2%7D%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B1%7D%7B4%5Cpi%20R%5E%7B2%7D%7D%0A,%5Cquad%0Ap_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7BdS%7D%7Bd%5Ctheta%20d%5Cphi%7D%0A=%5Cfrac%7B%5Csin%5Ctheta%7D%7B4%5Cpi%7D%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Cphi%0A=%5Cfrac%7B%5Csin%5Ctheta%7D%7B2%7D%0A,%5Cquad%0Ap_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cpi%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Ctheta%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%5Ctheta%7D%7B2%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carccos(1-2%5Czeta_%7B1%7D)%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
+<div id="cell-18" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="4070205f-8425-4e5f-e130-df3652d3404e">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_sphere(u0, u1):</span>
+<span id="cb8-2">    c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u0</span>
+<span id="cb8-3">    s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> c)</span>
+<span id="cb8-4">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb8-5">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.cos(phi), s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.sin(phi), c)</span>
+<span id="cb8-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb8-7"></span>
+<span id="cb8-8"></span>
+<span id="cb8-9">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_sphere  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb8-10">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb8-11">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb8-12"></span>
+<span id="cb8-13">plot_distributions_3d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-9-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="球冠spherical-cap上の一様分布" class="level3" data-number="2.6">
+<h3 data-number="2.6" class="anchored" data-anchor-id="球冠spherical-cap上の一様分布"><span class="header-section-number">2.6</span> 球冠（spherical cap）上の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が，曲面 <img src="https://latex.codecogs.com/png.latex?S"> 上で一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AS:%20%5Cboldsymbol%7Bx%7D(%5Ctheta,%5Cphi)=%0A%5Cbegin%7Bpmatrix%7D%0AR%5Csin%5Ctheta%5Ccos%5Cphi%5C%5C%0AR%5Csin%5Ctheta%5Csin%5Cphi%5C%5C%0AR%5Ccos%5Ctheta%0A%5Cend%7Bpmatrix%7D%0A,%5Cquad%0A0%5Cle%5Ctheta%5Cle%5Ctheta_%7B%5Ctext%7Bmax%7D%7D,%5C,0%5Cle%5Cphi%5Clt%202%5Cpi%0A"></p>
+<p>同時確率密度関数は曲面 <img src="https://latex.codecogs.com/png.latex?S"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．面積要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AdS%0A=%5Cleft%5C%7C%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%5Ctheta%7D%5Ctimes%5Cfrac%7B%5Cpartial%5Cboldsymbol%7Bx%7D%7D%7B%5Cpartial%5Cphi%7D%5Cright%5C%7C%5C,d%5Ctheta%20d%5Cphi%0A=R%5E%7B2%7D%5Csin%5Ctheta%5C,d%5Ctheta%20d%5Cphi%0A"></p>
+<p>したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Cint_%7BS%7D%20c%5C,dS%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7B%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%20cR%5E%7B2%7D%5Csin%5Ctheta%5C,d%5Ctheta%20d%5Cphi%0A=c%5Ccdot%202%5Cpi%20R%5E%7B2%7D(1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D)%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B1%7D%7B2%5Cpi%20R%5E%7B2%7D(1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D)%7D%0A,%5Cquad%0Ap_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7BdS%7D%7Bd%5Ctheta%20d%5Cphi%7D%0A=%5Cfrac%7B%5Csin%5Ctheta%7D%7B2%5Cpi(1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D)%7D%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Cphi%0A=%5Cfrac%7B%5Csin%5Ctheta%7D%7B1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%0A,%5Cquad%0Ap_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Ctheta%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%5Ctheta%7D%7B1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carccos(1-(1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D)%5Czeta_%7B1%7D)%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
+<div id="cell-20" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:465}}" data-outputid="b525b248-3f71-47b8-c938-90077bd3dca3">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_spherical_cap(u0, u1, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>, cos_theta_max<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np.pi):</span>
+<span id="cb9-2">    c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> (<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> cos_theta_max) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u0</span>
+<span id="cb9-3">    s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> c)</span>
+<span id="cb9-4">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb9-5">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.cos(phi), s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.sin(phi), c)</span>
+<span id="cb9-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb9-7"></span>
+<span id="cb9-8"></span>
+<span id="cb9-9">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_spherical_cap  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb9-10">fn_kwargs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cos_theta_max"</span>: np.cos(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.25</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi)}</span>
+<span id="cb9-11">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb9-12">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn_kwargs"</span>: fn_kwargs, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb9-13"></span>
+<span id="cb9-14">plot_distributions_3d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-10-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="単位半球unit-hemisphere上の分布" class="level3" data-number="2.7">
+<h3 data-number="2.7" class="anchored" data-anchor-id="単位半球unit-hemisphere上の分布"><span class="header-section-number">2.7</span> 単位半球（unit hemisphere）上の分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7B%5COmega%7D"> が，単位半球上に分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AH%5E%7B2%7D:%20%5Cboldsymbol%7B%5Comega%7D(%5Ctheta,%20%5Cphi)=%0A%5Cbegin%7Bpmatrix%7D%0A%5Csin%5Ctheta%5Ccos%5Cphi%5C%5C%0A%5Csin%5Ctheta%5Csin%5Cphi%5C%5C%0A%5Ccos%5Ctheta%0A%5Cend%7Bpmatrix%7D%0A,%5Cquad%200%5Cle%5Ctheta%5Cle%20%5Cfrac%7B%5Cpi%7D%7B2%7D,%5C,0%5Cle%5Cphi%5Clt%202%5Cpi%0A"></p>
+<p>球面上の面積要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AdA%0A=%5Cleft%5C%7C%5Cfrac%7B%5Cpartial%5Cboldsymbol%7B%5Comega%7D%7D%7B%5Cpartial%5Ctheta%7D%5Ctimes%5Cfrac%7B%5Cpartial%5Cboldsymbol%7B%5Comega%7D%7D%7B%5Cpartial%5Cphi%7D%5Cright%5C%7C%5C,d%5Ctheta%20d%5Cphi%0A=%5Csin%5Ctheta%5C,d%5Ctheta%20d%5Cphi%0A"></p>
+<p>であり，半径 <img src="https://latex.codecogs.com/png.latex?r=1"> の単位球で立体角要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ad%5Comega=%5Cfrac%7BdA%7D%7Br%5E%7B2%7D%7D=dA=%5Csin%5Ctheta%5C,d%5Ctheta%20d%5Cphi%0A"></p>
+<p>したがって，立体角上で定義された確率密度関数 <img src="https://latex.codecogs.com/png.latex?p_%7B%5Cboldsymbol%7B%5COmega%7D%7D(%5Cboldsymbol%7B%5Comega%7D)"> は，測度変換により極座標系での同時確率密度関数 <img src="https://latex.codecogs.com/png.latex?p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)"> に次のように変換される．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%0A=p_%7B%5Cboldsymbol%7B%5COmega%7D%7D(%5Cboldsymbol%7B%5Comega%7D)%5Cfrac%7Bd%5Comega%7D%7Bd%5Ctheta%20d%5Cphi%7D%0A=p_%7B%5Cboldsymbol%7B%5COmega%7D%7D(%5Cboldsymbol%7B%5Comega%7D)%5Csin%5Ctheta%0A"></p>
+<section id="一様分布" class="level4" data-number="2.7.1">
+<h4 data-number="2.7.1" class="anchored" data-anchor-id="一様分布"><span class="header-section-number">2.7.1</span> 一様分布</h4>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7B%5COmega%7D"> が，単位半球上に一様分布するとする．このとき，同時確率密度関数は定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Cint_%7BH%5E%7B2%7D%7D%20c%5C,d%5Comega%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7B%5Cfrac%7B%5Cpi%7D%7B2%7D%7D%20c%5Csin%5Ctheta%5C,d%5Ctheta%20d%5Cphi%0A=c%5Ccdot%202%5Cpi%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7B%5COmega%7D%7D(%5Cboldsymbol%7B%5Comega%7D)%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A,%5Cquad%0Ap_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%0A=%5Cfrac%7B%5Csin%5Ctheta%7D%7B2%5Cpi%7D%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Cphi%0A=%5Csin%5Ctheta%0A,%5Cquad%0Ap_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cfrac%7B%5Cpi%7D%7B2%7D%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Ctheta%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=1-%5Ccos%5Ctheta%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carccos(1-%5Czeta_%7B1%7D)%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
+<div id="cell-23" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="e4e52a19-c80c-49d6-ad13-af69ce270c87">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_hemisphere(u0, u1):</span>
+<span id="cb10-2">    c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> u0  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 1 - u0</span></span>
+<span id="cb10-3">    s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> c)</span>
+<span id="cb10-4">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb10-5">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.cos(phi), s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.sin(phi), c)</span>
+<span id="cb10-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb10-7"></span>
+<span id="cb10-8"></span>
+<span id="cb10-9">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_hemisphere  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb10-10">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb10-11">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb10-12"></span>
+<span id="cb10-13">plot_distributions_3d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-11-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="コサイン重み付き分布" class="level4" data-number="2.7.2">
+<h4 data-number="2.7.2" class="anchored" data-anchor-id="コサイン重み付き分布"><span class="header-section-number">2.7.2</span> コサイン重み付き分布</h4>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7B%5COmega%7D"> が，単位半球上に <img src="https://latex.codecogs.com/png.latex?%5Ccos%5Ctheta"> に比例分布するとする．このとき，同時確率密度関数は <img src="https://latex.codecogs.com/png.latex?c%5Ccos%5Ctheta"> であり，正規化条件を考える．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Cint_%7BH%5E%7B2%7D%7D%20c%5Ccos%5Ctheta%5C,d%5Comega%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7B%5Cfrac%7B%5Cpi%7D%7B2%7D%7D%20c%5Ccos%5Ctheta%5Csin%5Ctheta%5C,d%5Ctheta%20d%5Cphi%0A=c%5Ccdot%202%5Cpi%5Cint_%7B0%7D%5E%7B1%7D%20u%5C,du%0A=c%5Ccdot%5Cpi%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7B%5COmega%7D%7D(%5Cboldsymbol%7B%5Comega%7D)%0A=%5Cfrac%7B%5Ccos%5Ctheta%7D%7B%5Cpi%7D%0A,%5Cquad%0Ap_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%0A=%5Cfrac%7B%5Csin%202%5Ctheta%7D%7B2%5Cpi%7D%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Cphi%0A=%5Csin%202%5Ctheta%0A,%5Cquad%0Ap_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cfrac%7B%5Cpi%7D%7B2%7D%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Ctheta%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%202%5Ctheta%7D%7B2%7D%0A=%5Csin%5E%7B2%7D%5Ctheta%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carcsin%5Csqrt%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
+<div id="cell-25" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="8d1e455d-f8a7-4728-e49e-6405f0e8d33e">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> cosine_sample_hemisphere(u0, u1):</span>
+<span id="cb11-2">    s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(u0)</span>
+<span id="cb11-3">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb11-4">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.cos(phi), s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.sin(phi), np.sqrt(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> u0))  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># since u0 represents sin^2(theta)</span></span>
+<span id="cb11-5">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb11-6"></span>
+<span id="cb11-7"></span>
+<span id="cb11-8">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cosine_sample_hemisphere  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb11-9">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb11-10">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb11-11"></span>
+<span id="cb11-12">plot_distributions_3d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="phong-specular-lobe-分布" class="level4" data-number="2.7.3">
+<h4 data-number="2.7.3" class="anchored" data-anchor-id="phong-specular-lobe-分布"><span class="header-section-number">2.7.3</span> Phong Specular Lobe 分布</h4>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7B%5COmega%7D"> が，単位半球上に <img src="https://latex.codecogs.com/png.latex?%5Ccos%5E%7Bn%7D%5Ctheta"> に比例分布するとする．このとき，同時確率密度関数は <img src="https://latex.codecogs.com/png.latex?c%5Ccos%5E%7Bn%7D%5Ctheta"> であり，正規化条件を考える．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Cint_%7BH%5E%7B2%7D%7D%20c%5Ccos%5E%7Bn%7D%5Ctheta%5C,d%5Comega%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7B%5Cfrac%7B%5Cpi%7D%7B2%7D%7D%20c%5Ccos%5E%7Bn%7D%5Ctheta%5Csin%5Ctheta%5C,d%5Ctheta%20d%5Cphi%0A=c%5Ccdot%202%5Cpi%5Cint_%7B0%7D%5E%7B1%7D%20u%5E%7Bn%7D%5C,du%0A=c%5Ccdot%20%5Cfrac%7B2%5Cpi%7D%7Bn+1%7D%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7B%5COmega%7D%7D(%5Cboldsymbol%7B%5Comega%7D)%0A=%5Cfrac%7Bn+1%7D%7B2%5Cpi%7D%5Ccos%5E%7Bn%7D%5Ctheta%0A,%5Cquad%0Ap_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%0A=%5Cfrac%7Bn+1%7D%7B2%5Cpi%7D%5Ccos%5E%7Bn%7D%5Ctheta%5Csin%5Ctheta%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Cphi%0A=(n+1)%5Ccos%5E%7Bn%7D%5Ctheta%5Csin%5Ctheta%0A,%5Cquad%0Ap_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cfrac%7B%5Cpi%7D%7B2%7D%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Ctheta%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=1-%5Ccos%5E%7Bn+1%7D%5Ctheta%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carccos%5Csqrt%5Bn+1%5D%7B1-%5Czeta_%7B1%7D%7D%0A%5Chspace%7B0.5em%7D,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
+<div id="cell-27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="cf3558ea-d7aa-4452-f49d-3cb795ec5180">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> phong_specular_sample_hemisphere(u0, u1, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>, n<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>):</span>
+<span id="cb12-2">    c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> u0) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span> (<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (n <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>))</span>
+<span id="cb12-3">    s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> c)</span>
+<span id="cb12-4">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb12-5">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.cos(phi), s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.sin(phi), c)</span>
+<span id="cb12-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb12-7"></span>
+<span id="cb12-8"></span>
+<span id="cb12-9">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> phong_specular_sample_hemisphere  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb12-10">fn_kwargs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"n"</span>: <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>}</span>
+<span id="cb12-11">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb12-12">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn_kwargs"</span>: fn_kwargs, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb12-13"></span>
+<span id="cb12-14">plot_distributions_3d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="microfacet-ggx-specular-lobe-分布" class="level4" data-number="2.7.4">
+<h4 data-number="2.7.4" class="anchored" data-anchor-id="microfacet-ggx-specular-lobe-分布"><span class="header-section-number">2.7.4</span> Microfacet GGX Specular Lobe 分布</h4>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7B%5COmega%7D"> が，単位半球上に <img src="https://latex.codecogs.com/png.latex?D(%5Ctheta)%5Ccos%5Ctheta"> に比例分布するとする．ここで GGX の NDF を，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AD(%5Ctheta)%0A=%5Cfrac%7B%5Calpha%5E%7B2%7D%7D%7B%5Cpi%5Cleft(%5Ccos%5E%7B2%7D%5Ctheta%5C,(%5Calpha%5E%7B2%7D-1)+1%5Cright)%5E%7B2%7D%7D%0A"></p>
+<p>と定める．同時確率密度関数は <img src="https://latex.codecogs.com/png.latex?cD(%5Ctheta)%5Ccos%5Ctheta"> であり，正規化条件を考える．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign*%7D%0A1%0A&amp;=%5Cint_%7BH%5E%7B2%7D%7D%20cD(%5Ctheta)%5Ccos%5Ctheta%5C,d%5Comega%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7B%5Cfrac%7B%5Cpi%7D%7B2%7D%7D%20cD(%5Ctheta)%5Ccos%5Ctheta%5Csin%5Ctheta%5C,d%5Ctheta%20d%5Cphi%5C%5C%0A&amp;=c%5Ccdot%5Calpha%5E%7B2%7D%5Cint_%7B0%7D%5E%7B1%7D%5Cfrac%7B1%7D%7B%5Cleft(u(%5Calpha%5E%7B2%7D-1)+1%20%5Cright)%5E%7B2%7D%7D%5C,du%0A%5Cquad(u=%5Ccos%5E%7B2%7D%5Ctheta)%5C%5C%0A&amp;=c%5Ccdot%5Cfrac%7B%5Calpha%5E%7B2%7D%7D%7B%5Calpha%5E%7B2%7D-1%7D%5Cint_%7B1%7D%5E%7B%5Calpha%5E%7B2%7D%7D%5Cfrac%7B1%7D%7Bv%5E%7B2%7D%7D%5C,dv%0A%5Cquad(v=u(%5Calpha%5E%7B2%7D-1)+1)%5C%5C%0A&amp;=c%0A%5Cend%7Balign*%7D%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7B%5COmega%7D%7D(%5Cboldsymbol%7B%5Comega%7D)%0A=D(%5Ctheta)%5Ccos%5Ctheta%0A,%5Cquad%0Ap_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%0A=D(%5Ctheta)%5Ccos%5Ctheta%5Csin%5Ctheta%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Cphi%0A=2%5Cpi%20D(%5Ctheta)%5Ccos%5Ctheta%5Csin%5Ctheta%0A,%5Cquad%0Ap_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cfrac%7B%5Cpi%7D%7B2%7D%7D%20p_%7B%5CTheta,%5CPhi%7D(%5Ctheta,%5Cphi)%5C,d%5Ctheta%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%5E%7B2%7D%5Ctheta%7D%7B%5Ccos%5E%7B2%7D%5Ctheta%5C,(%5Calpha%5E%7B2%7D-1)+1%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carccos%5Csqrt%7B%5Cfrac%7B1-%5Czeta_%7B1%7D%7D%7B(%5Calpha%5E%7B2%7D-1)%5Czeta_%7B1%7D+1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
+<div id="cell-29" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:464}}" data-outputid="92393b8a-0379-43b4-8fc8-62c3636dc3ec">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> ggx_specular_sample_hemisphere(u0, u1, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>, alpha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>):</span>
+<span id="cb13-2">    c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt((<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> u0) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> ((alpha <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> alpha <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u0 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>))</span>
+<span id="cb13-3">    s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> c)</span>
+<span id="cb13-4">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb13-5">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.cos(phi), s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.sin(phi), c)</span>
+<span id="cb13-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb13-7"></span>
+<span id="cb13-8"></span>
+<span id="cb13-9">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ggx_specular_sample_hemisphere  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb13-10">roughness <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span></span>
+<span id="cb13-11">fn_kwargs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"alpha"</span>: roughness<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span>}</span>
+<span id="cb13-12">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb13-13">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn_kwargs"</span>: fn_kwargs, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb13-14"></span>
+<span id="cb13-15">plot_distributions_3d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-14-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="次元サンプリング-2" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="次元サンプリング-2"><span class="header-section-number">3</span> ３次元サンプリング</h2>
+<section id="球体ball内の一様分布" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="球体ball内の一様分布"><span class="header-section-number">3.1</span> 球体（ball）内の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が領域 <img src="https://latex.codecogs.com/png.latex?V"> 内に一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AV:%20%5Cboldsymbol%7Bx%7D(r,%5Ctheta,%5Cphi)=%0A%5Cbegin%7Bpmatrix%7D%0Ar%5Csin%5Ctheta%5Ccos%5Cphi%5C%5C%0Ar%5Csin%5Ctheta%5Csin%5Cphi%5C%5C%0Ar%5Ccos%5Ctheta%0A%5Cend%7Bpmatrix%7D%0A,%5Cquad%0A0%5Cle%20r%5Cle%20R,%5C,0%5Cle%5Ctheta%5Cle%5Cpi,%5C,0%5Cle%5Cphi%5Clt%202%5Cpi%0A"></p>
+<p>同時確率密度関数は領域 <img src="https://latex.codecogs.com/png.latex?V"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．体積要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AdV%0A=%5Cleft%7C%5Cfrac%7B%5Cpartial(x,y,z)%7D%7B%5Cpartial(r,%5Ctheta,%5Cphi)%7D%5Cright%7C%5C,drd%5Ctheta%20d%5Cphi%0A=r%5E%7B2%7D%5Csin%5Ctheta%5C,drd%5Ctheta%20d%5Cphi%0A"></p>
+<p>したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Cint_%7BV%7D%20c%5C,dV%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7B%5Cpi%7D%5Cint_%7B0%7D%5E%7BR%7D%20cr%5E%7B2%7D%5Csin%5Ctheta%5C,drd%5Ctheta%20d%5Cphi%0A=c%5Ccdot%5Cfrac%7B4%5Cpi%20R%5E%7B3%7D%7D%7B3%7D%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B3%7D%7B4%5Cpi%20R%5E%7B3%7D%7D%0A,%5Cquad%0Ap_%7BR,%5CTheta,%5CPhi%7D(r,%5Ctheta,%5Cphi)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7BdV%7D%7Bdrd%5Ctheta%20d%5Cphi%7D%0A=%5Cfrac%7B3%7D%7B4%5Cpi%20R%5E%7B3%7D%7Dr%5E%7B2%7D%5Csin%5Ctheta%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign*%7D%0Ap_%7BR%7D(r)%0A&amp;=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7B%5Cpi%7D%20p_%7BR,%5CTheta,%5CPhi%7D(r,%5Ctheta,%5Cphi)%5C,d%5Ctheta%20d%5Cphi%0A=%5Cfrac%7B3r%5E%7B2%7D%7D%7BR%5E%7B3%7D%7D%5C%5C%0Ap_%7B%5CTheta%7D(%5Ctheta)%0A&amp;=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7BR%7D%20p_%7BR,%5CTheta,%5CPhi%7D(r,%5Ctheta,%5Cphi)%5C,drd%5Cphi%0A=%5Cfrac%7B%5Csin%5Ctheta%7D%7B2%7D%5C%5C%0Ap_%7B%5CPhi%7D(%5Cphi)%0A&amp;=%5Cint_%7B0%7D%5E%7B%5Cpi%7D%5Cint_%7B0%7D%5E%7BR%7D%20p_%7BR,%5CTheta,%5CPhi%7D(r,%5Ctheta,%5Cphi)%5C,drd%5Ctheta%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A%5Cend%7Balign*%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7BR%7D(r)%0A=%5Cint_%7B0%7D%5E%7Br%7D%20p_%7BR%7D(t)%5C,dt%0A=%5Cfrac%7Br%5E%7B3%7D%7D%7BR%5E%7B3%7D%7D%0A,%5Cquad%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%5Ctheta%7D%7B2%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7BR%7D(%5Czeta_%7B1%7D)%0A=R%5Csqrt%5B3%5D%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B2%7D)%0A=%5Carccos(1-2%5Czeta_%7B2%7D)%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B3%7D)%0A=2%5Cpi%5Czeta_%7B3%7D%0A"></p>
+<div id="cell-32" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="ff9b6484-b8a8-4871-f19b-9d22b3726753">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_ball(u0, u1, u2):</span>
+<span id="cb14-2">    radius <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.cbrt(u0)</span>
+<span id="cb14-3">    c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb14-4">    s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> c)</span>
+<span id="cb14-5">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u2</span>
+<span id="cb14-6">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.cos(phi), s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.sin(phi), c)</span>
+<span id="cb14-7">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb14-8"></span>
+<span id="cb14-9"></span>
+<span id="cb14-10">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_ball  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb14-11">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb14-12">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb14-13"></span>
+<span id="cb14-14">plot_distributions_3d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-15-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="球扇形spherical-sector内の一様分布" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="球扇形spherical-sector内の一様分布"><span class="header-section-number">3.2</span> 球扇形（spherical sector）内の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が領域 <img src="https://latex.codecogs.com/png.latex?V"> 内に一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AV:%20%5Cboldsymbol%7Bx%7D(r,%5Ctheta,%5Cphi)=%0A%5Cbegin%7Bpmatrix%7D%0Ar%5Csin%5Ctheta%5Ccos%5Cphi%5C%5C%0Ar%5Csin%5Ctheta%5Csin%5Cphi%5C%5C%0Ar%5Ccos%5Ctheta%0A%5Cend%7Bpmatrix%7D%0A,%5Cquad%0A0%5Cle%20r%5Cle%20R,%5C,0%5Cle%5Ctheta%5Cle%5Ctheta_%7B%5Ctext%7Bmax%7D%7D,%5C,0%5Cle%5Cphi%5Clt%202%5Cpi%0A"></p>
+<p>同時確率密度関数は領域 <img src="https://latex.codecogs.com/png.latex?V"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．体積要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AdV%0A=%5Cleft%7C%5Cfrac%7B%5Cpartial(x,y,z)%7D%7B%5Cpartial(r,%5Ctheta,%5Cphi)%7D%5Cright%7C%5C,drd%5Ctheta%20d%5Cphi%0A=r%5E%7B2%7D%5Csin%5Ctheta%5C,drd%5Ctheta%20d%5Cphi%0A"></p>
+<p>したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Cint_%7BV%7D%20c%5C,dV%0A=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7B%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%5Cint_%7B0%7D%5E%7BR%7D%20cr%5E%7B2%7D%5Csin%5Ctheta%5C,drd%5Ctheta%20d%5Cphi%0A=c%5Ccdot%5Cfrac%7B2%5Cpi%20R%5E%7B3%7D%7D%7B3%7D(1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D)%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B3%7D%7B2%5Cpi%20R%5E%7B3%7D(1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D)%7D%0A,%5Cquad%0Ap_%7BR,%5CTheta,%5CPhi%7D(r,%5Ctheta,%5Cphi)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7BdV%7D%7Bdrd%5Ctheta%20d%5Cphi%7D%0A=%5Cfrac%7B3r%5E%7B2%7D%5Csin%5Ctheta%7D%7B2%5Cpi%20R%5E%7B3%7D(1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D)%7D%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign*%7D%0Ap_%7BR%7D(r)%0A&amp;=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7B%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%20p_%7BR,%5CTheta,%5CPhi%7D(r,%5Ctheta,%5Cphi)%5C,d%5Ctheta%20d%5Cphi%0A=%5Cfrac%7B3r%5E%7B2%7D%7D%7BR%5E%7B3%7D%7D%5C%5C%0Ap_%7B%5CTheta%7D(%5Ctheta)%0A&amp;=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7BR%7D%20p_%7BR,%5CTheta,%5CPhi%7D(r,%5Ctheta,%5Cphi)%5C,drd%5Cphi%0A=%5Cfrac%7B%5Csin%5Ctheta%7D%7B1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%5C%5C%0Ap_%7B%5CPhi%7D(%5Cphi)%0A&amp;=%5Cint_%7B0%7D%5E%7B%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%5Cint_%7B0%7D%5E%7BR%7D%20p_%7BR,%5CTheta,%5CPhi%7D(r,%5Ctheta,%5Cphi)%5C,drd%5Ctheta%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%0A%5Cend%7Balign*%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7BR%7D(r)%0A=%5Cint_%7B0%7D%5E%7Br%7D%20p_%7BR%7D(t)%5C,dt%0A=%5Cfrac%7Br%5E%7B3%7D%7D%7BR%5E%7B3%7D%7D%0A,%5Cquad%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%5Ctheta%7D%7B1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7BR%7D(%5Czeta_%7B1%7D)%0A=R%5Csqrt%5B3%5D%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B2%7D)%0A=%5Carccos(1-(1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D)%5Czeta_%7B2%7D)%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B3%7D)%0A=2%5Cpi%5Czeta_%7B3%7D%0A"></p>
+<div id="cell-34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:458}}" data-outputid="8a93d73b-55d8-4967-ecac-6b90eadc983b">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_spherical_sector(u0, u1, u2, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>, cos_theta_max<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np.pi):</span>
+<span id="cb15-2">    radius <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.cbrt(u0)</span>
+<span id="cb15-3">    c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> (<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> cos_theta_max) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb15-4">    s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> c)</span>
+<span id="cb15-5">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u2</span>
+<span id="cb15-6">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.cos(phi), s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.sin(phi), c)</span>
+<span id="cb15-7">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> radius[:, np.newaxis] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb15-8"></span>
+<span id="cb15-9"></span>
+<span id="cb15-10">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_spherical_sector  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb15-11">fn_kwargs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cos_theta_max"</span>: np.cos(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.25</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi)}</span>
+<span id="cb15-12">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb15-13">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn_kwargs"</span>: fn_kwargs, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb15-14"></span>
+<span id="cb15-15">plot_distributions_3d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-16-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="円柱solid-cylinder内の一様分布" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="円柱solid-cylinder内の一様分布"><span class="header-section-number">3.3</span> 円柱（solid cylinder）内の一様分布</h3>
+<p>確率変数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7BX%7D"> が領域 <img src="https://latex.codecogs.com/png.latex?V"> 内に一様分布するとする．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AV:%20%5Cboldsymbol%7Bx%7D(%5Crho,%5Cphi,z)=%0A%5Cbegin%7Bpmatrix%7D%0A%5Crho%5Ccos%5Cphi%5C%5C%0A%5Crho%5Csin%5Cphi%5C%5C%0Az%0A%5Cend%7Bpmatrix%7D%0A,%5Cquad%0A0%5Cle%5Crho%5Cle%20R,%5C,0%5Cle%5Cphi%5Clt%202%5Cpi,%5C,0%5Cle%20z%5Cle%20H%0A"></p>
+<p>同時確率密度関数は領域 <img src="https://latex.codecogs.com/png.latex?V"> で定数 <img src="https://latex.codecogs.com/png.latex?c"> であり，正規化条件を考える．体積要素は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AdV%0A=%5Cleft%7C%5Cfrac%7B%5Cpartial(x,y,z)%7D%7B%5Cpartial(%5Crho,%5Cphi,z)%7D%5Cright%7C%5C,d%5Crho%20d%5Cphi%20dz%0A=%5Crho%5C,d%5Crho%20d%5Cphi%20dz%0A"></p>
+<p>したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A1%0A=%5Cint_%7BV%7D%20c%5C,dV%0A=%5Cint_%7B0%7D%5E%7BH%7D%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7BR%7D%20c%5Crho%5C,d%5Crho%20d%5Cphi%20dz%0A=c%5Ccdot%20%5Cpi%20R%5E%7B2%7DH%0A"></p>
+<p>同時確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%0A=%5Cfrac%7B1%7D%7B%5Cpi%20R%5E%7B2%7DH%7D%0A,%5Cquad%0Ap_%7B%5Cmathrm%7BP%7D,%5CPhi,Z%7D(%5Crho,%5Cphi,z)%0A=p_%7B%5Cboldsymbol%7BX%7D%7D(%5Cboldsymbol%7Bx%7D)%5Cfrac%7BdV%7D%7Bd%5Crho%20d%5Cphi%20dz%7D%0A=%5Cfrac%7B%5Crho%7D%7B%5Cpi%20R%5E%7B2%7DH%7D%0A"></p>
+<p>周辺確率密度関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign*%7D%0Ap_%7B%5Cmathrm%7BP%7D%7D(%5Crho)%0A&amp;=%5Cint_%7B0%7D%5E%7BH%7D%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%20p_%7B%5Cmathrm%7BP%7D,%5CPhi,Z%7D(%5Crho,%5Cphi,z)%5C,d%5Cphi%20dz%0A=%5Cfrac%7B2%5Crho%7D%7BR%5E%7B2%7D%7D%5C%5C%0Ap_%7B%5CPhi%7D(%5Cphi)%0A&amp;=%5Cint_%7B0%7D%5E%7BH%7D%5Cint_%7B0%7D%5E%7BR%7D%20p_%7B%5Cmathrm%7BP%7D,%5CPhi,Z%7D(%5Crho,%5Cphi,z)%5C,d%5Crho%20dz%0A=%5Cfrac%7B1%7D%7B2%5Cpi%7D%5C%5C%0Ap_%7BZ%7D(z)%0A&amp;=%5Cint_%7B0%7D%5E%7B2%5Cpi%7D%5Cint_%7B0%7D%5E%7BR%7D%20p_%7B%5Cmathrm%7BP%7D,%5CPhi,Z%7D(%5Crho,%5Cphi,z)%5C,d%5Crho%20d%5Cphi%0A=%5Cfrac%7B1%7D%7BH%7D%0A%5Cend%7Balign*%7D%0A"></p>
+<p>累積分布関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5Cmathrm%7BP%7D%7D(%5Crho)%0A=%5Cint_%7B0%7D%5E%7B%5Crho%7D%20p_%7B%5Cmathrm%7BP%7D%7D(t)%5C,dt%0A=%5Cfrac%7B%5Crho%5E%7B2%7D%7D%7BR%5E%7B2%7D%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A,%5Cquad%0AP_%7BZ%7D(z)%0A=%5Cint_%7B0%7D%5E%7Bz%7D%20p_%7BZ%7D(t)%5C,dt%0A=%5Cfrac%7Bz%7D%7BH%7D%0A"></p>
+<p>逆関数は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5Cmathrm%7BP%7D%7D(%5Czeta_%7B1%7D)%0A=R%5Csqrt%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7BZ%7D(%5Czeta_%7B3%7D)%0A=H%5Czeta_%7B3%7D%0A"></p>
+<div id="cell-36" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="685a9c7c-3c5e-47ff-e0c1-67d60d128559">
+<details open="" class="code-fold">
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> uniform_sample_solid_cylinder(u0, u1, u2):</span>
+<span id="cb16-2">    rho <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.sqrt(u0)</span>
+<span id="cb16-3">    phi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.pi <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u1</span>
+<span id="cb16-4">    w <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (rho <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.cos(phi), rho <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.sin(phi), u2)</span>
+<span id="cb16-5">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.stack(w, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb16-6"></span>
+<span id="cb16-7"></span>
+<span id="cb16-8">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> uniform_sample_solid_cylinder  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># type: ignore</span></span>
+<span id="cb16-9">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fn<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n{{}}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> samples"</span></span>
+<span id="cb16-10">distr_infos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fn"</span>: fn, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"num_samples"</span>: n, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"title"</span>: title.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">format</span>(n)} <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> n <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> SAMPLE_SIZES]</span>
+<span id="cb16-11"></span>
+<span id="cb16-12">plot_distributions_3d(distr_infos, nrows_ncols<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.ceil(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(distr_infos) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="sampling-on-geometric-regions_files/figure-html/cell-17-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="https://hasenpfote.github.io/posts/sampling-on-geometric-regions_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="references" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="references"><span class="header-section-number">4</span> References</h2>
+<ul>
+<li>Pharr, M., Jakob, W., &amp; Humphreys, G. (n.d.). <em>2D sampling with multidimensional transformations</em>. Physically Based Rendering: From Theory To Implementation. https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/2D_Sampling_with_Multidimensional_Transformations</li>
+<li>Kerbl, B. (n.d.). <em>Rendering: Importance sampling</em>. Research Division of Computer Graphics, Institute of Visual Computing &amp; Human-Centered Technology, TU Wien, Austria. https://www.cg.tuwien.ac.at/sites/default/files/course/4411/attachments/06_importance_sampling_0.pdf</li>
+<li>Walter, B. (2005, April 29). <em>Notes on the ward BRDF</em>. Cornell Program of Computer Graphics. https://www.graphics.cornell.edu/~bjw/wardnotes.pdf</li>
+<li>Inverse transform sampling. (2025, August 26). In <em>Wikipedia</em>. https://en.wikipedia.org/w/index.php?title=Inverse_transform_sampling&amp;oldid=1307944637</li>
+</ul>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
+  <category>computerscience</category>
+  <guid>https://hasenpfote.github.io/posts/sampling-on-geometric-regions.html</guid>
+  <pubDate>Tue, 19 Aug 2025 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>BVHについての考察</title>
   <link>https://hasenpfote.github.io/posts/thoughts-on-bvh.html</link>
@@ -12793,335 +15429,6 @@ Fig. 3. 変位後に原点を中心に回転
   <category>gatsby</category>
   <guid>https://hasenpfote.github.io/posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html</guid>
   <pubDate>Sat, 26 Dec 2020 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Toy Box</title>
-  <link>https://hasenpfote.github.io/posts/toy-box.html</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-<section id="repositories" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="repositories"><span class="header-section-number">1</span> Repositories</h2>
-<p>In this section, repositories are summarized by programming languages.</p>
-<section id="c" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="c"><span class="header-section-number">1.1</span> C++</h3>
-<section id="libraries" class="level4" data-number="1.1.1">
-<h4 data-number="1.1.1" class="anchored" data-anchor-id="libraries"><span class="header-section-number">1.1.1</span> Libraries</h4>
-<p><a href="https://github.com/Hasenpfote/dualcomplex/" class="uri">https://github.com/Hasenpfote/dualcomplex/</a></p>
-<p>“dualcomplex” is a cross-platform C++ template library that provides operations for dual complex numbers. It can be used as a header-only library and supports C++11 or later.</p>
-<p><a href="https://github.com/Hasenpfote/dualquat/" class="uri">https://github.com/Hasenpfote/dualquat/</a></p>
-<p>“dualquat” is a cross-platform C++ template library that provides operations on dual quaternions using Eigen. It can be used as a header-only library and supports C++11 and later.</p>
-<p><a href="https://github.com/Hasenpfote/plucker/" class="uri">https://github.com/Hasenpfote/plucker/</a></p>
-<p>“plucker” is a cross-platform C++ template library that provides operations on Plücker coordinates of lines. It can be used as a header-only library and supports C++11 and later.</p>
-</section>
-<section id="examples" class="level4" data-number="1.1.2">
-<h4 data-number="1.1.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">1.1.2</span> Examples</h4>
-<p><a href="https://github.com/Hasenpfote/CMakeExamples/" class="uri">https://github.com/Hasenpfote/CMakeExamples/</a></p>
-<p>This is a collection of examples that use CMake for each case of a C++ project.</p>
-<p><a href="https://github.com/Hasenpfote/CPPExamples/" class="uri">https://github.com/Hasenpfote/CPPExamples/</a></p>
-<p>This is a collection of examples that use C++11.</p>
-<ul>
-<li><p>BitonicSort</p></li>
-<li><p>ComparingFloatingPointNumbers</p></li>
-<li><p>ConvertString</p></li>
-<li><p>ExpressionTemplate</p></li>
-<li><p>HalfPrecisionFloatingPoint</p></li>
-<li><p>LUDecomposition</p></li>
-<li><p>Logger</p></li>
-<li><p>PimplIdiom</p></li>
-<li><p>ParseFntFile</p></li>
-<li><p>Range</p></li>
-<li><p>ServiceLocator</p></li>
-<li><p>Singleton</p></li>
-<li><p>SpecificInterface</p></li>
-<li><p>ThreadPool</p></li>
-<li><p>Other</p></li>
-</ul>
-<p><a href="https://github.com/Hasenpfote/cpp_examples/" class="uri">https://github.com/Hasenpfote/cpp_examples/</a></p>
-<p>This is a collection of examples that use C++14 or C++17.</p>
-<ul>
-<li>circular_buffer</li>
-</ul>
-<p>Circular buffer implemented using only the standard library.</p>
-<ul>
-<li>stack_resource</li>
-</ul>
-<p>A stack memory allocator using only the standard library.</p>
-<ul>
-<li>pubsub_event</li>
-</ul>
-<p>This is a Publish-Subscribe messaging model implemented using only the standard library.</p>
-<ul>
-<li>dual</li>
-</ul>
-<p>Header-only class template for dual numbers using only the standard library.</p>
-<p><a href="https://github.com/Hasenpfote/mark-and-sweep-gc/" class="uri">https://github.com/Hasenpfote/mark-and-sweep-gc/</a></p>
-<p>This is an example of a simple mark-and-sweep garbage collection using C++.</p>
-<p><a href="https://github.com/Hasenpfote/OpenGLExamples/" class="uri">https://github.com/Hasenpfote/OpenGLExamples/</a></p>
-<p>This is a collection of examples of real-time rendering techniques using OpenGL.</p>
-<p>It supports C++11 or later and OpenGL 4.x.</p>
-<ul>
-<li><p>AdaptiveTerrainTessellation</p></li>
-<li><p>BillboardBeam</p></li>
-<li><p>Bloom</p></li>
-<li><p>Dithering</p></li>
-<li><p>KawaseBlur</p></li>
-<li><p>LightStreak</p></li>
-<li><p>RadialBlur</p></li>
-<li><p>ToneMapping</p></li>
-<li><p>Other</p></li>
-</ul>
-</section>
-</section>
-<section id="java" class="level3" data-number="1.2">
-<h3 data-number="1.2" class="anchored" data-anchor-id="java"><span class="header-section-number">1.2</span> Java</h3>
-<section id="examples-1" class="level4" data-number="1.2.1">
-<h4 data-number="1.2.1" class="anchored" data-anchor-id="examples-1"><span class="header-section-number">1.2.1</span> Examples</h4>
-<p><a href="https://github.com/Hasenpfote/RecursiveDimensionalClustering/" class="uri">https://github.com/Hasenpfote/RecursiveDimensionalClustering/</a></p>
-<p>This is an example of Recursive Dimensional Clustering, one of the fast algorithms for finding collisions or clusters in a dataset.</p>
-</section>
-</section>
-<section id="python" class="level3" data-number="1.3">
-<h3 data-number="1.3" class="anchored" data-anchor-id="python"><span class="header-section-number">1.3</span> Python</h3>
-<section id="modules" class="level4" data-number="1.3.1">
-<h4 data-number="1.3.1" class="anchored" data-anchor-id="modules"><span class="header-section-number">1.3.1</span> Modules</h4>
-<p><a href="https://github.com/Hasenpfote/fpq/" class="uri">https://github.com/Hasenpfote/fpq/</a></p>
-<p>This package provides modules for manipulating floating point numbers quantization using NumPy.</p>
-<p><a href="https://github.com/Hasenpfote/image_packer/" class="uri">https://github.com/Hasenpfote/image_packer/</a></p>
-<p>Pack multiple images of different sizes or formats into one image.</p>
-<p><a href="https://github.com/Hasenpfote/malloc_tracer/" class="uri">https://github.com/Hasenpfote/malloc_tracer/</a></p>
-<p>This is a debugging tool for tracing malloc that occurs inside a function or class.</p>
-<p><a href="https://github.com/Hasenpfote/perfbench/" class="uri">https://github.com/Hasenpfote/perfbench/</a></p>
-<p>perfbench measures execution time of code snippets with Timeit and uses Plotly to visualize the results.</p>
-</section>
-<section id="examples-2" class="level4" data-number="1.3.2">
-<h4 data-number="1.3.2" class="anchored" data-anchor-id="examples-2"><span class="header-section-number">1.3.2</span> Examples</h4>
-<p><a href="https://github.com/Hasenpfote/python-poetry-example/" class="uri">https://github.com/Hasenpfote/python-poetry-example/</a></p>
-<p>A simple example of how to use pyenv + poetry + tox + pytest.</p>
-<p><a href="https://github.com/Hasenpfote/quaternion/" class="uri">https://github.com/Hasenpfote/quaternion/</a></p>
-<p>This package provides a class for manipulating quaternion objects.</p>
-</section>
-</section>
-</section>
-<section id="code-snippets" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="code-snippets"><span class="header-section-number">2</span> Code snippets</h2>
-<p>This section summarizes code snippets by themes/topics.</p>
-<section id="mathematics" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="mathematics"><span class="header-section-number">2.1</span> Mathematics</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Links</th>
-<th></th>
-<th>Language / Libraries</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Complex number</td>
-<td><a href="https://gist.github.com/Hasenpfote/566a04b7a5f9563921dff7fe1c1b5a01">Representation and interpolation of rotations</a></td>
-<td></td>
-<td>C++</td>
-</tr>
-<tr class="even">
-<td>Geometry</td>
-<td><a href="https://gist.github.com/Hasenpfote/18c192001a49a78defa991e7c6c71354">Delaunay triangulation</a></td>
-<td></td>
-<td>Python</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><a href="https://gist.github.com/Hasenpfote/9930495e79b708f9d6d0752764e06f88">Normal vectors to a 2D curve</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/9930495e79b708f9d6d0752764e06f88"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy<br>- sympy</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><a href="https://gist.github.com/Hasenpfote/11a40a555e82599d1e2d231c84d06fd7">Normal vectors to a surface</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/11a40a555e82599d1e2d231c84d06fd7"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy<br>- sympy</td>
-</tr>
-<tr class="odd">
-<td>Analysis</td>
-<td><a href="https://gist.github.com/Hasenpfote/42696bfece3d9f05f002dc41d8e8c38d">Taylor series</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/42696bfece3d9f05f002dc41d8e8c38d"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy<br>- sympy</td>
-</tr>
-<tr class="even">
-<td>Vector calculus</td>
-<td><a href="https://gist.github.com/Hasenpfote/a97842b21700f44d82052548bf015ea0">Laplacian</a> (<a href="https://gist.github.com/Hasenpfote/e47a82d73dcf6ce84920b1e8106c477d">utils</a>)</td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/a97842b21700f44d82052548bf015ea0"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><a href="https://gist.github.com/Hasenpfote/3e6b5605e56c4788d7ef46d2173ca20a">Frenet–Serret formulas in 2D</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/3e6b5605e56c4788d7ef46d2173ca20a"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy<br>- sympy</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><a href="https://gist.github.com/Hasenpfote/1d8d0f745fd03e32e9f75bea1782d8cc">Frenet–Serret formulas</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/1d8d0f745fd03e32e9f75bea1782d8cc"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy<br>- sympy</td>
-</tr>
-<tr class="odd">
-<td>Set theory</td>
-<td><a href="https://gist.github.com/Hasenpfote/f9e71ceecf7a185422fe22000ce3cd2f">Pairing function</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/f9e71ceecf7a185422fe22000ce3cd2f"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy</td>
-</tr>
-<tr class="even">
-<td>Probability theory</td>
-<td><a href="https://gist.github.com/Hasenpfote/09701f65d0c841d9ead91328e84ff2ff">Inverse transform sampling</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/09701f65d0c841d9ead91328e84ff2ff"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><a href="https://gist.github.com/Hasenpfote/90b6e3ba1e8249e7f0d51198c8e6bf8d">Monte Carlo Integration</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/90b6e3ba1e8249e7f0d51198c8e6bf8d"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy<br>- scipy</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="physics" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="physics"><span class="header-section-number">2.2</span> Physics</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Links</th>
-<th></th>
-<th>Language / Libraries</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Rigid body dynamics</td>
-<td><a href="https://gist.github.com/Hasenpfote/034cc499827da562fed3c8f676b868f0#file-rigid-body-dynamics-ipynb">Translational and rotational motions</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/034cc499827da562fed3c8f676b868f0#file-rigid-body-dynamics-ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- numpy</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><a href="https://gist.github.com/Hasenpfote/034cc499827da562fed3c8f676b868f0#file-rigid-body-dynamics-2-ipynb">Translational and rotational motions (using quaternion)</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/034cc499827da562fed3c8f676b868f0#file-rigid-body-dynamics-2-ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- numpy</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="computer-science" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="computer-science"><span class="header-section-number">2.3</span> Computer science</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Links</th>
-<th></th>
-<th>Language / Libraries</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Floating point number</td>
-<td><a href="https://gist.github.com/Hasenpfote/a7b836cbc5eaebf15dff65a8045a1701">Floating-point comparison</a></td>
-<td></td>
-<td>C++</td>
-</tr>
-<tr class="even">
-<td>Color</td>
-<td><a href="https://gist.github.com/Hasenpfote/fb262185313b0204893483add22d45a5">CIE1931_color_space</a><br><a href="https://gist.github.com/Hasenpfote/78264ec0046a0d8e0d85ad683c35b8c4">CIE_daylight_components</a>, <a href="https://gist.github.com/Hasenpfote/36650bfca3aa6815382f3e96567ec43a">BabelColor_spectral_data</a></td>
-<td></td>
-<td>Python<br>- matplotlib<br>- numpy<br>- pandas<br>- scipy</td>
-</tr>
-<tr class="odd">
-<td>Noise</td>
-<td><a href="https://gist.github.com/Hasenpfote/b01238342a8625e2961b040d55d96b8d">Perlin noise - 1D/2D/3D/4D</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/b01238342a8625e2961b040d55d96b8d"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy</td>
-</tr>
-<tr class="even">
-<td>Sort</td>
-<td><a href="https://gist.github.com/Hasenpfote/9e6935560778784ba80c0d497d7655c0">Bitonic sort</a></td>
-<td></td>
-<td>C++</td>
-</tr>
-<tr class="odd">
-<td>Russian Roulette</td>
-<td><a href="https://gist.github.com/Hasenpfote/3703d424966523a2e3aba4e1007529d9">Thoughts on Russian Roulette</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/3703d424966523a2e3aba4e1007529d9"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- altair<br>- numpy<br>- pandas</td>
-</tr>
-<tr class="even">
-<td>k-d tree</td>
-<td><a href="https://gist.github.com/Hasenpfote/7733dae3b31ea1d2a7b9f7145105ac84">Thoughts on k-d tree</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/7733dae3b31ea1d2a7b9f7145105ac84"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-<td>Python<br>- matplotlib<br>- numpy<br>- anytree</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="python-1" class="level3" data-number="2.4">
-<h3 data-number="2.4" class="anchored" data-anchor-id="python-1"><span class="header-section-number">2.4</span> Python</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Links</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Python</td>
-<td><a href="https://gist.github.com/Hasenpfote/1028784b12b8bb2f48349b5d794559fe">How to limit concurrency with asyncio</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/1028784b12b8bb2f48349b5d794559fe"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><a href="https://gist.github.com/Hasenpfote/903c3fd2ee7db16f31e18860458a6d4b">How to hook properties with Python3 dataclasses</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/903c3fd2ee7db16f31e18860458a6d4b"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-</tr>
-<tr class="odd">
-<td>matplotlib</td>
-<td><a href="https://gist.github.com/Hasenpfote/071e05c854e2b7d04cc3a9642778374f">Customized colormap</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/071e05c854e2b7d04cc3a9642778374f"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><a href="https://gist.github.com/Hasenpfote/0e6ea4e82564e3b284b08bde05b73c10">Discrete colormap</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/0e6ea4e82564e3b284b08bde05b73c10"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-</tr>
-<tr class="odd">
-<td>pytorch</td>
-<td><a href="https://gist.github.com/Hasenpfote/95dddcf6cdf1365e8b227ff46e3140de">Differential</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/95dddcf6cdf1365e8b227ff46e3140de"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><a href="https://gist.github.com/Hasenpfote/dced523e87dba58363e36f4443f8ed02">Confusion matrix</a></td>
-<td><a href="https://colab.research.google.com/gist/Hasenpfote/dced523e87dba58363e36f4443f8ed02"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></td>
-</tr>
-</tbody>
-</table>
-
-
-</section>
-</section>
-
-<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
-  <category>repository</category>
-  <category>codesnippet</category>
-  <guid>https://hasenpfote.github.io/posts/toy-box.html</guid>
-  <pubDate>Thu, 01 Jan 1970 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

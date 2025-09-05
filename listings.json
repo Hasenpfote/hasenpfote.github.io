@@ -2,6 +2,7 @@
   {
     "listing": "/archive.html",
     "items": [
+      "/posts/sampling-on-geometric-regions.html",
       "/posts/thoughts-on-bvh.html",
       "/posts/thoughts-on-slab-method.html",
       "/posts/thoughts-on-morton-code.html",
@@ -27,6 +28,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/sampling-on-geometric-regions.html",
       "/posts/thoughts-on-bvh.html",
       "/posts/thoughts-on-slab-method.html",
       "/posts/thoughts-on-morton-code.html",
