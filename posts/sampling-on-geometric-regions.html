@@ -448,6 +448,7 @@ window.Quarto = {
 
 
 
+<p><a href="https://colab.research.google.com/github/Hasenpfote/hasenpfote.github.io/blob/main/posts/sampling-on-geometric-regions.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a><a href=""></a></p>
 <p>幾何学的領域上のサンプリング手順（逆関数法ベース）</p>
 <ol type="1">
 <li>領域の定義と座標系の設定<br>
@@ -463,7 +464,7 @@ window.Quarto = {
 <li>必要に応じて座標変換<br>
 元の座標系に変換し，最終的なサンプル点を構成する．</li>
 </ol>
-<div id="cell-2" class="cell">
+<div id="cell-3" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
@@ -616,7 +617,7 @@ P_{\Phi}(\phi)
 P^{-1}_{\Phi}(\zeta)
 =2\pi\zeta
 \]</span></p>
-<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="e80e145e-1a02-41ef-866b-704573dd3d49">
+<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="e80e145e-1a02-41ef-866b-704573dd3d49">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_circle(u):</span>
@@ -681,7 +682,7 @@ P_{\Phi}(\phi)
 P^{-1}_{\Phi}(\zeta)
 =\phi_{\text{max}}\left(\zeta-\frac{1}{2}\right)
 \]</span></p>
-<div id="cell-7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:459}}" data-outputid="2a6a2534-d42c-47e9-a322-fe5ae58a9c52">
+<div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:459}}" data-outputid="2a6a2534-d42c-47e9-a322-fe5ae58a9c52">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_arc(u, <span class="op">*</span>, phi_max<span class="op">=</span>np.pi):</span>
@@ -772,7 +773,7 @@ P^{-1}_{U}(\zeta_{1})
 P^{-1}_{V}(\zeta_{2})
 =\zeta_{2}
 \]</span></p>
-<div id="cell-10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:456}}" data-outputid="15166c8c-6741-44a7-8bb6-ccc512201820">
+<div id="cell-11" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:456}}" data-outputid="15166c8c-6741-44a7-8bb6-ccc512201820">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_parallelogram(u0, u1):</span>
@@ -858,7 +859,7 @@ P^{-1}_{\Lambda_{1}}(\zeta_{1})
 P^{-1}_{\Lambda_{2}|\Lambda_{1}}(\zeta_{2}|\lambda_{1})
 =(1-\lambda_{1})\zeta_{2}
 \]</span></p>
-<div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="60eabe59-45b7-4f96-d964-5810e58cd4b9">
+<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="60eabe59-45b7-4f96-d964-5810e58cd4b9">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_triangle(u0, u1):</span>
@@ -941,7 +942,7 @@ P^{-1}_{\mathrm{P}}(\zeta_{1})
 P^{-1}_{\Phi}(\zeta_{2})
 =2\pi\zeta_{2}
 \]</span></p>
-<div id="cell-14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="fde51e34-4dfa-4ae1-c6a1-0b78cea9f34d">
+<div id="cell-15" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="fde51e34-4dfa-4ae1-c6a1-0b78cea9f34d">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_disk(u0, u1):</span>
@@ -1024,7 +1025,7 @@ P^{-1}_{\mathrm{P}}(\zeta_{1})
 P^{-1}_{\Phi}(\zeta_{2})
 =\phi_{\text{max}}\left(\zeta_{2}-\frac{1}{2}\right)
 \]</span></p>
-<div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:459}}" data-outputid="f21fe3dd-17ce-48aa-c607-9ce840ebcec9">
+<div id="cell-17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:459}}" data-outputid="f21fe3dd-17ce-48aa-c607-9ce840ebcec9">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_sector(u0, u1, <span class="op">*</span>, phi_max<span class="op">=</span>np.pi):</span>
@@ -1113,7 +1114,7 @@ P^{-1}_{\Theta}(\zeta_{1})
 P^{-1}_{\Phi}(\zeta_{2})
 =2\pi\zeta_{2}
 \]</span></p>
-<div id="cell-18" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="4070205f-8425-4e5f-e130-df3652d3404e">
+<div id="cell-19" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="4070205f-8425-4e5f-e130-df3652d3404e">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_sphere(u0, u1):</span>
@@ -1202,7 +1203,7 @@ P^{-1}_{\Theta}(\zeta_{1})
 P^{-1}_{\Phi}(\zeta_{2})
 =2\pi\zeta_{2}
 \]</span></p>
-<div id="cell-20" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:465}}" data-outputid="b525b248-3f71-47b8-c938-90077bd3dca3">
+<div id="cell-21" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:465}}" data-outputid="b525b248-3f71-47b8-c938-90077bd3dca3">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_spherical_cap(u0, u1, <span class="op">*</span>, cos_theta_max<span class="op">=</span>np.pi):</span>
@@ -1302,7 +1303,7 @@ P^{-1}_{\Theta}(\zeta_{1})
 P^{-1}_{\Phi}(\zeta_{2})
 =2\pi\zeta_{2}
 \]</span></p>
-<div id="cell-23" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="e4e52a19-c80c-49d6-ad13-af69ce270c87">
+<div id="cell-24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="e4e52a19-c80c-49d6-ad13-af69ce270c87">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_hemisphere(u0, u1):</span>
@@ -1375,7 +1376,7 @@ P^{-1}_{\Theta}(\zeta_{1})
 P^{-1}_{\Phi}(\zeta_{2})
 =2\pi\zeta_{2}
 \]</span></p>
-<div id="cell-25" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="8d1e455d-f8a7-4728-e49e-6405f0e8d33e">
+<div id="cell-26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="8d1e455d-f8a7-4728-e49e-6405f0e8d33e">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cosine_sample_hemisphere(u0, u1):</span>
@@ -1446,7 +1447,7 @@ P^{-1}_{\Theta}(\zeta_{1})
 P^{-1}_{\Phi}(\zeta_{2})
 =2\pi\zeta_{2}
 \]</span></p>
-<div id="cell-27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="cf3558ea-d7aa-4452-f49d-3cb795ec5180">
+<div id="cell-28" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="cf3558ea-d7aa-4452-f49d-3cb795ec5180">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> phong_specular_sample_hemisphere(u0, u1, <span class="op">*</span>, n<span class="op">=</span><span class="dv">2</span>):</span>
@@ -1529,7 +1530,7 @@ P^{-1}_{\Theta}(\zeta_{1})
 P^{-1}_{\Phi}(\zeta_{2})
 =2\pi\zeta_{2}
 \]</span></p>
-<div id="cell-29" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:464}}" data-outputid="92393b8a-0379-43b4-8fc8-62c3636dc3ec">
+<div id="cell-30" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:464}}" data-outputid="92393b8a-0379-43b4-8fc8-62c3636dc3ec">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ggx_specular_sample_hemisphere(u0, u1, <span class="op">*</span>, alpha<span class="op">=</span><span class="fl">1.0</span>):</span>
@@ -1635,7 +1636,7 @@ P^{-1}_{\Theta}(\zeta_{2})
 P^{-1}_{\Phi}(\zeta_{3})
 =2\pi\zeta_{3}
 \]</span></p>
-<div id="cell-32" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="ff9b6484-b8a8-4871-f19b-9d22b3726753">
+<div id="cell-33" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="ff9b6484-b8a8-4871-f19b-9d22b3726753">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_ball(u0, u1, u2):</span>
@@ -1736,7 +1737,7 @@ P^{-1}_{\Theta}(\zeta_{2})
 P^{-1}_{\Phi}(\zeta_{3})
 =2\pi\zeta_{3}
 \]</span></p>
-<div id="cell-34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:458}}" data-outputid="8a93d73b-55d8-4967-ecac-6b90eadc983b">
+<div id="cell-35" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:458}}" data-outputid="8a93d73b-55d8-4967-ecac-6b90eadc983b">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_spherical_sector(u0, u1, u2, <span class="op">*</span>, cos_theta_max<span class="op">=</span>np.pi):</span>
@@ -1838,7 +1839,7 @@ P^{-1}_{\Phi}(\zeta_{2})
 P^{-1}_{Z}(\zeta_{3})
 =H\zeta_{3}
 \]</span></p>
-<div id="cell-36" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="685a9c7c-3c5e-47ff-e0c1-67d60d128559">
+<div id="cell-37" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="685a9c7c-3c5e-47ff-e0c1-67d60d128559">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_sample_solid_cylinder(u0, u1, u2):</span>
