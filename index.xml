@@ -458,36 +458,57 @@ background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">None</span>)</span>
-<span id="cb1-70">        limits <span class="op" style="color: #5E5E5E;
+<span id="cb1-70">        ax.scatter(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, s<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>, c<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"red"</span>, marker<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"+"</span>, alpha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.6</span>)</span>
+<span id="cb1-71">        limits <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> compute_equal_axes_limits(ax)</span>
-<span id="cb1-71">        ax.set_xlim(<span class="op" style="color: #5E5E5E;
+<span id="cb1-72">        ax.set_xlim(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>limits[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>])</span>
-<span id="cb1-72">        ax.set_ylim(<span class="op" style="color: #5E5E5E;
+<span id="cb1-73">        ax.set_ylim(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>limits[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>])</span>
-<span id="cb1-73">        ax.grid(<span class="va" style="color: #111111;
+<span id="cb1-74">        ax.grid(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>, which<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"both"</span>)</span>
-<span id="cb1-74">        ax.set_title(distr_info.get(<span class="st" style="color: #20794D;
+<span id="cb1-75">        ax.set_title(distr_info.get(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"title"</span>, <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">None</span>))</span>
-<span id="cb1-75"></span>
-<span id="cb1-76">    plt.show()</span>
-<span id="cb1-77"></span>
+<span id="cb1-76"></span>
+<span id="cb1-77">    plt.show()</span>
 <span id="cb1-78"></span>
-<span id="cb1-79"><span class="kw" style="color: #003B4F;
+<span id="cb1-79"></span>
+<span id="cb1-80"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> plot_distributions_3d(distr_infos: <span class="bu" style="color: null;
@@ -511,7 +532,7 @@ background-color: null;
 font-style: inherit;">-&gt;</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">None</span>:</span>
-<span id="cb1-80">    <span class="cf" style="color: #003B4F;
+<span id="cb1-81">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> nrows_ncols <span class="kw" style="color: #003B4F;
@@ -520,20 +541,20 @@ font-weight: bold;
 font-style: inherit;">is</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">None</span>:</span>
-<span id="cb1-81">        nrows_ncols <span class="op" style="color: #5E5E5E;
+<span id="cb1-82">        nrows_ncols <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>, <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">len</span>(distr_infos))</span>
-<span id="cb1-82"></span>
-<span id="cb1-83">    base_w, base_h <span class="op" style="color: #5E5E5E;
+<span id="cb1-83"></span>
+<span id="cb1-84">    base_w, base_h <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.rcParams.get(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"figure.figsize"</span>)</span>
-<span id="cb1-84">    figsize <span class="op" style="color: #5E5E5E;
+<span id="cb1-85">    figsize <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (base_w <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -552,7 +573,7 @@ background-color: null;
 font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1.33</span>)</span>
-<span id="cb1-85">    subplot_kw <span class="op" style="color: #5E5E5E;
+<span id="cb1-86">    subplot_kw <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
 background-color: null;
@@ -579,8 +600,8 @@ background-color: null;
 font-style: inherit;">"zlabel"</span>: <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"z"</span>}</span>
-<span id="cb1-86"></span>
-<span id="cb1-87">    fig, axs <span class="op" style="color: #5E5E5E;
+<span id="cb1-87"></span>
+<span id="cb1-88">    fig, axs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(nrows<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -599,13 +620,13 @@ background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span>
-<span id="cb1-88">    axs <span class="op" style="color: #5E5E5E;
+<span id="cb1-89">    axs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> trim_axes(fig, np.atleast_1d(axs).flatten(), <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">len</span>(distr_infos))</span>
-<span id="cb1-89"></span>
-<span id="cb1-90">    fig.set_constrained_layout_pads(hspace<span class="op" style="color: #5E5E5E;
+<span id="cb1-90"></span>
+<span id="cb1-91">    fig.set_constrained_layout_pads(hspace<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -614,8 +635,8 @@ background-color: null;
 font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.1</span>)</span>
-<span id="cb1-91"></span>
-<span id="cb1-92">    <span class="cf" style="color: #003B4F;
+<span id="cb1-92"></span>
+<span id="cb1-93">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> ax, distr_info <span class="kw" style="color: #003B4F;
@@ -624,7 +645,7 @@ font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">zip</span>(axs, distr_infos):</span>
-<span id="cb1-93">        plot_distribution(ax, distr_info[<span class="st" style="color: #20794D;
+<span id="cb1-94">        plot_distribution(ax, distr_info[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"fn"</span>], distr_info[<span class="st" style="color: #20794D;
 background-color: null;
@@ -635,32 +656,55 @@ background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">None</span>)</span>
-<span id="cb1-94">        limits <span class="op" style="color: #5E5E5E;
+<span id="cb1-95">        ax.scatter(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, s<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>, c<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"red"</span>, marker<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"+"</span>, alpha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.6</span>)</span>
+<span id="cb1-96">        limits <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> compute_equal_axes_limits(ax)</span>
-<span id="cb1-95">        ax.set_xlim(<span class="op" style="color: #5E5E5E;
+<span id="cb1-97">        ax.set_xlim(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>limits[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>])</span>
-<span id="cb1-96">        ax.set_ylim(<span class="op" style="color: #5E5E5E;
+<span id="cb1-98">        ax.set_ylim(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>limits[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>])</span>
-<span id="cb1-97">        ax.set_zlim(<span class="op" style="color: #5E5E5E;
+<span id="cb1-99">        ax.set_zlim(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>limits[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2</span>])</span>
-<span id="cb1-98">        ax.grid(<span class="va" style="color: #111111;
+<span id="cb1-100">        ax.grid(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>, which<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"both"</span>)</span>
-<span id="cb1-99">        ax.view_init(elev<span class="op" style="color: #5E5E5E;
+<span id="cb1-101">        ax.view_init(elev<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
@@ -669,16 +713,16 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">45</span>)</span>
-<span id="cb1-100">        ax.set_title(distr_info.get(<span class="st" style="color: #20794D;
+<span id="cb1-102">        ax.set_title(distr_info.get(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"title"</span>, <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">None</span>))</span>
-<span id="cb1-101"></span>
-<span id="cb1-102">    plt.show()</span>
 <span id="cb1-103"></span>
-<span id="cb1-104"></span>
-<span id="cb1-105">SAMPLE_SIZES <span class="op" style="color: #5E5E5E;
+<span id="cb1-104">    plt.show()</span>
+<span id="cb1-105"></span>
+<span id="cb1-106"></span>
+<span id="cb1-107">SAMPLE_SIZES <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -705,7 +749,7 @@ font-style: inherit;">8000</span>)</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta)%0A=2%5Cpi%5Czeta%0A"></p>
-<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="e80e145e-1a02-41ef-866b-704573dd3d49">
+<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="1235c7bd-6ecf-4ac0-ab19-f47b54ad86de">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
@@ -813,7 +857,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B-%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi+%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta)%0A=%5Cphi_%7B%5Ctext%7Bmax%7D%7D%5Cleft(%5Czeta-%5Cfrac%7B1%7D%7B2%7D%5Cright)%0A"></p>
-<div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:459}}" data-outputid="2a6a2534-d42c-47e9-a322-fe5ae58a9c52">
+<div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:459}}" data-outputid="b6a1f5ab-b05c-43c8-db42-88bc13a781a7">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
@@ -857,7 +901,7 @@ font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"phi_max"</span>: <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.5</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">0.25</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> np.pi}</span>
 <span id="cb3-9">title <span class="op" style="color: #5E5E5E;
@@ -941,7 +985,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7BU%7D(u)%0A=%5Cint_%7B0%7D%5E%7Bu%7D%20p_%7BU%7D(t)%5C,dt%0A=u%0A,%5Cquad%0AP_%7BV%7D(v)%0A=%5Cint_%7B0%7D%5E%7Bv%7D%20p_%7BV%7D(t)%5C,dt%0A=v%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7BU%7D(%5Czeta_%7B1%7D)%0A=%5Czeta_%7B1%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7BV%7D(%5Czeta_%7B2%7D)%0A=%5Czeta_%7B2%7D%0A"></p>
-<div id="cell-11" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:456}}" data-outputid="15166c8c-6741-44a7-8bb6-ccc512201820">
+<div id="cell-11" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:456}}" data-outputid="abfb8174-f371-4532-ae26-74d95c58939e">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="kw" style="color: #003B4F;
@@ -1039,7 +1083,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CLambda_%7B1%7D%7D(%5Clambda_%7B1%7D)%0A=%5Cint_%7B0%7D%5E%7B%5Clambda_%7B1%7D%7D%20p_%7B%5CLambda_%7B1%7D%7D(t)%5C,dt%0A=2%5Clambda_%7B1%7D-%5Clambda%5E%7B2%7D_%7B1%7D%0A,%5Cquad%0AP_%7B%5CLambda_%7B2%7D%7C%5CLambda_%7B1%7D%7D(%5Clambda_%7B2%7D%7C%5Clambda_%7B1%7D)%0A=%5Cint_%7B0%7D%5E%7B%5Clambda_%7B2%7D%7D%20p_%7B%5CLambda_%7B2%7D%7C%5CLambda_%7B1%7D%7D(t%7C%5Clambda_%7B1%7D)%5C,dt%0A=%5Cfrac%7B%5Clambda_%7B2%7D%7D%7B1-%5Clambda_%7B1%7D%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CLambda_%7B1%7D%7D(%5Czeta_%7B1%7D)%0A=1-%5Csqrt%7B1-%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CLambda_%7B2%7D%7C%5CLambda_%7B1%7D%7D(%5Czeta_%7B2%7D%7C%5Clambda_%7B1%7D)%0A=(1-%5Clambda_%7B1%7D)%5Czeta_%7B2%7D%0A"></p>
-<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="60eabe59-45b7-4f96-d964-5810e58cd4b9">
+<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="29c637fc-8b7f-45af-ed04-a969e73f07f0">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
@@ -1156,7 +1200,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5Cmathrm%7BP%7D%7D(%5Crho)%0A=%5Cint_%7B0%7D%5E%7B%5Crho%7D%20p_%7B%5Cmathrm%7BP%7D%7D(t)%5C,dt%0A=%5Cfrac%7B%5Crho%5E%7B2%7D%7D%7BR%5E%7B2%7D%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5Cmathrm%7BP%7D%7D(%5Czeta_%7B1%7D)%0A=R%5Csqrt%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
-<div id="cell-15" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="fde51e34-4dfa-4ae1-c6a1-0b78cea9f34d">
+<div id="cell-15" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="2845d42a-228f-4796-835b-712656736434">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="kw" style="color: #003B4F;
@@ -1269,7 +1313,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5Cmathrm%7BP%7D%7D(%5Crho)%0A=%5Cint_%7B0%7D%5E%7B%5Crho%7D%20p_%7B%5Cmathrm%7BP%7D%7D(t)%5C,dt%0A=%5Cfrac%7B%5Crho%5E%7B2%7D%7D%7BR%5E%7B2%7D%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B-%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi+%5Cfrac%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%7B2%7D%7D%7B%5Cphi_%7B%5Ctext%7Bmax%7D%7D%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5Cmathrm%7BP%7D%7D(%5Czeta_%7B1%7D)%0A=R%5Csqrt%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=%5Cphi_%7B%5Ctext%7Bmax%7D%7D%5Cleft(%5Czeta_%7B2%7D-%5Cfrac%7B1%7D%7B2%7D%5Cright)%0A"></p>
-<div id="cell-17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:459}}" data-outputid="f21fe3dd-17ce-48aa-c607-9ce840ebcec9">
+<div id="cell-17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:459}}" data-outputid="9802e130-3582-4a8c-f7fe-1896104e996e">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
@@ -1397,7 +1441,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%5Ctheta%7D%7B2%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carccos(1-2%5Czeta_%7B1%7D)%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
-<div id="cell-19" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="4070205f-8425-4e5f-e130-df3652d3404e">
+<div id="cell-19" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="8a8b6baf-1a34-45ec-c1ed-1ceeab0b670d">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
@@ -1529,7 +1573,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%5Ctheta%7D%7B1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carccos(1-(1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D)%5Czeta_%7B1%7D)%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
-<div id="cell-21" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:465}}" data-outputid="b525b248-3f71-47b8-c938-90077bd3dca3">
+<div id="cell-21" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:465}}" data-outputid="5b22606d-2f0b-4ffc-9ca8-b4dac9c3562c">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
@@ -1684,7 +1728,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=1-%5Ccos%5Ctheta%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carccos(1-%5Czeta_%7B1%7D)%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
-<div id="cell-24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="e4e52a19-c80c-49d6-ad13-af69ce270c87">
+<div id="cell-24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="6f62c646-9158-4b97-b03c-db5431921c6d">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="kw" style="color: #003B4F;
@@ -1806,7 +1850,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%202%5Ctheta%7D%7B2%7D%0A=%5Csin%5E%7B2%7D%5Ctheta%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carcsin%5Csqrt%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
-<div id="cell-26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="8d1e455d-f8a7-4728-e49e-6405f0e8d33e">
+<div id="cell-26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="0ee49452-6c21-40a2-f4de-e79a00cce71b">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="kw" style="color: #003B4F;
@@ -1923,7 +1967,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=1-%5Ccos%5E%7Bn+1%7D%5Ctheta%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carccos%5Csqrt%5Bn+1%5D%7B1-%5Czeta_%7B1%7D%7D%0A%5Chspace%7B0.5em%7D,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
-<div id="cell-28" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="cf3558ea-d7aa-4452-f49d-3cb795ec5180">
+<div id="cell-28" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="5df9970c-0c55-45ea-f0a9-9b52c562e29b">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="kw" style="color: #003B4F;
@@ -1999,7 +2043,7 @@ font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"n"</span>: <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">50</span>}</span>
+font-style: inherit;">10</span>}</span>
 <span id="cb12-11">title <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
@@ -2074,7 +2118,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%5E%7B2%7D%5Ctheta%7D%7B%5Ccos%5E%7B2%7D%5Ctheta%5C,(%5Calpha%5E%7B2%7D-1)+1%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B1%7D)%0A=%5Carccos%5Csqrt%7B%5Cfrac%7B1-%5Czeta_%7B1%7D%7D%7B(%5Calpha%5E%7B2%7D-1)%5Czeta_%7B1%7D+1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A"></p>
-<div id="cell-30" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:464}}" data-outputid="92393b8a-0379-43b4-8fc8-62c3636dc3ec">
+<div id="cell-30" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:464}}" data-outputid="550c4528-bc5e-40b4-d53c-3406f8e94599">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="kw" style="color: #003B4F;
@@ -2242,7 +2286,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7BR%7D(r)%0A=%5Cint_%7B0%7D%5E%7Br%7D%20p_%7BR%7D(t)%5C,dt%0A=%5Cfrac%7Br%5E%7B3%7D%7D%7BR%5E%7B3%7D%7D%0A,%5Cquad%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%5Ctheta%7D%7B2%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7BR%7D(%5Czeta_%7B1%7D)%0A=R%5Csqrt%5B3%5D%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B2%7D)%0A=%5Carccos(1-2%5Czeta_%7B2%7D)%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B3%7D)%0A=2%5Cpi%5Czeta_%7B3%7D%0A"></p>
-<div id="cell-33" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="ff9b6484-b8a8-4871-f19b-9d22b3726753">
+<div id="cell-33" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="84a69dbe-a967-4061-f1f8-ef1b66e38b32">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="kw" style="color: #003B4F;
@@ -2377,7 +2421,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7BR%7D(r)%0A=%5Cint_%7B0%7D%5E%7Br%7D%20p_%7BR%7D(t)%5C,dt%0A=%5Cfrac%7Br%5E%7B3%7D%7D%7BR%5E%7B3%7D%7D%0A,%5Cquad%0AP_%7B%5CTheta%7D(%5Ctheta)%0A=%5Cint_%7B0%7D%5E%7B%5Ctheta%7D%20p_%7B%5CTheta%7D(t)%5C,dt%0A=%5Cfrac%7B1-%5Ccos%5Ctheta%7D%7B1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7BR%7D(%5Czeta_%7B1%7D)%0A=R%5Csqrt%5B3%5D%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CTheta%7D(%5Czeta_%7B2%7D)%0A=%5Carccos(1-(1-%5Ccos%5Ctheta_%7B%5Ctext%7Bmax%7D%7D)%5Czeta_%7B2%7D)%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B3%7D)%0A=2%5Cpi%5Czeta_%7B3%7D%0A"></p>
-<div id="cell-35" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:458}}" data-outputid="8a93d73b-55d8-4967-ecac-6b90eadc983b">
+<div id="cell-35" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:458}}" data-outputid="9ad3a5e3-6cc2-49b8-f951-d1456d1ec484">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="kw" style="color: #003B4F;
@@ -2531,7 +2575,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP_%7B%5Cmathrm%7BP%7D%7D(%5Crho)%0A=%5Cint_%7B0%7D%5E%7B%5Crho%7D%20p_%7B%5Cmathrm%7BP%7D%7D(t)%5C,dt%0A=%5Cfrac%7B%5Crho%5E%7B2%7D%7D%7BR%5E%7B2%7D%7D%0A,%5Cquad%0AP_%7B%5CPhi%7D(%5Cphi)%0A=%5Cint_%7B0%7D%5E%7B%5Cphi%7D%20p_%7B%5CPhi%7D(t)%5C,dt%0A=%5Cfrac%7B%5Cphi%7D%7B2%5Cpi%7D%0A,%5Cquad%0AP_%7BZ%7D(z)%0A=%5Cint_%7B0%7D%5E%7Bz%7D%20p_%7BZ%7D(t)%5C,dt%0A=%5Cfrac%7Bz%7D%7BH%7D%0A"></p>
 <p>逆関数は，</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0AP%5E%7B-1%7D_%7B%5Cmathrm%7BP%7D%7D(%5Czeta_%7B1%7D)%0A=R%5Csqrt%7B%5Czeta_%7B1%7D%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7B%5CPhi%7D(%5Czeta_%7B2%7D)%0A=2%5Cpi%5Czeta_%7B2%7D%0A,%5Cquad%0AP%5E%7B-1%7D_%7BZ%7D(%5Czeta_%7B3%7D)%0A=H%5Czeta_%7B3%7D%0A"></p>
-<div id="cell-37" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="685a9c7c-3c5e-47ff-e0c1-67d60d128559">
+<div id="cell-37" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:462}}" data-outputid="83f09590-4f6f-44f4-f07b-3d58c1c8da1d">
 <details open="" class="code-fold">
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="kw" style="color: #003B4F;
@@ -2634,10 +2678,10 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <section id="references" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="references"><span class="header-section-number">4</span> References</h2>
 <ul>
-<li>Pharr, M., Jakob, W., &amp; Humphreys, G. (n.d.). <em>2D sampling with multidimensional transformations</em>. Physically Based Rendering: From Theory To Implementation. https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/2D_Sampling_with_Multidimensional_Transformations</li>
-<li>Kerbl, B. (n.d.). <em>Rendering: Importance sampling</em>. Research Division of Computer Graphics, Institute of Visual Computing &amp; Human-Centered Technology, TU Wien, Austria. https://www.cg.tuwien.ac.at/sites/default/files/course/4411/attachments/06_importance_sampling_0.pdf</li>
-<li>Walter, B. (2005, April 29). <em>Notes on the ward BRDF</em>. Cornell Program of Computer Graphics. https://www.graphics.cornell.edu/~bjw/wardnotes.pdf</li>
-<li>Inverse transform sampling. (2025, August 26). In <em>Wikipedia</em>. https://en.wikipedia.org/w/index.php?title=Inverse_transform_sampling&amp;oldid=1307944637</li>
+<li>Pharr, M., Jakob, W., &amp; Humphreys, G. (n.d.). <em>2D sampling with multidimensional transformations</em>. Physically Based Rendering: From Theory To Implementation. <a href="https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/2D_Sampling_with_Multidimensional_Transformations" class="uri">https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/2D_Sampling_with_Multidimensional_Transformations</a></li>
+<li>Kerbl, B. (n.d.). <em>Rendering: Importance sampling</em>. Research Division of Computer Graphics, Institute of Visual Computing &amp; Human-Centered Technology, TU Wien, Austria. <a href="https://www.cg.tuwien.ac.at/sites/default/files/course/4411/attachments/06_importance_sampling_0.pdf" class="uri">https://www.cg.tuwien.ac.at/sites/default/files/course/4411/attachments/06_importance_sampling_0.pdf</a></li>
+<li>Walter, B. (2005, April 29). <em>Notes on the ward BRDF</em>. Cornell Program of Computer Graphics. <a href="https://www.graphics.cornell.edu/~bjw/wardnotes.pdf" class="uri">https://www.graphics.cornell.edu/~bjw/wardnotes.pdf</a></li>
+<li>Inverse transform sampling. (2025, August 26). In <em>Wikipedia</em>. <a href="https://en.wikipedia.org/w/index.php?title=Inverse_transform_sampling&amp;oldid=1307944637" class="uri">https://en.wikipedia.org/w/index.php?title=Inverse_transform_sampling&amp;oldid=1307944637</a></li>
 </ul>
 
 
