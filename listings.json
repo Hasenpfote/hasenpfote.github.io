@@ -2,6 +2,7 @@
   {
     "listing": "/archive.html",
     "items": [
+      "/posts/sampling-with-piecewise-constant-distributions.html",
       "/posts/sampling-on-geometric-regions.html",
       "/posts/thoughts-on-bvh.html",
       "/posts/thoughts-on-slab-method.html",
@@ -28,6 +29,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/sampling-with-piecewise-constant-distributions.html",
       "/posts/sampling-on-geometric-regions.html",
       "/posts/thoughts-on-bvh.html",
       "/posts/thoughts-on-slab-method.html",

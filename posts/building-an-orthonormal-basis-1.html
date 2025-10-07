@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,18 +68,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cb67631684576f55e8bc5ac67c9267c9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-26b7f73f5db2d4d9cde9593d186c2617.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cb67631684576f55e8bc5ac67c9267c9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ebbede3f255f00f2ca408d38e0ffdffb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e8037f2bc2526f669e41ff66c54b8017.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ebbede3f255f00f2ca408d38e0ffdffb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-604bd63501e705824cbefb6a1cacfc0e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-be3880cd984bb4d1a0bf0e8913c91dd7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-604bd63501e705824cbefb6a1cacfc0e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-aecd5b9e17e21623a32ac16f1bd4bcf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-562ba7b4ba968aaccdfd089f904815d6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-aecd5b9e17e21623a32ac16f1bd4bcf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -122,7 +123,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -310,6 +311,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">/var/log/little-things</span>
     </a>
@@ -509,7 +512,7 @@ n_{x}, n_{y}, n_{z}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-特異点への対処について
+<span class="screen-reader-only">ノート</span>特異点への対処について
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -538,7 +541,7 @@ z
 </div>
 </div>
 <p>実装は次のようになる.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Listing 2. New way of finding an orthonormal basis from a unit 3D vector.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Listing 2. New way of finding an orthonormal basis from a unit 3D vector.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> frisvad<span class="op">(</span><span class="at">const</span> Vec3f<span class="op">&amp;</span> n<span class="op">,</span> Vec3f<span class="op">&amp;</span> b1<span class="op">,</span> Vec3f<span class="op">&amp;</span> b2<span class="op">)</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span><span class="op">(</span>n<span class="op">.</span>z <span class="op">&lt;</span> <span class="op">-</span><span class="fl">0.9999999</span><span class="bu">f</span><span class="op">)</span> <span class="co">// Handle the singularity</span></span>
@@ -551,7 +554,7 @@ z
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">const</span> <span class="dt">float</span> b <span class="op">=</span> <span class="op">-</span>n<span class="op">.</span>x<span class="op">*</span>n<span class="op">.</span>y<span class="op">*</span>a<span class="op">;</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  b1 <span class="op">=</span> Vec3f <span class="op">(</span><span class="fl">1.0</span><span class="bu">f</span> <span class="op">-</span> n<span class="op">.</span>x<span class="op">*</span>n<span class="op">.</span>x<span class="op">*</span>a<span class="op">,</span> b<span class="op">,</span> <span class="op">-</span>n<span class="op">.</span>x<span class="op">);</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  b2 <span class="op">=</span> Vec3f <span class="op">(</span>b<span class="op">,</span> <span class="fl">1.0</span><span class="bu">f</span> <span class="op">-</span> n<span class="op">.</span>y<span class="op">*</span>n<span class="op">.</span>y<span class="op">*</span>a<span class="op">,</span> <span class="op">-</span>n<span class="op">.</span>y<span class="op">);</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="issues" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="issues"><span class="header-section-number">1.1</span> Issues</h3>
 <p>Max [2017] によると，単精度浮動小数点数の場合に特異点付近で許容できない誤差が発生することが報告されている．また，最大誤差を最小化することにも触れており,</p>
@@ -559,9 +562,9 @@ z
 <p>As t increases away from -1, the maximum errors for vectors n with n.z ≥ t will decrease, and those errors for n.z &lt; t will increase, so there should be an optimum trade-off value of t where they are equal. When considering only the normality conditions, the maximum normality error was minimized at 0.00222844 when t = -0.9999805689, in which case the maximum orthogonality error was 0.00622611. When considering only the orthogonality conditions, the maximum error was minimized to the value 0.004901 when t = -0.99998796, in which case the maximum normality condition error was 0.00180161. This same value of t minimized the maximum errors when both the orthogonality and normality conditions were considered together. So if these errors of about a half of one percent are acceptable, this threshold of -0.99998796 would work in Frisvad’s method.</p>
 </blockquote>
 <p>閾値を次のように変更する.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span><span class="op">(</span>n<span class="op">.</span>z <span class="op">&lt;</span> <span class="op">-</span><span class="fl">0.99998796</span><span class="bu">f</span><span class="op">)</span> <span class="co">// Handle the singularity</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <iframe src="https://www.shadertoy.com/embed/M3KcR3?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen="">
@@ -652,13 +655,13 @@ q_{s}
 </section>
 <section id="実装例" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="実装例"><span class="header-section-number">2.3</span> 実装例</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode glsl code-with-copy"><code class="sourceCode glsl"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">vec4</span> <span class="fu">rotation_arc</span><span class="op">(</span><span class="dt">in</span> <span class="dt">vec3</span> a<span class="op">,</span> <span class="dt">in</span> <span class="dt">vec3</span> b<span class="op">){</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode glsl code-with-copy"><code class="sourceCode glsl"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">vec4</span> <span class="fu">rotation_arc</span><span class="op">(</span><span class="dt">in</span> <span class="dt">vec3</span> a<span class="op">,</span> <span class="dt">in</span> <span class="dt">vec3</span> b<span class="op">){</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">vec3</span> c <span class="op">=</span> <span class="bu">cross</span><span class="op">(</span>a<span class="op">,</span> b<span class="op">);</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> d <span class="op">=</span> <span class="bu">dot</span><span class="op">(</span>a<span class="op">,</span> b<span class="op">);</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> s <span class="op">=</span> <span class="bu">sqrt</span><span class="op">(</span><span class="fl">2.</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1.</span> <span class="op">+</span> d<span class="op">));</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="dt">vec4</span><span class="op">(</span>c <span class="op">/</span> s<span class="op">,</span> s <span class="op">/</span> <span class="fl">2.</span><span class="op">);</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="references" class="level2" data-number="3">
@@ -738,13 +741,14 @@ q_{s}
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

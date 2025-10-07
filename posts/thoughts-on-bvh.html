@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,18 +68,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cb67631684576f55e8bc5ac67c9267c9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-26b7f73f5db2d4d9cde9593d186c2617.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cb67631684576f55e8bc5ac67c9267c9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ebbede3f255f00f2ca408d38e0ffdffb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e8037f2bc2526f669e41ff66c54b8017.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ebbede3f255f00f2ca408d38e0ffdffb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-604bd63501e705824cbefb6a1cacfc0e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-be3880cd984bb4d1a0bf0e8913c91dd7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-604bd63501e705824cbefb6a1cacfc0e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-aecd5b9e17e21623a32ac16f1bd4bcf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-562ba7b4ba968aaccdfd089f904815d6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-aecd5b9e17e21623a32ac16f1bd4bcf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -125,7 +126,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -313,6 +314,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">/var/log/little-things</span>
     </a>
@@ -462,7 +465,7 @@ window.Quarto = {
 <div id="cell-3" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install anytree <span class="op">--</span>quiet</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install anytree <span class="op">--</span>quiet</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="テストシーン共通データセット" class="level2" data-number="1">
@@ -470,7 +473,7 @@ window.Quarto = {
 <div id="cell-5" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy.typing <span class="im">as</span> npt</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> abc <span class="im">import</span> ABC, abstractmethod</span>
@@ -586,7 +589,7 @@ window.Quarto = {
 <span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>._name</span>
 <span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> intersect(<span class="va">self</span>, ray: Ray) <span class="op">-&gt;</span> <span class="bu">float</span> <span class="op">|</span> <span class="va">None</span>:</span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> intersect_ray_triangle(ray.origin, ray.direction, <span class="op">*</span><span class="va">self</span>.vertices())</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> intersect_ray_triangle(ray.origin, ray.direction, <span class="op">*</span><span class="va">self</span>.vertices())</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>交差関数群</p>
@@ -596,7 +599,7 @@ window.Quarto = {
 <div id="cell-7" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> perp_dot(a: np.ndarray, b: np.ndarray) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> perp_dot(a: np.ndarray, b: np.ndarray) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a[<span class="dv">0</span>] <span class="op">*</span> b[<span class="dv">1</span>] <span class="op">-</span> a[<span class="dv">1</span>] <span class="op">*</span> b[<span class="dv">0</span>]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -637,14 +640,14 @@ window.Quarto = {
 <span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        t_min <span class="op">=</span> np.fmax(t_min, np.fmin(t0, t1))</span>
 <span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        t_max <span class="op">=</span> np.fmin(t_max, np.fmax(t0, t1))</span>
 <span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t_min <span class="op">&lt;</span> t_max, t_min, t_max</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t_min <span class="op">&lt;</span> t_max, t_min, t_max</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>三角形群の生成</p>
 <div id="cell-9" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial <span class="im">import</span> cKDTree</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial <span class="im">import</span> cKDTree</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_triangles(n, xmin, ymin, xmax, ymax, <span class="op">*</span>, points_kwargs<span class="op">=</span><span class="va">None</span>, triangle_kwargs<span class="op">=</span><span class="va">None</span>):</span>
@@ -706,13 +709,13 @@ window.Quarto = {
 <span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    merged_points_kwargs[<span class="st">"domain"</span>] <span class="op">=</span> safe_domain</span>
 <span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    centers <span class="op">=</span> generate_points(n, <span class="op">**</span>merged_points_kwargs)</span>
 <span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [generate_triangle(center, <span class="op">**</span>merged_triangle_kwargs) <span class="cf">for</span> center <span class="kw">in</span> centers]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [generate_triangle(center, <span class="op">**</span>merged_triangle_kwargs) <span class="cf">for</span> center <span class="kw">in</span> centers]</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-10" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">0</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">0</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">4</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>num_triangles <span class="op">=</span> <span class="dv">50</span></span>
@@ -720,7 +723,7 @@ window.Quarto = {
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>points_kwargs <span class="op">=</span> {<span class="st">"min_dist"</span>: <span class="fl">4.0</span>}</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>triangle_kwargs <span class="op">=</span> {<span class="st">"max_radius"</span>: <span class="fl">2.0</span>, <span class="st">"scale_range"</span>: (<span class="fl">0.65</span>, <span class="fl">0.95</span>)}</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>triangles <span class="op">=</span> generate_triangles(num_triangles, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">50.0</span>, <span class="fl">50.0</span>, points_kwargs<span class="op">=</span>points_kwargs, triangle_kwargs<span class="op">=</span>triangle_kwargs)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>primitives: <span class="bu">list</span>[Primitive] <span class="op">=</span> [Triangle(tri, name<span class="op">=</span><span class="ss">f"T</span><span class="sc">{</span>i<span class="sc">:</span><span class="dv">0</span>{num_digits}<span class="sc">}</span><span class="ss">"</span>) <span class="cf">for</span> i, tri <span class="kw">in</span> <span class="bu">enumerate</span>(triangles)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>primitives: <span class="bu">list</span>[Primitive] <span class="op">=</span> [Triangle(tri, name<span class="op">=</span><span class="ss">f"T</span><span class="sc">{</span>i<span class="sc">:</span><span class="dv">0</span>{num_digits}<span class="sc">}</span><span class="ss">"</span>) <span class="cf">for</span> i, tri <span class="kw">in</span> <span class="bu">enumerate</span>(triangles)]</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -730,7 +733,7 @@ window.Quarto = {
 <div id="cell-13" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(init<span class="op">=</span><span class="va">False</span>, slots<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(init<span class="op">=</span><span class="va">False</span>, slots<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BVHBuildNode:</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    bounds: Bounds</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    split_axis: <span class="bu">int</span></span>
@@ -777,7 +780,7 @@ window.Quarto = {
 <span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    name: <span class="bu">str</span> <span class="op">=</span> <span class="st">""</span></span>
 <span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    nodes: <span class="bu">list</span>[LinearBVHNode] <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span></span>
 <span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    primitives: <span class="bu">list</span>[Primitive] <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    filename: <span class="bu">str</span> <span class="op">=</span> <span class="st">""</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    filename: <span class="bu">str</span> <span class="op">=</span> <span class="st">""</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="木構造の平坦化" class="level3" data-number="2.1">
@@ -812,7 +815,7 @@ window.Quarto = {
 <div id="cell-15" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LinearBVHNode:</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    bounds: Bounds <span class="op">=</span> field(default_factory<span class="op">=</span>Bounds.empty)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    offset: <span class="bu">int</span> <span class="op">=</span> <span class="dv">0</span></span>
@@ -852,7 +855,7 @@ window.Quarto = {
 <span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>        flatten_bvh_tree(node.left, context)</span>
 <span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>        linearNode.offset <span class="op">=</span> flatten_bvh_tree(node.right, context)</span>
 <span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> current_offset</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> current_offset</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -868,7 +871,7 @@ window.Quarto = {
 <div id="cell-18" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> TypeVar(<span class="st">"T"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> TypeVar(<span class="st">"T"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partition(lst: <span class="bu">list</span>[T], <span class="op">*</span>, start: <span class="bu">int</span>, end: <span class="bu">int</span>, pred: Callable[[T], <span class="bu">bool</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
@@ -917,13 +920,13 @@ window.Quarto = {
 <span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> pivot_index <span class="op">&lt;</span> n:</span>
 <span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>            lo <span class="op">=</span> pivot_index <span class="op">+</span> <span class="dv">1</span></span>
 <span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>            hi <span class="op">=</span> pivot_index <span class="op">-</span> <span class="dv">1</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>            hi <span class="op">=</span> pivot_index <span class="op">-</span> <span class="dv">1</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-19" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HasBounds(Protocol):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HasBounds(Protocol):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    bounds: Bounds</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1012,15 +1015,15 @@ window.Quarto = {
 <span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a>        mid <span class="op">=</span> (start <span class="op">+</span> end) <span class="op">//</span> <span class="dv">2</span></span>
 <span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a>        nth_element(primitive_info, mid, lo<span class="op">=</span>start, hi<span class="op">=</span>end <span class="op">-</span> <span class="dv">1</span>, key<span class="op">=</span><span class="kw">lambda</span> pi: pi.centroid[axis])</span>
 <span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mid</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mid</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-20" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>basic_bvh_nodes, basic_bvh_primitives <span class="op">=</span> build_bvh(primitives, split_func<span class="op">=</span>middle_split)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>basic_bvh_nodes, basic_bvh_primitives <span class="op">=</span> build_bvh(primitives, split_func<span class="op">=</span>middle_split)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>bvh_variant <span class="op">=</span> BVHVariant(name<span class="op">=</span><span class="st">"Basic BVH"</span>, nodes<span class="op">=</span>basic_bvh_nodes, primitives<span class="op">=</span>basic_bvh_primitives, filename<span class="op">=</span><span class="st">"basic_bvh.png"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>bvh_variants <span class="op">=</span> [bvh_variant]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>bvh_variants <span class="op">=</span> [bvh_variant]</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="木構造" class="level4" data-number="2.2.1">
@@ -1028,7 +1031,7 @@ window.Quarto = {
 <div id="cell-22" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anytree</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anytree</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anytree.exporter</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython.display <span class="im">as</span> display</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1056,17 +1059,17 @@ window.Quarto = {
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> parent <span class="kw">is</span> <span class="va">None</span>:</span>
 <span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>            root <span class="op">=</span> at_node</span>
 <span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> root</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> root</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-23" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:106}}" data-outputid="6ac24445-ff1a-46d4-ff08-dac7038c4ffa">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>at_root <span class="op">=</span> convert_to_anytree(bvh_variant.nodes, bvh_variant.primitives)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>at_root <span class="op">=</span> convert_to_anytree(bvh_variant.nodes, bvh_variant.primitives)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># graphviz needs to be installed for the next line!</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>anytree.exporter.UniqueDotExporter(at_root, options<span class="op">=</span>[<span class="ss">f'label="</span><span class="sc">{</span>bvh_variant<span class="sc">.</span>name<span class="sc">}</span><span class="ss">"'</span>, <span class="st">'labelloc="t"'</span>, <span class="st">"fontsize=24"</span>]).to_picture(bvh_variant.filename)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>display.display(display.Image(bvh_variant.filename, width<span class="op">=</span><span class="dv">400</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>display.display(display.Image(bvh_variant.filename, width<span class="op">=</span><span class="dv">400</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1082,7 +1085,7 @@ window.Quarto = {
 <div id="cell-25" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># print(plt.style.available)</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"seaborn-v0_8"</span>)</span>
@@ -1133,13 +1136,13 @@ window.Quarto = {
 <span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>            l_ind, r_ind <span class="op">=</span> node.child_indices(ind)</span>
 <span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>            stack.append(r_ind)</span>
-<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>            stack.append(l_ind)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>            stack.append(l_ind)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:528}}" data-outputid="6f2dd262-d51c-4cde-efc5-edcedcc2ed42">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plot_bvh(bvh_variant.nodes, bvh_variant.primitives, ax)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1148,7 +1151,7 @@ window.Quarto = {
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="st">"equal"</span>, adjustable<span class="op">=</span><span class="st">"box"</span>)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1183,7 +1186,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-28" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BucketInfo:</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    bounds: Bounds <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    count: <span class="bu">int</span> <span class="op">=</span> <span class="dv">0</span></span>
@@ -1220,13 +1223,13 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>            costs[i] <span class="op">=</span> evaluate_sah_cost(sa, l_bounds.surface_area, l_count, r_bounds.surface_area, r_count)</span>
 <span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> costs</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> costs</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-29" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>MAX_PRIMS_IN_NODE <span class="op">=</span> <span class="dv">5</span>  <span class="co"># &lt;= 255</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>MAX_PRIMS_IN_NODE <span class="op">=</span> <span class="dv">5</span>  <span class="co"># &lt;= 255</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sah_split(primitive_info: <span class="bu">list</span>[BVHPrimitiveInfo], start: <span class="bu">int</span>, end: <span class="bu">int</span>, axis: <span class="bu">int</span>, <span class="op">**</span>kwargs) <span class="op">-&gt;</span> <span class="bu">int</span> <span class="op">|</span> <span class="va">None</span>:</span>
@@ -1273,15 +1276,15 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>    split_pos <span class="op">=</span> centroid_bounds.lower[axis] <span class="op">+</span> (min_cost_split <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> (extent[axis] <span class="op">/</span> NUM_BUCKETS)</span>
 <span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>    mid <span class="op">=</span> partition(primitive_info, start<span class="op">=</span>start, end<span class="op">=</span>end, pred<span class="op">=</span><span class="kw">lambda</span> pi: pi.centroid[axis] <span class="op">&lt;</span> split_pos)</span>
-<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mid</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mid</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-30" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sah_bvh_nodes, sah_bvh_primitives <span class="op">=</span> build_bvh(primitives, split_func<span class="op">=</span>sah_split)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sah_bvh_nodes, sah_bvh_primitives <span class="op">=</span> build_bvh(primitives, split_func<span class="op">=</span>sah_split)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>bvh_variant <span class="op">=</span> BVHVariant(name<span class="op">=</span><span class="st">"SAH BVH"</span>, nodes<span class="op">=</span>sah_bvh_nodes, primitives<span class="op">=</span>sah_bvh_primitives, filename<span class="op">=</span><span class="st">"sah_bvh.png"</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>bvh_variants.append(bvh_variant)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>bvh_variants.append(bvh_variant)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="木構造-1" class="level4" data-number="2.3.1">
@@ -1289,11 +1292,11 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-32" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:88}}" data-outputid="0a019ba4-5893-4042-b8d2-fcef47b6f5cb">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>at_root <span class="op">=</span> convert_to_anytree(bvh_variant.nodes, bvh_variant.primitives)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>at_root <span class="op">=</span> convert_to_anytree(bvh_variant.nodes, bvh_variant.primitives)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># graphviz needs to be installed for the next line!</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>anytree.exporter.UniqueDotExporter(at_root, options<span class="op">=</span>[<span class="ss">f'label="</span><span class="sc">{</span>bvh_variant<span class="sc">.</span>name<span class="sc">}</span><span class="ss">"'</span>, <span class="st">'labelloc="t"'</span>, <span class="st">"fontsize=24"</span>]).to_picture(bvh_variant.filename)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>display.display(display.Image(bvh_variant.filename, width<span class="op">=</span><span class="dv">400</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>display.display(display.Image(bvh_variant.filename, width<span class="op">=</span><span class="dv">400</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1309,7 +1312,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:528}}" data-outputid="e1590c8e-1fe8-4034-cf36-742c9fec3d1f">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plot_bvh(bvh_variant.nodes, bvh_variant.primitives, ax)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1318,7 +1321,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="st">"equal"</span>, adjustable<span class="op">=</span><span class="st">"box"</span>)</span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1345,7 +1348,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-36" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MortonPrimitive:</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    primitive_index: <span class="bu">int</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    morton_code: np.uint32</span>
@@ -1372,7 +1375,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> interleave_bits(v)</span>
 <span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.take(v, <span class="dv">0</span>, axis<span class="op">=-</span><span class="dv">1</span>)</span>
 <span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.take(v, <span class="dv">1</span>, axis<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (y <span class="op">&lt;&lt;</span> <span class="dv">1</span>) <span class="op">|</span> x</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (y <span class="op">&lt;&lt;</span> <span class="dv">1</span>) <span class="op">|</span> x</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>基数ソートの実装</p>
@@ -1384,7 +1387,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-38" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numba <span class="im">import</span> njit</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numba <span class="im">import</span> njit</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="at">@njit</span></span>
@@ -1459,13 +1462,13 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb22-73"><a href="#cb22-73" aria-hidden="true" tabindex="-1"></a>        out[:] <span class="op">=</span> lst</span>
 <span id="cb22-74"><a href="#cb22-74" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-75"><a href="#cb22-75" aria-hidden="true" tabindex="-1"></a>    apply_permutation(out, indices)</span>
-<span id="cb22-76"><a href="#cb22-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-76"><a href="#cb22-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-39" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> EmitLBVHContext:</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    primitives: <span class="bu">list</span>[Primitive]</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    build_node_index: <span class="bu">int</span> <span class="op">=</span> <span class="dv">0</span></span>
@@ -1566,15 +1569,15 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb23-99"><a href="#cb23-99" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-100"><a href="#cb23-100" aria-hidden="true" tabindex="-1"></a>    flatten_bvh_tree_context <span class="op">=</span> FlattenBVHTreeContext(nodes<span class="op">=</span>[LinearBVHNode() <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(emit_lbvh_context.total_nodes)])</span>
 <span id="cb23-101"><a href="#cb23-101" aria-hidden="true" tabindex="-1"></a>    flatten_bvh_tree(treelet.build_nodes[<span class="dv">0</span>], flatten_bvh_tree_context)</span>
-<span id="cb23-102"><a href="#cb23-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> flatten_bvh_tree_context.nodes, ordered_primitives</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-102"><a href="#cb23-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> flatten_bvh_tree_context.nodes, ordered_primitives</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-40" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lbvh_nodes, lbvh_primitives <span class="op">=</span> build_lbvh(primitives)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lbvh_nodes, lbvh_primitives <span class="op">=</span> build_lbvh(primitives)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>bvh_variant <span class="op">=</span> BVHVariant(name<span class="op">=</span><span class="st">"LBVH"</span>, nodes<span class="op">=</span>lbvh_nodes, primitives<span class="op">=</span>lbvh_primitives, filename<span class="op">=</span><span class="st">"lbvh.png"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>bvh_variants.append(bvh_variant)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>bvh_variants.append(bvh_variant)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="木構造-2" class="level4" data-number="2.4.1">
@@ -1582,11 +1585,11 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-42" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:241}}" data-outputid="50fc8533-c64d-44fb-edbc-dce7cf84eda2">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>at_root <span class="op">=</span> convert_to_anytree(bvh_variant.nodes, bvh_variant.primitives)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>at_root <span class="op">=</span> convert_to_anytree(bvh_variant.nodes, bvh_variant.primitives)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># graphviz needs to be installed for the next line!</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>anytree.exporter.UniqueDotExporter(at_root, options<span class="op">=</span>[<span class="ss">f'label="</span><span class="sc">{</span>bvh_variant<span class="sc">.</span>name<span class="sc">}</span><span class="ss">"'</span>, <span class="st">'labelloc="t"'</span>, <span class="st">"fontsize=24"</span>]).to_picture(bvh_variant.filename)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>display.display(display.Image(bvh_variant.filename, width<span class="op">=</span><span class="dv">400</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>display.display(display.Image(bvh_variant.filename, width<span class="op">=</span><span class="dv">400</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1602,7 +1605,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-44" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:528}}" data-outputid="4246b359-a16b-456c-ab4c-d46a1b465055">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plot_bvh(bvh_variant.nodes, bvh_variant.primitives, ax)</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1611,7 +1614,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="st">"equal"</span>, adjustable<span class="op">=</span><span class="st">"box"</span>)</span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
 <span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1639,7 +1642,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-46" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BuildUpperSAHContext:</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    total_nodes: <span class="bu">int</span> <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1752,15 +1755,15 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb27-111"><a href="#cb27-111" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-112"><a href="#cb27-112" aria-hidden="true" tabindex="-1"></a>    flatten_bvh_tree_context <span class="op">=</span> FlattenBVHTreeContext(nodes<span class="op">=</span>[LinearBVHNode() <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(total_nodes)])</span>
 <span id="cb27-113"><a href="#cb27-113" aria-hidden="true" tabindex="-1"></a>    flatten_bvh_tree(root, flatten_bvh_tree_context)</span>
-<span id="cb27-114"><a href="#cb27-114" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> flatten_bvh_tree_context.nodes, ordered_primitives</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-114"><a href="#cb27-114" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> flatten_bvh_tree_context.nodes, ordered_primitives</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-47" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>hlbvh_nodes, hlbvh_primitives <span class="op">=</span> build_hlbvh(primitives)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>hlbvh_nodes, hlbvh_primitives <span class="op">=</span> build_hlbvh(primitives)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>bvh_variant <span class="op">=</span> BVHVariant(name<span class="op">=</span><span class="st">"HLBVH"</span>, nodes<span class="op">=</span>hlbvh_nodes, primitives<span class="op">=</span>hlbvh_primitives, filename<span class="op">=</span><span class="st">"hlbvh.png"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>bvh_variants.append(bvh_variant)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>bvh_variants.append(bvh_variant)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="木構造-3" class="level4" data-number="2.5.1">
@@ -1768,11 +1771,11 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-49" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:195}}" data-outputid="5751631c-1e84-4609-f1be-761c9e25c6a5">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>at_root <span class="op">=</span> convert_to_anytree(bvh_variant.nodes, bvh_variant.primitives)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>at_root <span class="op">=</span> convert_to_anytree(bvh_variant.nodes, bvh_variant.primitives)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># graphviz needs to be installed for the next line!</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>anytree.exporter.UniqueDotExporter(at_root, options<span class="op">=</span>[<span class="ss">f'label="</span><span class="sc">{</span>bvh_variant<span class="sc">.</span>name<span class="sc">}</span><span class="ss">"'</span>, <span class="st">'labelloc="t"'</span>, <span class="st">"fontsize=24"</span>]).to_picture(bvh_variant.filename)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>display.display(display.Image(bvh_variant.filename, width<span class="op">=</span><span class="dv">400</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>display.display(display.Image(bvh_variant.filename, width<span class="op">=</span><span class="dv">400</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1788,7 +1791,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-51" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:528}}" data-outputid="f1bc98c9-d22a-4c3c-9e4e-bd3277bc3cd4">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>plot_bvh(bvh_variant.nodes, bvh_variant.primitives, ax)</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1797,7 +1800,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="st">"equal"</span>, adjustable<span class="op">=</span><span class="st">"box"</span>)</span>
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1817,7 +1820,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-54" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:76}}" data-outputid="d2a474ce-71eb-427d-afb5-dcf8014ce7a9">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
@@ -1835,7 +1838,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    dst.save(<span class="st">"combined.png"</span>)</span>
 <span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    display.display(display.Image(<span class="st">"combined.png"</span>, width<span class="op">=</span><span class="dv">800</span>))</span>
 <span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(e)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(e)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1851,7 +1854,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-56" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:397}}" data-outputid="2dd63f6f-980d-4ebb-a7c7-d10b1355ca78">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>num_variants <span class="op">=</span> <span class="bu">len</span>(bvh_variants)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>num_variants <span class="op">=</span> <span class="bu">len</span>(bvh_variants)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span>num_variants, figsize<span class="op">=</span>(<span class="dv">5</span> <span class="op">*</span> num_variants, <span class="dv">5</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1864,7 +1867,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>        ax.tick_params(labelleft<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>        ax.spines[<span class="st">"left"</span>].set_visible(<span class="va">False</span>)</span>
 <span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1892,7 +1895,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-58" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Intersection:</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    t: <span class="bu">float</span></span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    primitive: Primitive</span>
@@ -1927,29 +1930,29 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a>                stack.append(r_ind)</span>
 <span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>                stack.append(l_ind)</span>
 <span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> isect</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> isect</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-59" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BVH variant chosen for use in subsequent traversal</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BVH variant chosen for use in subsequent traversal</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>bvh_variant <span class="op">=</span> bvh_variants[<span class="dv">3</span>]</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> bvh_variant.nodes <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> bvh_variant.primitives <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> bvh_variant.primitives <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-60" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="a29c2ffd-0c13-48e2-d4f5-9d8359504a95">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>ro, rd <span class="op">=</span> np.array([<span class="fl">0.0</span>, <span class="fl">0.0</span>]), np.array([<span class="fl">1.0</span>, <span class="fl">1.0</span>])</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>ro, rd <span class="op">=</span> np.array([<span class="fl">0.0</span>, <span class="fl">0.0</span>]), np.array([<span class="fl">1.0</span>, <span class="fl">1.0</span>])</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>rd <span class="op">=</span> rd <span class="op">/</span> np.linalg.norm(rd)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>ray <span class="op">=</span> Ray(ro, rd)</span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>isect <span class="op">=</span> intersect(bvh_variant.nodes, bvh_variant.primitives, ray)</span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> isect <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>isect<span class="sc">.</span>t<span class="op">=</span><span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>isect<span class="sc">.</span>primitive<span class="sc">.</span>name<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>isect<span class="sc">.</span>t<span class="op">=</span><span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>isect<span class="sc">.</span>primitive<span class="sc">.</span>name<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>isect.t=np.float64(41.20525616375596), isect.primitive.name='T24'</code></pre>
@@ -1960,7 +1963,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <div id="cell-62" class="cell">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_intersection(ray, isect, ax):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_intersection(ray, isect, ax):</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    ro, rd <span class="op">=</span> ray.origin, ray.direction</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> isect <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
@@ -1969,13 +1972,13 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>        ax.plot(<span class="op">*</span>np.vstack([ro, p]).T, color<span class="op">=</span><span class="st">"crimson"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, linewidth<span class="op">=</span><span class="dv">1</span>, alpha<span class="op">=</span><span class="fl">0.25</span>)</span>
 <span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        ax.scatter(p[<span class="dv">0</span>], p[<span class="dv">1</span>], s<span class="op">=</span><span class="dv">50</span>, c<span class="op">=</span><span class="st">"crimson"</span>, marker<span class="op">=</span><span class="st">"x"</span>, linewidths<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">"Closest Hit"</span>)</span>
 <span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    ax.quiver(<span class="op">*</span>ro, <span class="op">*</span>rd, angles<span class="op">=</span><span class="st">"xy"</span>, scale_units<span class="op">=</span><span class="st">"xy"</span>, scale<span class="op">=</span><span class="dv">1</span>, width<span class="op">=</span><span class="fl">0.003</span>, color<span class="op">=</span><span class="st">"crimson"</span>, label<span class="op">=</span><span class="st">"Ray"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    ax.quiver(<span class="op">*</span>ro, <span class="op">*</span>rd, angles<span class="op">=</span><span class="st">"xy"</span>, scale_units<span class="op">=</span><span class="st">"xy"</span>, scale<span class="op">=</span><span class="dv">1</span>, width<span class="op">=</span><span class="fl">0.003</span>, color<span class="op">=</span><span class="st">"crimson"</span>, label<span class="op">=</span><span class="st">"Ray"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-63" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:522}}" data-outputid="4f77362f-e405-4b8e-b987-9b66a7f49f53">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">6</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">6</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>plot_bvh(bvh_variant.nodes, bvh_variant.primitives, ax)</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>plot_intersection(ray, isect, ax)</span>
@@ -1987,7 +1990,7 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
 <span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">"upper left"</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">1.02</span>, <span class="dv">1</span>), borderaxespad<span class="op">=</span><span class="fl">0.0</span>)</span>
 <span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -2076,13 +2079,14 @@ c(A,B)=t_{\text{trav}}+p_{A}\sum_{i=1}^{N_{A}} t_{\text{isect}}(a_{i})+p_{B}\sum
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

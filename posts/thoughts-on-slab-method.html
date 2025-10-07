@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,18 +68,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cb67631684576f55e8bc5ac67c9267c9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-26b7f73f5db2d4d9cde9593d186c2617.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cb67631684576f55e8bc5ac67c9267c9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ebbede3f255f00f2ca408d38e0ffdffb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e8037f2bc2526f669e41ff66c54b8017.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ebbede3f255f00f2ca408d38e0ffdffb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-604bd63501e705824cbefb6a1cacfc0e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-be3880cd984bb4d1a0bf0e8913c91dd7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-604bd63501e705824cbefb6a1cacfc0e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-aecd5b9e17e21623a32ac16f1bd4bcf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-562ba7b4ba968aaccdfd089f904815d6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-aecd5b9e17e21623a32ac16f1bd4bcf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -125,7 +126,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -313,6 +314,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">/var/log/little-things</span>
     </a>
@@ -449,7 +452,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <div id="cell-4" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ro, rd <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>]), np.array([<span class="dv">4</span>, <span class="dv">2</span>])</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>rd <span class="op">=</span> rd <span class="op">/</span> np.linalg.norm(rd)</span>
@@ -457,7 +460,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>b_min, b_max <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">2</span>]), np.array([<span class="dv">4</span>, <span class="dv">4</span>])</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> (b_min <span class="op">-</span> ro) <span class="op">/</span> rd</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> (b_max <span class="op">-</span> ro) <span class="op">/</span> rd</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> (b_max <span class="op">-</span> ro) <span class="op">/</span> rd</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -467,7 +470,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:262}}" data-outputid="2be53519-f339-4064-84b4-f3e8521fb57d" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> font_manager</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -535,7 +538,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    prop<span class="op">=</span>font_manager.FontProperties(family<span class="op">=</span><span class="st">"monospace"</span>, size<span class="op">=</span><span class="dv">8</span>),</span>
 <span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -558,7 +561,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <div id="cell-8" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> intersect(ro: np.ndarray, rd: np.ndarray, b_min: np.ndarray, b_max: np.ndarray) <span class="op">-&gt;</span> <span class="bu">tuple</span>[<span class="bu">bool</span>, <span class="bu">float</span>, <span class="bu">float</span>]:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> intersect(ro: np.ndarray, rd: np.ndarray, b_min: np.ndarray, b_max: np.ndarray) <span class="op">-&gt;</span> <span class="bu">tuple</span>[<span class="bu">bool</span>, <span class="bu">float</span>, <span class="bu">float</span>]:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    t_min, t_max <span class="op">=</span> <span class="fl">0.0</span>, np.inf  <span class="co"># Ray interval</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ro.size):</span>
@@ -573,14 +576,14 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        t_max <span class="op">=</span> np.fmin(t_max, np.fmax(t0, t1))  <span class="co"># Exit point</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># t_min == t_max occurs when ray grazes a degenerate (zero-thickness) box → no hit.</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t_min <span class="op">&lt;</span> t_max, t_min, t_max</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t_min <span class="op">&lt;</span> t_max, t_min, t_max</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="df741772-7297-4f26-bc0c-ea8a0e37bea8" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>is_hit, t_min, t_max <span class="op">=</span> intersect(ro, rd, b_min, b_max)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>is_hit<span class="op">=</span><span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t_min<span class="op">=</span><span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t_max<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>is_hit, t_min, t_max <span class="op">=</span> intersect(ro, rd, b_min, b_max)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>is_hit<span class="op">=</span><span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t_min<span class="op">=</span><span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t_max<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>is_hit=np.True_, t_min=np.float64(1.118033988749895), t_max=np.float64(3.3541019662496847)</code></pre>
@@ -589,7 +592,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <div id="cell-10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:312}}" data-outputid="050d303a-6dd4-47c5-f071-98188bc76ab2" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_scene(ro, rd, b_min, b_max, is_hit, t_min, t_max, ax):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_scene(ro, rd, b_min, b_max, is_hit, t_min, t_max, ax):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    extent <span class="op">=</span> b_max <span class="op">-</span> b_min</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># AABB</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    rect <span class="op">=</span> plt.Rectangle(b_min, extent[<span class="dv">0</span>], extent[<span class="dv">1</span>], edgecolor<span class="op">=</span><span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"none"</span>, linewidth<span class="op">=</span><span class="dv">1</span>, hatch<span class="op">=</span><span class="st">"//"</span>, label<span class="op">=</span><span class="st">"AABB"</span>)</span>
@@ -639,7 +642,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    prop<span class="op">=</span>font_manager.FontProperties(family<span class="op">=</span><span class="st">"monospace"</span>, size<span class="op">=</span><span class="dv">8</span>),</span>
 <span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -655,7 +658,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="d4a2708a-e409-40d3-ef00-5761fc204376" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ro, rd <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>]), np.array([<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>])</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ro, rd <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>]), np.array([<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>])</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rd <span class="op">=</span> rd <span class="op">/</span> np.linalg.norm(rd)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>b_min <span class="op">=</span> np.array([<span class="fl">2.0</span>, <span class="fl">2.0</span>, <span class="fl">2.0</span>])</span>
@@ -665,7 +668,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> (b_max <span class="op">-</span> ro) <span class="op">/</span> rd</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>is_hit, t_min, t_max <span class="op">=</span> intersect(ro, rd, b_min, b_max)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>is_hit<span class="op">=</span><span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t_min<span class="op">=</span><span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t_max<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>is_hit<span class="op">=</span><span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t_min<span class="op">=</span><span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>t_max<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>is_hit=np.True_, t_min=np.float64(1.5), t_max=np.float64(3.0)</code></pre>
@@ -674,7 +677,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:433}}" data-outputid="d16203ea-b76e-48b3-9491-e9c287fb8db3" data-execution_count="7">
 <details open="" class="code-fold">
 <summary>コード</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_aabb(b_min, b_max, ax, <span class="op">**</span>kwargs):</span>
@@ -756,7 +759,7 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
 <span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>    prop<span class="op">=</span>font_manager.FontProperties(family<span class="op">=</span><span class="st">"monospace"</span>, size<span class="op">=</span><span class="dv">8</span>),</span>
 <span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -842,13 +845,14 @@ t_{1, i}&amp;=\frac{b_{max,i} - o_{i}}{d_{i}}
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

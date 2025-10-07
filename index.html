@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -34,18 +34,19 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-cb67631684576f55e8bc5ac67c9267c9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-26b7f73f5db2d4d9cde9593d186c2617.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-cb67631684576f55e8bc5ac67c9267c9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ebbede3f255f00f2ca408d38e0ffdffb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-e8037f2bc2526f669e41ff66c54b8017.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ebbede3f255f00f2ca408d38e0ffdffb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-604bd63501e705824cbefb6a1cacfc0e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-be3880cd984bb4d1a0bf0e8913c91dd7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-604bd63501e705824cbefb6a1cacfc0e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-aecd5b9e17e21623a32ac16f1bd4bcf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-562ba7b4ba968aaccdfd089f904815d6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-aecd5b9e17e21623a32ac16f1bd4bcf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -118,7 +119,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -306,6 +307,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">/var/log/little-things</span>
     </a>
@@ -363,7 +366,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">分類</h5><div class="quarto-listing-category category-cloud"><div class="category" data-category="YWNjZWxlcmF0aW9uc3RydWN0dXJl"><span class="quarto-category-count category-cloud-1">accelerationstructure</span></div><div class="category" data-category="YmFzaXM="><span class="quarto-category-count category-cloud-2">basis</span></div><div class="category" data-category="YnZo"><span class="quarto-category-count category-cloud-1">bvh</span></div><div class="category" data-category="Y2FsaWJyZXdlYg=="><span class="quarto-category-count category-cloud-1">calibreweb</span></div><div class="category" data-category="Y29kZXNuaXBwZXQ="><span class="quarto-category-count category-cloud-1">codesnippet</span></div><div class="category" data-category="Y29tcGxleG51bWJlcnM="><span class="quarto-category-count category-cloud-1">complexnumbers</span></div><div class="category" data-category="Y29tcHV0ZXJncmFwaGljcw=="><span class="quarto-category-count category-cloud-1">computergraphics</span></div><div class="category" data-category="Y29tcHV0ZXJzY2llbmNl"><span class="quarto-category-count category-cloud-4">computerscience</span></div><div class="category" data-category="Y3Bw"><span class="quarto-category-count category-cloud-2">cpp</span></div><div class="category" data-category="ZHVhbGNvbXBsZXhudW1iZXJz"><span class="quarto-category-count category-cloud-1">dualcomplexnumbers</span></div><div class="category" data-category="Z2F0c2J5"><span class="quarto-category-count category-cloud-2">gatsby</span></div><div class="category" data-category="Z2xzbA=="><span class="quarto-category-count category-cloud-1">glsl</span></div><div class="category" data-category="am9wbGlu"><span class="quarto-category-count category-cloud-1">joplin</span></div><div class="category" data-category="bWF0aA=="><span class="quarto-category-count category-cloud-2">math</span></div><div class="category" data-category="bW9ydG9uY29kZQ=="><span class="quarto-category-count category-cloud-1">mortoncode</span></div><div class="category" data-category="bmV0bGlmeQ=="><span class="quarto-category-count category-cloud-1">netlify</span></div><div class="category" data-category="b25i"><span class="quarto-category-count category-cloud-2">onb</span></div><div class="category" data-category="b3J0aG9ub3JtYWw="><span class="quarto-category-count category-cloud-2">orthonormal</span></div><div class="category" data-category="cGh5c2ljcw=="><span class="quarto-category-count category-cloud-1">physics</span></div><div class="category" data-category="cGxheXdyaWdodA=="><span class="quarto-category-count category-cloud-1">playwright</span></div><div class="category" data-category="cGwlQzMlQkNja2VyY29vcmRpbmF0ZXM="><span class="quarto-category-count category-cloud-1">plückercoordinates</span></div><div class="category" data-category="cG5wbQ=="><span class="quarto-category-count category-cloud-1">pnpm</span></div><div class="category" data-category="cHl0aG9u"><span class="quarto-category-count category-cloud-1">python</span></div><div class="category" data-category="cW5hcA=="><span class="quarto-category-count category-cloud-1">qnap</span></div><div class="category" data-category="cmVwb3NpdG9yeQ=="><span class="quarto-category-count category-cloud-1">repository</span></div><div class="category" data-category="cmlnaWRib2R5"><span class="quarto-category-count category-cloud-1">rigidbody</span></div><div class="category" data-category="c2hhZGVydG95"><span class="quarto-category-count category-cloud-1">shadertoy</span></div><div class="category" data-category="c2xhYm1ldGhvZA=="><span class="quarto-category-count category-cloud-1">slabmethod</span></div><div class="category" data-category="c29mdHdhcmU="><span class="quarto-category-count category-cloud-1">software</span></div><div class="category" data-category="dHMyMjA="><span class="quarto-category-count category-cloud-1">ts220</span></div><div class="category" data-category="d2Vi"><span class="quarto-category-count category-cloud-3">web</span></div><div class="category" data-category="em90ZXJv"><span class="quarto-category-count category-cloud-1">zotero</span></div></div></div>
+    <h5 class="quarto-listing-category-title">分類</h5><div class="quarto-listing-category category-cloud"><div class="category" data-category="YWNjZWxlcmF0aW9uc3RydWN0dXJl"><span class="quarto-category-count category-cloud-1">accelerationstructure</span></div><div class="category" data-category="YmFzaXM="><span class="quarto-category-count category-cloud-2">basis</span></div><div class="category" data-category="YnZo"><span class="quarto-category-count category-cloud-1">bvh</span></div><div class="category" data-category="Y2FsaWJyZXdlYg=="><span class="quarto-category-count category-cloud-1">calibreweb</span></div><div class="category" data-category="Y29kZXNuaXBwZXQ="><span class="quarto-category-count category-cloud-1">codesnippet</span></div><div class="category" data-category="Y29tcGxleG51bWJlcnM="><span class="quarto-category-count category-cloud-1">complexnumbers</span></div><div class="category" data-category="Y29tcHV0ZXJncmFwaGljcw=="><span class="quarto-category-count category-cloud-1">computergraphics</span></div><div class="category" data-category="Y29tcHV0ZXJzY2llbmNl"><span class="quarto-category-count category-cloud-5">computerscience</span></div><div class="category" data-category="Y3Bw"><span class="quarto-category-count category-cloud-2">cpp</span></div><div class="category" data-category="ZHVhbGNvbXBsZXhudW1iZXJz"><span class="quarto-category-count category-cloud-1">dualcomplexnumbers</span></div><div class="category" data-category="Z2F0c2J5"><span class="quarto-category-count category-cloud-2">gatsby</span></div><div class="category" data-category="Z2xzbA=="><span class="quarto-category-count category-cloud-1">glsl</span></div><div class="category" data-category="am9wbGlu"><span class="quarto-category-count category-cloud-1">joplin</span></div><div class="category" data-category="bWF0aA=="><span class="quarto-category-count category-cloud-2">math</span></div><div class="category" data-category="bW9ydG9uY29kZQ=="><span class="quarto-category-count category-cloud-1">mortoncode</span></div><div class="category" data-category="bmV0bGlmeQ=="><span class="quarto-category-count category-cloud-1">netlify</span></div><div class="category" data-category="b25i"><span class="quarto-category-count category-cloud-2">onb</span></div><div class="category" data-category="b3J0aG9ub3JtYWw="><span class="quarto-category-count category-cloud-2">orthonormal</span></div><div class="category" data-category="cGh5c2ljcw=="><span class="quarto-category-count category-cloud-1">physics</span></div><div class="category" data-category="cGxheXdyaWdodA=="><span class="quarto-category-count category-cloud-1">playwright</span></div><div class="category" data-category="cGwlQzMlQkNja2VyY29vcmRpbmF0ZXM="><span class="quarto-category-count category-cloud-1">plückercoordinates</span></div><div class="category" data-category="cG5wbQ=="><span class="quarto-category-count category-cloud-1">pnpm</span></div><div class="category" data-category="cHl0aG9u"><span class="quarto-category-count category-cloud-1">python</span></div><div class="category" data-category="cW5hcA=="><span class="quarto-category-count category-cloud-1">qnap</span></div><div class="category" data-category="cmVwb3NpdG9yeQ=="><span class="quarto-category-count category-cloud-1">repository</span></div><div class="category" data-category="cmlnaWRib2R5"><span class="quarto-category-count category-cloud-1">rigidbody</span></div><div class="category" data-category="c2hhZGVydG95"><span class="quarto-category-count category-cloud-1">shadertoy</span></div><div class="category" data-category="c2xhYm1ldGhvZA=="><span class="quarto-category-count category-cloud-1">slabmethod</span></div><div class="category" data-category="c29mdHdhcmU="><span class="quarto-category-count category-cloud-1">software</span></div><div class="category" data-category="dHMyMjA="><span class="quarto-category-count category-cloud-1">ts220</span></div><div class="category" data-category="d2Vi"><span class="quarto-category-count category-cloud-3">web</span></div><div class="category" data-category="em90ZXJv"><span class="quarto-category-count category-cloud-1">zotero</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -377,7 +380,37 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Y29tcHV0ZXJzY2llbmNl" data-listing-date-sort="1755561600000" data-listing-file-modified-sort="1757134304749" data-listing-date-modified-sort="1757116800000" data-listing-reading-time-sort="3" data-listing-word-count-sort="500">
+<div class="quarto-post image-right" data-index="0" data-categories="Y29tcHV0ZXJzY2llbmNl" data-listing-date-sort="1759622400000" data-listing-file-modified-sort="1759799243520" data-listing-date-modified-sort="1759795200000" data-listing-reading-time-sort="1" data-listing-word-count-sort="174">
+<div class="thumbnail"><a href="./posts/sampling-with-piecewise-constant-distributions.html" class="no-external">
+
+<p class="card-img-top"><img src="posts/sampling-with-piecewise-constant-distributions_files/figure-html/cell-5-output-1.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/sampling-with-piecewise-constant-distributions.html" class="no-external">区分的定数分布による近似とサンプリング方法</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/sampling-with-piecewise-constant-distributions.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Y29tcHV0ZXJzY2llbmNl'); return false;">computerscience</div>
+
+</div>
+<div class="delink listing-description"><a href="./posts/sampling-with-piecewise-constant-distributions.html" class="no-external">
+<p>区分的定数分布を用いて確率分布を近似し，効率的にサンプリングする方法を整理する</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./posts/sampling-with-piecewise-constant-distributions.html" class="no-external">
+<div class="listing-date">
+2025-10-05
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Y29tcHV0ZXJzY2llbmNl" data-listing-date-sort="1755561600000" data-listing-file-modified-sort="1759799243517" data-listing-date-modified-sort="1757116800000" data-listing-reading-time-sort="3" data-listing-word-count-sort="500">
 <div class="thumbnail"><a href="./posts/sampling-on-geometric-regions.html" class="no-external">
 
 <p class="card-img-top"><img src="posts/sampling-on-geometric-regions_files/figure-html/cell-3-output-1.png"  class="thumbnail-image card-img"/></p>
@@ -407,7 +440,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDYWNjZWxlcmF0aW9uc3RydWN0dXJlJTJDYnZo" data-listing-date-sort="1752624000000" data-listing-file-modified-sort="1757134304773" data-listing-date-modified-sort="1754092800000" data-listing-reading-time-sort="2" data-listing-word-count-sort="286">
+<div class="quarto-post image-right" data-index="2" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDYWNjZWxlcmF0aW9uc3RydWN0dXJlJTJDYnZo" data-listing-date-sort="1752624000000" data-listing-file-modified-sort="1759799243544" data-listing-date-modified-sort="1754092800000" data-listing-reading-time-sort="2" data-listing-word-count-sort="286">
 <div class="thumbnail"><a href="./posts/thoughts-on-bvh.html" class="no-external">
 
 <p class="card-img-top"><img src="posts/thoughts-on-bvh_files/figure-html/cell-13-output-1.png"  class="thumbnail-image card-img"/></p>
@@ -441,7 +474,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDc2xhYm1ldGhvZA==" data-listing-date-sort="1752105600000" data-listing-file-modified-sort="1757134304779" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="64">
+<div class="quarto-post image-right" data-index="3" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDc2xhYm1ldGhvZA==" data-listing-date-sort="1752105600000" data-listing-file-modified-sort="1759799243550" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="64">
 <div class="thumbnail"><a href="./posts/thoughts-on-slab-method.html" class="no-external">
 
 <p class="card-img-top"><img src="posts/thoughts-on-slab-method_files/figure-html/cell-3-output-1.png"  class="thumbnail-image card-img"/></p>
@@ -473,7 +506,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDbW9ydG9uY29kZQ==" data-listing-date-sort="1751760000000" data-listing-file-modified-sort="1757134304777" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="327">
+<div class="quarto-post image-right" data-index="4" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDbW9ydG9uY29kZQ==" data-listing-date-sort="1751760000000" data-listing-file-modified-sort="1759799243549" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="327">
 <div class="thumbnail"><a href="./posts/thoughts-on-morton-code.html" class="no-external">
 
 <p class="card-img-top"><img src="posts/thoughts-on-morton-code_files/figure-html/cell-3-output-1.png"  class="thumbnail-image card-img"/></p>
@@ -505,7 +538,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="Y29tcHV0ZXJzY2llbmNl" data-listing-date-sort="1748822400000" data-listing-file-modified-sort="1757134304778" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="146">
+<div class="quarto-post image-right" data-index="5" data-categories="Y29tcHV0ZXJzY2llbmNl" data-listing-date-sort="1748822400000" data-listing-file-modified-sort="1759799243549" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="146">
 <div class="thumbnail"><a href="./posts/thoughts-on-rr.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -535,7 +568,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="d2ViJTJDcG5wbSUyQ25ldGxpZnklMkNwbGF5d3JpZ2h0" data-listing-date-sort="1737849600000" data-listing-file-modified-sort="1757134304730" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="471">
+<div class="quarto-post image-right" data-index="6" data-categories="d2ViJTJDcG5wbSUyQ25ldGxpZnklMkNwbGF5d3JpZ2h0" data-listing-date-sort="1737849600000" data-listing-file-modified-sort="1759799243499" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="471">
 <div class="thumbnail"><a href="./posts/netlify-playwright-build-error.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -571,7 +604,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDb25iJTJDb3J0aG9ub3JtYWwlMkNiYXNpcw==" data-listing-date-sort="1736899200000" data-listing-file-modified-sort="1757134304710" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="194">
+<div class="quarto-post image-right" data-index="7" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDb25iJTJDb3J0aG9ub3JtYWwlMkNiYXNpcw==" data-listing-date-sort="1736899200000" data-listing-file-modified-sort="1759799243478" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="194">
 <div class="thumbnail"><a href="./posts/building-an-orthonormal-basis-3.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -607,7 +640,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDb25iJTJDb3J0aG9ub3JtYWwlMkNiYXNpcw==" data-listing-date-sort="1736769600000" data-listing-file-modified-sort="1757134304709" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="411">
+<div class="quarto-post image-right" data-index="8" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDb25iJTJDb3J0aG9ub3JtYWwlMkNiYXNpcw==" data-listing-date-sort="1736769600000" data-listing-file-modified-sort="1759799243478" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="411">
 <div class="thumbnail"><a href="./posts/building-an-orthonormal-basis-2.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -643,7 +676,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDb25iJTJDb3J0aG9ub3JtYWwlMkNiYXNpcw==" data-listing-date-sort="1736726400000" data-listing-file-modified-sort="1757134304709" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="648">
+<div class="quarto-post image-right" data-index="9" data-categories="Y29tcHV0ZXJzY2llbmNlJTJDb25iJTJDb3J0aG9ub3JtYWwlMkNiYXNpcw==" data-listing-date-sort="1736726400000" data-listing-file-modified-sort="1759799243478" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="648">
 <div class="thumbnail"><a href="./posts/building-an-orthonormal-basis-1.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -679,7 +712,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-categories="Y29tcHV0ZXJncmFwaGljcyUyQ2dsc2wlMkNzaGFkZXJ0b3k=" data-listing-date-sort="1703980800000" data-listing-file-modified-sort="1757134304728" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="760">
+<div class="quarto-post image-right" data-index="10" data-categories="Y29tcHV0ZXJncmFwaGljcyUyQ2dsc2wlMkNzaGFkZXJ0b3k=" data-listing-date-sort="1703980800000" data-listing-file-modified-sort="1759799243496" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="760">
 <div class="thumbnail"><a href="./posts/crt-shader/index.html" class="no-external">
 
 <p class="card-img-top"><img data-src="posts/crt-shader/crt_shader.png" alt="CRT shader"  class="thumbnail-image card-img"/></p>
@@ -713,7 +746,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-categories="d2ViJTJDcW5hcCUyQ3RzMjIwJTJDY2FsaWJyZXdlYiUyQ3B5dGhvbg==" data-listing-date-sort="1625011200000" data-listing-file-modified-sort="1757134304710" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="247">
+<div class="quarto-post image-right" data-index="11" data-categories="d2ViJTJDcW5hcCUyQ3RzMjIwJTJDY2FsaWJyZXdlYiUyQ3B5dGhvbg==" data-listing-date-sort="1625011200000" data-listing-file-modified-sort="1759799243478" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="247">
 <div class="thumbnail"><a href="./posts/calibre-web-on-ts-220.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -751,7 +784,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-categories="cGh5c2ljcyUyQ3JpZ2lkYm9keSUyQ3B5dGhvbg==" data-listing-date-sort="1623196800000" data-listing-file-modified-sort="1757134304731" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="683">
+<div class="quarto-post image-right" data-index="12" data-categories="cGh5c2ljcyUyQ3JpZ2lkYm9keSUyQ3B5dGhvbg==" data-listing-date-sort="1623196800000" data-listing-file-modified-sort="1759799243499" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="683">
 <div class="thumbnail"><a href="./posts/rigid-body-simulation-notes.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -785,7 +818,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-categories="bWF0aCUyQ3BsJUMzJUJDY2tlcmNvb3JkaW5hdGVzJTJDY3Bw" data-listing-date-sort="1613692800000" data-listing-file-modified-sort="1757134304778" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="73">
+<div class="quarto-post image-right" data-index="13" data-categories="bWF0aCUyQ3BsJUMzJUJDY2tlcmNvb3JkaW5hdGVzJTJDY3Bw" data-listing-date-sort="1613692800000" data-listing-file-modified-sort="1759799243549" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="73">
 <div class="thumbnail"><a href="./posts/thoughts-on-pluecker-coordinates.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -819,7 +852,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-categories="d2ViJTJDZ2F0c2J5" data-listing-date-sort="1611273600000" data-listing-file-modified-sort="1757134304728" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="298">
+<div class="quarto-post image-right" data-index="14" data-categories="d2ViJTJDZ2F0c2J5" data-listing-date-sort="1611273600000" data-listing-file-modified-sort="1759799243497" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="298">
 <div class="thumbnail"><a href="./posts/gatsby-add-custom-font.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -851,7 +884,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="14" data-categories="d2ViJTJDZ2F0c2J5" data-listing-date-sort="1611014400000" data-listing-file-modified-sort="1757134304728" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="258">
+<div class="quarto-post image-right" data-index="15" data-categories="d2ViJTJDZ2F0c2J5" data-listing-date-sort="1611014400000" data-listing-file-modified-sort="1759799243497" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="258">
 <div class="thumbnail"><a href="./posts/gatsby-starter-lumen-archive-implementation/index.html" class="no-external">
 
 <p class="card-img-top"><img data-src="posts/gatsby-starter-lumen-archive-implementation/screenshot-localhost_8001-2021.01.19-13_52_18.png" alt="Fig. 1. アーカイブ機能"  class="thumbnail-image card-img"/></p>
@@ -883,7 +916,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="15" data-categories="bWF0aCUyQ2NvbXBsZXhudW1iZXJzJTJDY3Bw" data-listing-date-sort="1610409600000" data-listing-file-modified-sort="1757134304731" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1099">
+<div class="quarto-post image-right" data-index="16" data-categories="bWF0aCUyQ2NvbXBsZXhudW1iZXJzJTJDY3Bw" data-listing-date-sort="1610409600000" data-listing-file-modified-sort="1759799243499" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1099">
 <div class="thumbnail"><a href="./posts/representation-and-interpolation-of-rotations-in-complex-numbers.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -917,7 +950,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="16" data-categories="bWF0aCUyQ2R1YWxjb21wbGV4bnVtYmVycyUyQ2NwcA==" data-listing-date-sort="1609804800000" data-listing-file-modified-sort="1757134304728" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2286">
+<div class="quarto-post image-right" data-index="17" data-categories="bWF0aCUyQ2R1YWxjb21wbGV4bnVtYmVycyUyQ2NwcA==" data-listing-date-sort="1609804800000" data-listing-file-modified-sort="1759799243497" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2286">
 <div class="thumbnail"><a href="./posts/dual-complex-numbers.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -951,7 +984,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="17" data-categories="c29mdHdhcmUlMkN6b3Rlcm8=" data-listing-date-sort="1609027200000" data-listing-file-modified-sort="1757134304779" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="175">
+<div class="quarto-post image-right" data-index="18" data-categories="c29mdHdhcmUlMkN6b3Rlcm8=" data-listing-date-sort="1609027200000" data-listing-file-modified-sort="1759799243551" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="175">
 <div class="thumbnail"><a href="./posts/zotero-workflow/index.html" class="no-external">
 
 <p class="card-img-top"><img data-src="posts/zotero-workflow/zotero_sync_01.png" alt="Fig. 1. 設定 1"  class="thumbnail-image card-img"/></p>
@@ -983,7 +1016,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="18" data-categories="c29mdHdhcmUlMkNqb3BsaW4=" data-listing-date-sort="1609027200000" data-listing-file-modified-sort="1757134304729" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="118">
+<div class="quarto-post image-right" data-index="19" data-categories="c29mdHdhcmUlMkNqb3BsaW4=" data-listing-date-sort="1609027200000" data-listing-file-modified-sort="1759799243498" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="118">
 <div class="thumbnail"><a href="./posts/joplin-workflow/index.html" class="no-external">
 
 <p class="card-img-top"><img data-src="posts/joplin-workflow/joplin_sync.png" alt="Fig. 1. 同期"  class="thumbnail-image card-img"/></p>
@@ -1015,7 +1048,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="19" data-categories="d2ViJTJDZ2F0c2J5" data-listing-date-sort="1608940800000" data-listing-file-modified-sort="1757134304729" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="262">
+<div class="quarto-post image-right" data-index="20" data-categories="d2ViJTJDZ2F0c2J5" data-listing-date-sort="1608940800000" data-listing-file-modified-sort="1759799243498" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="262">
 <div class="thumbnail"><a href="./posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -1047,7 +1080,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="20" data-categories="cmVwb3NpdG9yeSUyQ2NvZGVzbmlwcGV0" data-listing-date-sort="0" data-listing-file-modified-sort="1757134304779" data-listing-date-modified-sort="1753401600000" data-listing-reading-time-sort="27" data-listing-word-count-sort="5283">
+<div class="quarto-post image-right" data-index="21" data-categories="cmVwb3NpdG9yeSUyQ2NvZGVzbmlwcGV0" data-listing-date-sort="0" data-listing-file-modified-sort="1759799243550" data-listing-date-modified-sort="1753401600000" data-listing-reading-time-sort="27" data-listing-word-count-sort="5283">
 <div class="thumbnail"><a href="./posts/toy-box.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -1149,13 +1182,14 @@ window.Quarto = {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
