@@ -25,8 +25,8 @@ website:
     right:
       - icon: github
         href: https://github.com/Hasenpfote
-#      - icon: twitter
-#        href: https://twitter.com
+      - icon: twitter-x
+        href: https://x.com/hasenpfote36
 #      - icon: mastodon
 #        href: https://social.vivaldi.net/@Hasenpfote
       - icon: rss
