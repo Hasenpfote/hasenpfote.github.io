@@ -1,7 +1,8 @@
 [
   {
-    "listing": "/archive.html",
+    "listing": "/index.html",
     "items": [
+      "/posts/clenshaw-algorithm.html",
       "/posts/sampling-with-piecewise-constant-distributions.html",
       "/posts/sampling-on-geometric-regions.html",
       "/posts/thoughts-on-bvh.html",
@@ -20,15 +21,16 @@
       "/posts/gatsby-starter-lumen-archive-implementation/index.html",
       "/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html",
       "/posts/dual-complex-numbers.html",
-      "/posts/zotero-workflow/index.html",
       "/posts/joplin-workflow/index.html",
+      "/posts/zotero-workflow/index.html",
       "/posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html",
       "/posts/toy-box.html"
     ]
   },
   {
-    "listing": "/index.html",
+    "listing": "/archive.html",
     "items": [
+      "/posts/clenshaw-algorithm.html",
       "/posts/sampling-with-piecewise-constant-distributions.html",
       "/posts/sampling-on-geometric-regions.html",
       "/posts/thoughts-on-bvh.html",
@@ -47,8 +49,8 @@
       "/posts/gatsby-starter-lumen-archive-implementation/index.html",
       "/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html",
       "/posts/dual-complex-numbers.html",
-      "/posts/zotero-workflow/index.html",
       "/posts/joplin-workflow/index.html",
+      "/posts/zotero-workflow/index.html",
       "/posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html",
       "/posts/toy-box.html"
     ]
