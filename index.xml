@@ -24,7 +24,7 @@
 <p>エッジ検出などで勾配ベクトル <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bg%7D_%7Bx%7D,%20%5Cboldsymbol%7Bg%7D_%7By%7D"> を扱っていると，「この 2 本を混ぜたとき，最も長くなる方向はどこか」という問いに自然に行き着く．ここでは，この問いを線形写像とその固有値問題として定式化し，最終的に <img src="https://latex.codecogs.com/png.latex?%5Coperatorname%7Batan2%7D"> と根号で表される閉じた式まで導く．</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<iframe src="https://www.desmos.com/calculator/gwlpuga9m5">
+<iframe src="https://www.desmos.com/calculator/gwlpuga9m5?embed">
 </iframe>
 <figcaption>
 N=2
