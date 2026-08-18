@@ -9,8 +9,219 @@
 <link>https://hasenpfote.github.io/</link>
 <atom:link href="https://hasenpfote.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>A great sample blog</description>
-<generator>quarto-1.9.38</generator>
-<lastBuildDate>Wed, 15 Jul 2026 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.10.18</generator>
+<lastBuildDate>Tue, 18 Aug 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>2本のベクトルの最も長くなる方向</title>
+  <link>https://hasenpfote.github.io/posts/longest-linear-combination.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>エッジ検出などで勾配ベクトル <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bg%7D_%7Bx%7D,%20%5Cboldsymbol%7Bg%7D_%7By%7D"> を扱っていると，「この 2 本を混ぜたとき，最も長くなる方向はどこか」という問いに自然に行き着く．ここでは，この問いを線形写像とその固有値問題として定式化し，最終的に <img src="https://latex.codecogs.com/png.latex?%5Coperatorname%7Batan2%7D"> と根号で表される閉じた式まで導く．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/gwlpuga9m5">
+</iframe>
+<figcaption>
+N=2
+</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/3d/aklvwyvgh0">
+</iframe>
+<figcaption>
+N=3
+</figcaption>
+</figure>
+</div>
+<section id="問題設定---2-本のベクトルを混ぜる線形写像" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="問題設定---2-本のベクトルを混ぜる線形写像"><span class="header-section-number">1</span> 問題設定 - 2 本のベクトルを混ぜる線形写像</h2>
+<p><img src="https://latex.codecogs.com/png.latex?N"> 次元の任意の 2 本のベクトル</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bp%7D,%20%5Cboldsymbol%7Bq%7D%5Cin%5Cmathbb%7BR%7D%5E%7BN%7D%0A"></p>
+<p>を考える．この 2 本を係数 <img src="https://latex.codecogs.com/png.latex?v_%7B1%7D,%20v_%7B2%7D%5Cin%5Cmathbb%7BR%7D"> で混ぜて</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bw%7D%0A=v_%7B1%7D%5C,%5Cboldsymbol%7Bp%7D+v_%7B2%7D%5C,%5Cboldsymbol%7Bq%7D%0A"></p>
+<p>というベクトルをつくる．係数をまとめて</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Av_%7B1%7D%5C%5C%0Av_%7B2%7D%0A%5Cend%7Bbmatrix%7D%0A,%5Cquad%0AL%0A=%0A%5Cbegin%7Bbmatrix%7D%0A%5Cboldsymbol%7Bp%7D%20&amp;%20%5Cboldsymbol%7Bq%7D%0A%5Cend%7Bbmatrix%7D%0A%5Cin%5Cmathbb%7BR%7D%5E%7BN%5Ctimes%202%7D%0A"></p>
+<p>とすると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bw%7D%0A=L%5Cboldsymbol%7Bv%7D%0A"></p>
+<p>と書ける．</p>
+<p>ここで一歩引いて見ると，<img src="https://latex.codecogs.com/png.latex?L"> は「2 次元の係数空間 <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BR%7D%5E%7B2%7D"> から，<img src="https://latex.codecogs.com/png.latex?N"> 次元空間 <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BR%7D%5E%7BN%7D"> への線形写像」である．<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D"> という 2 次元の入力（混ぜ方）を渡すと，<img src="https://latex.codecogs.com/png.latex?L%5Cboldsymbol%7Bv%7D"> という <img src="https://latex.codecogs.com/png.latex?N"> 次元の出力（実際のベクトル）が返ってくる．以降の議論は，突き詰めれば「この線形写像はどの入力方向を最も引き伸ばすか」という問いに帰着する．</p>
+<p>係数 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D"> を自由に大きくすれば <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bw%7D"> をいくらでも長くできてしまうので，比較のために</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D=1%0A%5Cquad(v_%7B1%7D%5E%7B2%7D+v_%7B2%7D%5E%7B2%7D=1)%0A"></p>
+<p>という制約を置く．つまり係数の「大きさ」は固定し，「混ぜる比率」だけを変えたときの最大となる方向を探す．目的は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmax_%7B%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D=1%7D%7B%5C%7CL%5Cboldsymbol%7Bv%7D%5C%7C%7D%0A"></p>
+<p>である．</p>
+</section>
+<section id="ノルム最大化を対称行列の問題に変換する" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="ノルム最大化を対称行列の問題に変換する"><span class="header-section-number">2</span> ノルム最大化を対称行列の問題に変換する</h2>
+<p>平方根は最大値の位置を変えないので，<img src="https://latex.codecogs.com/png.latex?%5C%7CL%5Cboldsymbol%7Bv%7D%5C%7C%5E%7B2%7D"> を最大化すればよい．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5C%7CL%5Cboldsymbol%7Bv%7D%5C%7C%5E%7B2%7D%0A=(L%5Cboldsymbol%7Bv%7D)%5E%7B%5Ctop%7D(L%5Cboldsymbol%7Bv%7D)%0A=%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7DL%5E%7B%5Ctop%7DL%5Cboldsymbol%7Bv%7D%0A"></p>
+<p>ここで</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AA%0A=L%5E%7B%5Ctop%7DL%0A"></p>
+<p>と置くと，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5C%7CL%5Cboldsymbol%7Bv%7D%5C%7C%5E%7B2%7D%0A=%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D%0A"></p>
+<p><strong>線形写像としての意味づけ</strong>：<img src="https://latex.codecogs.com/png.latex?L"> が <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BR%7D%5E%7B2%7D%5Cto%5Cmathbb%7BR%7D%5E%7BN%7D"> の写像だとすると，<img src="https://latex.codecogs.com/png.latex?L%5E%7B%5Ctop%7D"> はその「転置」＝ <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BR%7D%5E%7BN%7D%5Cto%5Cmathbb%7BR%7D%5E%7B2%7D"> の写像であり，<img src="https://latex.codecogs.com/png.latex?A=L%5E%7B%5Ctop%7DL"> は <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BR%7D%5E%7B2%7D%5Cto%5Cmathbb%7BR%7D%5E%7B2%7D"> に戻ってくる合成写像 <img src="https://latex.codecogs.com/png.latex?L%5E%7B%5Ctop%7D%5Ccirc%20L"> にあたる．つまり <img src="https://latex.codecogs.com/png.latex?A"> は，<img src="https://latex.codecogs.com/png.latex?L"> によって入力 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D"> がどれだけの長さになるかを，もとの 2 次元の中の二次形式 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D"> として表している．</p>
+<p>具体的に成分を書き下すと，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AA%0A=L%5E%7B%5Ctop%7DL%0A=%0A%5Cbegin%7Bbmatrix%7D%0A%5Clangle%5Cboldsymbol%7Bp%7D,%5Cboldsymbol%7Bp%7D%5Crangle%20&amp;%20%5Clangle%5Cboldsymbol%7Bp%7D,%5Cboldsymbol%7Bq%7D%5Crangle%5C%5C%0A%5Clangle%5Cboldsymbol%7Bq%7D,%5Cboldsymbol%7Bp%7D%5Crangle%20&amp;%20%5Clangle%5Cboldsymbol%7Bq%7D,%5Cboldsymbol%7Bq%7D%5Crangle%0A%5Cend%7Bbmatrix%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0AI_%7Bxx%7D%20&amp;%20I_%7Bxy%7D%5C%5C%0AI_%7Bxy%7D%20&amp;%20I_%7Byy%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>（<img src="https://latex.codecogs.com/png.latex?I_%7Bxx%7D=%5Clangle%5Cboldsymbol%7Bp%7D,%5Cboldsymbol%7Bp%7D%5Crangle,%5C,I_%7Byy%7D=%5Clangle%5Cboldsymbol%7Bq%7D,%5Cboldsymbol%7Bq%7D%5Crangle,%5C,I_%7Bxy%7D=%5Clangle%5Cboldsymbol%7Bp%7D,%5Cboldsymbol%7Bq%7D%5Crangle">）．内積の対称性 <img src="https://latex.codecogs.com/png.latex?%5Clangle%5Cboldsymbol%7Bp%7D,%5Cboldsymbol%7Bq%7D%5Crangle=%5Clangle%5Cboldsymbol%7Bq%7D,%5Cboldsymbol%7Bp%7D%5Crangle"> から自動的に</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AA=A%5E%7B%5Ctop%7D%0A"></p>
+<p>となる．対角化のために対称行列を選んだのではなく，<img src="https://latex.codecogs.com/png.latex?%5C%7CL%5Cboldsymbol%7Bv%7D%5C%7C%5E%7B2%7D"> を展開すると必然的に対称行列 <img src="https://latex.codecogs.com/png.latex?L%5E%7B%5Ctop%7DL"> が現れる，という順序であることに注意したい．</p>
+</section>
+<section id="単位円上を動かして極値を探す" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="単位円上を動かして極値を探す"><span class="header-section-number">3</span> 単位円上を動かして極値を探す</h2>
+<p>制約 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D=1"> は単位円なので，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D(%5Ctheta)%0A=%0A%5Cbegin%7Bbmatrix%7D%0A%5Ccos%7B%5Ctheta%7D%5C%5C%0A%5Csin%7B%5Ctheta%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>とパラメータ化できる．目的関数を</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Af(%5Ctheta)%0A=%5Cboldsymbol%7Bv%7D(%5Ctheta)%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D(%5Ctheta)%0A=%5C%7CL%5Cboldsymbol%7Bv%7D(%5Ctheta)%5C%7C%5E%7B2%7D%0A"></p>
+<p>とする．<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D"> と直交する</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%0A=%5Cfrac%7Bd%5Cboldsymbol%7Bv%7D%7D%7Bd%5Ctheta%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A-%5Csin%7B%5Ctheta%7D%5C%5C%0A%5Ccos%7B%5Ctheta%7D%0A%5Cend%7Bbmatrix%7D%0A,%5Cquad%0A%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D=0%0A,%5C,%0A%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D=1%0A"></p>
+<p>を使うと，<img src="https://latex.codecogs.com/png.latex?(%5Cboldsymbol%7Bv%7D,%5C,%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D)"> は正規直交基底になる．<img src="https://latex.codecogs.com/png.latex?f"> を微分すると</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7Bdf%7D%7Bd%5Ctheta%7D%0A=%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D+%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%0A"></p>
+<p><img src="https://latex.codecogs.com/png.latex?A=A%5E%7B%5Ctop%7D"> より <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D=%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D"> なので，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7Bdf%7D%7Bd%5Ctheta%7D%0A=2%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D%0A"></p>
+<p>極値条件 <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdf%7D%7Bd%5Ctheta%7D=0"> から</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D%0A=0%0A"></p>
+<p>が得られる．</p>
+</section>
+<section id="極値条件から固有値問題が現れる" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="極値条件から固有値問題が現れる"><span class="header-section-number">4</span> 極値条件から固有値問題が現れる</h2>
+<p><img src="https://latex.codecogs.com/png.latex?(%5Cboldsymbol%7Bv%7D,%5C,%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D)"> は <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BR%7D%5E%7B2%7D"> の基底なので，<img src="https://latex.codecogs.com/png.latex?A%5Cboldsymbol%7Bv%7D"> は必ず</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AA%5Cboldsymbol%7Bv%7D%0A=%5Calpha%5C,%5Cboldsymbol%7Bv%7D+%5Cbeta%5C,%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%0A"></p>
+<p>と分解できる．左から <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%5E%7B%5Ctop%7D"> を掛けて正規直交性を使うと <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D=%5Cbeta"> ．一方，極値条件から <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B%5Cperp%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D=0"> なので <img src="https://latex.codecogs.com/png.latex?%5Cbeta=0"> ．したがって</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AA%5Cboldsymbol%7Bv%7D%0A=%5Calpha%5Cboldsymbol%7Bv%7D%0A"></p>
+<p>これは固有値・固有ベクトルの定義そのものなので，<img src="https://latex.codecogs.com/png.latex?%5Calpha"> が固有値である．以降，固有値を <img src="https://latex.codecogs.com/png.latex?%5Clambda"> と書く．したがって，「ノルムが極値になる混ぜ方 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D"> 」は <img src="https://latex.codecogs.com/png.latex?A"> の固有ベクトルである．微分で探していた極値方向が，固有値問題として姿を現した瞬間である．</p>
+<p>さらに <img src="https://latex.codecogs.com/png.latex?A%5Cboldsymbol%7Bv%7D=%5Clambda%5Cboldsymbol%7Bv%7D"> の両辺に左から <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7D"> を掛け，<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D=1"> を使うと</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D%0A=%5Clambda%0A"></p>
+<p>一方 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D=%5C%7CL%5Cboldsymbol%7Bv%7D%5C%7C%5E%7B2%7D"> だったので，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Clambda%0A=%5C%7CL%5Cboldsymbol%7Bv%7D%5C%7C%5E%7B2%7D%0A"></p>
+<p>すなわち固有値そのものが「その方向に混ぜたときの長さの 2 乗」を表している．よって</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Clambda_%7B%5Cmax%7D%0A=%5Cmax_%7B%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D=1%7D%7B%5C%7CL%5Cboldsymbol%7Bv%7D%5C%7C%5E%7B2%7D%7D%0A,%5Cquad%0A%5C%7CL%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D%5C%7C%0A=%5Csqrt%7B%5Clambda_%7B%5Cmax%7D%7D%0A"></p>
+<p>つまり，<img src="https://latex.codecogs.com/png.latex?A=L%5E%7B%5Ctop%7DL"> の固有値・固有ベクトルを求めるだけで，線形写像 <img src="https://latex.codecogs.com/png.latex?L"> がどの入力方向を最も強く引き伸ばすか（ <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D"> ），そしてどれだけ引き伸ばすか（ <img src="https://latex.codecogs.com/png.latex?%5Csqrt%7B%5Clambda_%7B%5Cmax%7D%7D"> ）が，両方とも同時にわかったことになる．</p>
+</section>
+<section id="どちらの固有方向が最大か---閉じた式を求める" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="どちらの固有方向が最大か---閉じた式を求める"><span class="header-section-number">5</span> どちらの固有方向が最大か - 閉じた式を求める</h2>
+<p><img src="https://latex.codecogs.com/png.latex?A"> は <img src="https://latex.codecogs.com/png.latex?2%5Ctimes%202"> の対称行列なので，異なる固有値に対応する 2 つの固有ベクトルは直交する．そこで，まず最大・最小を区別せず，互いに直交する 2 つの固有方向を</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Be%7D_%7B1%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A%5Ccos%7B%5Ctheta%7D%5C%5C%0A%5Csin%7B%5Ctheta%7D%0A%5Cend%7Bbmatrix%7D%0A,%5Cquad%0A%5Cboldsymbol%7Be%7D_%7B2%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A-%5Csin%7B%5Ctheta%7D%5C%5C%0A%5Ccos%7B%5Ctheta%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>と表す．<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Be%7D_%7B2%7D"> は <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Be%7D_%7B1%7D"> を <img src="https://latex.codecogs.com/png.latex?90%5E%7B%5Ccirc%7D"> 回転した方向なので，角度で言えば <img src="https://latex.codecogs.com/png.latex?%5Ctheta%20+%20%5Cfrac%7B%5Cpi%7D%7B2%7D"> の関係にある．</p>
+<p>この時点では，<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Be%7D_%7B1%7D"> と <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Be%7D_%7B2%7D"> のどちらが最大方向なのかはまだ決まっていない．ここから <img src="https://latex.codecogs.com/png.latex?f(%5Ctheta)"> の最大値を求めることで，どちらが最大方向なのかを決める．</p>
+<p><img src="https://latex.codecogs.com/png.latex?f(%5Ctheta)=%5Cboldsymbol%7Bv%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D"> を展開し，倍角公式</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Ccos%5E%7B2%7D%7B%5Ctheta%7D%0A=%5Cfrac%7B1+%5Ccos%7B2%5Ctheta%7D%7D%7B2%7D%0A,%5Cquad%0A%5Csin%5E%7B2%7D%7B%5Ctheta%7D%0A=%5Cfrac%7B1-%5Ccos%7B2%5Ctheta%7D%7D%7B2%7D%0A,%5Cquad%0A%5Csin%7B%5Ctheta%7D%5Ccos%7B%5Ctheta%7D%0A=%5Cfrac%7B%5Csin%7B2%5Ctheta%7D%7D%7B2%7D%0A"></p>
+<p>を使うと，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Af(%5Ctheta)%0A=%5Cfrac%7BI_%7Bxx%7D+I_%7Byy%7D%7D%7B2%7D+%5Cfrac%7BI_%7Bxx%7D-I_%7Byy%7D%7D%7B2%7D%5Ccos%7B2%5Ctheta%7D+I_%7Bxy%7D%5Csin%7B2%5Ctheta%7D%0A"></p>
+<p>となる．</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+ノート
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign*%7D%0Af(%5Ctheta)%0A&amp;=I_%7Bxx%7D%5Ccos%5E%7B2%7D%7B%5Ctheta%7D+I_%7Byy%7D%5Csin%5E%7B2%7D%7B%5Ctheta%7D+2I_%7Bxy%7D%5Csin%7B%5Ctheta%7D%5Ccos%7B%5Ctheta%7D%5C%5C%0A&amp;=I_%7Bxx%7D%5Cfrac%7B1+%5Ccos%7B2%5Ctheta%7D%7D%7B2%7D+I_%7Byy%7D%5Cfrac%7B1-%5Ccos%7B2%5Ctheta%7D%7D%7B2%7D+2I_%7Bxy%7D%5Cfrac%7B%5Csin%7B2%5Ctheta%7D%7D%7B2%7D%0A%5Cend%7Balign*%7D%0A"></p>
+</div>
+</div>
+<p><img src="https://latex.codecogs.com/png.latex?X=I_%7Bxx%7D-I_%7Byy%7D,%5C,Y=2I_%7Bxy%7D"> と置くと，後半の</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B1%7D%7B2%7D(X%5Ccos%7B2%5Ctheta%7D+Y%5Csin%7B2%5Ctheta%7D)%0A"></p>
+<p>は「単位ベクトル <img src="https://latex.codecogs.com/png.latex?%5B%5Ccos%7B2%5Ctheta%7D,%5C,%5Csin%7B2%5Ctheta%7D%5D%5E%7B%5Ctop%7D"> と <img src="https://latex.codecogs.com/png.latex?%5BX,%5C,Y%5D%5E%7B%5Ctop%7D"> の内積」なので，両者が同じ方向を向くときに最大値 <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B1%7D%7B2%7D%5Csqrt%7BX%5E%7B2%7D+Y%5E%7B2%7D%7D"> を取る．これより最大となる角度</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Ctheta%0A=%5Cfrac%7B1%7D%7B2%7D%5Coperatorname%7Batan2%7D%7B(2I_%7Bxy%7D,%5C,I_%7Bxx%7D-I_%7Byy%7D)%7D%0A"></p>
+<p>が得られる．</p>
+<p>したがって，この <img src="https://latex.codecogs.com/png.latex?%5Ctheta"> に対応する <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Be%7D_%7B1%7D"> が最大方向であり，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D%0A=%5Cboldsymbol%7Be%7D_%7B1%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A%5Ccos%7B%5Ctheta%7D%5C%5C%0A%5Csin%7B%5Ctheta%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>となる．一方，これと直交する <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Be%7D_%7B2%7D"> は最小方向なので</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D_%7B%5Cmin%7D%0A=%5Cboldsymbol%7Be%7D_%7B2%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A-%5Csin%7B%5Ctheta%7D%5C%5C%0A%5Ccos%7B%5Ctheta%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>となる．また，最大値は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Clambda_%7B%5Cmax%7D%0A=%5Cfrac%7BI_%7Bxx%7D+I_%7Byy%7D+%5Csqrt%7B(I_%7Bxx%7D-I_%7Byy%7D)%5E%7B2%7D+4I_%7Bxy%7D%5E%7B2%7D%7D%7D%7B2%7D%0A"></p>
+<p>である．直交する方向 <img src="https://latex.codecogs.com/png.latex?%5Ctheta+%5Cfrac%7B%5Cpi%7D%7B2%7D"> では <img src="https://latex.codecogs.com/png.latex?2%5Ctheta"> が <img src="https://latex.codecogs.com/png.latex?%5Cpi"> だけずれるため，<img src="https://latex.codecogs.com/png.latex?%5Ccos%7B2%5Ctheta%7D"> と <img src="https://latex.codecogs.com/png.latex?%5Csin%7B2%5Ctheta%7D"> の符号が反転し，先ほど最大だった項が最小になる．したがって，2 つの固有方向と固有値の対応は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Be%7D_%7B1%7D%0A=%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D%0A%5Cleftrightarrow%20%5Clambda_%7B%5Cmax%7D%0A,%5Cquad%0A%5Cboldsymbol%7Be%7D_%7B2%7D%0A=%5Cboldsymbol%7Bv%7D_%7B%5Cmin%7D%0A%5Cleftrightarrow%20%5Clambda_%7B%5Cmin%7D%0A"></p>
+<p>となる．</p>
+<p>ただし，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AI_%7Bxx%7D=I_%7Byy%7D%0A,%5Cquad%0AI_%7Bxy%7D=0%0A"></p>
+<p>の場合は <img src="https://latex.codecogs.com/png.latex?A"> が単位行列の定数倍となり，すべての方向で <img src="https://latex.codecogs.com/png.latex?f(%5Ctheta)"> が同じ値になるため，最大方向は一意に定まらない．</p>
+<p>同じ結果は，特性方程式 <img src="https://latex.codecogs.com/png.latex?%5Cdet%7B(A-%5Clambda%20I)%7D=0"> からも得られる．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Clambda%5E%7B2%7D-(I_%7Bxx%7D+I_%7Byy%7D)%5Clambda+(I_%7Bxx%7DI_%7Byy%7D-I_%7Bxy%7D%5E%7B2%7D)=0%0A"></p>
+<p>解の公式を使うと，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Clambda_%7B%5Cmax,%5Cmin%7D%0A=%5Cfrac%7BI_%7Bxx%7D+I_%7Byy%7D%5Cpm%5Csqrt%7B(I_%7Bxx%7D-I_%7Byy%7D)%5E%7B2%7D+4I_%7Bxy%7D%5E%7B2%7D%7D%7D%7B2%7D%0A"></p>
+<p>微分で求めた極値と，代数的に解いた固有値がぴったり一致することが確認できる．</p>
+</section>
+<section id="余談---固有ベクトルによる対角化" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="余談---固有ベクトルによる対角化"><span class="header-section-number">6</span> 余談 - 固有ベクトルによる対角化</h2>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D"> と <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B%5Cmin%7D"> はともに単位ベクトルで互いに直交しているので，これらを列に並べた行列</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AR%0A=%0A%5Cbegin%7Bbmatrix%7D%0A%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D%20&amp;%20%5Cboldsymbol%7Bv%7D_%7B%5Cmin%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>は，<img src="https://latex.codecogs.com/png.latex?R%5E%7B%5Ctop%7DR=I"> を満たす直交行列である．対応する固有値を</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AD%0A=%5Coperatorname%7Bdiag%7D%7B(%5Clambda_%7B%5Cmax%7D,%5C,%5Clambda_%7B%5Cmin%7D)%7D%0A"></p>
+<p>とする．<img src="https://latex.codecogs.com/png.latex?R"> の各列が固有ベクトルなので，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AA%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D%0A=%5Clambda_%7B%5Cmax%7D%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D%0A,%5Cquad%0AA%5Cboldsymbol%7Bv%7D_%7B%5Cmin%7D%0A=%5Clambda_%7B%5Cmin%7D%5Cboldsymbol%7Bv%7D_%7B%5Cmin%7D%0A"></p>
+<p>をまとめると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AAR=RD%0A"></p>
+<p>となる．左から <img src="https://latex.codecogs.com/png.latex?R%5E%7B%5Ctop%7D"> を掛けると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AR%5E%7B%5Ctop%7DAR=D%0A"></p>
+<p>を得る．</p>
+<p>これは，固有ベクトルを新しい座標軸として選ぶと，<img src="https://latex.codecogs.com/png.latex?A"> は対角行列として表せることを意味する．つまり，この座標系では <img src="https://latex.codecogs.com/png.latex?A"> の作用が各固有ベクトル方向の独立した拡大・縮小として表される．</p>
+<p>今回の場合，その 2 つの座標軸が <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D"> と <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B%5Cmin%7D"> であり，<img src="https://latex.codecogs.com/png.latex?A"> はそれぞれの方向を <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7B%5Cmax%7D,%5C,%5Clambda_%7B%5Cmin%7D"> 倍する．一方，もとの写像 <img src="https://latex.codecogs.com/png.latex?L"> による長さの拡大率は，それぞれ <img src="https://latex.codecogs.com/png.latex?%5Csqrt%7B%5Clambda_%7B%5Cmax%7D%7D,%5C,%5Csqrt%7B%5Clambda_%7B%5Cmin%7D%7D"> である．</p>
+</section>
+<section id="もとの空間へ---最大の線形結合" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="もとの空間へ---最大の線形結合"><span class="header-section-number">7</span> もとの空間へ - 最大の線形結合</h2>
+<p>最大固有ベクトル <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D=%5B%5Ccos%7B%5Ctheta%7D,%5C,%5Csin%7B%5Ctheta%7D%5D%5E%7B%5Ctop%7D"> を，もとの写像 <img src="https://latex.codecogs.com/png.latex?L"> に戻すと</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bw%7D_%7B%5Cmax%7D%0A=L%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D%0A=%5Ccos%7B%5Ctheta%7D%5C,%5Cboldsymbol%7Bp%7D+%5Csin%7B%5Ctheta%7D%5C,%5Cboldsymbol%7Bq%7D%0A"></p>
+<p>これが <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bp%7D,%5C,%5Cboldsymbol%7Bq%7D"> の線形結合の中で最も長いベクトルであり，その長さは</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5C%7C%5Cboldsymbol%7Bw%7D_%7B%5Cmax%7D%5C%7C%0A=%5Csqrt%7B%5Clambda_%7B%5Cmax%7D%7D%0A"></p>
+</section>
+<section id="勾配への応用" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="勾配への応用"><span class="header-section-number">8</span> 勾配への応用</h2>
+<p>以上の議論では <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bp%7D,%5C,%5Cboldsymbol%7Bq%7D"> は任意の 2 本のベクトルだった．エッジ検出などの用途では，これに勾配ベクトルを代入する：</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AL%0A=%0A%5Cbegin%7Bbmatrix%7D%0A%5Cboldsymbol%7Bg%7D_%7Bx%7D%20&amp;%20%5Cboldsymbol%7Bg%7D_%7By%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>このとき</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AA%0A=L%5E%7B%5Ctop%7DL%0A=%0A%5Cbegin%7Bbmatrix%7D%0A%5Clangle%5Cboldsymbol%7Bg%7D_%7Bx%7D,%5Cboldsymbol%7Bg%7D_%7Bx%7D%5Crangle%20&amp;%20%5Clangle%5Cboldsymbol%7Bg%7D_%7Bx%7D,%5Cboldsymbol%7Bg%7D_%7By%7D%5Crangle%5C%5C%0A%5Clangle%5Cboldsymbol%7Bg%7D_%7Bx%7D,%5Cboldsymbol%7Bg%7D_%7By%7D%5Crangle%20&amp;%20%5Clangle%5Cboldsymbol%7Bg%7D_%7By%7D,%5Cboldsymbol%7Bg%7D_%7By%7D%5Crangle%0A%5Cend%7Bbmatrix%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0AI_%7Bxx%7D%20&amp;%20I_%7Bxy%7D%5C%5C%0AI_%7Bxy%7D%20&amp;%20I_%7Byy%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>となり，最大となる方向とその強さは</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Ctheta%0A=%5Cfrac%7B1%7D%7B2%7D%5Coperatorname%7Batan2%7D%7B(2I_%7Bxy%7D,%5C,I_%7Bxx%7D-I_%7Byy%7D)%7D%0A,%5Cquad%0A%5Cboldsymbol%7Bw%7D_%7B%5Cmax%7D%0A=%5Ccos%7B%5Ctheta%7D%5C,%5Cboldsymbol%7Bg%7D_%7Bx%7D+%5Csin%7B%5Ctheta%7D%5C,%5Cboldsymbol%7Bg%7D_%7By%7D%0A,%5Cquad%0A%5C%7C%5Cboldsymbol%7Bw%7D_%7B%5Cmax%7D%5C%7C%0A=%5Csqrt%7B%5Clambda_%7B%5Cmax%7D%7D%0A"></p>
+<p>で与えられる．</p>
+<p><a href="https://www.shadertoy.com/view/ffdSzS">Edge NMS Along the Max Gradient - Shadertoy</a></p>
+</section>
+<section id="まとめ" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="まとめ"><span class="header-section-number">9</span> まとめ</h2>
+<p>線形写像 <img src="https://latex.codecogs.com/png.latex?L:%5Cmathbb%7BR%7D%5E%7B2%7D%5Cto%5Cmathbb%7BR%7D%5E%7BN%7D"> （2 つの係数を渡すと，混ぜ合わせたベクトルを返す写像）を考える．「単位円上の入力 <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D"> をどの方向に取ると出力 <img src="https://latex.codecogs.com/png.latex?L%5Cboldsymbol%7Bv%7D"> が最も長くなるか」という最適化問題は，対称行列 <img src="https://latex.codecogs.com/png.latex?A=L%5E%7B%5Ctop%7DL"> の固有値問題に帰着する．</p>
+<p>最大固有値 <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7B%5Cmax%7D"> は，その混ぜ方をしたときの長さの 2 乗の最大値を与え，対応する固有ベクトル <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B%5Cmax%7D"> は，そのときの混ぜる比率を与える．</p>
+<p>2 本の勾配ベクトル <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bg%7D_%7Bx%7D,%5C,%5Cboldsymbol%7Bg%7D_%7By%7D"> にこの枠組みを適用することで，勾配が最も長くなる方向と，その強さを求めることができる．</p>
+</section>
+<section id="appendix---対称行列の固有ベクトルの直交性" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="appendix---対称行列の固有ベクトルの直交性"><span class="header-section-number">10</span> Appendix - 対称行列の固有ベクトルの直交性</h2>
+<p>本文では，<img src="https://latex.codecogs.com/png.latex?A"> は <img src="https://latex.codecogs.com/png.latex?2%5Ctimes%202"> の対称行列なので，異なる固有値に対する固有ベクトルは直交すると述べた．ここでは，この性質を証明する．</p>
+<p><img src="https://latex.codecogs.com/png.latex?A"> の異なる固有値 <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7B1%7D,%5C,%5Clambda_%7B2%7D"> に対応する固有ベクトルを <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B1%7D,%5C,%5Cboldsymbol%7Bv%7D_%7B2%7D"> とする．つまり <img src="https://latex.codecogs.com/png.latex?A%5Cboldsymbol%7Bv%7D_%7B1%7D=%5Clambda_%7B1%7D%5Cboldsymbol%7Bv%7D_%7B1%7D,%5C,A%5Cboldsymbol%7Bv%7D_%7B2%7D=%5Clambda_%7B2%7D%5Cboldsymbol%7Bv%7D_%7B2%7D"> であり，<img src="https://latex.codecogs.com/png.latex?%5Clambda_%7B1%7D%5Cneq%5Clambda_%7B2%7D"> とする．示したいのは <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B2%7D=0"> である．</p>
+<p>まず，<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B2%7D"> の固有値方程式 <img src="https://latex.codecogs.com/png.latex?A%5Cboldsymbol%7Bv%7D_%7B2%7D=%5Clambda_%7B2%7D%5Cboldsymbol%7Bv%7D_%7B2%7D"> の両辺に，左から <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7D"> を掛けると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D_%7B2%7D%0A=%5Clambda_%7B2%7D%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B2%7D%0A"></p>
+<p>ここで，<img src="https://latex.codecogs.com/png.latex?A=A%5E%7B%5Ctop%7D"> なので，<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B1%7D"> の固有値方程式 <img src="https://latex.codecogs.com/png.latex?A%5Cboldsymbol%7Bv%7D_%7B1%7D=%5Clambda_%7B1%7D%5Cboldsymbol%7Bv%7D_%7B1%7D"> を使えば，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7DA%5Cboldsymbol%7Bv%7D_%7B2%7D%0A=%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7DA%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B2%7D%0A=(A%5Cboldsymbol%7Bv%7D_%7B1%7D)%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B2%7D%0A=(%5Clambda_%7B1%7D%5Cboldsymbol%7Bv%7D_%7B1%7D)%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B2%7D%0A=%5Clambda_%7B1%7D%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B2%7D%0A"></p>
+<p>となる．したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Clambda_%7B1%7D%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B2%7D%0A=%5Clambda_%7B2%7D%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B2%7D%0A"></p>
+<p>より，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A(%5Clambda_%7B1%7D-%5Clambda_%7B2%7D)%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B2%7D%0A=0%0A"></p>
+<p>である．<img src="https://latex.codecogs.com/png.latex?%5Clambda_%7B1%7D%5Cneq%5Clambda_%7B2%7D"> なので，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bv%7D_%7B1%7D%5E%7B%5Ctop%7D%5Cboldsymbol%7Bv%7D_%7B2%7D%0A=0%0A"></p>
+<p>となり，<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B1%7D"> と <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bv%7D_%7B2%7D"> は直交する．</p>
+</section>
+<section id="references" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="references"><span class="header-section-number">11</span> References</h2>
+<ul>
+<li>Di Zenzo, S. (1986). A note on the gradient of a multi-image. <em>Computer Vision, Graphics, and Image Processing</em>, <em>33</em>(1), 116–125. <a href="https://doi.org/10.1016/0734-189X(86)90223-9" class="uri">https://doi.org/10.1016/0734-189X(86)90223-9</a></li>
+</ul>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
+  <category>math</category>
+  <category>computergraphics</category>
+  <guid>https://hasenpfote.github.io/posts/longest-linear-combination.html</guid>
+  <pubDate>Tue, 18 Aug 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Clenshaw algorithm</title>
   <link>https://hasenpfote.github.io/posts/clenshaw-algorithm.html</link>
@@ -19445,110 +19656,6 @@ Fig. 3. 変位後に原点を中心に回転
   <category>cpp</category>
   <guid>https://hasenpfote.github.io/posts/dual-complex-numbers.html</guid>
   <pubDate>Tue, 05 Jan 2021 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Joplin の運用方法</title>
-  <link>https://hasenpfote.github.io/posts/joplin-workflow/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-<section id="概要" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="概要"><span class="header-section-number">1</span> 概要</h2>
-<p>クロスプラットフォームな Markdown 統合環境 <a href="https://joplinapp.org">Joplin</a> の運用方法について．</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph TD
-  subgraph Cloud
-    A[(Joplin)]
-  end
-  subgraph Desktop
-    B[(Joplin)]
-  end
-  subgraph Laptop
-    C[(Joplin)]
-  end
-  subgraph Mobile
-    D[(Joplin)]
-  end
-  subgraph e[Other]
-    E[(Joplin)]
-  end
-  B &amp; C &amp; D &amp; E ---|Sync| A
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>管理方法の差異に拘りがなければ <a href="https://typora.io">Typora</a> で完結することも可能．</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR
-  subgraph Terminal
-    A[Typora] --- B[(Storage)]
-  end
-  subgraph Cloud
-    C[(Storage)]
-  end
-  B ---|Own Sync| C
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="設定" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="設定"><span class="header-section-number">2</span> 設定</h2>
-<p>動作確認は Linux Mint 19.3 Tricia で行った．</p>
-<section id="クラウドサービスと同期" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="クラウドサービスと同期"><span class="header-section-number">2.1</span> クラウドサービスと同期</h3>
-<p>実質 <a href="https://www.microsoft.com/ja-jp/microsoft-365/onedrive/online-cloud-storage">OneDrive</a> 一択で流れに沿って登録するだけで済む．</p>
-<p><strong>フェイルセーフのチェックを外すと絶望のどん底に突き落とされるので要注意．</strong></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="joplin_sync.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Fig. 1. 同期"><img src="https://hasenpfote.github.io/posts/joplin-workflow/joplin_sync.png" class="img-fluid figure-img" alt="Fig. 1. 同期"></a></p>
-<figcaption>Fig. 1. 同期</figcaption>
-</figure>
-</div>
-</section>
-<section id="外部エディタとの連携" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="外部エディタとの連携"><span class="header-section-number">2.2</span> 外部エディタとの連携</h3>
-<p><a href="https://joplinapp.org">Joplin</a> のまま編集をすることもできるが没入感を阻害されるので外部エディタとの連携を行う．</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="joplin_editor.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Fig. 2. 外部エディタ"><img src="https://hasenpfote.github.io/posts/joplin-workflow/joplin_editor.png" class="img-fluid figure-img" alt="Fig. 2. 外部エディタ"></a></p>
-<figcaption>Fig. 2. 外部エディタ</figcaption>
-</figure>
-</div>
-</section>
-</section>
-<section id="ブラウザ" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="ブラウザ"><span class="header-section-number">3</span> ブラウザ</h2>
-<p>オプション機能としては Chromium 派生ブラウザなら <a href="https://chrome.google.com/webstore/detail/joplin-web-clipper/alofnhikmmkdbbbgpnglcpdollgjjfek">Joplin Web Clipper</a> ．モバイル版は URL の保存しかできないので役に立たない．</p>
-</section>
-<section id="モバイル" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="モバイル"><span class="header-section-number">4</span> モバイル</h2>
-<p>Android なら公式の <a href="https://play.google.com/store/apps/details?id=net.cozic.joplin">Joplin</a> ．読み込み専用にすることで閲覧目的に利用すると使い勝手が良い．</p>
-
-
-</section>
-
-<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
-  <category>software</category>
-  <category>joplin</category>
-  <guid>https://hasenpfote.github.io/posts/joplin-workflow/</guid>
-  <pubDate>Sun, 27 Dec 2020 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

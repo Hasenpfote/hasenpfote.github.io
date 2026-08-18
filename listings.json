@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/longest-linear-combination.html",
       "/posts/clenshaw-algorithm.html",
       "/posts/sampling-with-piecewise-constant-distributions.html",
       "/posts/sampling-on-geometric-regions.html",
@@ -30,6 +31,7 @@
   {
     "listing": "/archive.html",
     "items": [
+      "/posts/longest-linear-combination.html",
       "/posts/clenshaw-algorithm.html",
       "/posts/sampling-with-piecewise-constant-distributions.html",
       "/posts/sampling-on-geometric-regions.html",

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="複素数における回転の表現と補間について">
+<meta name="description" content="2本のベクトルを混ぜたときに最も長くなる方向を、ノルム最大化と固有値問題から導出する">
 
-<title>複素数における回転の表現と補間 – /var/log/little-things</title>
+<title>2本のベクトルの最も長くなる方向 – /var/log/little-things</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -341,16 +341,15 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">複素数における回転の表現と補間</h1>
+      <h1 class="title">2本のベクトルの最も長くなる方向</h1>
                   <div>
         <div class="description">
-          複素数における回転の表現と補間について
+          2本のベクトルを混ぜたときに最も長くなる方向を、ノルム最大化と固有値問題から導出する
         </div>
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">math</div>
-                <div class="quarto-category">complexnumbers</div>
-                <div class="quarto-category">cpp</div>
+                <div class="quarto-category">computergraphics</div>
               </div>
                   </div>
   </div>
@@ -362,7 +361,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">公開</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">2021年1月12日</p>
+        <p class="date">2026年8月18日</p>
       </div>
     </div>
     
@@ -378,23 +377,19 @@ window.Quarto = {
     <h2 id="toc-title">目次</h2>
    
   <ul>
-  <li><a href="#概要" id="toc-概要" class="nav-link active" data-scroll-target="#概要"><span class="header-section-number">1</span> 概要</a></li>
-  <li><a href="#回転の表現" id="toc-回転の表現" class="nav-link" data-scroll-target="#回転の表現"><span class="header-section-number">2</span> 回転の表現</a></li>
-  <li><a href="#補間の方法" id="toc-補間の方法" class="nav-link" data-scroll-target="#補間の方法"><span class="header-section-number">3</span> 補間の方法</a>
-  <ul>
-  <li><a href="#線形補間" id="toc-線形補間" class="nav-link" data-scroll-target="#線形補間"><span class="header-section-number">3.1</span> 線形補間</a></li>
-  <li><a href="#正規化線形補間" id="toc-正規化線形補間" class="nav-link" data-scroll-target="#正規化線形補間"><span class="header-section-number">3.2</span> 正規化線形補間</a></li>
-  <li><a href="#球面線形補間" id="toc-球面線形補間" class="nav-link" data-scroll-target="#球面線形補間"><span class="header-section-number">3.3</span> 球面線形補間</a></li>
-  <li><a href="#スプライン補間" id="toc-スプライン補間" class="nav-link" data-scroll-target="#スプライン補間"><span class="header-section-number">3.4</span> スプライン補間</a></li>
-  </ul></li>
-  <li><a href="#ethetamathbbi-の補間" id="toc-ethetamathbbi-の補間" class="nav-link" data-scroll-target="#ethetamathbbi-の補間"><span class="header-section-number">4</span> <span class="math inline">\(e^{\theta\mathbb{i}}\)</span> の補間</a></li>
-  <li><a href="#efractheta2mathbbi-の補間" id="toc-efractheta2mathbbi-の補間" class="nav-link" data-scroll-target="#efractheta2mathbbi-の補間"><span class="header-section-number">5</span> <span class="math inline">\(e^{\frac{\theta}{2}\mathbb{i}}\)</span> の補間</a></li>
-  <li><a href="#球面線形補間の別形式" id="toc-球面線形補間の別形式" class="nav-link" data-scroll-target="#球面線形補間の別形式"><span class="header-section-number">6</span> 球面線形補間の別形式</a></li>
-  <li><a href="#スプライン補間の補足" id="toc-スプライン補間の補足" class="nav-link" data-scroll-target="#スプライン補間の補足"><span class="header-section-number">7</span> スプライン補間の補足</a></li>
-  <li><a href="#c-での実装例" id="toc-c-での実装例" class="nav-link" data-scroll-target="#c-での実装例"><span class="header-section-number">8</span> C++ での実装例</a></li>
-  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献"><span class="header-section-number">9</span> 参考文献</a></li>
+  <li><a href="#問題設定---2-本のベクトルを混ぜる線形写像" id="toc-問題設定---2-本のベクトルを混ぜる線形写像" class="nav-link active" data-scroll-target="#問題設定---2-本のベクトルを混ぜる線形写像"><span class="header-section-number">1</span> 問題設定 - 2 本のベクトルを混ぜる線形写像</a></li>
+  <li><a href="#ノルム最大化を対称行列の問題に変換する" id="toc-ノルム最大化を対称行列の問題に変換する" class="nav-link" data-scroll-target="#ノルム最大化を対称行列の問題に変換する"><span class="header-section-number">2</span> ノルム最大化を対称行列の問題に変換する</a></li>
+  <li><a href="#単位円上を動かして極値を探す" id="toc-単位円上を動かして極値を探す" class="nav-link" data-scroll-target="#単位円上を動かして極値を探す"><span class="header-section-number">3</span> 単位円上を動かして極値を探す</a></li>
+  <li><a href="#極値条件から固有値問題が現れる" id="toc-極値条件から固有値問題が現れる" class="nav-link" data-scroll-target="#極値条件から固有値問題が現れる"><span class="header-section-number">4</span> 極値条件から固有値問題が現れる</a></li>
+  <li><a href="#どちらの固有方向が最大か---閉じた式を求める" id="toc-どちらの固有方向が最大か---閉じた式を求める" class="nav-link" data-scroll-target="#どちらの固有方向が最大か---閉じた式を求める"><span class="header-section-number">5</span> どちらの固有方向が最大か - 閉じた式を求める</a></li>
+  <li><a href="#余談---固有ベクトルによる対角化" id="toc-余談---固有ベクトルによる対角化" class="nav-link" data-scroll-target="#余談---固有ベクトルによる対角化"><span class="header-section-number">6</span> 余談 - 固有ベクトルによる対角化</a></li>
+  <li><a href="#もとの空間へ---最大の線形結合" id="toc-もとの空間へ---最大の線形結合" class="nav-link" data-scroll-target="#もとの空間へ---最大の線形結合"><span class="header-section-number">7</span> もとの空間へ - 最大の線形結合</a></li>
+  <li><a href="#勾配への応用" id="toc-勾配への応用" class="nav-link" data-scroll-target="#勾配への応用"><span class="header-section-number">8</span> 勾配への応用</a></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ"><span class="header-section-number">9</span> まとめ</a></li>
+  <li><a href="#appendix---対称行列の固有ベクトルの直交性" id="toc-appendix---対称行列の固有ベクトルの直交性" class="nav-link" data-scroll-target="#appendix---対称行列の固有ベクトルの直交性"><span class="header-section-number">10</span> Appendix - 対称行列の固有ベクトルの直交性</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">11</span> References</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/edit/main/posts/representation-and-interpolation-of-rotations-in-complex-numbers.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/blob/main/posts/representation-and-interpolation-of-rotations-in-complex-numbers.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/edit/main/posts/longest-linear-combination.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/blob/main/posts/longest-linear-combination.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -404,390 +399,449 @@ window.Quarto = {
 
 
 
-<section id="概要" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="概要"><span class="header-section-number">1</span> 概要</h2>
-<p>複素数における回転の表現と補間について簡単に整理をする．</p>
-</section>
-<section id="回転の表現" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="回転の表現"><span class="header-section-number">2</span> 回転の表現</h2>
-<p>定義は</p>
-<p><span class="math display">\[
-\mathbb{C}_1 := \{p \in \mathbb{C} \mid |p|=1 \}=\{e^{\theta\mathbb{i}} \mid \theta \in \mathbb{R} \}
-\]</span></p>
-<p><span class="math inline">\(e^{\theta\mathbb{i}}\)</span> はオイラーの公式<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>で</p>
-<p><span class="math display">\[
-e^{\theta\mathbb{i}}
-=\cos{(\theta)} + \sin{(\theta)} \mathbb{i}
-\]</span></p>
-</section>
-<section id="補間の方法" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="補間の方法"><span class="header-section-number">3</span> 補間の方法</h2>
-<p><span class="math inline">\(p=a+b\mathbb{i}, \hspace{3pt} q=c+d\mathbb{i} \in \mathbb{C}_1\)</span> 間を <span class="math inline">\(h \in \mathbb{R}\)</span> で補間する方法．</p>
-<section id="線形補間" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="線形補間"><span class="header-section-number">3.1</span> 線形補間</h3>
-<p>定義は</p>
-<p><span class="math display">\[
-\operatorname{LERP}(p,q;h)
-=(1-h)p + hq
-\]</span></p>
-<p>特徴は</p>
-<ul>
-<li>大きさを維持しない</li>
-<li>速度は不定</li>
-</ul>
-</section>
-<section id="正規化線形補間" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="正規化線形補間"><span class="header-section-number">3.2</span> 正規化線形補間</h3>
-<p>定義は</p>
-<p><span class="math display">\[
-\operatorname{nLERP}(p,q;h)
-=\frac{\operatorname{LERP}(p,q;h)}{|\operatorname{LERP}(p,q;h)|}
-\]</span></p>
-<p>特徴は</p>
-<ul>
-<li>大きさを維持</li>
-<li>速度は不定</li>
-</ul>
-</section>
-<section id="球面線形補間" class="level3" data-number="3.3">
-<h3 data-number="3.3" class="anchored" data-anchor-id="球面線形補間"><span class="header-section-number">3.3</span> 球面線形補間</h3>
-<p>定義は</p>
-<p><span class="math display">\[
-\operatorname{SLERP}(p,q;h)
-=p \cdot (p^{-1} \cdot q)^h
-=p \cdot \exp{(h \log{(p^{-1} \cdot q)})}
-\]</span></p>
-<p>特徴は</p>
-<ul>
-<li>大きさを維持</li>
-<li>速度は一定</li>
-</ul>
-</section>
-<section id="スプライン補間" class="level3" data-number="3.4">
-<h3 data-number="3.4" class="anchored" data-anchor-id="スプライン補間"><span class="header-section-number">3.4</span> スプライン補間</h3>
-<p>定義は</p>
-<p><span class="math display">\[
-\operatorname{SQUAD}(p_{i}, p_{i+1}, s_{i}, s{i+1}; h)
-=\operatorname{SLERP}(\operatorname{SLERP}(p_{i}, p_{i+1}; h), \operatorname{SLERP}(s_{i}, s_{i+1}; h), 2h(1-h))
-\]</span></p>
-<p>ここで <span class="math inline">\(p_{i}, p_{i+1}, s_{i}, s_{i+1} \in \mathbb{C}_1\)</span> で <span class="math inline">\(s_{i}\)</span> は次式で表される．</p>
-<p><span class="math display">\[
-s_{i}
-=p_{i} \exp{\left(- \frac{\log{(p_{i}^{-1} p_{i-1})} + \log{(p_{i}^{-1} p_{i+1})}}{4}\right)}
-\]</span></p>
-</section>
-</section>
-<section id="ethetamathbbi-の補間" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="ethetamathbbi-の補間"><span class="header-section-number">4</span> <span class="math inline">\(e^{\theta\mathbb{i}}\)</span> の補間</h2>
-<p>一般的な回転を表現する複素数での補間は，常に最短円弧を描く補間となる．</p>
+<p>エッジ検出などで勾配ベクトル <span class="math inline">\(\boldsymbol{g}_{x}, \boldsymbol{g}_{y}\)</span> を扱っていると，「この 2 本を混ぜたとき，最も長くなる方向はどこか」という問いに自然に行き着く．ここでは，この問いを線形写像とその固有値問題として定式化し，最終的に <span class="math inline">\(\operatorname{atan2}\)</span> と根号で表される閉じた式まで導く．</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<iframe src="https://www.desmos.com/calculator/vpaaszozce?embed=">
+<iframe src="https://www.desmos.com/calculator/gwlpuga9m5">
 </iframe>
 <figcaption>
-Fig. 1. 最短円弧を描く補間
+N=2
 </figcaption>
 </figure>
 </div>
-<p>なす角が180度を超える場合に最長円弧を描く補間にするには<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<ol type="1">
-<li>複素数の偏角の主値の範囲を <span class="math inline">\((-\pi, \pi]\)</span> とし <span class="math inline">\(p, q\)</span> の角度を <span class="math inline">\([0,\pi)\)</span> で求める</li>
-</ol>
-<p><span class="math display">\[
-  \begin{aligned}
-  \phi=
-  \begin{cases}
-    Arg{(p)} + 2\pi &amp; \text{if } Arg{(p)} &lt; 0\\
-    Arg{(p)} &amp; \text{otherwise}
-  \end{cases}\\
-  \\
-  \psi=
-  \begin{cases}
-    Arg{(q)} + 2\pi &amp; \text{if } Arg{(q)} &lt; 0\\
-    Arg{(q)} &amp; \text{otherwise}
-  \end{cases}
-  \end{aligned}
-  \]</span></p>
-<ol start="2" type="1">
-<li>向きを求める</li>
-</ol>
-<p><span class="math display">\[
-  \begin{aligned}
-  d=
-  \begin{vmatrix}
-  p.x &amp; q.x\\
-  p.y &amp; q.y
-  \end{vmatrix}
-  =p.x \cdot q.y - p.y \cdot q.x
-  \end{aligned}
-  \]</span></p>
-<ol start="3" type="1">
-<li>なす角を決定する</li>
-</ol>
-<p><span class="math display">\[
-  \begin{aligned}
-  \alpha=
-  \begin{cases}
-  \begin{cases}
-    \cos^{-1}{(\langle p, q \rangle)} &amp; \text{if } d &lt; 0\\
-    2 \pi - \cos^{-1}{(\langle p, q \rangle)} &amp; \text{otherwise}
-  \end{cases}
-  &amp; \text{if } \psi - \phi &lt; 0\\
-  \begin{cases}
-    2 \pi - \cos^{-1}{(\langle p, q \rangle)} &amp; \text{if } d &lt; 0\\
-    \cos^{-1}{(\langle p, q \rangle)} &amp; \text{otherwise}
-  \end{cases}
-  &amp; \text{otherwise}
-  \end{cases}
-  \end{aligned}
-  \]</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<iframe src="https://www.desmos.com/calculator/z9ucokttw8?embed=">
+<iframe src="https://www.desmos.com/3d/aklvwyvgh0">
 </iframe>
 <figcaption>
-Fig. 2. 最長円弧を描く補間
+N=3
 </figcaption>
 </figure>
 </div>
+<section id="問題設定---2-本のベクトルを混ぜる線形写像" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="問題設定---2-本のベクトルを混ぜる線形写像"><span class="header-section-number">1</span> 問題設定 - 2 本のベクトルを混ぜる線形写像</h2>
+<p><span class="math inline">\(N\)</span> 次元の任意の 2 本のベクトル</p>
+<p><span class="math display">\[
+\boldsymbol{p}, \boldsymbol{q}\in\mathbb{R}^{N}
+\]</span></p>
+<p>を考える．この 2 本を係数 <span class="math inline">\(v_{1}, v_{2}\in\mathbb{R}\)</span> で混ぜて</p>
+<p><span class="math display">\[
+\boldsymbol{w}
+=v_{1}\,\boldsymbol{p}+v_{2}\,\boldsymbol{q}
+\]</span></p>
+<p>というベクトルをつくる．係数をまとめて</p>
+<p><span class="math display">\[
+\boldsymbol{v}
+=
+\begin{bmatrix}
+v_{1}\\
+v_{2}
+\end{bmatrix}
+,\quad
+L
+=
+\begin{bmatrix}
+\boldsymbol{p} &amp; \boldsymbol{q}
+\end{bmatrix}
+\in\mathbb{R}^{N\times 2}
+\]</span></p>
+<p>とすると，</p>
+<p><span class="math display">\[
+\boldsymbol{w}
+=L\boldsymbol{v}
+\]</span></p>
+<p>と書ける．</p>
+<p>ここで一歩引いて見ると，<span class="math inline">\(L\)</span> は「2 次元の係数空間 <span class="math inline">\(\mathbb{R}^{2}\)</span> から，<span class="math inline">\(N\)</span> 次元空間 <span class="math inline">\(\mathbb{R}^{N}\)</span> への線形写像」である．<span class="math inline">\(\boldsymbol{v}\)</span> という 2 次元の入力（混ぜ方）を渡すと，<span class="math inline">\(L\boldsymbol{v}\)</span> という <span class="math inline">\(N\)</span> 次元の出力（実際のベクトル）が返ってくる．以降の議論は，突き詰めれば「この線形写像はどの入力方向を最も引き伸ばすか」という問いに帰着する．</p>
+<p>係数 <span class="math inline">\(\boldsymbol{v}\)</span> を自由に大きくすれば <span class="math inline">\(\boldsymbol{w}\)</span> をいくらでも長くできてしまうので，比較のために</p>
+<p><span class="math display">\[
+\boldsymbol{v}^{\top}\boldsymbol{v}=1
+\quad(v_{1}^{2}+v_{2}^{2}=1)
+\]</span></p>
+<p>という制約を置く．つまり係数の「大きさ」は固定し，「混ぜる比率」だけを変えたときの最大となる方向を探す．目的は</p>
+<p><span class="math display">\[
+\max_{\boldsymbol{v}^{\top}\boldsymbol{v}=1}{\|L\boldsymbol{v}\|}
+\]</span></p>
+<p>である．</p>
 </section>
-<section id="efractheta2mathbbi-の補間" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="efractheta2mathbbi-の補間"><span class="header-section-number">5</span> <span class="math inline">\(e^{\frac{\theta}{2}\mathbb{i}}\)</span> の補間</h2>
-<p>半角形式の補間は，なす角が180度を超えると最長円弧を描く補間となる．半角形式は半円で360度を表現し残りは繰り返しとなるので <span class="math inline">\(\pm e^{\frac{\theta}{2}\mathbb{i}}\)</span> は同じ回転を表現する．</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<iframe src="https://www.desmos.com/calculator/usdbcrfr30?embed=">
-</iframe>
-<figcaption>
-Fig. 3. 半角形式の補間
-</figcaption>
-</figure>
+<section id="ノルム最大化を対称行列の問題に変換する" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="ノルム最大化を対称行列の問題に変換する"><span class="header-section-number">2</span> ノルム最大化を対称行列の問題に変換する</h2>
+<p>平方根は最大値の位置を変えないので，<span class="math inline">\(\|L\boldsymbol{v}\|^{2}\)</span> を最大化すればよい．</p>
+<p><span class="math display">\[
+\|L\boldsymbol{v}\|^{2}
+=(L\boldsymbol{v})^{\top}(L\boldsymbol{v})
+=\boldsymbol{v}^{\top}L^{\top}L\boldsymbol{v}
+\]</span></p>
+<p>ここで</p>
+<p><span class="math display">\[
+A
+=L^{\top}L
+\]</span></p>
+<p>と置くと，</p>
+<p><span class="math display">\[
+\|L\boldsymbol{v}\|^{2}
+=\boldsymbol{v}^{\top}A\boldsymbol{v}
+\]</span></p>
+<p><strong>線形写像としての意味づけ</strong>：<span class="math inline">\(L\)</span> が <span class="math inline">\(\mathbb{R}^{2}\to\mathbb{R}^{N}\)</span> の写像だとすると，<span class="math inline">\(L^{\top}\)</span> はその「転置」＝ <span class="math inline">\(\mathbb{R}^{N}\to\mathbb{R}^{2}\)</span> の写像であり，<span class="math inline">\(A=L^{\top}L\)</span> は <span class="math inline">\(\mathbb{R}^{2}\to\mathbb{R}^{2}\)</span> に戻ってくる合成写像 <span class="math inline">\(L^{\top}\circ L\)</span> にあたる．つまり <span class="math inline">\(A\)</span> は，<span class="math inline">\(L\)</span> によって入力 <span class="math inline">\(\boldsymbol{v}\)</span> がどれだけの長さになるかを，もとの 2 次元の中の二次形式 <span class="math inline">\(\boldsymbol{v}^{\top}A\boldsymbol{v}\)</span> として表している．</p>
+<p>具体的に成分を書き下すと，</p>
+<p><span class="math display">\[
+A
+=L^{\top}L
+=
+\begin{bmatrix}
+\langle\boldsymbol{p},\boldsymbol{p}\rangle &amp; \langle\boldsymbol{p},\boldsymbol{q}\rangle\\
+\langle\boldsymbol{q},\boldsymbol{p}\rangle &amp; \langle\boldsymbol{q},\boldsymbol{q}\rangle
+\end{bmatrix}
+=
+\begin{bmatrix}
+I_{xx} &amp; I_{xy}\\
+I_{xy} &amp; I_{yy}
+\end{bmatrix}
+\]</span></p>
+<p>（<span class="math inline">\(I_{xx}=\langle\boldsymbol{p},\boldsymbol{p}\rangle,\,I_{yy}=\langle\boldsymbol{q},\boldsymbol{q}\rangle,\,I_{xy}=\langle\boldsymbol{p},\boldsymbol{q}\rangle\)</span>）．内積の対称性 <span class="math inline">\(\langle\boldsymbol{p},\boldsymbol{q}\rangle=\langle\boldsymbol{q},\boldsymbol{p}\rangle\)</span> から自動的に</p>
+<p><span class="math display">\[
+A=A^{\top}
+\]</span></p>
+<p>となる．対角化のために対称行列を選んだのではなく，<span class="math inline">\(\|L\boldsymbol{v}\|^{2}\)</span> を展開すると必然的に対称行列 <span class="math inline">\(L^{\top}L\)</span> が現れる，という順序であることに注意したい．</p>
+</section>
+<section id="単位円上を動かして極値を探す" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="単位円上を動かして極値を探す"><span class="header-section-number">3</span> 単位円上を動かして極値を探す</h2>
+<p>制約 <span class="math inline">\(\boldsymbol{v}^{\top}\boldsymbol{v}=1\)</span> は単位円なので，</p>
+<p><span class="math display">\[
+\boldsymbol{v}(\theta)
+=
+\begin{bmatrix}
+\cos{\theta}\\
+\sin{\theta}
+\end{bmatrix}
+\]</span></p>
+<p>とパラメータ化できる．目的関数を</p>
+<p><span class="math display">\[
+f(\theta)
+=\boldsymbol{v}(\theta)^{\top}A\boldsymbol{v}(\theta)
+=\|L\boldsymbol{v}(\theta)\|^{2}
+\]</span></p>
+<p>とする．<span class="math inline">\(\boldsymbol{v}\)</span> と直交する</p>
+<p><span class="math display">\[
+\boldsymbol{v}_{\perp}
+=\frac{d\boldsymbol{v}}{d\theta}
+=
+\begin{bmatrix}
+-\sin{\theta}\\
+\cos{\theta}
+\end{bmatrix}
+,\quad
+\boldsymbol{v}^{\top}\boldsymbol{v}_{\perp}=0
+,\,
+\boldsymbol{v}_{\perp}^{\top}\boldsymbol{v}_{\perp}=1
+\]</span></p>
+<p>を使うと，<span class="math inline">\((\boldsymbol{v},\,\boldsymbol{v}_{\perp})\)</span> は正規直交基底になる．<span class="math inline">\(f\)</span> を微分すると</p>
+<p><span class="math display">\[
+\frac{df}{d\theta}
+=\boldsymbol{v}_{\perp}^{\top}A\boldsymbol{v}+\boldsymbol{v}^{\top}A\boldsymbol{v}_{\perp}
+\]</span></p>
+<p><span class="math inline">\(A=A^{\top}\)</span> より <span class="math inline">\(\boldsymbol{v}^{\top}A\boldsymbol{v}_{\perp}=\boldsymbol{v}_{\perp}^{\top}A\boldsymbol{v}\)</span> なので，</p>
+<p><span class="math display">\[
+\frac{df}{d\theta}
+=2\boldsymbol{v}_{\perp}^{\top}A\boldsymbol{v}
+\]</span></p>
+<p>極値条件 <span class="math inline">\(\frac{df}{d\theta}=0\)</span> から</p>
+<p><span class="math display">\[
+\boldsymbol{v}_{\perp}^{\top}A\boldsymbol{v}
+=0
+\]</span></p>
+<p>が得られる．</p>
+</section>
+<section id="極値条件から固有値問題が現れる" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="極値条件から固有値問題が現れる"><span class="header-section-number">4</span> 極値条件から固有値問題が現れる</h2>
+<p><span class="math inline">\((\boldsymbol{v},\,\boldsymbol{v}_{\perp})\)</span> は <span class="math inline">\(\mathbb{R}^{2}\)</span> の基底なので，<span class="math inline">\(A\boldsymbol{v}\)</span> は必ず</p>
+<p><span class="math display">\[
+A\boldsymbol{v}
+=\alpha\,\boldsymbol{v}+\beta\,\boldsymbol{v}_{\perp}
+\]</span></p>
+<p>と分解できる．左から <span class="math inline">\(\boldsymbol{v}_{\perp}^{\top}\)</span> を掛けて正規直交性を使うと <span class="math inline">\(\boldsymbol{v}_{\perp}^{\top}A\boldsymbol{v}=\beta\)</span> ．一方，極値条件から <span class="math inline">\(\boldsymbol{v}_{\perp}^{\top}A\boldsymbol{v}=0\)</span> なので <span class="math inline">\(\beta=0\)</span> ．したがって</p>
+<p><span class="math display">\[
+A\boldsymbol{v}
+=\alpha\boldsymbol{v}
+\]</span></p>
+<p>これは固有値・固有ベクトルの定義そのものなので，<span class="math inline">\(\alpha\)</span> が固有値である．以降，固有値を <span class="math inline">\(\lambda\)</span> と書く．したがって，「ノルムが極値になる混ぜ方 <span class="math inline">\(\boldsymbol{v}\)</span> 」は <span class="math inline">\(A\)</span> の固有ベクトルである．微分で探していた極値方向が，固有値問題として姿を現した瞬間である．</p>
+<p>さらに <span class="math inline">\(A\boldsymbol{v}=\lambda\boldsymbol{v}\)</span> の両辺に左から <span class="math inline">\(\boldsymbol{v}^{\top}\)</span> を掛け，<span class="math inline">\(\boldsymbol{v}^{\top}\boldsymbol{v}=1\)</span> を使うと</p>
+<p><span class="math display">\[
+\boldsymbol{v}^{\top}A\boldsymbol{v}
+=\lambda
+\]</span></p>
+<p>一方 <span class="math inline">\(\boldsymbol{v}^{\top}A\boldsymbol{v}=\|L\boldsymbol{v}\|^{2}\)</span> だったので，</p>
+<p><span class="math display">\[
+\lambda
+=\|L\boldsymbol{v}\|^{2}
+\]</span></p>
+<p>すなわち固有値そのものが「その方向に混ぜたときの長さの 2 乗」を表している．よって</p>
+<p><span class="math display">\[
+\lambda_{\max}
+=\max_{\boldsymbol{v}^{\top}\boldsymbol{v}=1}{\|L\boldsymbol{v}\|^{2}}
+,\quad
+\|L\boldsymbol{v}_{\max}\|
+=\sqrt{\lambda_{\max}}
+\]</span></p>
+<p>つまり，<span class="math inline">\(A=L^{\top}L\)</span> の固有値・固有ベクトルを求めるだけで，線形写像 <span class="math inline">\(L\)</span> がどの入力方向を最も強く引き伸ばすか（ <span class="math inline">\(\boldsymbol{v}_{\max}\)</span> ），そしてどれだけ引き伸ばすか（ <span class="math inline">\(\sqrt{\lambda_{\max}}\)</span> ）が，両方とも同時にわかったことになる．</p>
+</section>
+<section id="どちらの固有方向が最大か---閉じた式を求める" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="どちらの固有方向が最大か---閉じた式を求める"><span class="header-section-number">5</span> どちらの固有方向が最大か - 閉じた式を求める</h2>
+<p><span class="math inline">\(A\)</span> は <span class="math inline">\(2\times 2\)</span> の対称行列なので，異なる固有値に対応する 2 つの固有ベクトルは直交する．そこで，まず最大・最小を区別せず，互いに直交する 2 つの固有方向を</p>
+<p><span class="math display">\[
+\boldsymbol{e}_{1}
+=
+\begin{bmatrix}
+\cos{\theta}\\
+\sin{\theta}
+\end{bmatrix}
+,\quad
+\boldsymbol{e}_{2}
+=
+\begin{bmatrix}
+-\sin{\theta}\\
+\cos{\theta}
+\end{bmatrix}
+\]</span></p>
+<p>と表す．<span class="math inline">\(\boldsymbol{e}_{2}\)</span> は <span class="math inline">\(\boldsymbol{e}_{1}\)</span> を <span class="math inline">\(90^{\circ}\)</span> 回転した方向なので，角度で言えば <span class="math inline">\(\theta + \frac{\pi}{2}\)</span> の関係にある．</p>
+<p>この時点では，<span class="math inline">\(\boldsymbol{e}_{1}\)</span> と <span class="math inline">\(\boldsymbol{e}_{2}\)</span> のどちらが最大方向なのかはまだ決まっていない．ここから <span class="math inline">\(f(\theta)\)</span> の最大値を求めることで，どちらが最大方向なのかを決める．</p>
+<p><span class="math inline">\(f(\theta)=\boldsymbol{v}^{\top}A\boldsymbol{v}\)</span> を展開し，倍角公式</p>
+<p><span class="math display">\[
+\cos^{2}{\theta}
+=\frac{1+\cos{2\theta}}{2}
+,\quad
+\sin^{2}{\theta}
+=\frac{1-\cos{2\theta}}{2}
+,\quad
+\sin{\theta}\cos{\theta}
+=\frac{\sin{2\theta}}{2}
+\]</span></p>
+<p>を使うと，</p>
+<p><span class="math display">\[
+f(\theta)
+=\frac{I_{xx}+I_{yy}}{2}+\frac{I_{xx}-I_{yy}}{2}\cos{2\theta}+I_{xy}\sin{2\theta}
+\]</span></p>
+<p>となる．</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>なす角が180度を超える場合に最短円弧を描く補間にするには<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="callout-title-container flex-fill">
+ノート
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\begin{align*}
+f(\theta)
+&amp;=I_{xx}\cos^{2}{\theta}+I_{yy}\sin^{2}{\theta}+2I_{xy}\sin{\theta}\cos{\theta}\\
+&amp;=I_{xx}\frac{1+\cos{2\theta}}{2}+I_{yy}\frac{1-\cos{2\theta}}{2}+2I_{xy}\frac{\sin{2\theta}}{2}
+\end{align*}
+\]</span></p>
+</div>
+</div>
+<p><span class="math inline">\(X=I_{xx}-I_{yy},\,Y=2I_{xy}\)</span> と置くと，後半の</p>
+<p><span class="math display">\[
+\frac{1}{2}(X\cos{2\theta}+Y\sin{2\theta})
+\]</span></p>
+<p>は「単位ベクトル <span class="math inline">\([\cos{2\theta},\,\sin{2\theta}]^{\top}\)</span> と <span class="math inline">\([X,\,Y]^{\top}\)</span> の内積」なので，両者が同じ方向を向くときに最大値 <span class="math inline">\(\frac{1}{2}\sqrt{X^{2}+Y^{2}}\)</span> を取る．これより最大となる角度</p>
+<p><span class="math display">\[
+\theta
+=\frac{1}{2}\operatorname{atan2}{(2I_{xy},\,I_{xx}-I_{yy})}
+\]</span></p>
+<p>が得られる．</p>
+<p>したがって，この <span class="math inline">\(\theta\)</span> に対応する <span class="math inline">\(\boldsymbol{e}_{1}\)</span> が最大方向であり，</p>
+<p><span class="math display">\[
+\boldsymbol{v}_{\max}
+=\boldsymbol{e}_{1}
+=
+\begin{bmatrix}
+\cos{\theta}\\
+\sin{\theta}
+\end{bmatrix}
+\]</span></p>
+<p>となる．一方，これと直交する <span class="math inline">\(\boldsymbol{e}_{2}\)</span> は最小方向なので</p>
+<p><span class="math display">\[
+\boldsymbol{v}_{\min}
+=\boldsymbol{e}_{2}
+=
+\begin{bmatrix}
+-\sin{\theta}\\
+\cos{\theta}
+\end{bmatrix}
+\]</span></p>
+<p>となる．また，最大値は</p>
+<p><span class="math display">\[
+\lambda_{\max}
+=\frac{I_{xx}+I_{yy}+\sqrt{(I_{xx}-I_{yy})^{2}+4I_{xy}^{2}}}{2}
+\]</span></p>
+<p>である．直交する方向 <span class="math inline">\(\theta+\frac{\pi}{2}\)</span> では <span class="math inline">\(2\theta\)</span> が <span class="math inline">\(\pi\)</span> だけずれるため，<span class="math inline">\(\cos{2\theta}\)</span> と <span class="math inline">\(\sin{2\theta}\)</span> の符号が反転し，先ほど最大だった項が最小になる．したがって，2 つの固有方向と固有値の対応は</p>
+<p><span class="math display">\[
+\boldsymbol{e}_{1}
+=\boldsymbol{v}_{\max}
+\leftrightarrow \lambda_{\max}
+,\quad
+\boldsymbol{e}_{2}
+=\boldsymbol{v}_{\min}
+\leftrightarrow \lambda_{\min}
+\]</span></p>
+<p>となる．</p>
+<p>ただし，</p>
+<p><span class="math display">\[
+I_{xx}=I_{yy}
+,\quad
+I_{xy}=0
+\]</span></p>
+<p>の場合は <span class="math inline">\(A\)</span> が単位行列の定数倍となり，すべての方向で <span class="math inline">\(f(\theta)\)</span> が同じ値になるため，最大方向は一意に定まらない．</p>
+<p>同じ結果は，特性方程式 <span class="math inline">\(\det{(A-\lambda I)}=0\)</span> からも得られる．</p>
+<p><span class="math display">\[
+\lambda^{2}-(I_{xx}+I_{yy})\lambda+(I_{xx}I_{yy}-I_{xy}^{2})=0
+\]</span></p>
+<p>解の公式を使うと，</p>
+<p><span class="math display">\[
+\lambda_{\max,\min}
+=\frac{I_{xx}+I_{yy}\pm\sqrt{(I_{xx}-I_{yy})^{2}+4I_{xy}^{2}}}{2}
+\]</span></p>
+<p>微分で求めた極値と，代数的に解いた固有値がぴったり一致することが確認できる．</p>
+</section>
+<section id="余談---固有ベクトルによる対角化" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="余談---固有ベクトルによる対角化"><span class="header-section-number">6</span> 余談 - 固有ベクトルによる対角化</h2>
+<p><span class="math inline">\(\boldsymbol{v}_{\max}\)</span> と <span class="math inline">\(\boldsymbol{v}_{\min}\)</span> はともに単位ベクトルで互いに直交しているので，これらを列に並べた行列</p>
+<p><span class="math display">\[
+R
+=
+\begin{bmatrix}
+\boldsymbol{v}_{\max} &amp; \boldsymbol{v}_{\min}
+\end{bmatrix}
+\]</span></p>
+<p>は，<span class="math inline">\(R^{\top}R=I\)</span> を満たす直交行列である．対応する固有値を</p>
+<p><span class="math display">\[
+D
+=\operatorname{diag}{(\lambda_{\max},\,\lambda_{\min})}
+\]</span></p>
+<p>とする．<span class="math inline">\(R\)</span> の各列が固有ベクトルなので，</p>
+<p><span class="math display">\[
+A\boldsymbol{v}_{\max}
+=\lambda_{\max}\boldsymbol{v}_{\max}
+,\quad
+A\boldsymbol{v}_{\min}
+=\lambda_{\min}\boldsymbol{v}_{\min}
+\]</span></p>
+<p>をまとめると，</p>
+<p><span class="math display">\[
+AR=RD
+\]</span></p>
+<p>となる．左から <span class="math inline">\(R^{\top}\)</span> を掛けると，</p>
+<p><span class="math display">\[
+R^{\top}AR=D
+\]</span></p>
+<p>を得る．</p>
+<p>これは，固有ベクトルを新しい座標軸として選ぶと，<span class="math inline">\(A\)</span> は対角行列として表せることを意味する．つまり，この座標系では <span class="math inline">\(A\)</span> の作用が各固有ベクトル方向の独立した拡大・縮小として表される．</p>
+<p>今回の場合，その 2 つの座標軸が <span class="math inline">\(\boldsymbol{v}_{\max}\)</span> と <span class="math inline">\(\boldsymbol{v}_{\min}\)</span> であり，<span class="math inline">\(A\)</span> はそれぞれの方向を <span class="math inline">\(\lambda_{\max},\,\lambda_{\min}\)</span> 倍する．一方，もとの写像 <span class="math inline">\(L\)</span> による長さの拡大率は，それぞれ <span class="math inline">\(\sqrt{\lambda_{\max}},\,\sqrt{\lambda_{\min}}\)</span> である．</p>
+</section>
+<section id="もとの空間へ---最大の線形結合" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="もとの空間へ---最大の線形結合"><span class="header-section-number">7</span> もとの空間へ - 最大の線形結合</h2>
+<p>最大固有ベクトル <span class="math inline">\(\boldsymbol{v}_{\max}=[\cos{\theta},\,\sin{\theta}]^{\top}\)</span> を，もとの写像 <span class="math inline">\(L\)</span> に戻すと</p>
+<p><span class="math display">\[
+\boldsymbol{w}_{\max}
+=L\boldsymbol{v}_{\max}
+=\cos{\theta}\,\boldsymbol{p}+\sin{\theta}\,\boldsymbol{q}
+\]</span></p>
+<p>これが <span class="math inline">\(\boldsymbol{p},\,\boldsymbol{q}\)</span> の線形結合の中で最も長いベクトルであり，その長さは</p>
+<p><span class="math display">\[
+\|\boldsymbol{w}_{\max}\|
+=\sqrt{\lambda_{\max}}
+\]</span></p>
+</section>
+<section id="勾配への応用" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="勾配への応用"><span class="header-section-number">8</span> 勾配への応用</h2>
+<p>以上の議論では <span class="math inline">\(\boldsymbol{p},\,\boldsymbol{q}\)</span> は任意の 2 本のベクトルだった．エッジ検出などの用途では，これに勾配ベクトルを代入する：</p>
+<p><span class="math display">\[
+L
+=
+\begin{bmatrix}
+\boldsymbol{g}_{x} &amp; \boldsymbol{g}_{y}
+\end{bmatrix}
+\]</span></p>
+<p>このとき</p>
+<p><span class="math display">\[
+A
+=L^{\top}L
+=
+\begin{bmatrix}
+\langle\boldsymbol{g}_{x},\boldsymbol{g}_{x}\rangle &amp; \langle\boldsymbol{g}_{x},\boldsymbol{g}_{y}\rangle\\
+\langle\boldsymbol{g}_{x},\boldsymbol{g}_{y}\rangle &amp; \langle\boldsymbol{g}_{y},\boldsymbol{g}_{y}\rangle
+\end{bmatrix}
+=
+\begin{bmatrix}
+I_{xx} &amp; I_{xy}\\
+I_{xy} &amp; I_{yy}
+\end{bmatrix}
+\]</span></p>
+<p>となり，最大となる方向とその強さは</p>
+<p><span class="math display">\[
+\theta
+=\frac{1}{2}\operatorname{atan2}{(2I_{xy},\,I_{xx}-I_{yy})}
+,\quad
+\boldsymbol{w}_{\max}
+=\cos{\theta}\,\boldsymbol{g}_{x}+\sin{\theta}\,\boldsymbol{g}_{y}
+,\quad
+\|\boldsymbol{w}_{\max}\|
+=\sqrt{\lambda_{\max}}
+\]</span></p>
+<p>で与えられる．</p>
+<p><a href="https://www.shadertoy.com/view/ffdSzS">Edge NMS Along the Max Gradient - Shadertoy</a></p>
+</section>
+<section id="まとめ" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="まとめ"><span class="header-section-number">9</span> まとめ</h2>
+<p>線形写像 <span class="math inline">\(L:\mathbb{R}^{2}\to\mathbb{R}^{N}\)</span> （2 つの係数を渡すと，混ぜ合わせたベクトルを返す写像）を考える．「単位円上の入力 <span class="math inline">\(\boldsymbol{v}\)</span> をどの方向に取ると出力 <span class="math inline">\(L\boldsymbol{v}\)</span> が最も長くなるか」という最適化問題は，対称行列 <span class="math inline">\(A=L^{\top}L\)</span> の固有値問題に帰着する．</p>
+<p>最大固有値 <span class="math inline">\(\lambda_{\max}\)</span> は，その混ぜ方をしたときの長さの 2 乗の最大値を与え，対応する固有ベクトル <span class="math inline">\(\boldsymbol{v}_{\max}\)</span> は，そのときの混ぜる比率を与える．</p>
+<p>2 本の勾配ベクトル <span class="math inline">\(\boldsymbol{g}_{x},\,\boldsymbol{g}_{y}\)</span> にこの枠組みを適用することで，勾配が最も長くなる方向と，その強さを求めることができる．</p>
+</section>
+<section id="appendix---対称行列の固有ベクトルの直交性" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="appendix---対称行列の固有ベクトルの直交性"><span class="header-section-number">10</span> Appendix - 対称行列の固有ベクトルの直交性</h2>
+<p>本文では，<span class="math inline">\(A\)</span> は <span class="math inline">\(2\times 2\)</span> の対称行列なので，異なる固有値に対する固有ベクトルは直交すると述べた．ここでは，この性質を証明する．</p>
+<p><span class="math inline">\(A\)</span> の異なる固有値 <span class="math inline">\(\lambda_{1},\,\lambda_{2}\)</span> に対応する固有ベクトルを <span class="math inline">\(\boldsymbol{v}_{1},\,\boldsymbol{v}_{2}\)</span> とする．つまり <span class="math inline">\(A\boldsymbol{v}_{1}=\lambda_{1}\boldsymbol{v}_{1},\,A\boldsymbol{v}_{2}=\lambda_{2}\boldsymbol{v}_{2}\)</span> であり，<span class="math inline">\(\lambda_{1}\neq\lambda_{2}\)</span> とする．示したいのは <span class="math inline">\(\boldsymbol{v}_{1}^{\top}\boldsymbol{v}_{2}=0\)</span> である．</p>
+<p>まず，<span class="math inline">\(\boldsymbol{v}_{2}\)</span> の固有値方程式 <span class="math inline">\(A\boldsymbol{v}_{2}=\lambda_{2}\boldsymbol{v}_{2}\)</span> の両辺に，左から <span class="math inline">\(\boldsymbol{v}_{1}^{\top}\)</span> を掛けると，</p>
+<p><span class="math display">\[
+\boldsymbol{v}_{1}^{\top}A\boldsymbol{v}_{2}
+=\lambda_{2}\boldsymbol{v}_{1}^{\top}\boldsymbol{v}_{2}
+\]</span></p>
+<p>ここで，<span class="math inline">\(A=A^{\top}\)</span> なので，<span class="math inline">\(\boldsymbol{v}_{1}\)</span> の固有値方程式 <span class="math inline">\(A\boldsymbol{v}_{1}=\lambda_{1}\boldsymbol{v}_{1}\)</span> を使えば，</p>
+<p><span class="math display">\[
+\boldsymbol{v}_{1}^{\top}A\boldsymbol{v}_{2}
+=\boldsymbol{v}_{1}^{\top}A^{\top}\boldsymbol{v}_{2}
+=(A\boldsymbol{v}_{1})^{\top}\boldsymbol{v}_{2}
+=(\lambda_{1}\boldsymbol{v}_{1})^{\top}\boldsymbol{v}_{2}
+=\lambda_{1}\boldsymbol{v}_{1}^{\top}\boldsymbol{v}_{2}
+\]</span></p>
+<p>となる．したがって，</p>
+<p><span class="math display">\[
+\lambda_{1}\boldsymbol{v}_{1}^{\top}\boldsymbol{v}_{2}
+=\lambda_{2}\boldsymbol{v}_{1}^{\top}\boldsymbol{v}_{2}
+\]</span></p>
+<p>より，</p>
+<p><span class="math display">\[
+(\lambda_{1}-\lambda_{2})\boldsymbol{v}_{1}^{\top}\boldsymbol{v}_{2}
+=0
+\]</span></p>
+<p>である．<span class="math inline">\(\lambda_{1}\neq\lambda_{2}\)</span> なので，</p>
+<p><span class="math display">\[
+\boldsymbol{v}_{1}^{\top}\boldsymbol{v}_{2}
+=0
+\]</span></p>
+<p>となり，<span class="math inline">\(\boldsymbol{v}_{1}\)</span> と <span class="math inline">\(\boldsymbol{v}_{2}\)</span> は直交する．</p>
+</section>
+<section id="references" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="references"><span class="header-section-number">11</span> References</h2>
 <ul>
-<li><p>なす角が180度を超える場合に片方の符号を反転し補間を行う</p>
-<p><strong>符号を反転しても同じ回転を表現することを利用</strong></p>
-<p><span class="math display">\[
-\begin{aligned}
-r=
-\begin{cases}
--q &amp; \text{if } \langle p, q \rangle \lt 0\\
-+q &amp; \text{otherwise}
-\end{cases}
-\end{aligned}
-\]</span></p></li>
+<li>Di Zenzo, S. (1986). A note on the gradient of a multi-image. <em>Computer Vision, Graphics, and Image Processing</em>, <em>33</em>(1), 116–125. <a href="https://doi.org/10.1016/0734-189X(86)90223-9" class="uri">https://doi.org/10.1016/0734-189X(86)90223-9</a></li>
 </ul>
-</section>
-<section id="球面線形補間の別形式" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="球面線形補間の別形式"><span class="header-section-number">6</span> 球面線形補間の別形式</h2>
-<p>指数・対数関数を用いない形式について．<span class="math inline">\(z_0=a+b\mathbb{i}, \hspace{3pt} z_1=c+d\mathbb{i} \in \mathbb{C}_1\)</span> のなす角を <span class="math inline">\(\alpha\)</span> とし <span class="math inline">\(h \in \mathbb{R}\)</span> で補間した <span class="math inline">\(z_h \in \mathbb{C}_1\)</span> を求める．この時 <span class="math inline">\(z_1\)</span> を元に <span class="math inline">\(z_0\)</span> に垂直な軸を <span class="math inline">\(z^{'}_1\)</span> とすると</p>
-<p><span class="math display">\[
-z_h
-=\cos{(\alpha h)} z_0 + \sin{(\alpha h)} z^{'}_1
-\]</span></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<iframe src="https://www.desmos.com/calculator/6mnn9miiyf?embed=">
-</iframe>
-<figcaption>
-Fig. 4. 球面線形補間
-</figcaption>
-</figure>
-</div>
-<p><span class="math inline">\(z^{'}_1\)</span> は二次元の場合は90度回転として求められる．</p>
-<p><span class="math display">\[
-z^{'}_1
-=- b + a \mathbb{i}
-\]</span></p>
-<p>より一般的には</p>
-<p><span class="math display">\[
-z^{'}_1
-=\frac{z_1 - \langle z_0, z_1 \rangle z_0}{|z_1 - \langle z_0, z_1 \rangle z_0|}
-\]</span></p>
-<p>または簡潔に</p>
-<p><span class="math display">\[
-z^{'}_1
-=\frac{z_1 - \cos{(\alpha)} z_0}{\sin{(\alpha)}}
-\]</span></p>
-<blockquote class="blockquote">
-<p><span class="math inline">\(s=\langle z_0, z_1 \rangle=\cos{(\alpha)}\)</span> とすると分母は</p>
-<p><span class="math display">\[
-\begin{aligned}
-|z_1 - \langle z_0, z_1 \rangle z_0|
-&amp;=|z_1 - s z_0|\\
-&amp;=\sqrt{(c-sa)^2 + (d-sb)^2}\\
-&amp;=\sqrt{s^2 |z_0|^2 - 2s \langle z_0,z_1 \rangle + |z_1|^2}\\
-&amp;=\sqrt{s^2 - 2s^2 + 1}\\
-&amp;=\sqrt{1 - s^2}\\
-&amp;=\sqrt{1 - \cos^{2}{(\alpha)}}\\
-&amp;=\sqrt{\sin^{2}{(\alpha)}}
-=\sin{(\alpha)}
-\end{aligned}
-\]</span></p>
-</blockquote>
-<p><span class="math inline">\(z^{'}_1\)</span> を <span class="math inline">\(z_h\)</span> に代入すると</p>
-<p><span class="math display">\[
-\begin{aligned}
-z_{h}
-&amp;=\cos(\alpha h) z_0 + \sin(\alpha h) z^{'}_1\\
-&amp;=\cos(\alpha h) z_0 + \sin(\alpha h) \frac{z_1 - \cos(\alpha) z_0}{\sin(\alpha)}\\
-&amp;=\cos(\alpha h)z_{0} + \frac{\sin(\alpha h)}{\sin(\alpha)}z_{1} - \frac{\sin(\alpha h)\cos(\alpha)}{\sin(\alpha)}z_{0}\\
-&amp;=\frac{\sin(\alpha)\cos(\alpha h) - \cos(\alpha)\sin(\alpha h)}{\sin(\alpha)}z_{0} + \frac{\sin(\alpha h)}{\sin(\alpha)}z_{1}\\
-&amp;=\frac{\sin(\alpha(1 - h))}{\sin(\alpha)}z_{0} + \frac{\sin(\alpha h)}{\sin(\alpha)}z_{1}
-\end{aligned}
-\]</span></p>
-<p><strong>途中，三角関数の加法定理を利用した．</strong></p>
-<p>このままでは分母に <span class="math inline">\(\sin{(\alpha)}\)</span> があるため <span class="math inline">\(\alpha \to 0\)</span> で発散するので，<span class="math inline">\(1 - |\langle z_0, z_1 \rangle| \le \epsilon\)</span> ならば線形補間に切り替え回避をする．</p>
-</section>
-<section id="スプライン補間の補足" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="スプライン補間の補足"><span class="header-section-number">7</span> スプライン補間の補足</h2>
-<p>未知数 <span class="math inline">\(s_{i}\)</span> の導出方法．</p>
-<ul>
-<li><p><span class="math inline">\(\operatorname{SLERP}\)</span> の微分</p>
-<p><span class="math display">\[
-\begin{aligned}
-\frac{d}{dh} \operatorname{SLERP}(p,q;h)
-&amp;=\frac{d}{dh} p \cdot (\overline{p} \cdot q)^{h}\\
-&amp;=p \cdot \frac{d}{dh} \exp{(h \log{(\overline{p} \cdot q)})}\\
-&amp;=p \cdot \exp{(h \log{(\overline{p} \cdot q)})} \cdot \log{(\overline{p} \cdot q)}\\
-&amp;=\operatorname{SLERP}(p,q;h) \cdot \log{(\overline{p} \cdot q)}
-\end{aligned}
-\]</span></p></li>
-<li><p><span class="math inline">\(\operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}, 1) = \operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}, 0)\)</span></p>
-<p><span class="math display">\[
-\begin{aligned}
-\operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}; 1)
-&amp;=\operatorname{SLERP}(\operatorname{SLERP}(p_{i-1}, p_{i}; 1), \operatorname{SLERP}(s_{i-1}, s_{i}; 1); 0)\\
-&amp;=\operatorname{SLERP}(p_{i}, s_{i}; 0)\\
-&amp;=p_{i}\\
-\\
-\operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}; 0)
-&amp;=\operatorname{SLERP}(\operatorname{SLERP}(p_{i}, p_{i+1}; 0), \operatorname{SLERP}(s_{i}, s_{i+1}; 0), 0)\\
-&amp;=\operatorname{SLERP}(p_{i}, s_{i}; 0)\\
-&amp;=p_{i}
-\end{aligned}
-\]</span></p></li>
-<li><p><span class="math inline">\(\operatorname{SQUAD}\)</span> の微分</p>
-<p><span class="math inline">\(g_{i}(h) = \overline{\operatorname{SLERP}(p_{i}, p_{i+1}; h)} \cdot \operatorname{SLERP}(s_{i}, s_{i+1}; h)\)</span> とすると</p>
-<p><span class="math display">\[
-\begin{aligned}
-\frac{d}{dh} \operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}; h)
-&amp;=\frac{d}{dh} \operatorname{SLERP}(\operatorname{SLERP}(p_{i}, p_{i+1}; h), \operatorname{SLERP}(s_{i}, s_{i+1}; h), 2h(1-h))\\
-&amp;=\frac{d}{dh} \operatorname{SLERP}(p_{i}, p_{i+1}; h) \cdot g_{i}(h)^{2h(1-h)}\\
-&amp;=\left(\frac{d}{dh} \operatorname{SLERP}(p_{i}, p_{i+1}; h)\right) \cdot g_{i}(h)^{2h(1-h)}
-- \operatorname{SLERP}(p_{i}, p_{i+1}; h) \cdot \left(\frac{d}{dh} g_{i}(h)^{2h(1-h)}\right)\\
-&amp;=\operatorname{SLERP}(p_{i}, p_{i+1}; h) \cdot \log{(\overline{p_{i}} \cdot p_{i+1})} \cdot g_{i}(h)^{2h(1-h)}
-- \operatorname{SLERP}(p_{i}, p_{i+1}; h) \cdot \left(\frac{d}{dh} g_{i}(h)^{2h(1-h)}\right)
-\end{aligned}
-\]</span></p></li>
-<li><p><span class="math inline">\(g_{i}(h)^{2h(1-h)}\)</span> の微分</p>
-<p><span class="math inline">\(g_{i}(h)=\cos{(\theta_{g_{i}(h)})} + \sin{(\theta_{g_{i}(h)})} \mathbb{i}, \hspace{5pt} f(h)=2h(1-h)\)</span> と置いて</p>
-<p><span class="math display">\[
-\begin{aligned}
-\frac{d}{dh} g_{i}(h)^{2h(1-h)}
-&amp;=\frac{d}{dh} \exp{(f(h) \cdot \log{(g_{i}(h))})}\\
-&amp;=\frac{d}{dh} \exp{(f(h) \cdot \theta_{g_{i}(h)} \mathbb{i})}\\
-&amp;=\frac{d}{dh} \left(\cos{(f(h) \cdot \theta_{g_{i}(h)})} + \sin{(f(h) \cdot \theta_{g_{i}(h)})} \mathbb{i}\right)\\
-&amp;=-\sin{(f(h) \cdot \theta_{g_{i}(h)})} \cdot \left(\frac{d}{dh} f(h) \cdot \theta_{g_{i}(h)}\right)
-- \cos{(f(h) \cdot \theta_{g_{i}(h)})} \cdot \left(\frac{d}{dh} f(h) \cdot \theta_{g_{i}(h)}\right) \mathbb{i}\\
-&amp;=-\sin{(f(h) \cdot \theta_{g_{i}(h)})} \cdot \left(\left(\frac{d}{dh} f(h)\right) \cdot \theta_{g_{i}(h)} + f(h) \cdot \left(\frac{d}{dh} \theta_{g_{i}(h)}\right)\right)
-\\&amp;\hspace{11pt}
-- \cos{(f(h) \cdot \theta_{g_{i}(h)})} \cdot \left(\left(\frac{d}{dh} f(h)\right) \cdot \theta_{g_{i}(h)} + f(h) \cdot \left(\frac{d}{dh} \theta_{g_{i}(h)}\right)\right) \mathbb{i}
-\end{aligned}
-\]</span></p></li>
-<li><p><span class="math inline">\(\frac{d}{dh} \operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}, 1) =  \frac{d}{dh} \operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}, 0)\)</span></p>
-<p><span class="math display">\[
-\begin{aligned}
-\frac{d}{dh} \operatorname{Squad}(p_{i-1}, p_{i}, s_{i-1}, s_{i}, 1)
-&amp;=\operatorname{SLERP}(p_{i-1}, p_{i}; 1) \cdot \log{(\overline{p_{i-1}} \cdot p_{i})}
-- \operatorname{SLERP}(p_{i-1}, p_{i}; 1) \cdot \left(\frac{d}{dh} g_{i-1}(h)^{2h(1-h)}\right)(1)\\
-&amp;=p_{i} \cdot \log{(\overline{p_{i-1}} \cdot p_{i})}
-- 2 p_{i} \cdot \theta_{g_{i-1}(1)} \mathbb{i}\\
-&amp;=p_{i} \cdot \left(\log{(\overline{p_{i-1}} \cdot p_{i})}
-- 2 \log(g_{i-1}(1))\right)\\
-&amp;=p_{i} \cdot \left(\log{(\overline{p_{i-1}} \cdot p_{i})}
-- 2 \log(\overline{p_{i}} \cdot s_{i})\right)\\
-\\
-\frac{d}{dh} \operatorname{Squad}(p_{i}, p_{i+1}, s_{i}, s_{i+1}, 0)
-&amp;=\operatorname{SLERP}(p_{i}, p_{i+1}; 0) \cdot \log{(\overline{p_{i}} \cdot p_{i+1})}
-- \operatorname{SLERP}(p_{i}, p_{i+1}; 0) \cdot \left(\frac{d}{dh} g_{i}(h)^{2h(1-h)}\right)(0)\\
-&amp;=p_{i} \cdot \log{(\overline{p_{i}} \cdot p_{i+1})}
-- 2 p_{i} \cdot \theta_{g_{i}(0)} \mathbb{i}\\
-&amp;=p_{i} \cdot \left(\log{(\overline{p_{i}} \cdot p_{i+1})}
-- 2 \log{(g_{i}(0))}\right)\\
-&amp;=p_{i} \cdot \left(\log{(\overline{p_{i}} \cdot p_{i+1})}
-- 2 \log{(\overline{p_{i}} \cdot s_{i})}\right)
-\end{aligned}
-\]</span></p></li>
-<li><p>上式より</p>
-<p><span class="math display">\[
-\begin{aligned}
-p_{i} \cdot \left(\log{(\overline{p_{i-1}} \cdot p_{i})}
-- 2 \log(\overline{p_{i}} \cdot s_{i})\right)
-&amp;=p_{i} \cdot \left(\log{(\overline{p_{i}} \cdot p_{i+1})}
-- 2 \log{(\overline{p_{i}} \cdot s_{i})}\right)\\
-\\
-\log{(\overline{p_{i-1}} \cdot p_{i})}
-- 2 \log(\overline{p_{i}} \cdot s_{i})
-&amp;=\log{(\overline{p_{i}} \cdot p_{i+1})}
-- 2 \log{(\overline{p_{i}} \cdot s_{i})}\\
-4 \log{(\overline{p_{i}} \cdot s_{i})}
-&amp;=\log{(\overline{p_{i-1}} \cdot p_{i})} - \log{(\overline{p_{i}} \cdot p_{i+1})}\\
-\\
-\overline{p_{i}} \cdot s_{i}
-&amp;=\exp{\left(\frac{\log{(\overline{p_{i-1}} \cdot p_{i})} - \log{(\overline{p_{i}} \cdot p_{i+1})}}{4}\right)}\\
-\\
-s_{i}
-&amp;=p_{i} \cdot \exp{\left(\frac{\log{(\overline{p_{i-1}} \cdot p_{i})} - \log{(\overline{p_{i}} \cdot p_{i+1})}}{4}\right)}
-\end{aligned}
-\]</span></p>
-<p><span class="math inline">\(\overline{p_1 \cdot p_2}=\overline{p_1} \cdot \overline{p_2}, \hspace{3pt} \log(\overline{p})=-\log(p), \hspace{3pt} \overline{p}=p^{-1}\)</span> を利用し</p>
-<p><span class="math display">\[
-\begin{aligned}
-s_{i}
-&amp;=p_{i} \cdot \exp{\left(\frac{\log{(\overline{p_{i-1}} \cdot p_{i})} - \log{(\overline{p_{i}} \cdot p_{i+1})}}{4}\right)}\\
-&amp;=p_{i} \cdot \exp{\left(\frac{\log{(\overline{p_{i-1} \cdot \overline{p_{i}}})} - \log{(\overline{p_{i}} \cdot p_{i+1})}}{4}\right)}\\
-&amp;=p_{i} \cdot \exp{\left(- \frac{\log{(\overline{p_{i}} \cdot p_{i-1})} - \log{(\overline{p_{i}} \cdot p_{i+1})}}{4}\right)}\\
-&amp;=p_{i} \cdot \exp{\left(- \frac{\log{(p_{i}^{-1} \cdot p_{i-1})} - \log{(p_{i}^{-1} \cdot p_{i+1})}}{4}\right)}
-\end{aligned}
-\]</span></p>
-<p><strong>四元数 <span class="math inline">\(p_{i} \in {H}_1\)</span> なら <span class="math inline">\(\overline{p_1 \otimes p_2}=\overline{p_2} \otimes \overline{p_1}\)</span></strong></p></li>
-</ul>
-<p>四元数のスプライン補間<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>と同様となる．</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<iframe src="https://www.desmos.com/calculator/kmrffw5ldr?embed=">
-</iframe>
-<figcaption>
-Fig. 5. スプライン補間
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="c-での実装例" class="level2" data-number="8">
-<h2 data-number="8" class="anchored" data-anchor-id="c-での実装例"><span class="header-section-number">8</span> C++ での実装例</h2>
-<p><a href="https://gist.github.com/Hasenpfote/566a04b7a5f9563921dff7fe1c1b5a01">GitHub Gist</a></p>
-</section>
-<section id="参考文献" class="level2" data-number="9">
-<h2 data-number="9" class="anchored" data-anchor-id="参考文献"><span class="header-section-number">9</span> 参考文献</h2>
-<ol type="1">
-<li><a href="https://www.essentialmath.com/GDC2012/GDC2012_JMV_Rotations.pdf">Jim Van Verth 2012 Understanding Rotations</a></li>
-<li><a href="https://web.mit.edu/2.998/www/QuaternionReport1.pdf">Erik B. Dam, Martin Koch, Martin Lillholm 1998 Quaternions, Interpolation and Animation</a></li>
-</ol>
 
 
 </section>
 
-
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">脚注</h2>
-
-<ol>
-<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Euler's_formula" class="uri">https://en.wikipedia.org/wiki/Euler's_formula</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>後述の <span class="math inline">\(e^{\frac{\theta}{2}\mathbb{i}}\)</span> の補間での Default 動作<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>前述の <span class="math inline">\(e^{\theta\mathbb{i}}\)</span> の補間での Default 動作<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>参考文献 [2] を参照．<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1256,7 +1310,7 @@ Fig. 5. スプライン補間
  © 2020-2025 Hasenpfote
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/edit/main/posts/representation-and-interpolation-of-rotations-in-complex-numbers.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/blob/main/posts/representation-and-interpolation-of-rotations-in-complex-numbers.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/edit/main/posts/longest-linear-combination.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/blob/main/posts/longest-linear-combination.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
