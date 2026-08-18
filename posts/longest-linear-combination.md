@@ -12,7 +12,7 @@ draft: false
 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<iframe src="https://www.desmos.com/calculator/gwlpuga9m5"></iframe>
+<iframe src="https://www.desmos.com/calculator/gwlpuga9m5?embed"></iframe>
 <figcaption>N=2</figcaption>
 </figure>
 </div>
