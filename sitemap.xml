@@ -2,110 +2,114 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://hasenpfote.github.io/index.html</loc>
-    <lastmod>2026-08-18T12:16:34.886Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.717Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/about.html</loc>
-    <lastmod>2026-08-18T12:16:34.886Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.717Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/posts/calibre-web-on-ts-220.html</loc>
-    <lastmod>2026-08-18T12:16:34.886Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.717Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/posts/thoughts-on-morton-code.html</loc>
-    <lastmod>2026-08-18T12:16:34.954Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.776Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/posts/zotero-workflow/index.html</loc>
-    <lastmod>2026-08-18T12:16:34.957Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.779Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/posts/thoughts-on-bvh.html</loc>
-    <lastmod>2026-08-18T12:16:34.950Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.772Z</lastmod>
   </url>
   <url>
-    <loc>https://hasenpfote.github.io/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html</loc>
-    <lastmod>2026-08-18T12:16:34.907Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-1.html</loc>
-    <lastmod>2026-08-18T12:16:34.886Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-2.html</loc>
-    <lastmod>2026-08-18T12:16:34.886Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/joplin-workflow/index.html</loc>
-    <lastmod>2026-08-18T12:16:34.905Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/thoughts-on-pluecker-coordinates.html</loc>
-    <lastmod>2026-08-18T12:16:34.955Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/crt-shader/index.html</loc>
-    <lastmod>2026-08-18T12:16:34.904Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/dual-complex-numbers.html</loc>
-    <lastmod>2026-08-18T12:16:34.904Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-3.html</loc>
-    <lastmod>2026-08-18T12:16:34.886Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/netlify-playwright-build-error.html</loc>
-    <lastmod>2026-08-18T12:16:34.906Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/sampling-with-piecewise-constant-distributions.html</loc>
-    <lastmod>2026-08-18T12:16:34.927Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/thoughts-on-rr.html</loc>
-    <lastmod>2026-08-18T12:16:34.955Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/clenshaw-algorithm.html</loc>
-    <lastmod>2026-08-18T12:16:34.887Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/rigid-body-simulation-notes.html</loc>
-    <lastmod>2026-08-18T12:16:34.907Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/gatsby-starter-lumen-archive-implementation/index.html</loc>
-    <lastmod>2026-08-18T12:16:34.904Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hasenpfote.github.io/posts/toy-box.html</loc>
-    <lastmod>2026-08-18T12:16:34.956Z</lastmod>
+    <loc>https://hasenpfote.github.io/posts/2d-simplex-noise-math.html</loc>
+    <lastmod>2026-09-03T01:29:10.717Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/posts/sampling-on-geometric-regions.html</loc>
-    <lastmod>2026-08-18T12:16:34.924Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.750Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/toy-box.html</loc>
+    <lastmod>2026-09-03T01:29:10.777Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/gatsby-starter-lumen-archive-implementation/index.html</loc>
+    <lastmod>2026-09-03T01:29:10.733Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/rigid-body-simulation-notes.html</loc>
+    <lastmod>2026-09-03T01:29:10.735Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/clenshaw-algorithm.html</loc>
+    <lastmod>2026-09-03T01:29:10.717Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/thoughts-on-rr.html</loc>
+    <lastmod>2026-09-03T01:29:10.776Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/sampling-with-piecewise-constant-distributions.html</loc>
+    <lastmod>2026-09-03T01:29:10.752Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/netlify-playwright-build-error.html</loc>
+    <lastmod>2026-09-03T01:29:10.734Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-3.html</loc>
+    <lastmod>2026-09-03T01:29:10.717Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/dual-complex-numbers.html</loc>
+    <lastmod>2026-09-03T01:29:10.732Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/crt-shader/index.html</loc>
+    <lastmod>2026-09-03T01:29:10.732Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/thoughts-on-pluecker-coordinates.html</loc>
+    <lastmod>2026-09-03T01:29:10.776Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/joplin-workflow/index.html</loc>
+    <lastmod>2026-09-03T01:29:10.734Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-2.html</loc>
+    <lastmod>2026-09-03T01:29:10.717Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/building-an-orthonormal-basis-1.html</loc>
+    <lastmod>2026-09-03T01:29:10.717Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hasenpfote.github.io/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html</loc>
+    <lastmod>2026-09-03T01:29:10.735Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/posts/thoughts-on-slab-method.html</loc>
-    <lastmod>2026-08-18T12:16:34.956Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.777Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/posts/longest-linear-combination.html</loc>
-    <lastmod>2026-08-18T12:16:34.906Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.734Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/posts/gatsby-add-custom-font.html</loc>
-    <lastmod>2026-08-18T12:16:34.904Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.732Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/posts/how-to-start-a-simplest-blog-quickly-with-gatsby.html</loc>
-    <lastmod>2026-08-18T12:16:34.905Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.734Z</lastmod>
   </url>
   <url>
     <loc>https://hasenpfote.github.io/archive.html</loc>
-    <lastmod>2026-08-18T12:16:34.886Z</lastmod>
+    <lastmod>2026-09-03T01:29:10.717Z</lastmod>
   </url>
 </urlset>

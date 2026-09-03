@@ -10,7 +10,259 @@
 <atom:link href="https://hasenpfote.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>A great sample blog</description>
 <generator>quarto-1.10.18</generator>
-<lastBuildDate>Tue, 18 Aug 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 01 Sep 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>2D Simplex Noise の数学</title>
+  <link>https://hasenpfote.github.io/posts/2d-simplex-noise-math.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>2D simplex noise では，入力点を Skew した座標系に変換して格子領域を求め，これを Unskew して元の座標系における基準位置を求める．基準位置から入力点が属する simplex を決定し，simplex を構成する 3 つの格子点との相対位置を求めた上で，各格子点からの寄与を評価する．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/belhmqu6mr?embed">
+</iframe>
+<figcaption>
+</figcaption>
+</figure>
+</div>
+<section id="skew-と格子座標の決定" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="skew-と格子座標の決定"><span class="header-section-number">1</span> Skew と格子座標の決定</h2>
+<p>入力点を</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bx%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ax%5C%5C%0Ay%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>とすると，Skew 変換によって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bx%7D%5E%7B'%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ax%5E%7B'%7D%5C%5C%0Ay%5E%7B'%7D%0A%5Cend%7Bbmatrix%7D%0A=M%5Ccdot%5Cboldsymbol%7Bx%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A1+F_%7B2%7D%20&amp;%20F_%7B2%7D%5C%5C%0AF_%7B2%7D%20&amp;%201+F_%7B2%7D%0A%5Cend%7Bbmatrix%7D%0A%5Ccdot%5Cboldsymbol%7Bx%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ax+(x+y)%5Ccdot%20F_%7B2%7D%5C%5C%0Ay+(x+y)%5Ccdot%20F_%7B2%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>となる．ここで <img src="https://latex.codecogs.com/png.latex?F_%7B2%7D=%5Cfrac%7B%5Csqrt%7B3%7D-1%7D%7B2%7D"> であり，導出は Appendix A で扱う．</p>
+<p>Skew 変換後の座標から整数格子座標を</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ai=%5Clfloor%20x%5E%7B'%7D%5Crfloor%0A,%5Cquad%0Aj=%5Clfloor%20y%5E%7B'%7D%5Crfloor%0A"></p>
+<p>として求める．</p>
+<p>これにより入力点が属する格子領域が定まる．</p>
+</section>
+<section id="unskew-と-simplex-の決定" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="unskew-と-simplex-の決定"><span class="header-section-number">2</span> Unskew と simplex の決定</h2>
+<p>求めた格子座標 <img src="https://latex.codecogs.com/png.latex?(i,%20j)"> を Unskew し，元の座標系における格子領域の基準位置を求める．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7BX%7D_%7B0%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0AX_%7B0%7D%5C%5C%0AY_%7B0%7D%0A%5Cend%7Bbmatrix%7D%0A=M%5E%7B-1%7D%5Ccdot%0A%5Cbegin%7Bbmatrix%7D%0Ai%5C%5C%0Aj%0A%5Cend%7Bbmatrix%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ai-(i+j)%5Ccdot%20G_%7B2%7D%5C%5C%0Aj-(i+j)%5Ccdot%20G_%7B2%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>ここで <img src="https://latex.codecogs.com/png.latex?G_%7B2%7D=%5Cfrac%7B3-%5Csqrt%7B3%7D%7D%7B6%7D"> であり，導出は Appendix B で扱う．</p>
+<p>入力点への相対位置を</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bd%7D_%7B0%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ax_%7B0%7D%5C%5C%0Ay_%7B0%7D%0A%5Cend%7Bbmatrix%7D%0A=%0A%5Cboldsymbol%7Bx%7D-%5Cboldsymbol%7BX%7D_%7B0%7D%0A"></p>
+<p>とする．</p>
+<p>格子領域内の位置は次のように分類される．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bc%7Cc%7D%0A%5Chline%0Ax_%7B0%7D%5Cgt%20y_%7B0%7D%20&amp;%20%5Ctext%7Blower%7D%5C%5C%0Ax_%7B0%7D%5Clt%20y_%7B0%7D%20&amp;%20%5Ctext%7Bupper%7D%5C%5C%0Ax_%7B0%7D=y_%7B0%7D%20&amp;%20%5Ctext%7Bdiagonal%7D%5C%5C%0A%5Chline%0A%5Cend%7Barray%7D%0A"></p>
+<p>ここでは diagonal 上の点は upper として扱う．</p>
+</section>
+<section id="格子点からの相対位置の算出" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="格子点からの相対位置の算出"><span class="header-section-number">3</span> 格子点からの相対位置の算出</h2>
+<p>格子座標 <img src="https://latex.codecogs.com/png.latex?(0,%200)"> に対応する格子点を基準とし，残りの格子点は次のようになる．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bc%7Cc%7Cc%7D%0A&amp;%20%5Ctext%7BGrid%20coordinate%7D%20&amp;%20%5Ctext%7BUnskewed%20displacement%7D%5C%5C%0A%5Chline%0A%5Ctext%7Blower%7D%20&amp;%20(1,%200)%20&amp;%0A%5Cbegin%7Bbmatrix%7D%0A1-G_%7B2%7D%5C%5C%0A-G_%7B2%7D%0A%5Cend%7Bbmatrix%7D%5C%5C%0A%5Ctext%7Bupper%7D%20&amp;%20(0,%201)%20&amp;%0A%5Cbegin%7Bbmatrix%7D%0A-G_%7B2%7D%5C%5C%0A1-G_%7B2%7D%0A%5Cend%7Bbmatrix%7D%5C%5C%0A%5Ctext%7Bshared%7D%20&amp;%20(1,%201)%20&amp;%0A%5Cbegin%7Bbmatrix%7D%0A1-2G_%7B2%7D%5C%5C%0A1-2G_%7B2%7D%0A%5Cend%7Bbmatrix%7D%0A%5Cend%7Barray%7D%0A"></p>
+<p>各格子点に対する入力点への相対位置は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bd%7D_%7B1%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ax_%7B1%7D%5C%5C%0Ay_%7B1%7D%0A%5Cend%7Bbmatrix%7D%0A=%0A%5Cboldsymbol%7Bd%7D_%7B0%7D%0A-%0A%5Cboldsymbol%7B%5CDelta%7D_%7B1%7D%0A,%5Cquad%0A%5Cboldsymbol%7Bd%7D_%7B2%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ax_%7B2%7D%5C%5C%0Ay_%7B2%7D%0A%5Cend%7Bbmatrix%7D%0A=%0A%5Cboldsymbol%7Bd%7D_%7B0%7D%0A-%0A%5Cboldsymbol%7B%5CDelta%7D_%7B2%7D%0A"></p>
+<p>となる．ここで，<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bd%7D_%7B1%7D"> は lower または upper ，<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bd%7D_%7B2%7D"> は shared の格子点に対する相対位置である．</p>
+</section>
+<section id="各格子点の寄与" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="各格子点の寄与"><span class="header-section-number">4</span> 各格子点の寄与</h2>
+<p>各格子点の寄与は，格子点からの距離による減衰と，勾配ベクトルと変位ベクトルの内積によって決まる．</p>
+<section id="距離による減衰" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="距離による減衰"><span class="header-section-number">4.1</span> 距離による減衰</h3>
+<p>格子点 <img src="https://latex.codecogs.com/png.latex?i"> から入力点までの距離に応じた量を</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0At_%7Bi%7D%0A=r%5E%7B2%7D-%5C%7C%5Cboldsymbol%7Bd%7D_%7Bi%7D%5C%7C%5E%7B2%7D%0A"></p>
+<p>と定義する．<img src="https://latex.codecogs.com/png.latex?t_%7Bi%7D"> は格子点から離れるにつれて小さくなり，影響範囲の境界に向かうと <img src="https://latex.codecogs.com/png.latex?0"> に近づく．</p>
+<p>ここで</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ar%5E%7B2%7D=0.5%0A"></p>
+<p>である．導出は Appendix C で扱う．</p>
+</section>
+<section id="寄与の算出" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="寄与の算出"><span class="header-section-number">4.2</span> 寄与の算出</h3>
+<p>格子点 <img src="https://latex.codecogs.com/png.latex?i"> に割り当てられた勾配ベクトルを <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bg%7D_%7Bi%7D"> とすると，その寄与は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0An_%7Bi%7D%0A=%0A%5Cbegin%7Bcases%7D%0At_%7Bi%7D%5E%7B4%7D%5Ccdot%5Clangle%5Cboldsymbol%7Bg%7D_%7Bi%7D,%5Cboldsymbol%7Bd%7D_%7Bi%7D%5Crangle%20&amp;%20t_%7Bi%7D%5Cge%200%5C%5C%0A0%20&amp;%20%5Ctext%7Botherwise%7D%0A%5Cend%7Bcases%7D%0A"></p>
+<p>となる．</p>
+<p>最終的なノイズ値は，3 つの格子点からの寄与を加算し，正規化することで得られる．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0An%0A=C%5Ccdot%5Csum_%7Bi=0%7D%5E%7B2%7Dn_%7Bi%7D%0A"></p>
+<p>ここで <img src="https://latex.codecogs.com/png.latex?C"> は正規化定数であり，導出は Appendix E で扱う．</p>
+</section>
+</section>
+<section id="appendix-a-f_2-の導出" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="appendix-a-f_2-の導出"><span class="header-section-number">5</span> Appendix A: <img src="https://latex.codecogs.com/png.latex?F_%7B2%7D"> の導出</h2>
+<p>Skew 変換を表す行列を</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AM(k)%0A=%0A%5Cbegin%7Bbmatrix%7D%0A1+k%20&amp;%20k%5C%5C%0Ak%20&amp;%201+k%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>と定義する．</p>
+<p>このとき，座標 <img src="https://latex.codecogs.com/png.latex?(x,%20y)"> を Skew すると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bx%7D%5E%7B'%7D%0A=M%5Ccdot%5Cboldsymbol%7Bx%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ax+(x+y)%5Ccdot%20k%5C%5C%0Ay+(x+y)%5Ccdot%20k%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>となる．</p>
+<p>行列の各列を格子座標の基底とすると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Ba%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A1+k%5C%5C%0Ak%0A%5Cend%7Bbmatrix%7D%0A,%5Cquad%0A%5Cboldsymbol%7Bb%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ak%5C%5C%0A1+k%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>となる．</p>
+<p>この 2 つの基底のなす角を <img src="https://latex.codecogs.com/png.latex?60%5E%7B%5Ccirc%7D"> にすることで正三角形を構成する格子配置になる．したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cleft%5Clangle%5Cfrac%7B%5Cboldsymbol%7Ba%7D%7D%7B%5C%7C%5Cboldsymbol%7Ba%7D%5C%7C%7D,%5Cfrac%7B%5Cboldsymbol%7Bb%7D%7D%7B%5C%7C%5Cboldsymbol%7Bb%7D%5C%7C%7D%5Cright%5Crangle%0A=%5Ccos%7B%5Cfrac%7B%5Cpi%7D%7B3%7D%7D%0A=%5Cfrac%7B1%7D%7B2%7D%0A"></p>
+<p>これを解くと，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ak%0A=%5Cfrac%7B-1%5Cpm%5Csqrt%7B3%7D%7D%7B2%7D%0A"></p>
+<p>となる．</p>
+<p><img src="https://latex.codecogs.com/png.latex?k%5Cgt%200"> のとき，2 つのベクトルはともに第一象限を向くので，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AF_%7B2%7D%0A=k%0A=%5Cfrac%7B%5Csqrt%7B3%7D-1%7D%7B2%7D%0A"></p>
+</section>
+<section id="appendix-b-g_2-の導出" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="appendix-b-g_2-の導出"><span class="header-section-number">6</span> Appendix B: <img src="https://latex.codecogs.com/png.latex?G_%7B2%7D"> の導出</h2>
+<p>Skew 変換を表す行列 <img src="https://latex.codecogs.com/png.latex?M(k)"> の逆行列は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AM%5E%7B-1%7D(k)%0A=%0A%5Cfrac%7B1%7D%7B1+2k%7D%0A%5Cbegin%7Bbmatrix%7D%0A1+k%20&amp;%20-k%5C%5C%0A-k%20&amp;%201+k%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>である．</p>
+<p>Skew 変換後の座標 <img src="https://latex.codecogs.com/png.latex?(x%5E%7B'%7D,%20y%5E%7B'%7D)"> を元の座標に戻すと，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bx%7D%0A=M%5E%7B-1%7D%5Ccdot%5Cboldsymbol%7Bx%7D%5E%7B'%7D%0A=%5Cfrac%7B1%7D%7B1+2k%7D%0A%5Cbegin%7Bbmatrix%7D%0A(1+k)x%5E%7B'%7D-ky%5E%7B'%7D%5C%5C%0A-kx%5E%7B'%7D+(1+k)y%5E%7B'%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>ここで，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B1+k%7D%7B1+2k%7D%0A=1-%5Cfrac%7Bk%7D%7B1+2k%7D%0A"></p>
+<p>なので，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bx%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A%5Cleft(1-%5Cfrac%7Bk%7D%7B1+2k%7D%5Cright)x%5E%7B'%7D-%5Cfrac%7Bk%7D%7B1+2k%7Dy%5E%7B'%7D%5C%5C%0A-%5Cfrac%7Bk%7D%7B1+2k%7Dx%5E%7B'%7D+%5Cleft(1-%5Cfrac%7Bk%7D%7B1+2k%7D%5Cright)y%5E%7B'%7D%0A%5Cend%7Bbmatrix%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ax%5E%7B'%7D-%5Cfrac%7Bk%7D%7B1+2k%7D(x%5E%7B'%7D+y%5E%7B'%7D)%5C%5C%0Ay%5E%7B'%7D-%5Cfrac%7Bk%7D%7B1+2k%7D(x%5E%7B'%7D+y%5E%7B'%7D)%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>共通して現れる係数を</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AG_%7B2%7D%0A=%5Cfrac%7Bk%7D%7B1+2k%7D%0A"></p>
+<p>とおくと，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bx%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0Ax%5E%7B'%7D-G_%7B2%7D(x%5E%7B'%7D+y%5E%7B'%7D)%5C%5C%0Ay%5E%7B'%7D-G_%7B2%7D(x%5E%7B'%7D+y%5E%7B'%7D)%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>となる．</p>
+<p>ここで <img src="https://latex.codecogs.com/png.latex?k"> を代入すると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AG_%7B2%7D%0A=%5Cfrac%7B%5Cfrac%7B%5Csqrt%7B3%7D-1%7D%7B2%7D%7D%7B1+2%5Cfrac%7B%5Csqrt%7B3%7D-1%7D%7B2%7D%7D%0A=%5Cfrac%7B%5Csqrt%7B3%7D-1%7D%7B2%5Csqrt%7B3%7D%7D%0A=%5Cfrac%7B3-%5Csqrt%7B3%7D%7D%7B6%7D%0A"></p>
+</section>
+<section id="appendix-c-影響範囲の導出" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="appendix-c-影響範囲の導出"><span class="header-section-number">7</span> Appendix C: 影響範囲の導出</h2>
+<p>入力点が属する格子領域を求め，その領域の simplex を構成する 3 つの格子点のみを影響対象とする．したがって，各影響範囲を，格子点から対辺までと定める．</p>
+<p>2D simplex は正三角形を構成するため，その範囲は三角形の高さとなる．</p>
+<p>Appendix B で求めた</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AG_%7B2%7D%0A=%5Cfrac%7B3-%5Csqrt%7B3%7D%7D%7B6%7D%0A"></p>
+<p>を用いると，基準となる格子点 <img src="https://latex.codecogs.com/png.latex?(0,%200)"> から lower の第 2 格子点 <img src="https://latex.codecogs.com/png.latex?(1,%200)"> までの変位は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7B%5CDelta%7D_%7B1%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A1-G_%7B2%7D%5C%5C%0A-G_%7B2%7D%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>である．したがって，辺長の 2 乗は，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5C%7C%5Cboldsymbol%7B%5CDelta%7D_%7B1%7D%5C%7C%5E%7B2%7D%0A=(1-G_%7B2%7D)%5E%7B2%7D+G_%7B2%7D%5E%7B2%7D%0A=%5Cfrac%7B2%7D%7B3%7D%0A"></p>
+<p>ここで，正三角形の頂点から対辺に垂線を下ろすと，辺長の半分を底辺とする直角三角形が得られる．その高さは，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign*%7D%0Ah%5E%7B2%7D+%5Cleft(%5Cfrac%7B%5C%7C%5Cboldsymbol%7B%5CDelta%7D_%7B1%7D%5C%7C%7D%7B2%7D%5Cright)%5E%7B2%7D%0A&amp;=%5C%7C%5Cboldsymbol%7B%5CDelta%7D_%7B1%7D%5C%7C%5E%7B2%7D%0A,%5C%5C%0Ah%0A&amp;=%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%0A%5Cend%7Balign*%7D%0A"></p>
+<p>となる．</p>
+</section>
+<section id="appendix-d-t_i4-の妥当性" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="appendix-d-t_i4-の妥当性"><span class="header-section-number">8</span> Appendix D: <img src="https://latex.codecogs.com/png.latex?t_i%5E4"> の妥当性</h2>
+<p>寄与の算出では，距離による減衰に <img src="https://latex.codecogs.com/png.latex?t_i%5E4"> を用いている．ここでは，このべき指数が影響範囲の境界における滑らかさにどのように関係するかを示す．</p>
+<section id="微分可能性の要求" class="level3" data-number="8.1">
+<h3 data-number="8.1" class="anchored" data-anchor-id="微分可能性の要求"><span class="header-section-number">8.1</span> 微分可能性の要求</h3>
+<p>シェーディング等において法線ベクトルを求める際には，ノイズ関数の 1 次導関数が利用される．そのため，格子点の影響範囲の境界において，ノイズ値だけでなくその 1 次導関数も連続であることが望ましい．</p>
+<p>寄与を次のように一般化する．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0An_i%0A=%0A%5Cbegin%7Bcases%7D%0At_i%5Ep%5Ccdot%5Clangle%5Cboldsymbol%7Bg%7D_i,%5Cboldsymbol%7Bd%7D_i%5Crangle%20&amp;%20t_i%5Cge0%5C%5C%0A0%20&amp;%20%5Ctext%7Botherwise%7D%0A%5Cend%7Bcases%7D%0A"></p>
+<p>ここで，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0At_i=r%5E2-%5C%7C%5Cboldsymbol%7Bd%7D_i%5C%7C%5E2%0A"></p>
+<p>であり，<img src="https://latex.codecogs.com/png.latex?t_i"> は入力点の座標 <img src="https://latex.codecogs.com/png.latex?x,y"> に関する 2 次関数である．また，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Clangle%5Cboldsymbol%7Bg%7D_i,%5Cboldsymbol%7Bd%7D_i%5Crangle%0A"></p>
+<p>は <img src="https://latex.codecogs.com/png.latex?x,%20y"> に関する 1 次関数である．</p>
+<p>影響範囲の境界では <img src="https://latex.codecogs.com/png.latex?t_i=0"> となるため，まず</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AF(u)%0A=%0A%5Cbegin%7Bcases%7D%20u%5Ep%20&amp;%20u%5Cge0%5C%5C%0A0%20&amp;%20%5Ctext%7Botherwise%7D%0A%5Cend%7Bcases%7D%0A"></p>
+<p>という関数の <img src="https://latex.codecogs.com/png.latex?u=0"> における滑らかさを考える．ここで <img src="https://latex.codecogs.com/png.latex?p%5Cin%5Cmathbb%7BZ%7D_%7B%3E0%7D"> とする．<img src="https://latex.codecogs.com/png.latex?t_i(x,%20y)"> は滑らかな関数であり，影響範囲の境界 <img src="https://latex.codecogs.com/png.latex?t_i=0"> では</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cnabla%20t_i=-2%5Cboldsymbol%7Bd%7D_i%5Cneq%5Cboldsymbol%7B0%7D%0A"></p>
+<p>である．したがって，<img src="https://latex.codecogs.com/png.latex?F(t_i(x,%20y))"> の境界 <img src="https://latex.codecogs.com/png.latex?t_i=0"> における滑らかさは，<img src="https://latex.codecogs.com/png.latex?F(u)"> の <img src="https://latex.codecogs.com/png.latex?u=0"> における滑らかさから評価できる．</p>
+</section>
+<section id="境界-u0-における滑らかさ" class="level3" data-number="8.2">
+<h3 data-number="8.2" class="anchored" data-anchor-id="境界-u0-における滑らかさ"><span class="header-section-number">8.2</span> 境界 <img src="https://latex.codecogs.com/png.latex?u=0"> における滑らかさ</h3>
+<p><img src="https://latex.codecogs.com/png.latex?u%3E0"> において <img src="https://latex.codecogs.com/png.latex?F(u)=u%5Ep"> を <img src="https://latex.codecogs.com/png.latex?k"> 回微分すると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AF%5E%7B(k)%7D(u)%0A=%5Cfrac%7Bp!%7D%7B(p-k)!%7Du%5E%7Bp-k%7D%20%5Cqquad%20(1%5Cle%20k%5Cle%20p)%0A"></p>
+<p>となる．<img src="https://latex.codecogs.com/png.latex?u%5Cto0%5E+"> の極限を考えると，<img src="https://latex.codecogs.com/png.latex?k%5Clt%20p"> では <img src="https://latex.codecogs.com/png.latex?p-k%3E0"> であるから，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AF%5E%7B(k)%7D(u)%5Clongrightarrow0%0A"></p>
+<p>となり，これは <img src="https://latex.codecogs.com/png.latex?u%3C0"> 側の恒等的に 0 である部分と一致する．</p>
+<p>一方，<img src="https://latex.codecogs.com/png.latex?k=p"> では <img src="https://latex.codecogs.com/png.latex?F%5E%7B(k)%7D(u)"> は <img src="https://latex.codecogs.com/png.latex?u"> によらない定数 <img src="https://latex.codecogs.com/png.latex?p!"> であるから，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AF%5E%7B(p)%7D(u)%5Clongrightarrow%20p!%0A"></p>
+<p>となり，<img src="https://latex.codecogs.com/png.latex?u%3C0"> 側の 0 とは一致しない．なお，さらに微分すると <img src="https://latex.codecogs.com/png.latex?F%5E%7B(p+1)%7D(u)=0"> である．</p>
+<p>また，<img src="https://latex.codecogs.com/png.latex?F(0)=0"> であり，これは <img src="https://latex.codecogs.com/png.latex?u%3C0"> 側の値と一致するため，<img src="https://latex.codecogs.com/png.latex?F(u)"> は <img src="https://latex.codecogs.com/png.latex?u=0"> で連続である．</p>
+<p>したがって，<img src="https://latex.codecogs.com/png.latex?F(u)"> は境界 <img src="https://latex.codecogs.com/png.latex?u=0"> において</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AC%5E%7Bp-1%7D%0A"></p>
+<p>級となる．</p>
+</section>
+<section id="p4-の場合" class="level3" data-number="8.3">
+<h3 data-number="8.3" class="anchored" data-anchor-id="p4-の場合"><span class="header-section-number">8.3</span> <img src="https://latex.codecogs.com/png.latex?p=4"> の場合</h3>
+<p>今回用いる <img src="https://latex.codecogs.com/png.latex?p=4"> では，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AF(u)%0A=%0A%5Cbegin%7Bcases%7D%20u%5E4%20&amp;%20u%5Cge0%5C%5C%0A0%20&amp;%20%5Ctext%7Botherwise%7D%0A%5Cend%7Bcases%7D%0A"></p>
+<p>である．これを順に微分すると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AF'(u)=4u%5E3%0A,%5Cquad%0AF''(u)=12u%5E2%0A,%5Cquad%20F'''(u)=24u%0A,%5Cquad%20F%5E%7B(4)%7D(u)=24%0A"></p>
+<p>となる．境界 <img src="https://latex.codecogs.com/png.latex?u=0"> において</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AF(0)=F'(0)=F''(0)=F'''(0)=0%0A"></p>
+<p>であり，これらは <img src="https://latex.codecogs.com/png.latex?u%3C0"> 側の値および 1 次・ 2 次・ 3 次導関数とそれぞれ一致する．一方，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AF%5E%7B(4)%7D(0)=24%0A"></p>
+<p>となるため，4 次導関数では不連続となる．</p>
+<p>以上より，<img src="https://latex.codecogs.com/png.latex?t_i%5E4"> を用いることで，影響範囲の境界において寄与は <img src="https://latex.codecogs.com/png.latex?C%5E3"> 級となり，少なくともノイズ値とその 1 次導関数が連続に接続される．</p>
+</section>
+</section>
+<section id="appendix-e-正規化定数" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="appendix-e-正規化定数"><span class="header-section-number">9</span> Appendix E: 正規化定数</h2>
+<p>ノイズ値は，3 つの格子点からの寄与の総和</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Af(%5Cboldsymbol%7Bx%7D;%5Cboldsymbol%7Bg%7D_%7B0%7D,%5Cboldsymbol%7Bg%7D_%7B1%7D,%5Cboldsymbol%7Bg%7D_%7B2%7D)%0A=%5Csum_%7Bi=0%7D%5E%7B2%7Dn_%7Bi%7D%0A"></p>
+<p>によって得られる．ここで <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bg%7D_%7Bi%7D"> は各格子点に割り当てられた勾配ベクトルである．</p>
+<p>出力値を <img src="https://latex.codecogs.com/png.latex?%5B-1,%201%5D"> に正規化するため，この総和の絶対値の最大値を</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Af_%7B%5Cmax%7D%0A=%5Cmax_%7B%5Cboldsymbol%7Bx%7D,%5Cboldsymbol%7Bg%7D_%7B0%7D,%5Cboldsymbol%7Bg%7D_%7B1%7D,%5Cboldsymbol%7Bg%7D_%7B2%7D%7D%7B%7Cf(%5Cboldsymbol%7Bx%7D;%5Cboldsymbol%7Bg%7D_%7B0%7D,%5Cboldsymbol%7Bg%7D_%7B1%7D,%5Cboldsymbol%7Bg%7D_%7B2%7D)%7C%7D%0A"></p>
+<p>とする．ここで <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bx%7D"> は 1 つの canonical simplex 内を動き，<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bg%7D_%7Bi%7D"> は使用する勾配ベクトルの組み合わせについて評価する．</p>
+<p>正規化定数は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AC%0A=%5Cfrac%7B1%7D%7Bf_%7B%5Cmax%7D%7D%0A"></p>
+<p>と定める．したがって，正規化後のノイズ値は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0An%0A=C%5Ccdot%20f(%5Cboldsymbol%7Bx%7D;%5Cboldsymbol%7Bg%7D_%7B0%7D,%5Cboldsymbol%7Bg%7D_%7B1%7D,%5Cboldsymbol%7Bg%7D_%7B2%7D)%0A"></p>
+<p>となり，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%7Cn%7C%5Cle%201%0A"></p>
+<p>を満たす．</p>
+<p>最大値の推定値は，1 つの canonical simplex 内を十分細かくサンプリングして最大値の候補を求め，その候補を初期値として数値最適化を行うことで求めた．数値計算には<a href="https://colab.research.google.com/drive/1J-RB4R2paFomD1dc9J2UVV9qPaQr2tUA?usp=sharing">このスクリプト</a>を使用した．</p>
+<p>今回使用する 2D simplex noise では，8 種類の勾配ベクトル</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathcal%7BG%7D%0A=%0A%5Cleft%5C%7B%0A%5Cbegin%7Bbmatrix%7D%0A0%5C%5C%0A%5Cpm%201%0A%5Cend%7Bbmatrix%7D%0A,%0A%5Cbegin%7Bbmatrix%7D%0A%5Cpm%201%5C%5C%0A0%0A%5Cend%7Bbmatrix%7D%0A,%0A%5Cbegin%7Bbmatrix%7D%0A%5Cpm%201%5C%5C%0A%5Cpm%201%0A%5Cend%7Bbmatrix%7D%0A%5Cright%5C%7D%0A"></p>
+<p>を用いるため， 3 つの格子点に対する勾配の組み合わせは <img src="https://latex.codecogs.com/png.latex?8%5E%7B3%7D=512"> 通りとなる．これらすべての組み合わせについて simplex 内の <img src="https://latex.codecogs.com/png.latex?%7Cf%7C"> の最大値を探索する．</p>
+<p>その結果，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Af_%7B%5Cmax%7D%0A%5Capprox%200.014255562201874%0A"></p>
+<p>となり，正規化定数は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AC%0A%5Capprox%2070.14805770820965%0A"></p>
+<p>となる．</p>
+<p>なお，最大値は simplex のある辺上に現れ，このときの一例は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bg%7D_%7B0%7D%0A=%5Cboldsymbol%7Bg%7D_%7B1%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A-1%5C%5C%0A-1%0A%5Cend%7Bbmatrix%7D%0A,%5Cquad%0A%5Cboldsymbol%7Bg%7D_%7B2%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0A1%5C%5C%0A1%0A%5Cend%7Bbmatrix%7D%0A"></p>
+<p>であり，重心座標は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A(u,%20v,%20w)%0A%5Capprox%20(0,%200.499002,%200.500998)%0A"></p>
+<p>となる．</p>
+</section>
+<section id="appendix-f-正規化定数-2" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="appendix-f-正規化定数-2"><span class="header-section-number">10</span> Appendix F: 正規化定数 2</h2>
+<p>Appendix E では，勾配ベクトルの組み合わせを変えながら，目的関数の最大値を探索していた．ここでは，勾配ベクトルの大きさを</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5C%7C%5Cboldsymbol%7Bg%7D_%7Bi%7D%5C%7C=1%0A"></p>
+<p>に制限することで，勾配ベクトルについての探索を取り除くことを考える．</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bx%7D"> を固定すると，各項に含まれる内積について Cauchy–Schwarz の不等式より</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%7C%5Clangle%5Cboldsymbol%7Bg%7D_%7Bi%7D,%5Cboldsymbol%7Bd%7D_%7Bi%7D%5Crangle%7C%0A%5Cle%5C%7C%5Cboldsymbol%7Bg%7D_%7Bi%7D%5C%7C%5C%7C%5Cboldsymbol%7Bd%7D_%7Bi%7D%5C%7C%0A=%5C%7C%5Cboldsymbol%7Bd%7D_%7Bi%7D%5C%7C%0A"></p>
+<p>が成り立つ．</p>
+<p>等号は <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bg%7D_%7Bi%7D%5Cparallel%5Cboldsymbol%7Bd%7D_%7Bi%7D"> のときに成立する．ここでは <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bg%7D_%7Bi%7D"> を <img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bd%7D_%7Bi%7D"> と同じ向きに取ると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cboldsymbol%7Bg%7D_%7Bi%7D%0A=%5Cfrac%7B%5Cboldsymbol%7Bd%7D_%7Bi%7D%7D%7B%5C%7C%5Cboldsymbol%7Bd%7D_%7Bi%7D%5C%7C%7D%0A"></p>
+<p>となり，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Clangle%5Cboldsymbol%7Bg%7D_%7Bi%7D,%5Cboldsymbol%7Bd%7D_%7Bi%7D%5Crangle%0A=%5C%7C%5Cboldsymbol%7Bd%7D_%7Bi%7D%5C%7C%0A"></p>
+<p>を得る．</p>
+<p>これを Appendix E の目的関数</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Af(%5Cboldsymbol%7Bx%7D;%5Cboldsymbol%7Bg%7D_%7B0%7D,%5Cboldsymbol%7Bg%7D_%7B1%7D,%5Cboldsymbol%7Bg%7D_%7B2%7D)%0A=%5Csum_%7Bi=0%7D%5E%7B2%7Dt_%7Bi%7D%5E%7B4%7D%5Ccdot%5Clangle%5Cboldsymbol%7Bg%7D_%7Bi%7D,%5Cboldsymbol%7Bd%7D_%7Bi%7D%5Crangle%0A"></p>
+<p>に代入すると，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Af(%5Cboldsymbol%7Bx%7D)%0A=%5Csum_%7Bi=0%7D%5E%7B2%7Dt_%7Bi%7D%5E%7B4%7D%5Ccdot%5C%7C%5Cboldsymbol%7Bd%7D_%7Bi%7D%5C%7C%0A"></p>
+<p>となる．</p>
+<p>これにより，勾配ベクトルについての探索は不要となり，<img src="https://latex.codecogs.com/png.latex?%5Cboldsymbol%7Bx%7D"> のみについて最大値を探索すればよい．したがって，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Af_%7B%5Cmax%7D%0A=%5Cmax_%7B%5Cboldsymbol%7Bx%7D%7D%7Bf(%5Cboldsymbol%7Bx%7D)%7D%0A=%5Cmax_%7B%5Cboldsymbol%7Bx%7D%7D%7B%5Csum_%7Bi=0%7D%5E%7B2%7Dt_%7Bi%7D%5E%7B4%7D%5Ccdot%5C%7C%5Cboldsymbol%7Bd%7D_%7Bi%7D%5C%7C%7D%0A"></p>
+<p>となる．</p>
+<p>数値計算には<a href="https://colab.research.google.com/drive/1922113Ktui3HbcmgnHRHogMT_u7BCKUO?usp=sharing">このスクリプト</a>を使用した．</p>
+<p>その結果，</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Af_%7B%5Cmax%7D%0A%5Capprox%200.010080204702571%0A"></p>
+<p>となり，正規化定数は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AC%0A%5Capprox%2099.20433458508063%0A"></p>
+<p>となる．</p>
+<p>なお，最大値は simplex のある辺上に現れ，重心座標は</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A(u,%20v,%20w)%0A%5Capprox%20(0,%200.499002,%200.500998)%0A"></p>
+<p>となる．</p>
+</section>
+<section id="references" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="references"><span class="header-section-number">11</span> References</h2>
+<ul>
+<li>Perlin, K. (2001). Noise hardware. In M. Olano (Ed.), Real-time shading SIGGRAPH course notes. ACM SIGGRAPH. <a href="https://userpages.cs.umbc.edu/olano/s2002c36/ch02.pdf" class="uri">https://userpages.cs.umbc.edu/olano/s2002c36/ch02.pdf</a></li>
+<li>Gustavson, S. (2005). Simplex noise demystified [Technical report]. Linköping University. <a href="https://github.com/stegu/perlin-noise/blob/master/simplexnoise.pdf" class="uri">https://github.com/stegu/perlin-noise/blob/master/simplexnoise.pdf</a></li>
+<li>briansharpe. (2012, January 13). Simplex noise. <a href="https://briansharpe.wordpress.com/2012/01/13/simplex-noise/" class="uri">https://briansharpe.wordpress.com/2012/01/13/simplex-noise/</a></li>
+<li><em>Simplex</em>. (2026, August 24). In <em>Wikipedia</em>. <a href="https://en.wikipedia.org/w/index.php?title=Simplex&amp;oldid=1371056590" class="uri">https://en.wikipedia.org/w/index.php?title=Simplex&amp;oldid=1371056590</a></li>
+</ul>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a> ]]></description>
+  <category>math</category>
+  <category>computergraphics</category>
+  <guid>https://hasenpfote.github.io/posts/2d-simplex-noise-math.html</guid>
+  <pubDate>Tue, 01 Sep 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>2本のベクトルの最も長くなる方向</title>
   <link>https://hasenpfote.github.io/posts/longest-linear-combination.html</link>
@@ -19297,365 +19549,6 @@ Fig. 5. スプライン補間
   <category>cpp</category>
   <guid>https://hasenpfote.github.io/posts/representation-and-interpolation-of-rotations-in-complex-numbers.html</guid>
   <pubDate>Tue, 12 Jan 2021 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>双対複素数</title>
-  <link>https://hasenpfote.github.io/posts/dual-complex-numbers.html</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-<section id="概要" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="概要"><span class="header-section-number">1</span> 概要</h2>
-<p>二次元の剛体変換に非可換な双対複素数<sup>1</sup>を導入することを目的とする．複素数<sup>2</sup>と双対数<sup>3</sup>についての予備知識だけで概ね事足りる．後者についてはテイラー展開が重要になるので簡単に触れる．</p>
-<p>※ 四元数<sup>4</sup>や双対四元数<sup>5</sup>にも関連があるのでそれらの知識もあるとなお良い．</p>
-<p>双対数は二重数とも訳されるが前者で統一する．</p>
-</section>
-<section id="双対数" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="双対数"><span class="header-section-number">2</span> 双対数</h2>
-<p>双対数(Dual numbers)の環は次式で定義される剰余環．</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7B%5Cmathbb%7BR%7D%7D%0A:=%5Cmathbb%7BR%7D%5B%5Cepsilon%5D/(%5Cepsilon%5E2)%0A=%5C%7Ba%20+%20b%20%5Cepsilon%20%5Cmid%20a,%20b%20%5Cin%20%5Cmathbb%7BR%7D%5C%7D%0A"></p>
-<section id="加法" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="加法"><span class="header-section-number">2.1</span> 加法</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A(a%20+%20b%20%5Cepsilon)%20+%20(c%20+%20d%20%5Cepsilon)%0A=%20(a%20+%20c)%20+%20(b%20+%20d)%20%5Cepsilon%0A"></p>
-</section>
-<section id="乗法" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="乗法"><span class="header-section-number">2.2</span> 乗法</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A(a%20+%20b%20%5Cepsilon)(c%20+%20d%20%5Cepsilon)%0A=ac%20+%20(ad%20+%20bc)%20%5Cepsilon%0A"></p>
-</section>
-<section id="乗法の逆元" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="乗法の逆元"><span class="header-section-number">2.3</span> 乗法の逆元</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A(a%20+%20b%20%5Cepsilon)%5E%7B-1%7D%0A&amp;=a%5E%7B-1%7D(1%20-%20a%5E%7B-1%7D%20b%20%5Cepsilon)%20%5Chspace%7B20pt%7D%20(a%20%5Cne%200)%0A%5Cend%7Baligned%7D%0A"></p>
-</section>
-<section id="共役" class="level3" data-number="2.4">
-<h3 data-number="2.4" class="anchored" data-anchor-id="共役"><span class="header-section-number">2.4</span> 共役</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Coverline%7Ba%20+%20b%20%5Cepsilon%7D%0A=a%20-%20b%20%5Cepsilon%0A"></p>
-</section>
-<section id="絶対値" class="level3" data-number="2.5">
-<h3 data-number="2.5" class="anchored" data-anchor-id="絶対値"><span class="header-section-number">2.5</span> 絶対値</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%7Ca%20+%20b%20%5Cepsilon%7C%5E2%0A&amp;=(a%20+%20b%20%5Cepsilon)(a%20-%20b%20%5Cepsilon)%0A=a%5E2%5C%5C%0A%5C%5C%0A%7Ca%20+%20b%20%5Cepsilon%7C%0A&amp;=%5Csqrt%7Ba%5E2%7D%0A=%7Ca%7C%0A%5Cend%7Baligned%7D%0A"></p>
-</section>
-<section id="テイラー展開" class="level3" data-number="2.6">
-<h3 data-number="2.6" class="anchored" data-anchor-id="テイラー展開"><span class="header-section-number">2.6</span> テイラー展開</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0Af(a%20+%20b%20%5Cepsilon)%0A&amp;=%5Csum_%7Bn=0%7D%5E%7B%5Cinfty%7D%20%5Cfrac%7Bf%5E%7B(n)%7D(a)%7D%7Bn!%7D%20(b%20%5Cepsilon)%5En%5C%5C%0A&amp;=f%5E%7B(0)%7D(a)%20+%20f%5E%7B(1)%7D(a)%20b%20%5Cepsilon%20+%20%5Cfrac%7Bf%5E%7B(2)%7D(a)%7D%7B2!%7D%20(b%20%5Cepsilon)%5E2%20+%20%5Ccdots%5C%5C%0A&amp;=f%5E%7B(0)%7D(a)%20+%20f%5E%7B(1)%7D(a)%20b%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-<p>例えば <img src="https://latex.codecogs.com/png.latex?%5Csin(a%20+%20b%20%5Cepsilon)"> なら</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Csin(a%20+%20b%20%5Cepsilon)%0A=%5Csin(a)%20+%20%5Ccos(a)%20b%20%5Cepsilon%0A"></p>
-</section>
-</section>
-<section id="双対複素数" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="双対複素数"><span class="header-section-number">3</span> 双対複素数</h2>
-<p>双対複素数(Dual Complex Numbers)の環は次式で定義される剰余環．</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7B%5Cmathbb%7BC%7D%7D%0A:=%5Cmathbb%7BC%7D%5B%5Cepsilon%5D/(%5Cepsilon%5E2)%0A=%5C%7Bp_0%20+%20p_1%20%5Cepsilon%20%5Cmid%20p_0,%20p_1%20%5Cin%20%5Cmathbb%7BC%7D%5C%7D%0A"></p>
-<p><img src="https://latex.codecogs.com/png.latex?%5Chat%7B%5Cmathbb%7BC%7D%7D"> の乗算について非可換な双対複素数を <img src="https://latex.codecogs.com/png.latex?%5Ccheck%7B%5Cmathbb%7BC%7D%7D"> と定義する．</p>
-<p><img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D"> は</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%0A&amp;=p_0%20+%20p_1%20%5Cepsilon%5C%5C%0A&amp;=(p_a%20+%20p_b%20%5Cmathbb%7Bi%7D)%20+%20(p_c%20+%20p_d%20%5Cmathbb%7Bi%7D)%20%5Cepsilon%5C%5C%0A&amp;=p_a%20+%20p_b%20%5Cmathbb%7Bi%7D%20+%20p_c%20%5Cepsilon%20+%20p_d%20%5Cmathbb%7Bi%7D%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-<p>ここで <img src="https://latex.codecogs.com/png.latex?p_a,%20p_b,%20p_c,%20p_d%20%5Cin%20%5Cmathbb%7BR%7D"></p>
-<section id="加法-1" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="加法-1"><span class="header-section-number">3.1</span> 加法</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20+%20%5Chat%7Bq%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20+%20%5Chat%7Bq%7D%0A=(p_0%20+%20p_1%20%5Cepsilon)%20+%20(q_0%20+%20q_1%20%5Cepsilon)%0A=(p_0%20+%20q_0)%20+%20(p_1%20+%20q_1)%20%5Cepsilon%0A"></p>
-</blockquote>
-<section id="結合性" class="level4" data-number="3.1.1">
-<h4 data-number="3.1.1" class="anchored" data-anchor-id="結合性"><span class="header-section-number">3.1.1</span> 結合性</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20+%20(%5Chat%7Bq%7D%20+%20%5Chat%7Br%7D)%0A=(%5Chat%7Bp%7D%20+%20%5Chat%7Bq%7D)%20+%20%5Chat%7Br%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20+%20(%5Chat%7Bq%7D%20+%20%5Chat%7Br%7D)%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20+%20%5Cleft((q_0%20+%20q_1%20%5Cepsilon)%20+%20(r_0%20+%20r_1%20%5Cepsilon)%5Cright)%5C%5C%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20+%20%5Cleft((q_0%20+%20r_0)%20+%20(q_1%20+%20r_1)%20%5Cepsilon%5Cright)%5C%5C%0A&amp;=(p_0%20+%20q_0%20+%20r_0)%20+%20(p_1%20+%20q_1%20+%20r_1)%20%5Cepsilon%5C%5C%0A%5C%5C%0A(%5Chat%7Bp%7D%20+%20%5Chat%7Bq%7D)%20+%20%5Chat%7Br%7D%0A&amp;=%5Cleft((p_0%20+%20q_0)%20+%20(p_1%20+%20q_1)%20%5Cepsilon%5Cright)%20+%20(r_0%20+%20r_1%20%5Cepsilon)%5C%5C%0A&amp;=(p_0%20+%20q_0%20+%20r_0)%20+%20(p_1%20+%20q_1%20+%20r_1)%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-<section id="可換性" class="level4" data-number="3.1.2">
-<h4 data-number="3.1.2" class="anchored" data-anchor-id="可換性"><span class="header-section-number">3.1.2</span> 可換性</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20+%20%5Chat%7Bq%7D%0A=%5Chat%7Bq%7D%20+%20%5Chat%7Bp%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20+%20%5Chat%7Bq%7D%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20+%20(q_0%20+%20q_1%20%5Cepsilon)%5C%5C%0A&amp;=(p_0%20+%20q_0)%20+%20(p_1%20+%20q_1)%20%5Cepsilon%5C%5C%0A%5C%5C%0A%5Chat%7Bq%7D%20+%20%5Chat%7Bp%7D%0A&amp;=(q_0%20+%20q_1%20%5Cepsilon)%20+%20(p_0%20+%20p_1%20%5Cepsilon)%5C%5C%0A&amp;=(q_0%20+%20p_0)%20+%20(q_1%20+%20p_1)%20%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-<section id="中立元の存在性" class="level4" data-number="3.1.3">
-<h4 data-number="3.1.3" class="anchored" data-anchor-id="中立元の存在性"><span class="header-section-number">3.1.3</span> 中立元の存在性</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20+%200%0A=%5Chat%7Bp%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20+%200%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20+%20(0%20+%200%20%5Cepsilon)%5C%5C%0A&amp;=(p_0%20+%200)%20+%20(p_1%20+%200)%20%5Cepsilon%0A=%5Chat%7Bp%7D%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-<section id="反数の存在性" class="level4" data-number="3.1.4">
-<h4 data-number="3.1.4" class="anchored" data-anchor-id="反数の存在性"><span class="header-section-number">3.1.4</span> 反数の存在性</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20+%20(-%20%5Chat%7Bp%7D)%0A=0%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20+%20(-%20%5Chat%7Bp%7D)%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20+%20%5Cleft(-%20(p_0%20+%20p_1%20%5Cepsilon)%5Cright)%5C%5C%0A&amp;=(p_0%20-%20p_0)%20+%20(p_1%20-%20p_1)%20%5Cepsilon%0A=0%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-</section>
-<section id="乗法-1" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="乗法-1"><span class="header-section-number">3.2</span> 乗法</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bq%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bq%7D%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20%5Cotimes%20(q_0%20+%20q_1%20%5Cepsilon)%5C%5C%0A&amp;=p_0%20%5Cotimes%20q_0%20+%20(p_0%20%5Cotimes%20q_1%20+%20p_1%20%5Cotimes%20%5Coverline%7Bq_0%7D)%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-<section id="乗法のルール" class="level4" data-number="3.2.1">
-<h4 data-number="3.2.1" class="anchored" data-anchor-id="乗法のルール"><span class="header-section-number">3.2.1</span> 乗法のルール</h4>
-<p>乗積表(<img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7Bi%7D%20%5Cepsilon%20=%20-%20%5Cepsilon%20%5Cmathbb%7Bi%7D"> に注意)は</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Cbegin%7Barray%7D%7Bc%7Ccccc%7D%0A%20%20L%20%5Cbackslash%20R%20&amp;%201%20&amp;%20%5Cmathbb%7Bi%7D%20&amp;%20%5Cepsilon%20&amp;%20%5Cmathbb%7Bi%7D%20%5Cepsilon%5C%5C%20%5Chline%0A%20%20%20%201%20&amp;%201%20&amp;%20%5Cmathbb%7Bi%7D%20&amp;%20%5Cepsilon%20&amp;%20%5Cmathbb%7Bi%7D%20%5Cepsilon%5C%5C%0A%20%20%20%20%5Cmathbb%7Bi%7D%20&amp;%20%5Cmathbb%7Bi%7D%20&amp;%20-1%20&amp;%20%5Cmathbb%7Bi%7D%20%5Cepsilon%20&amp;%20-%20%5Cepsilon%5C%5C%0A%20%20%20%20%5Cepsilon%20&amp;%20%5Cepsilon%20&amp;%20-%20%5Cmathbb%7Bi%7D%20%5Cepsilon%20&amp;%200%20&amp;%200%5C%5C%0A%20%20%20%20%5Cmathbb%7Bi%7D%20%5Cepsilon%20&amp;%20%5Cmathbb%7Bi%7D%20%5Cepsilon%20&amp;%20%5Cepsilon%20&amp;%200%20&amp;%200%5C%5C%0A%5Cend%7Barray%7D%0A%5Cend%7Baligned%7D%0A"></p>
-<p>順序に注意し展開</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bq%7D%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20%5Cotimes%20(q_0%20+%20q_1%20%5Cepsilon)%5C%5C%0A&amp;=p_0%20%5Ccdot%20q_0%0A+%20p_0%20%5Ccdot%20q_1%20%5Cepsilon%0A+%20p_1%20%5Cepsilon%20%5Ccdot%20q_0%0A+%20p_1%20%5Cepsilon%20%5Ccdot%20q_1%20%5Cepsilon%5C%5C%0A%5Cend%7Baligned%7D%0A"></p>
-<p>第3項は</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Cepsilon%20%5Ccdot%20q_0%0A&amp;=%5Cepsilon%20%5Ccdot%20(q_a%20+%20q_b%20%5Cmathbb%7Bi%7D)%5C%5C%0A&amp;=q_a%20%5Cepsilon%20+%20q_b%20%5Cepsilon%20%5Cmathbb%7Bi%7D%5C%5C%0A&amp;=q_a%20%5Cepsilon%20-%20q_b%20%5Cmathbb%7Bi%7D%20%5Cepsilon%5C%5C%0A&amp;=(q_a%20-%20q_b%20%5Cmathbb%7Bi%7D)%20%5Cepsilon%0A=%5Coverline%7Bq_0%7D%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-<p>第4項は</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Cepsilon%20%5Ccdot%20q_1%20%5Cepsilon%0A&amp;=%5Cepsilon%20%5Ccdot%20(q_c%20%5Cepsilon%20+%20q_d%20%5Cmathbb%7Bi%7D%20%5Cepsilon)%5C%5C%0A&amp;=q_c%20%5Cepsilon%20%5Cepsilon%20+%20q_d%20%5Cepsilon%20%5Cmathbb%7Bi%7D%20%5Cepsilon%5C%5C%0A&amp;=q_c%20%5Cepsilon%5E2%20-%20q_d%20%5Cmathbb%7Bi%7D%20%5Cepsilon%5E2%5C%5C%0A&amp;=(q_c%20-%20q_d%20%5Cmathbb%7Bi%7D)%20%5Cepsilon%5E2%0A=%5Coverline%7Bq_1%7D%20%5Cepsilon%5E2%0A%5Cend%7Baligned%7D%0A"></p>
-<p>これらから左側から <img src="https://latex.codecogs.com/png.latex?%5Cepsilon"> を掛けると右側の複素数の複素共役を取り順序が入れ替わる．</p>
-</section>
-<section id="結合性-1" class="level4" data-number="3.2.2">
-<h4 data-number="3.2.2" class="anchored" data-anchor-id="結合性-1"><span class="header-section-number">3.2.2</span> 結合性</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20%5Cotimes%20(%5Chat%7Bq%7D%20%5Cotimes%20%5Chat%7Br%7D)%0A=(%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bq%7D)%20%5Cotimes%20%5Chat%7Br%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20%5Cotimes%20(%5Chat%7Bq%7D%20%5Cotimes%20%5Chat%7Br%7D)%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20%5Cotimes%20%5Cleft(q_0%20r_0%20+%20(q_0%20r_1%20+%20q_1%20%5Coverline%7Br_0%7D)%20%5Cepsilon%5Cright)%5C%5C%0A&amp;=p_0%20q_0%20r_0%20+%20(p_0%20q_0%20r_1%20+%20p_0%20q_1%20%5Coverline%7Br_0%7D%20+%20p_1%20%5Coverline%7Bq_0%20r_0%7D)%20%5Cepsilon%5C%5C%0A%5C%5C%0A(%5Chat%7Bp%7D%5Chat%7Bq%7D)%20%5Cotimes%20%5Chat%7Br%7D%0A&amp;=%5Cleft(p_0%20q_0%20+%20(p_0%20q_1%20+%20p_1%20%5Coverline%7Bq_0%7D)%20%5Cepsilon%5Cright)%20%5Cotimes%20(r_0%20+%20r_1%20%5Cepsilon)%5C%5C%0A&amp;=p_0%20q_0%20r_0%20+%20(p_0%20q_0%20r_1%20+%20p_0%20q_1%20%5Coverline%7Br_0%7D%20+%20p_1%20%5Coverline%7Bq_0%7D%20%5Coverline%7Br_0%7D)%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-<section id="可換性-1" class="level4" data-number="3.2.3">
-<h4 data-number="3.2.3" class="anchored" data-anchor-id="可換性-1"><span class="header-section-number">3.2.3</span> 可換性</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bq%7D%0A%5Cne%20%5Chat%7Bq%7D%20%5Cotimes%20%5Chat%7Bp%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bq%7D%0A&amp;=p_0%20q_0%20+%20(p_0%20q_1%20+%20p_1%20%5Coverline%7Bq_0%7D)%20%5Cepsilon%5C%5C%0A%5C%5C%0A%5Chat%7Bq%7D%20%5Cotimes%20%5Chat%7Bp%7D%0A&amp;=q_0%20p_0%20+%20(q_0%20p_1%20+%20q_1%20%5Coverline%7Bp_0%7D)%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-<section id="中立元の存在" class="level4" data-number="3.2.4">
-<h4 data-number="3.2.4" class="anchored" data-anchor-id="中立元の存在"><span class="header-section-number">3.2.4</span> 中立元の存在</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20%5Cotimes%201%0A=%5Chat%7Bp%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20%5Cotimes%201%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20%5Cotimes%20(1%20+%200%20%5Cepsilon)%5C%5C%0A&amp;=p_0%20+%20p_1%20%5Cepsilon%0A=%5Chat%7Bp%7D%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-</section>
-<section id="分配性" class="level3" data-number="3.3">
-<h3 data-number="3.3" class="anchored" data-anchor-id="分配性"><span class="header-section-number">3.3</span> 分配性</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20%5Cotimes%20(%5Chat%7Bq%7D%20+%20%5Chat%7Br%7D)%0A=%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bq%7D%20+%20%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Br%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20%5Cotimes%20(%5Chat%7Bq%7D%20+%20%5Chat%7Br%7D)%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20%5Cotimes%20%5Cleft((q_0%20+%20r_0)%20+%20(q_1%20+%20r_1)%20%5Cepsilon%5Cright)%5C%5C%0A&amp;=p_0%20q_0%20+%20p_0%20r_0%20+%20(p_0%20q_1%20+%20p_0%20r_1%20+%20p_1%20%5Coverline%7Bq_0%7D%20+%20p_1%20%5Coverline%7Br_0%7D)%20%5Cepsilon%5C%5C%0A&amp;=%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bq%7D%20+%20%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Br%7D%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-<p><img src="https://latex.codecogs.com/png.latex?%0A(%5Chat%7Bp%7D%20+%20%5Chat%7Bq%7D)%20%5Cotimes%20%5Chat%7Br%7D%0A=%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Br%7D%20+%20%5Chat%7Bq%7D%20%5Cotimes%20%5Chat%7Br%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A(%5Chat%7Bp%7D%20+%20%5Chat%7Bq%7D)%20%5Cotimes%20%5Chat%7Br%7D%0A&amp;=%5Cleft((p_0%20+%20q_0)%20+%20(p_1%20+%20q_1)%20%5Cepsilon%5Cright)%20%5Cotimes%20(r_0%20+%20r_1%20%5Cepsilon)%5C%5C%0A&amp;=p_0%20r_0%20+%20q_0%20r_0%20+%20(p_0%20r_1%20+%20q_0%20r_1%20+%20p_1%5Coverline%7Br_0%7D%20+%20q_1%20%5Coverline%7Br_0%7D)%20%5Cepsilon%5C%5C%0A&amp;=%5Chat%7Bp%7D%5Cotimes%20%5Chat%7Br%7D%20+%20%5Chat%7Bq%7D%20%5Cotimes%20%5Chat%7Br%7D%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-<section id="乗法の逆元-1" class="level3" data-number="3.4">
-<h3 data-number="3.4" class="anchored" data-anchor-id="乗法の逆元-1"><span class="header-section-number">3.4</span> 乗法の逆元</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%5E%7B-1%7D%0A=%5Cfrac%7B1%7D%7B%5Chat%7Bp%7D%7D%0A=%5Cfrac%7B%5Coverline%7Bp_0%7D%20-%20p_1%20%5Cepsilon%7D%7B%7Cp_0%7C%5E2%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Cfrac%7B1%7D%7Bp_0%20+%20p_1%20%5Cepsilon%7D%0A&amp;=%5Cfrac%7B1%7D%7Bp_0%20+%20p_1%20%5Cepsilon%7D%5Cfrac%7B%5Coverline%7Bp_0%7D%20-%20p_1%20%5Cepsilon%7D%7B%5Coverline%7Bp_0%7D%20-%20p_1%20%5Cepsilon%7D%0A=%5Cfrac%7B%5Coverline%7Bp_0%7D%20-%20p_1%20%5Cepsilon%7D%7Bp_0%20%5Coverline%7Bp_0%7D%20+%20(p_1%20p_0%20-%20p_0%20p_1)%20%5Cepsilon%7D%5C%5C%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bp%7D%5E%7B-1%7D%0A=%5Chat%7Bp%7D%5E%7B-1%7D%20%5Cotimes%20%5Chat%7Bp%7D=1%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bp%7D%5E%7B-1%7D%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20%5Cotimes%20%5Cfrac%7B%5Coverline%7Bp_0%7D%20-%20p_1%20%5Cepsilon%7D%7B%7Cp_0%7C%5E2%7D%5C%5C%0A&amp;=%5Cfrac%7Bp_0%20%5Coverline%7Bp_0%7D%20-%20p_0%20p_1%20%5Cepsilon%7D%7B%7Cp_0%7C%5E2%7D%20+%20%5Cfrac%7Bp_1%20p_0%20%5Cepsilon%7D%7B%7Cp_0%7C%5E2%7D%0A=%5Cfrac%7Bp_0%20%5Coverline%7Bp_0%7D%7D%7B%7Cp_0%7C%5E2%7D=1%5C%5C%0A%5C%5C%0A%5Chat%7Bp%7D%5E%7B-1%7D%20%5Cotimes%20%5Chat%7Bp%7D%0A&amp;=%5Cfrac%7B%5Coverline%7Bp_0%7D%20-%20p_1%20%5Cepsilon%7D%7B%7Cp_0%7C%5E2%7D%20%5Cotimes%20(p_0%20+%20p_1%20%5Cepsilon)%5C%5C%0A&amp;=%5Cfrac%7B%5Coverline%7Bp_0%7D%20p_0%20-%20p_1%20%5Coverline%7Bp_0%7D%20%5Cepsilon%7D%7B%7Cp_0%7C%5E2%7D%20+%20%5Cfrac%7B%5Coverline%7Bp_0%7D%20p_1%20%5Cepsilon%7D%7B%7Cp_0%7C%5E2%7D%0A=%5Cfrac%7B%5Coverline%7Bp_0%7D%20p_0%7D%7B%7Cp_0%7C%5E2%7D=1%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-<section id="絶対値-1" class="level3" data-number="3.5">
-<h3 data-number="3.5" class="anchored" data-anchor-id="絶対値-1"><span class="header-section-number">3.5</span> 絶対値</h3>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%7C%5Chat%7Bp%7D%7C%5E2%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)(%5Coverline%7Bp_0%7D%20-%20p_1%20%5Cepsilon)%0A=%7Cp_0%7C%5E2%5C%5C%0A%5C%5C%0A%7C%5Chat%7Bp%7D%7C%0A&amp;=%7Cp_0%7C%0A%5Cend%7Baligned%7D%0A"></p>
-</section>
-<section id="単位双対複素数" class="level3" data-number="3.6">
-<h3 data-number="3.6" class="anchored" data-anchor-id="単位双対複素数"><span class="header-section-number">3.6</span> 単位双対複素数</h3>
-<p>単位双対複素数の定義は</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1:&amp;=%5C%7B%5Chat%7Bp%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D%20%5Cmid%20%7C%5Chat%7Bp%7D%7C%20=%201%5C%7D%5C%5C%0A&amp;=%5C%7Be%5E%7B%5Ctheta%5Cmathbb%7Bi%7D%7D%20+%20p_1%20%5Cepsilon%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D%20%5Cmid%20%5Ctheta%20%5Cin%20%5Cmathbb%7BR%7D,%20p_1%20%5Cin%20%5Cmathbb%7BC%7D%5C%7D%0A%5Cend%7Baligned%7D%0A"></p>
-<p>乗法の逆元は</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A(e%5E%7B%5Ctheta%5Cmathbb%7Bi%7D%7D%20+%20p_1%20%5Cepsilon)%5E%7B-1%7D%0A=e%5E%7B-%5Ctheta%5Cmathbb%7Bi%7D%7D%20-%20p_1%20%5Cepsilon%0A"></p>
-<blockquote class="blockquote">
-<p>補足</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Coverline%7Be%5E%7B%5Ctheta%5Cmathbb%7Bi%7D%7D%7D%0A&amp;=%5Coverline%7B%5Ccos(%5Ctheta)%20+%20%5Csin(%5Ctheta)%5Cmathbb%7Bi%7D%7D%5C%5C%0A&amp;=%5Ccos(%5Ctheta)%20-%20%5Csin(%5Ctheta)%5Cmathbb%7Bi%7D%5C%5C%0A&amp;=%5Ccos(-%5Ctheta)%20+%20%5Csin(-%5Ctheta)%5Cmathbb%7Bi%7D%5C%5C%0A&amp;=e%5E%7B-%5Ctheta%5Cmathbb%7Bi%7D%7D%5C%5C%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-<section id="共役による-checkmathbbc-上の-checkmathbbc_1-の作用" class="level4" data-number="3.6.1">
-<h4 data-number="3.6.1" class="anchored" data-anchor-id="共役による-checkmathbbc-上の-checkmathbbc_1-の作用"><span class="header-section-number">3.6.1</span> 共役による <img src="https://latex.codecogs.com/png.latex?%5Ccheck%7B%5Cmathbb%7BC%7D%7D"> 上の <img src="https://latex.codecogs.com/png.latex?%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1"> の作用</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BC%7D=%5Cmathbb%7BR%7D%5E2"> とし <img src="https://latex.codecogs.com/png.latex?v%20%5Cin%20%5Cmathbb%7BC%7D"> を <img src="https://latex.codecogs.com/png.latex?1%20+%20v%20%5Cepsilon%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D"> と同一視すると <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D%20=%20p_0%20+%20p_1%20%5Cepsilon%20%5Cin%20%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1"> が剛体変換として作用する．</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20%5Cdiamond%20(1%20+%20v%20%5Cepsilon)%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)(1%20+%20v%20%5Cepsilon)(%5Coverline%7Bp_0%7D%20+%20p_1%20%5Cepsilon)%5C%5C%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%5Cleft(%5Coverline%7Bp_0%7D%20+%20(p_1%20+%20v%20p_0)%20%5Cepsilon%20%5Cright)%5C%5C%0A&amp;=p_0%5Coverline%7Bp_0%7D%20+%20(p_0%20p_1%20+%20p_0%20v%20p_0%20+%20p_1%20p_0)%20%5Cepsilon%5C%5C%0A&amp;=%7Cp_0%7C%5E2%20+%20(p_0%5E%7B2%7D%20v%20+%202%20p_0%20p_1)%20%5Cepsilon%5C%5C%0A&amp;=1%20+%20(p_0%5E%7B2%7D%20v%20+%202%20p_0%20p_1)%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-<ul>
-<li><img src="https://latex.codecogs.com/png.latex?p_1%20=%200"><br>
-<img src="https://latex.codecogs.com/png.latex?v%20%5Cin%20%5Cmathbb%7BC%7D"> は <img src="https://latex.codecogs.com/png.latex?%7Bp_0%7D%5E%7B2%7D%20v"> に写像される． <img src="https://latex.codecogs.com/png.latex?%7Cp_0%7C%20=%201"> なので原点を中心に <img src="https://latex.codecogs.com/png.latex?2%20%5Carg(p_0)"> 回転をする．</li>
-<li><img src="https://latex.codecogs.com/png.latex?p_0%20=%201"><br>
-<img src="https://latex.codecogs.com/png.latex?v%20+%202%20p_1"> の変位をする．</li>
-</ul>
-<section id="回転と変位の表現" class="level5" data-number="3.6.1.1">
-<h5 data-number="3.6.1.1" class="anchored" data-anchor-id="回転と変位の表現"><span class="header-section-number">3.6.1.1</span> 回転と変位の表現</h5>
-<p>回転の表現は <img src="https://latex.codecogs.com/png.latex?%5Ctheta%20%5Cin%20%5Cmathbb%7BR%7D"> とすると</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D_%7Brot%7D%0A=e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%200%20%5Cepsilon%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D_%7Brot%7D%20%5Cdiamond%20(1%20+%20v%20%5Cepsilon)%0A&amp;=%5Cleft(e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%200%20%5Cepsilon%5Cright)%20%5Cotimes%20(1%20+%20v%20%5Cepsilon)%20%5Cotimes%20%5Cleft(%5Coverline%7Be%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%7D%20+%200%20%5Cepsilon%5Cright)%5C%5C%0A&amp;=%5Cleft(e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%200%20%5Cepsilon%5Cright)%20%5Cotimes%20(1%20+%20v%20%5Cepsilon)%20%5Cotimes%20%5Cleft(e%5E%7B-%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%200%20%5Cepsilon%5Cright)%5C%5C%0A&amp;=1%20+%20e%5E%7B%5Ctheta%5Cmathbb%7Bi%7D%7D%20v%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-<p>複素数の半角形式(スピノル表現)での回転について</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0Ae%5E%7B%5Ctheta%5Cmathbb%7Bi%7D%7D%20v%0A=%5Cleft(e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%5Cright)%5E2%20v%0A=e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20v%20e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%0A"></p>
-<p>また<strong>符号を反転しても同じ回転を表現</strong>する</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cleft(-%20e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%5Cright)%5E2%0A=e%5E%7B%5Ctheta%5Cmathbb%7Bi%7D%7D%0A"></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<iframe src="https://www.desmos.com/calculator/usdbcrfr30?embed=">
-</iframe>
-<figcaption>
-Fig. 1. 回転と補間
-</figcaption>
-</figure>
-</div>
-</blockquote>
-<p>変位の表現は <img src="https://latex.codecogs.com/png.latex?d%20%5Cin%20%5Cmathbb%7BC%7D"> とすると</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bp%7D_%7Bdisp%7D%0A=1%20+%20%5Cfrac%7Bd%7D%7B2%7D%20%5Cepsilon%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D_%7Bdisp%7D%20%5Cdiamond%20(1%20+%20v%20%5Cepsilon)%0A&amp;=%5Cleft(1%20+%20%5Cfrac%7Bd%7D%7B2%7D%20%5Cepsilon%5Cright)%20%5Cotimes%20(1%20+%20v%20%5Cepsilon)%20%5Cotimes%20%5Cleft(1%20+%20%5Cfrac%7Bd%7D%7B2%7D%20%5Cepsilon%5Cright)%5C%5C%0A&amp;=1%20+%20(v%20+%20d)%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-<p>例</p>
-<ul>
-<li><p>原点を中心に <img src="https://latex.codecogs.com/png.latex?%5Ctheta%20%5Cin%20%5Cmathbb%7BR%7D"> 回転後に <img src="https://latex.codecogs.com/png.latex?d%20%5Cin%20%5Cmathbb%7BC%7D"> の変位を表現する変換<br>
-<img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D%20=%20%5Chat%7Bp%7D_%7Bdisp%7D%20%5Cotimes%20%5Chat%7Bp%7D_%7Brot%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1"></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<iframe src="https://www.desmos.com/calculator/2cliapnche?embed=">
-</iframe>
-<figcaption>
-Fig. 2. 原点を中心に回転後に変位
-</figcaption>
-</figure>
-</div></li>
-<li><p><img src="https://latex.codecogs.com/png.latex?d%20%5Cin%20%5Cmathbb%7BC%7D"> の変位後に原点を中心に <img src="https://latex.codecogs.com/png.latex?%5Ctheta%20%5Cin%20%5Cmathbb%7BR%7D"> 回転を表現する変換<br>
-<img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D%20=%20%5Chat%7Bp%7D_%7Brot%7D%20%5Cotimes%20%5Chat%7Bp%7D_%7Bdisp%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1"></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<iframe src="https://www.desmos.com/calculator/8rg6yvogcl?embed=">
-</iframe>
-<figcaption>
-Fig. 3. 変位後に原点を中心に回転
-</figcaption>
-</figure>
-</div></li>
-<li><p>階層構造<br>
-<img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D%20=%20%5Chat%7BP%7D_%7Bdisp%7D%20%5Cotimes%20%5Chat%7BP%7D_%7Brot%7D%20%5Cotimes%20%5Chat%7BC%7D_%7Bdisp%7D%20%5Cotimes%20%5Chat%7BC%7D_%7Brot%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1"></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<iframe src="https://www.desmos.com/calculator/f6wgqv6brr?embed=">
-</iframe>
-<figcaption>
-Fig. 3. 変位後に原点を中心に回転
-</figcaption>
-</figure>
-</div></li>
-</ul>
-</section>
-<section id="性質" class="level5" data-number="3.6.1.2">
-<h5 data-number="3.6.1.2" class="anchored" data-anchor-id="性質"><span class="header-section-number">3.6.1.2</span> 性質</h5>
-<p>符号を反転した変換は符号を反転した回転による変換と同じになる．</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A-%20(%5Chat%7Bp%7D_%7Bdisp%7D%20%5Cotimes%20%5Chat%7Bp%7D_%7Brot%7D)%0A&amp;=%5Chat%7Bp%7D_%7Bdisp%7D%20%5Cotimes%20%5Chat%7Bp%7D_%7B-rot%7D%0A%5Cend%7Baligned%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A-%20%5Chat%7Bp%7D_%7Bdisp%7D%20%5Cotimes%20%5Chat%7Bp%7D_%7Brot%7D%0A&amp;=-%20%5Cleft(1%20+%20%5Cfrac%7Bd%7D%7B2%7D%20%5Cepsilon%5Cright)%5Cotimes%20(e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%200%20%5Cepsilon)%5C%5C%0A&amp;=-%20%5Cleft(e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%20%5Cfrac%7Bd%7D%7B2%7D%20e%5E%7B-%20%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20%5Cepsilon%5Cright)%5C%5C%0A%5C%5C%0A%5Chat%7Bp%7D_%7Bdisp%7D%20%5Cotimes%20%5Chat%7Bp%7D_%7B-rot%7D%0A&amp;=%5Cleft(1%20+%20%5Cfrac%7Bd%7D%7B2%7D%20%5Cepsilon%5Cright)%20%5Cotimes%20(-%20e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%200%20%5Cepsilon)%5C%5C%0A&amp;=-e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20-%20%5Cfrac%7Bd%7D%7B2%7D%20e%5E%7B-%20%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20%5Cepsilon%5C%5C%0A&amp;=-%20%5Cleft(e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%20%5Cfrac%7Bd%7D%7B2%7D%20e%5E%7B-%20%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20%5Cepsilon%5Cright)%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A-%20(%5Chat%7Bp%7D_%7Brot%7D%20%5Cotimes%20%5Chat%7Bp%7D_%7Bdisp%7D)%0A&amp;=%5Chat%7Bp%7D_%7B-rot%7D%20%5Cotimes%20%5Chat%7Bp%7D_%7Bdisp%7D%0A%5Cend%7Baligned%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A-%20(%5Chat%7Bp%7D_%7Brot%7D%20%5Cotimes%20%5Chat%7Bp%7D_%7Bdisp%7D)%0A&amp;=-%20(e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%200%20%5Cepsilon)%20%5Cotimes%20%5Cleft(1%20+%20%5Cfrac%7Bd%7D%7B2%7D%20%5Cepsilon%5Cright)%5C%5C%0A&amp;=-%20%5Cleft(e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%20e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20%5Cfrac%7Bd%7D%7B2%7D%20%5Cepsilon%5Cright)%5C%5C%0A%5C%5C%0A%5Chat%7Bp%7D_%7B-rot%7D%20%5Cotimes%20%5Chat%7Bp%7D_%7Bdisp%7D%0A&amp;=(-%20e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%200%20%5Cepsilon)%20%5Cotimes%20%5Cleft(1%20+%20%5Cfrac%7Bd%7D%7B2%7D%20%5Cepsilon%5Cright)%5C%5C%0A&amp;=-%20e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20-%20%20e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20%5Cfrac%7Bd%7D%7B2%7D%20%5Cepsilon%5C%5C%0A&amp;=-%20%5Cleft(e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20+%20e%5E%7B%5Cfrac%7B%5Ctheta%7D%7B2%7D%5Cmathbb%7Bi%7D%7D%20%5Cfrac%7Bd%7D%7B2%7D%20%5Cepsilon%5Cright)%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-<p>よって<strong>符号を反転した変換は，元と同じ変換を表現</strong>する．</p>
-</section>
-</section>
-</section>
-<section id="補間" class="level3" data-number="3.7">
-<h3 data-number="3.7" class="anchored" data-anchor-id="補間"><span class="header-section-number">3.7</span> 補間</h3>
-<section id="dual-complex-number-linear-blending" class="level4" data-number="3.7.1">
-<h4 data-number="3.7.1" class="anchored" data-anchor-id="dual-complex-number-linear-blending"><span class="header-section-number">3.7.1</span> Dual complex number Linear Blending</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D_i%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1,%20%5Chspace%7B5pt%7D%20w_i%20%5Cin%20%5Cmathbb%7BR%7D"> とした補間を次のように定義．</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Coperatorname%7BDLB%7D%7B(%5Chat%7Bp%7D_1,%5Ccdots%20,%5Chat%7Bp%7D_n;%20w_1,%5Ccdots%20,w_n)%7D%0A=%5Cfrac%7Bw_1%20%5Chat%7Bp%7D_1%20+%20%5Ccdots%20+%20w_n%20%5Chat%7Bp%7D_n%7D%7B%7Cw_1%20%5Chat%7Bp%7D_1%20+%20%5Ccdots%20+%20w_n%20%5Chat%7Bp%7D_n%7C%7D%0A"></p>
-<p>加重平均の正規化なので分母が <img src="https://latex.codecogs.com/png.latex?0"> の場合は定義ができない．</p>
-<section id="正規化" class="level5" data-number="3.7.1.1">
-<h5 data-number="3.7.1.1" class="anchored" data-anchor-id="正規化"><span class="header-section-number">3.7.1.1</span> 正規化</h5>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B%5Chat%7Bp%7D%7D%7B%7C%5Chat%7Bp%7D%7C%7D%0A=%5Cfrac%7Bp_0%20+%20p_1%20%5Cepsilon%7D%7B%7Cp_0%7C%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cleft%7C%5Cfrac%7B%5Chat%7Bp%7D%7D%7B%7C%5Chat%7Bp%7D%7C%7D%5Cright%7C%0A=%5Cleft%7C%5Cfrac%7Bp_0%7D%7B%7Cp_0%7C%7D%5Cright%7C%0A=1%0A"></p>
-</blockquote>
-</section>
-</section>
-<section id="spherical-linear-interpolation" class="level4" data-number="3.7.2">
-<h4 data-number="3.7.2" class="anchored" data-anchor-id="spherical-linear-interpolation"><span class="header-section-number">3.7.2</span> Spherical Linear interpolation</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1"> から <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bq%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1"> への <img src="https://latex.codecogs.com/png.latex?h%20%5Cin%20%5Cmathbb%7BR%7D"> での補間を次のように定義．</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Coperatorname%7BSLERP%7D(%5Chat%7Bp%7D,%20%5Chat%7Bq%7D;%20h)%0A&amp;=%5Chat%7Bp%7D%20%5Cotimes%20(%5Chat%7Bp%7D%5E%7B-1%7D%20%5Cotimes%20%5Chat%7Bq%7D)%5E%7Bh%7D%5C%5C%0A&amp;=%5Chat%7Bp%7D%20%5Cotimes%20%5Cexp%5Cleft(h%20%5Clog(%5Chat%7Bp%7D%5E%7B-1%7D%20%5Cotimes%20%5Chat%7Bq%7D)%5Cright)%0A%5Cend%7Baligned%7D%0A"></p>
-<section id="指数関数と対数関数" class="level5" data-number="3.7.2.1">
-<h5 data-number="3.7.2.1" class="anchored" data-anchor-id="指数関数と対数関数"><span class="header-section-number">3.7.2.1</span> 指数関数と対数関数</h5>
-<p>指数関数</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Cexp%7B(%5Chat%7Bp%7D)%7D%0A&amp;=%5Cexp%7B(p_0%20+%20p_1%20%5Cepsilon)%7D%5C%5C%0A&amp;=%5Cexp%7B(p_0)%7D%20+%20%5Cexp%7B(p_0)%7D%20p_1%20%5Cepsilon%5C%5C%0A&amp;=%5Cexp%7B(p_0)%7D%5Cleft(1%20+%20p_1%20%5Cepsilon%5Cright)%0A%5Cend%7Baligned%7D%0A"></p>
-<p>対数関数</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Clog%7B(%5Chat%7Bp%7D)%7D%0A&amp;=%5Clog%7B(p_0%20+%20p_1%20%5Cepsilon)%7D%5C%5C%0A&amp;=%5Clog%7B(p_0)%7D%20+%20%5Cfrac%7Bp_1%7D%7Bp_0%7D%20%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-<p>性質</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Clog%7B(%5Cexp%7B(%5Chat%7Bp%7D)%7D)%7D%0A=%5Cexp%7B(%5Clog%7B(%5Chat%7Bp%7D)%7D)%7D%0A=%5Chat%7Bp%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Clog%7B(%5Cexp%7B(%5Chat%7Bp%7D)%7D)%7D%0A&amp;=%5Clog%7B(%5Cexp%7B(p_0)%7D)%7D%20+%20%5Cfrac%7B%5Cexp%7B(p_0)%7D%20p_1%20%5Cepsilon%7D%7B%5Cexp%7B(p_0)%7D%7D%5C%5C%0A&amp;=p_0%20+%20p_1%20%5Cepsilon%0A=%5Chat%7Bp%7D%5C%5C%0A%5C%5C%0A%5Cexp%7B(%5Clog%7B(%5Chat%7Bp%7D)%7D)%7D%0A&amp;=%5Cexp%7B%5Cleft(%5Clog%7B(p_0)%7D%5Cright)%7D%20%5Cotimes%20%5Cleft(1%20+%20%5Cfrac%7Bp_1%7D%7Bp_0%7D%20%5Cepsilon%5Cright)%5C%5C%0A&amp;=p_0%20%5Cotimes%20%5Cleft(1%20+%20%5Cfrac%7Bp_1%7D%7Bp_0%7D%20%5Cepsilon%5Cright)%5C%5C%0A&amp;=p_0%20+%20p_1%20%5Cepsilon%0A=%5Chat%7Bp%7D%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-<section id="性質-1" class="level5" data-number="3.7.2.2">
-<h5 data-number="3.7.2.2" class="anchored" data-anchor-id="性質-1"><span class="header-section-number">3.7.2.2</span> 性質</h5>
-<p>回転と変位の表現で合成された変換を <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D,%20%5Chat%7Bq%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1"> とする．</p>
-<ul>
-<li>なす角が180度を超えても最短円弧で補間をしない．<br>
-<img src="https://latex.codecogs.com/png.latex?%5Clangle%20p_0,%20q_0%20%5Crangle%20%5Clt%200"> の時に一方の符号を反転 (<img src="https://latex.codecogs.com/png.latex?%5Coperatorname%7BSLERP%7D(%5Chat%7Bp%7D,%20-%5Chat%7Bq%7D;%20h)">) すると最短円弧での補間となる．</li>
-</ul>
-</section>
-</section>
-</section>
-<section id="変換の行列表現" class="level3" data-number="3.8">
-<h3 data-number="3.8" class="anchored" data-anchor-id="変換の行列表現"><span class="header-section-number">3.8</span> 変換の行列表現</h3>
-<section id="積の行列表現" class="level4" data-number="3.8.1">
-<h4 data-number="3.8.1" class="anchored" data-anchor-id="積の行列表現"><span class="header-section-number">3.8.1</span> 積の行列表現</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D%20=%20p_0%20+%20p_1%20%5Cepsilon,%20%5Chspace%7B5pt%7D%20%5Chat%7Bq%7D%20=%20q_0%20+%20q_1%20%5Cepsilon%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D"> の積は</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20%5Cotimes%20%5Chat%7Bq%7D%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20%5Cotimes%20(q_0%20+%20q_1%20%5Cepsilon)%5C%5C%0A&amp;=p_0%20%5Cotimes%20q_0%20+%20(p_0%20%5Cotimes%20q_1%20+%20p_1%20%5Cotimes%20%5Coverline%7Bq_0%7D)%20%5Cepsilon%5C%5C%0A&amp;=(p_a%20q_a%20-%20p_b%20q_b)%5C%5C%0A&amp;%5Chspace%7B13pt%7D%0A+(p_a%20q_b%20+%20p_b%20q_a)%20%5Cmathbb%7Bi%7D%5C%5C%0A&amp;%5Chspace%7B13pt%7D%0A+(p_a%20q_c%20-%20p_b%20q_d%20+%20p_c%20q_a%20+%20p_d%20q_b)%20%5Cepsilon%5C%5C%0A&amp;%5Chspace%7B13pt%7D%0A+(p_a%20q_d%20+%20p_b%20q_c%20-%20p_c%20q_b%20+%20p_d%20q_a)%20%5Cmathbb%7Bi%7D%5Cepsilon%0A%5Cend%7Baligned%7D%0A"></p>
-<p>成分計算は <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D%20=%20(p_a%20+%20p_b%20%5Cmathbb%7Bi%7D)%20+%20(p_c%20+%20p_d%20%5Cmathbb%7Bi%7D)%20%5Cepsilon"> とした．</p>
-<p><img src="https://latex.codecogs.com/png.latex?%5Chat%7Bq%7D"> に対し左から <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D"> をかける行列は</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0AP_L%20q%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bcccc%7D%0A%20%20p_a%20&amp;%20-%20p_b%20&amp;%200%20&amp;%200%5C%5C%0A%20%20p_b%20&amp;%20p_a%20&amp;%200%20&amp;%200%5C%5C%0A%20%20p_c%20&amp;%20p_d%20&amp;%20p_a%20&amp;%20-%20p_b%5C%5C%0A%20%20p_d%20&amp;%20-%20p_c%20&amp;%20p_b%20&amp;%20p_a%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bc%7D%0A%20%20q_a%5C%5C%0A%20%20q_b%5C%5C%0A%20%20q_c%5C%5C%0A%20%20q_d%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cend%7Baligned%7D%0A"></p>
-<p><img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D"> に対し右から <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bq%7D"> を掛ける行列は</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0AQ_R%20p%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bcccc%7D%0A%20%20q_a%20&amp;%20-%20q_b%20&amp;%200%20&amp;%200%5C%5C%0A%20%20q_b%20&amp;%20q_a%20&amp;%200%20&amp;%200%5C%5C%0A%20%20q_c%20&amp;%20-%20q_d%20&amp;%20q_a%20&amp;%20q_b%5C%5C%0A%20%20q_d%20&amp;%20q_c%20&amp;%20-%20q_b%20&amp;%20q_a%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bc%7D%0A%20%20p_a%5C%5C%0A%20%20p_b%5C%5C%0A%20%20p_c%5C%5C%0A%20%20p_d%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cend%7Baligned%7D%0A"></p>
-</section>
-<section id="変換の行列表現-1" class="level4" data-number="3.8.2">
-<h4 data-number="3.8.2" class="anchored" data-anchor-id="変換の行列表現-1"><span class="header-section-number">3.8.2</span> 変換の行列表現</h4>
-<p><img src="https://latex.codecogs.com/png.latex?%5Chat%7Bp%7D%20%5Cin%20%5Ccheck%7B%5Cmathbb%7BC%7D%7D_1"> での変換に対する次のような行列を考える．</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0A%5Chat%7Bp%7D%20%5Cdiamond%20(1%20+%20v%20%5Cepsilon)%0A&amp;=(p_0%20+%20p_1%20%5Cepsilon)%20%5Cotimes%20(1%20+%20v%20%5Cepsilon)%20%5Cotimes%20(%5Coverline%7Bp_0%7D%20+%20p_1%20%5Cepsilon)%5C%5C%0A&amp;=M%20v%5C%5C%0A&amp;=M_L%20M_R%20v%0A%5Cend%7Baligned%7D%0A"></p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0AM%0A&amp;=M_L%20M_R%5C%5C%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bcccc%7D%0A%20%20p_a%20&amp;%20-%20p_b%20&amp;%200%20&amp;%200%5C%5C%0A%20%20p_b%20&amp;%20p_a%20&amp;%200%20&amp;%200%5C%5C%0A%20%20p_c%20&amp;%20p_d%20&amp;%20p_a%20&amp;%20-%20p_b%5C%5C%0A%20%20p_d%20&amp;%20-%20p_c%20&amp;%20p_b%20&amp;%20p_a%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bcccc%7D%0A%20%20p_a%20&amp;%20p_b%20&amp;%200%20&amp;%200%5C%5C%0A%20%20-%20p_b%20&amp;%20p_a%20&amp;%200%20&amp;%200%5C%5C%0A%20%20p_c%20&amp;%20-%20p_d%20&amp;%20p_a%20&amp;%20-%20p_b%5C%5C%0A%20%20p_d%20&amp;%20p_c%20&amp;%20p_b%20&amp;%20p_a%0A%5Cend%7Barray%7D%0A%5Cright)%5C%5C%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bcccc%7D%0A%20%20p_a%20p_a%20+%20p_b%20p_b%20&amp;%20p_a%20p_b%20-%20p_b%20p_a%20&amp;%200%20&amp;%200%5C%5C%0A%20%20p_b%20p_a%20-%20p_a%20p_b%20&amp;%20p_b%20p_b%20+%20p_a%20p_a%20&amp;%200%20&amp;%200%5C%5C%0A%20%20p_c%20p_a%20-%20p_d%20p_b%20+%20p_a%20p_c%20-%20p_b%20p_d%20&amp;%0A%20%20p_c%20p_b%20+%20p_d%20p_a%20-%20p_a%20p_d%20-%20p_b%20p_c%20&amp;%0A%20%20p_a%20p_a%20-%20p_b%20p_b%20&amp;%0A%20%20-%20p_a%20p_b%20-%20p_b%20p_a%5C%5C%0A%20%20p_d%20p_a%20+%20p_c%20p_b%20+%20p_b%20p_c%20+%20p_a%20p_d%20&amp;%0A%20%20p_d%20p_b%20-%20p_c%20p_a%20-%20p_b%20p_d%20+%20p_a%20p_c%20&amp;%0A%20%20p_b%20p_a%20+%20p_a%20p_b%20&amp;%0A%20%20-%20p_b%20p_b%20+%20p_a%20p_a%0A%5Cend%7Barray%7D%0A%5Cright)%5C%5C%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bcccc%7D%0A%20%20%7Bp_a%7D%5E2%20+%20%7Bp_b%7D%5E2%20&amp;%200%20&amp;%200%20&amp;%200%5C%5C%0A%20%200%20&amp;%20%7Bp_a%7D%5E2%20+%20%7Bp_b%7D%5E2%20&amp;%200%20&amp;%200%5C%5C%0A%20%202(p_a%20p_c%20-%20p_b%20p_d)%20&amp;%200%20&amp;%20%7Bp_a%7D%5E2%20-%20%7Bp_b%7D%5E2%20&amp;%20-%202%20p_a%20p_b%5C%5C%0A%20%202(p_a%20p_d%20+%20p_b%20p_c)%20&amp;%200%20&amp;%202%20p_a%20p_b%20&amp;%20%7Bp_a%7D%5E2%20-%20%7Bp_b%7D%5E2%0A%5Cend%7Barray%7D%0A%5Cright)%5C%5C%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bcccc%7D%0A%20%201%20&amp;%200%20&amp;%200%20&amp;%200%5C%5C%0A%20%200%20&amp;%201%20&amp;%200%20&amp;%200%5C%5C%0A%20%202(p_a%20p_c%20-%20p_b%20p_d)%20&amp;%200%20&amp;%20%7Bp_a%7D%5E2%20-%20%7Bp_b%7D%5E2%20&amp;%20-%202%20p_a%20p_b%5C%5C%0A%20%202(p_a%20p_d%20+%20p_b%20p_c)%20&amp;%200%20&amp;%202%20p_a%20p_b%20&amp;%20%7Bp_a%7D%5E2%20-%20%7Bp_b%7D%5E2%0A%5Cend%7Barray%7D%0A%5Cright)%5C%5C%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bcccc%7D%0A%20%201%20&amp;%200%20&amp;%200%20&amp;%200%5C%5C%0A%20%200%20&amp;%201%20&amp;%200%20&amp;%200%5C%5C%0A%20%20%5Cmathfrak%7BRe%7D(2%20p_0%20p_1)%20&amp;%200%20&amp;%20%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%20&amp;%20-%20%20%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%5C%5C%0A%20%20%5Cmathfrak%7BIm%7D(2%20p_0%20p_1)%20&amp;%200%20&amp;%20%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%20&amp;%20%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%5C%5C%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cend%7Baligned%7D%0A"></p>
-<p>ここで <img src="https://latex.codecogs.com/png.latex?%7Bp_a%7D%5E2%20+%20%7Bp_b%7D%5E2%20=%20%7Cp_0%7C%5E2%20=%201"> を利用した．</p>
-<p>また <img src="https://latex.codecogs.com/png.latex?%5Cmathfrak%7BRe%7D,%20%5Cmathfrak%7BIm%7D"> は実部と虚部とする．</p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0AM%20v%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bcccc%7D%0A1%20&amp;%200%20&amp;%200%20&amp;%200%5C%5C%0A0%20&amp;%201%20&amp;%200%20&amp;%200%5C%5C%0A%5Cmathfrak%7BRe%7D(2%20p_0%20p_1)%20&amp;%200%20&amp;%20%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%20&amp;%20-%20%20%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%5C%5C%0A%5Cmathfrak%7BIm%7D(2%20p_0%20p_1)%20&amp;%200%20&amp;%20%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%20&amp;%20%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bc%7D%0A1%5C%5C%0A0%5C%5C%0Ax%5C%5C%0Ay%0A%5Cend%7Barray%7D%0A%5Cright)%5C%5C%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bc%7D%0A1%5C%5C%0A0%5C%5C%0A%5Cmathfrak%7BRe%7D(2%20p_0%20p_1)%20+%20%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%20x%20-%20%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%20y%5C%5C%0A%5Cmathfrak%7BIm%7D(2%20p_0%20p_1)%20+%20%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%20x%20+%20%20%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%20y%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-<section id="同次変換行列" class="level4" data-number="3.8.3">
-<h4 data-number="3.8.3" class="anchored" data-anchor-id="同次変換行列"><span class="header-section-number">3.8.3</span> 同次変換行列</h4>
-<p>4次正方行列では都合が良くない場合もあるので2次元の同次変換行列にする．</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0AM%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bccc%7D%0A%20%20%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%20&amp;%20-%20%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%20&amp;%20%5Cmathfrak%7BRe%7D(2%20p_0%20p_1)%5C%5C%0A%20%20%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%20&amp;%20%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%20&amp;%20%20%5Cmathfrak%7BIm%7D(2%20p_0%20p_1)%5C%5C%0A%20%200%20&amp;%200%20&amp;%201%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cend%7Baligned%7D%0A"></p>
-<blockquote class="blockquote">
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%0AM%20v%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bccc%7D%0A%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%20&amp;%20-%20%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%20&amp;%20%20%5Cmathfrak%7BRe%7D(2%20p_0%20p_1)%5C%5C%0A%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%20&amp;%20%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%20&amp;%20%20%5Cmathfrak%7BIm%7D(2%20p_0%20p_1)%5C%5C%0A0%20&amp;%200%20&amp;%201%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bc%7D%0Ax%5C%5C%0Ay%5C%5C%0A1%0A%5Cend%7Barray%7D%0A%5Cright)%5C%5C%0A&amp;=%0A%5Cleft(%0A%5Cbegin%7Barray%7D%7Bc%7D%0A%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%20x%20-%20%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%20y%20+%20%20%5Cmathfrak%7BRe%7D(2%20p_0%20p_1)%5C%5C%0A%5Cmathfrak%7BIm%7D(%7Bp_0%7D%5E2)%20x%20+%20%5Cmathfrak%7BRe%7D(%7Bp_0%7D%5E2)%20y%20+%20%20%5Cmathfrak%7BIm%7D(2%20p_0%20p_1)%5C%5C%0A1%0A%5Cend%7Barray%7D%0A%5Cright)%0A%5Cend%7Baligned%7D%0A"></p>
-</blockquote>
-</section>
-</section>
-</section>
-<section id="a-c-library" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="a-c-library"><span class="header-section-number">4</span> A C++ Library</h2>
-<ul>
-<li><a href="https://github.com/Hasenpfote/dualcomplex">https://github.com/Hasenpfote/dualcomplex</a></li>
-</ul>
-</section>
-<section id="参考文献" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="参考文献"><span class="header-section-number">5</span> 参考文献</h2>
-<ol type="1">
-<li><a href="https://arxiv.org/abs/1601.01754v1">GENKI MATSUDA, SHIZUO KAJI, HIROYUKI OCHIAI 2016 ANTI-COMMUTATIVE DUAL COMPLEX NUMBERS AND 2D RIGID TRANSFORMATION</a></li>
-</ol>
-
-
-</section>
-
-
-<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">脚注</h2>
-
-<ol>
-<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Dual-complex_number" class="uri">https://en.wikipedia.org/wiki/Dual-complex_number</a>↩︎</p></li>
-<li id="fn2"><p><a href="https://en.wikipedia.org/wiki/Complex_number" class="uri">https://en.wikipedia.org/wiki/Complex_number</a>↩︎</p></li>
-<li id="fn3"><p><a href="https://en.wikipedia.org/wiki/Dual_number" class="uri">https://en.wikipedia.org/wiki/Dual_number</a>↩︎</p></li>
-<li id="fn4"><p><a href="https://en.wikipedia.org/wiki/Quaternion" class="uri">https://en.wikipedia.org/wiki/Quaternion</a>↩︎</p></li>
-<li id="fn5"><p><a href="https://en.wikipedia.org/wiki/Dual_quaternion" class="uri">https://en.wikipedia.org/wiki/Dual_quaternion</a>↩︎</p></li>
-</ol>
-</section></div> ]]></description>
-  <category>math</category>
-  <category>dualcomplexnumbers</category>
-  <category>cpp</category>
-  <guid>https://hasenpfote.github.io/posts/dual-complex-numbers.html</guid>
-  <pubDate>Tue, 05 Jan 2021 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

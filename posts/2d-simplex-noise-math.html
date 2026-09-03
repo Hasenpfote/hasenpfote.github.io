@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="2022年に米国特許 US6867776B2 が満了し，普段使いがしやすくなった Kenneth Perlin 考案の Simplex Noise を題材に，2D のアルゴリズムを数式から整理する">
+
+<title>2D Simplex Noise の数学 – /var/log/little-things</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0bdc59fcf4c41de9ca6aa5cdff7392a7.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-1c1815d0886522b660dbd358737c537f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0bdc59fcf4c41de9ca6aa5cdff7392a7.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-63ccf4ecba2be8e328ea1ead4621d20c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-1e09bc7b14c9ad69dd8888478de9cc45.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-63ccf4ecba2be8e328ea1ead4621d20c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">/var/log/little-things</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../archive.html"> 
+<span class="menu-text">Archive</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../posts/toy-box.html"> 
+<span class="menu-text">Toy Box</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.shadertoy.com/user/hasenpfote"> 
+<span class="menu-text">Shadertoy</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Hasenpfote"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/hasenpfote36"> <i class="bi bi-twitter-x" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="ダークモードの切り替え"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="リーダーモードの切り替え">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">2D Simplex Noise の数学</h1>
+                  <div>
+        <div class="description">
+          2022年に米国特許 US6867776B2 が満了し，普段使いがしやすくなった Kenneth Perlin 考案の Simplex Noise を題材に，2D のアルゴリズムを数式から整理する
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">math</div>
+                <div class="quarto-category">computergraphics</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">公開</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">2026年9月1日</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#skew-と格子座標の決定" id="toc-skew-と格子座標の決定" class="nav-link active" data-scroll-target="#skew-と格子座標の決定"><span class="header-section-number">1</span> Skew と格子座標の決定</a></li>
+  <li><a href="#unskew-と-simplex-の決定" id="toc-unskew-と-simplex-の決定" class="nav-link" data-scroll-target="#unskew-と-simplex-の決定"><span class="header-section-number">2</span> Unskew と simplex の決定</a></li>
+  <li><a href="#格子点からの相対位置の算出" id="toc-格子点からの相対位置の算出" class="nav-link" data-scroll-target="#格子点からの相対位置の算出"><span class="header-section-number">3</span> 格子点からの相対位置の算出</a></li>
+  <li><a href="#各格子点の寄与" id="toc-各格子点の寄与" class="nav-link" data-scroll-target="#各格子点の寄与"><span class="header-section-number">4</span> 各格子点の寄与</a>
+  <ul>
+  <li><a href="#距離による減衰" id="toc-距離による減衰" class="nav-link" data-scroll-target="#距離による減衰"><span class="header-section-number">4.1</span> 距離による減衰</a></li>
+  <li><a href="#寄与の算出" id="toc-寄与の算出" class="nav-link" data-scroll-target="#寄与の算出"><span class="header-section-number">4.2</span> 寄与の算出</a></li>
+  </ul></li>
+  <li><a href="#appendix-a-f_2-の導出" id="toc-appendix-a-f_2-の導出" class="nav-link" data-scroll-target="#appendix-a-f_2-の導出"><span class="header-section-number">5</span> Appendix A: <span class="math inline">\(F_{2}\)</span> の導出</a></li>
+  <li><a href="#appendix-b-g_2-の導出" id="toc-appendix-b-g_2-の導出" class="nav-link" data-scroll-target="#appendix-b-g_2-の導出"><span class="header-section-number">6</span> Appendix B: <span class="math inline">\(G_{2}\)</span> の導出</a></li>
+  <li><a href="#appendix-c-影響範囲の導出" id="toc-appendix-c-影響範囲の導出" class="nav-link" data-scroll-target="#appendix-c-影響範囲の導出"><span class="header-section-number">7</span> Appendix C: 影響範囲の導出</a></li>
+  <li><a href="#appendix-d-t_i4-の妥当性" id="toc-appendix-d-t_i4-の妥当性" class="nav-link" data-scroll-target="#appendix-d-t_i4-の妥当性"><span class="header-section-number">8</span> Appendix D: <span class="math inline">\(t_i^4\)</span> の妥当性</a>
+  <ul>
+  <li><a href="#微分可能性の要求" id="toc-微分可能性の要求" class="nav-link" data-scroll-target="#微分可能性の要求"><span class="header-section-number">8.1</span> 微分可能性の要求</a></li>
+  <li><a href="#境界-u0-における滑らかさ" id="toc-境界-u0-における滑らかさ" class="nav-link" data-scroll-target="#境界-u0-における滑らかさ"><span class="header-section-number">8.2</span> 境界 <span class="math inline">\(u=0\)</span> における滑らかさ</a></li>
+  <li><a href="#p4-の場合" id="toc-p4-の場合" class="nav-link" data-scroll-target="#p4-の場合"><span class="header-section-number">8.3</span> <span class="math inline">\(p=4\)</span> の場合</a></li>
+  </ul></li>
+  <li><a href="#appendix-e-正規化定数" id="toc-appendix-e-正規化定数" class="nav-link" data-scroll-target="#appendix-e-正規化定数"><span class="header-section-number">9</span> Appendix E: 正規化定数</a></li>
+  <li><a href="#appendix-f-正規化定数-2" id="toc-appendix-f-正規化定数-2" class="nav-link" data-scroll-target="#appendix-f-正規化定数-2"><span class="header-section-number">10</span> Appendix F: 正規化定数 2</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">11</span> References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/edit/main/posts/2d-simplex-noise-math.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/blob/main/posts/2d-simplex-noise-math.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+
+<p>2D simplex noise では，入力点を Skew した座標系に変換して格子領域を求め，これを Unskew して元の座標系における基準位置を求める．基準位置から入力点が属する simplex を決定し，simplex を構成する 3 つの格子点との相対位置を求めた上で，各格子点からの寄与を評価する．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<iframe src="https://www.desmos.com/calculator/belhmqu6mr?embed">
+</iframe>
+<figcaption>
+</figcaption>
+</figure>
+</div>
+<section id="skew-と格子座標の決定" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="skew-と格子座標の決定"><span class="header-section-number">1</span> Skew と格子座標の決定</h2>
+<p>入力点を</p>
+<p><span class="math display">\[
+\boldsymbol{x}
+=
+\begin{bmatrix}
+x\\
+y
+\end{bmatrix}
+\]</span></p>
+<p>とすると，Skew 変換によって，</p>
+<p><span class="math display">\[
+\boldsymbol{x}^{'}
+=
+\begin{bmatrix}
+x^{'}\\
+y^{'}
+\end{bmatrix}
+=M\cdot\boldsymbol{x}
+=
+\begin{bmatrix}
+1+F_{2} &amp; F_{2}\\
+F_{2} &amp; 1+F_{2}
+\end{bmatrix}
+\cdot\boldsymbol{x}
+=
+\begin{bmatrix}
+x+(x+y)\cdot F_{2}\\
+y+(x+y)\cdot F_{2}
+\end{bmatrix}
+\]</span></p>
+<p>となる．ここで <span class="math inline">\(F_{2}=\frac{\sqrt{3}-1}{2}\)</span> であり，導出は Appendix A で扱う．</p>
+<p>Skew 変換後の座標から整数格子座標を</p>
+<p><span class="math display">\[
+i=\lfloor x^{'}\rfloor
+,\quad
+j=\lfloor y^{'}\rfloor
+\]</span></p>
+<p>として求める．</p>
+<p>これにより入力点が属する格子領域が定まる．</p>
+</section>
+<section id="unskew-と-simplex-の決定" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="unskew-と-simplex-の決定"><span class="header-section-number">2</span> Unskew と simplex の決定</h2>
+<p>求めた格子座標 <span class="math inline">\((i, j)\)</span> を Unskew し，元の座標系における格子領域の基準位置を求める．</p>
+<p><span class="math display">\[
+\boldsymbol{X}_{0}
+=
+\begin{bmatrix}
+X_{0}\\
+Y_{0}
+\end{bmatrix}
+=M^{-1}\cdot
+\begin{bmatrix}
+i\\
+j
+\end{bmatrix}
+=
+\begin{bmatrix}
+i-(i+j)\cdot G_{2}\\
+j-(i+j)\cdot G_{2}
+\end{bmatrix}
+\]</span></p>
+<p>ここで <span class="math inline">\(G_{2}=\frac{3-\sqrt{3}}{6}\)</span> であり，導出は Appendix B で扱う．</p>
+<p>入力点への相対位置を</p>
+<p><span class="math display">\[
+\boldsymbol{d}_{0}
+=
+\begin{bmatrix}
+x_{0}\\
+y_{0}
+\end{bmatrix}
+=
+\boldsymbol{x}-\boldsymbol{X}_{0}
+\]</span></p>
+<p>とする．</p>
+<p>格子領域内の位置は次のように分類される．</p>
+<p><span class="math display">\[
+\begin{array}{c|c}
+\hline
+x_{0}\gt y_{0} &amp; \text{lower}\\
+x_{0}\lt y_{0} &amp; \text{upper}\\
+x_{0}=y_{0} &amp; \text{diagonal}\\
+\hline
+\end{array}
+\]</span></p>
+<p>ここでは diagonal 上の点は upper として扱う．</p>
+</section>
+<section id="格子点からの相対位置の算出" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="格子点からの相対位置の算出"><span class="header-section-number">3</span> 格子点からの相対位置の算出</h2>
+<p>格子座標 <span class="math inline">\((0, 0)\)</span> に対応する格子点を基準とし，残りの格子点は次のようになる．</p>
+<p><span class="math display">\[
+\begin{array}{c|c|c}
+&amp; \text{Grid coordinate} &amp; \text{Unskewed displacement}\\
+\hline
+\text{lower} &amp; (1, 0) &amp;
+\begin{bmatrix}
+1-G_{2}\\
+-G_{2}
+\end{bmatrix}\\
+\text{upper} &amp; (0, 1) &amp;
+\begin{bmatrix}
+-G_{2}\\
+1-G_{2}
+\end{bmatrix}\\
+\text{shared} &amp; (1, 1) &amp;
+\begin{bmatrix}
+1-2G_{2}\\
+1-2G_{2}
+\end{bmatrix}
+\end{array}
+\]</span></p>
+<p>各格子点に対する入力点への相対位置は，</p>
+<p><span class="math display">\[
+\boldsymbol{d}_{1}
+=
+\begin{bmatrix}
+x_{1}\\
+y_{1}
+\end{bmatrix}
+=
+\boldsymbol{d}_{0}
+-
+\boldsymbol{\Delta}_{1}
+,\quad
+\boldsymbol{d}_{2}
+=
+\begin{bmatrix}
+x_{2}\\
+y_{2}
+\end{bmatrix}
+=
+\boldsymbol{d}_{0}
+-
+\boldsymbol{\Delta}_{2}
+\]</span></p>
+<p>となる．ここで，<span class="math inline">\(\boldsymbol{d}_{1}\)</span> は lower または upper ，<span class="math inline">\(\boldsymbol{d}_{2}\)</span> は shared の格子点に対する相対位置である．</p>
+</section>
+<section id="各格子点の寄与" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="各格子点の寄与"><span class="header-section-number">4</span> 各格子点の寄与</h2>
+<p>各格子点の寄与は，格子点からの距離による減衰と，勾配ベクトルと変位ベクトルの内積によって決まる．</p>
+<section id="距離による減衰" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="距離による減衰"><span class="header-section-number">4.1</span> 距離による減衰</h3>
+<p>格子点 <span class="math inline">\(i\)</span> から入力点までの距離に応じた量を</p>
+<p><span class="math display">\[
+t_{i}
+=r^{2}-\|\boldsymbol{d}_{i}\|^{2}
+\]</span></p>
+<p>と定義する．<span class="math inline">\(t_{i}\)</span> は格子点から離れるにつれて小さくなり，影響範囲の境界に向かうと <span class="math inline">\(0\)</span> に近づく．</p>
+<p>ここで</p>
+<p><span class="math display">\[
+r^{2}=0.5
+\]</span></p>
+<p>である．導出は Appendix C で扱う．</p>
+</section>
+<section id="寄与の算出" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="寄与の算出"><span class="header-section-number">4.2</span> 寄与の算出</h3>
+<p>格子点 <span class="math inline">\(i\)</span> に割り当てられた勾配ベクトルを <span class="math inline">\(\boldsymbol{g}_{i}\)</span> とすると，その寄与は</p>
+<p><span class="math display">\[
+n_{i}
+=
+\begin{cases}
+t_{i}^{4}\cdot\langle\boldsymbol{g}_{i},\boldsymbol{d}_{i}\rangle &amp; t_{i}\ge 0\\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<p>となる．</p>
+<p>最終的なノイズ値は，3 つの格子点からの寄与を加算し，正規化することで得られる．</p>
+<p><span class="math display">\[
+n
+=C\cdot\sum_{i=0}^{2}n_{i}
+\]</span></p>
+<p>ここで <span class="math inline">\(C\)</span> は正規化定数であり，導出は Appendix E で扱う．</p>
+</section>
+</section>
+<section id="appendix-a-f_2-の導出" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="appendix-a-f_2-の導出"><span class="header-section-number">5</span> Appendix A: <span class="math inline">\(F_{2}\)</span> の導出</h2>
+<p>Skew 変換を表す行列を</p>
+<p><span class="math display">\[
+M(k)
+=
+\begin{bmatrix}
+1+k &amp; k\\
+k &amp; 1+k
+\end{bmatrix}
+\]</span></p>
+<p>と定義する．</p>
+<p>このとき，座標 <span class="math inline">\((x, y)\)</span> を Skew すると，</p>
+<p><span class="math display">\[
+\boldsymbol{x}^{'}
+=M\cdot\boldsymbol{x}
+=
+\begin{bmatrix}
+x+(x+y)\cdot k\\
+y+(x+y)\cdot k
+\end{bmatrix}
+\]</span></p>
+<p>となる．</p>
+<p>行列の各列を格子座標の基底とすると，</p>
+<p><span class="math display">\[
+\boldsymbol{a}
+=
+\begin{bmatrix}
+1+k\\
+k
+\end{bmatrix}
+,\quad
+\boldsymbol{b}
+=
+\begin{bmatrix}
+k\\
+1+k
+\end{bmatrix}
+\]</span></p>
+<p>となる．</p>
+<p>この 2 つの基底のなす角を <span class="math inline">\(60^{\circ}\)</span> にすることで正三角形を構成する格子配置になる．したがって，</p>
+<p><span class="math display">\[
+\left\langle\frac{\boldsymbol{a}}{\|\boldsymbol{a}\|},\frac{\boldsymbol{b}}{\|\boldsymbol{b}\|}\right\rangle
+=\cos{\frac{\pi}{3}}
+=\frac{1}{2}
+\]</span></p>
+<p>これを解くと，</p>
+<p><span class="math display">\[
+k
+=\frac{-1\pm\sqrt{3}}{2}
+\]</span></p>
+<p>となる．</p>
+<p><span class="math inline">\(k\gt 0\)</span> のとき，2 つのベクトルはともに第一象限を向くので，</p>
+<p><span class="math display">\[
+F_{2}
+=k
+=\frac{\sqrt{3}-1}{2}
+\]</span></p>
+</section>
+<section id="appendix-b-g_2-の導出" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="appendix-b-g_2-の導出"><span class="header-section-number">6</span> Appendix B: <span class="math inline">\(G_{2}\)</span> の導出</h2>
+<p>Skew 変換を表す行列 <span class="math inline">\(M(k)\)</span> の逆行列は，</p>
+<p><span class="math display">\[
+M^{-1}(k)
+=
+\frac{1}{1+2k}
+\begin{bmatrix}
+1+k &amp; -k\\
+-k &amp; 1+k
+\end{bmatrix}
+\]</span></p>
+<p>である．</p>
+<p>Skew 変換後の座標 <span class="math inline">\((x^{'}, y^{'})\)</span> を元の座標に戻すと，</p>
+<p><span class="math display">\[
+\boldsymbol{x}
+=M^{-1}\cdot\boldsymbol{x}^{'}
+=\frac{1}{1+2k}
+\begin{bmatrix}
+(1+k)x^{'}-ky^{'}\\
+-kx^{'}+(1+k)y^{'}
+\end{bmatrix}
+\]</span></p>
+<p>ここで，</p>
+<p><span class="math display">\[
+\frac{1+k}{1+2k}
+=1-\frac{k}{1+2k}
+\]</span></p>
+<p>なので，</p>
+<p><span class="math display">\[
+\boldsymbol{x}
+=
+\begin{bmatrix}
+\left(1-\frac{k}{1+2k}\right)x^{'}-\frac{k}{1+2k}y^{'}\\
+-\frac{k}{1+2k}x^{'}+\left(1-\frac{k}{1+2k}\right)y^{'}
+\end{bmatrix}
+=
+\begin{bmatrix}
+x^{'}-\frac{k}{1+2k}(x^{'}+y^{'})\\
+y^{'}-\frac{k}{1+2k}(x^{'}+y^{'})
+\end{bmatrix}
+\]</span></p>
+<p>共通して現れる係数を</p>
+<p><span class="math display">\[
+G_{2}
+=\frac{k}{1+2k}
+\]</span></p>
+<p>とおくと，</p>
+<p><span class="math display">\[
+\boldsymbol{x}
+=
+\begin{bmatrix}
+x^{'}-G_{2}(x^{'}+y^{'})\\
+y^{'}-G_{2}(x^{'}+y^{'})
+\end{bmatrix}
+\]</span></p>
+<p>となる．</p>
+<p>ここで <span class="math inline">\(k\)</span> を代入すると，</p>
+<p><span class="math display">\[
+G_{2}
+=\frac{\frac{\sqrt{3}-1}{2}}{1+2\frac{\sqrt{3}-1}{2}}
+=\frac{\sqrt{3}-1}{2\sqrt{3}}
+=\frac{3-\sqrt{3}}{6}
+\]</span></p>
+</section>
+<section id="appendix-c-影響範囲の導出" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="appendix-c-影響範囲の導出"><span class="header-section-number">7</span> Appendix C: 影響範囲の導出</h2>
+<p>入力点が属する格子領域を求め，その領域の simplex を構成する 3 つの格子点のみを影響対象とする．したがって，各影響範囲を，格子点から対辺までと定める．</p>
+<p>2D simplex は正三角形を構成するため，その範囲は三角形の高さとなる．</p>
+<p>Appendix B で求めた</p>
+<p><span class="math display">\[
+G_{2}
+=\frac{3-\sqrt{3}}{6}
+\]</span></p>
+<p>を用いると，基準となる格子点 <span class="math inline">\((0, 0)\)</span> から lower の第 2 格子点 <span class="math inline">\((1, 0)\)</span> までの変位は，</p>
+<p><span class="math display">\[
+\boldsymbol{\Delta}_{1}
+=
+\begin{bmatrix}
+1-G_{2}\\
+-G_{2}
+\end{bmatrix}
+\]</span></p>
+<p>である．したがって，辺長の 2 乗は，</p>
+<p><span class="math display">\[
+\|\boldsymbol{\Delta}_{1}\|^{2}
+=(1-G_{2})^{2}+G_{2}^{2}
+=\frac{2}{3}
+\]</span></p>
+<p>ここで，正三角形の頂点から対辺に垂線を下ろすと，辺長の半分を底辺とする直角三角形が得られる．その高さは，</p>
+<p><span class="math display">\[
+\begin{align*}
+h^{2}+\left(\frac{\|\boldsymbol{\Delta}_{1}\|}{2}\right)^{2}
+&amp;=\|\boldsymbol{\Delta}_{1}\|^{2}
+,\\
+h
+&amp;=\frac{1}{\sqrt{2}}
+\end{align*}
+\]</span></p>
+<p>となる．</p>
+</section>
+<section id="appendix-d-t_i4-の妥当性" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="appendix-d-t_i4-の妥当性"><span class="header-section-number">8</span> Appendix D: <span class="math inline">\(t_i^4\)</span> の妥当性</h2>
+<p>寄与の算出では，距離による減衰に <span class="math inline">\(t_i^4\)</span> を用いている．ここでは，このべき指数が影響範囲の境界における滑らかさにどのように関係するかを示す．</p>
+<section id="微分可能性の要求" class="level3" data-number="8.1">
+<h3 data-number="8.1" class="anchored" data-anchor-id="微分可能性の要求"><span class="header-section-number">8.1</span> 微分可能性の要求</h3>
+<p>シェーディング等において法線ベクトルを求める際には，ノイズ関数の 1 次導関数が利用される．そのため，格子点の影響範囲の境界において，ノイズ値だけでなくその 1 次導関数も連続であることが望ましい．</p>
+<p>寄与を次のように一般化する．</p>
+<p><span class="math display">\[
+n_i
+=
+\begin{cases}
+t_i^p\cdot\langle\boldsymbol{g}_i,\boldsymbol{d}_i\rangle &amp; t_i\ge0\\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<p>ここで，</p>
+<p><span class="math display">\[
+t_i=r^2-\|\boldsymbol{d}_i\|^2
+\]</span></p>
+<p>であり，<span class="math inline">\(t_i\)</span> は入力点の座標 <span class="math inline">\(x,y\)</span> に関する 2 次関数である．また，</p>
+<p><span class="math display">\[
+\langle\boldsymbol{g}_i,\boldsymbol{d}_i\rangle
+\]</span></p>
+<p>は <span class="math inline">\(x, y\)</span> に関する 1 次関数である．</p>
+<p>影響範囲の境界では <span class="math inline">\(t_i=0\)</span> となるため，まず</p>
+<p><span class="math display">\[
+F(u)
+=
+\begin{cases} u^p &amp; u\ge0\\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<p>という関数の <span class="math inline">\(u=0\)</span> における滑らかさを考える．ここで <span class="math inline">\(p\in\mathbb{Z}_{&gt;0}\)</span> とする．<span class="math inline">\(t_i(x, y)\)</span> は滑らかな関数であり，影響範囲の境界 <span class="math inline">\(t_i=0\)</span> では</p>
+<p><span class="math display">\[
+\nabla t_i=-2\boldsymbol{d}_i\neq\boldsymbol{0}
+\]</span></p>
+<p>である．したがって，<span class="math inline">\(F(t_i(x, y))\)</span> の境界 <span class="math inline">\(t_i=0\)</span> における滑らかさは，<span class="math inline">\(F(u)\)</span> の <span class="math inline">\(u=0\)</span> における滑らかさから評価できる．</p>
+</section>
+<section id="境界-u0-における滑らかさ" class="level3" data-number="8.2">
+<h3 data-number="8.2" class="anchored" data-anchor-id="境界-u0-における滑らかさ"><span class="header-section-number">8.2</span> 境界 <span class="math inline">\(u=0\)</span> における滑らかさ</h3>
+<p><span class="math inline">\(u&gt;0\)</span> において <span class="math inline">\(F(u)=u^p\)</span> を <span class="math inline">\(k\)</span> 回微分すると，</p>
+<p><span class="math display">\[
+F^{(k)}(u)
+=\frac{p!}{(p-k)!}u^{p-k} \qquad (1\le k\le p)
+\]</span></p>
+<p>となる．<span class="math inline">\(u\to0^+\)</span> の極限を考えると，<span class="math inline">\(k\lt p\)</span> では <span class="math inline">\(p-k&gt;0\)</span> であるから，</p>
+<p><span class="math display">\[
+F^{(k)}(u)\longrightarrow0
+\]</span></p>
+<p>となり，これは <span class="math inline">\(u&lt;0\)</span> 側の恒等的に 0 である部分と一致する．</p>
+<p>一方，<span class="math inline">\(k=p\)</span> では <span class="math inline">\(F^{(k)}(u)\)</span> は <span class="math inline">\(u\)</span> によらない定数 <span class="math inline">\(p!\)</span> であるから，</p>
+<p><span class="math display">\[
+F^{(p)}(u)\longrightarrow p!
+\]</span></p>
+<p>となり，<span class="math inline">\(u&lt;0\)</span> 側の 0 とは一致しない．なお，さらに微分すると <span class="math inline">\(F^{(p+1)}(u)=0\)</span> である．</p>
+<p>また，<span class="math inline">\(F(0)=0\)</span> であり，これは <span class="math inline">\(u&lt;0\)</span> 側の値と一致するため，<span class="math inline">\(F(u)\)</span> は <span class="math inline">\(u=0\)</span> で連続である．</p>
+<p>したがって，<span class="math inline">\(F(u)\)</span> は境界 <span class="math inline">\(u=0\)</span> において</p>
+<p><span class="math display">\[
+C^{p-1}
+\]</span></p>
+<p>級となる．</p>
+</section>
+<section id="p4-の場合" class="level3" data-number="8.3">
+<h3 data-number="8.3" class="anchored" data-anchor-id="p4-の場合"><span class="header-section-number">8.3</span> <span class="math inline">\(p=4\)</span> の場合</h3>
+<p>今回用いる <span class="math inline">\(p=4\)</span> では，</p>
+<p><span class="math display">\[
+F(u)
+=
+\begin{cases} u^4 &amp; u\ge0\\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<p>である．これを順に微分すると，</p>
+<p><span class="math display">\[
+F'(u)=4u^3
+,\quad
+F''(u)=12u^2
+,\quad F'''(u)=24u
+,\quad F^{(4)}(u)=24
+\]</span></p>
+<p>となる．境界 <span class="math inline">\(u=0\)</span> において</p>
+<p><span class="math display">\[
+F(0)=F'(0)=F''(0)=F'''(0)=0
+\]</span></p>
+<p>であり，これらは <span class="math inline">\(u&lt;0\)</span> 側の値および 1 次・ 2 次・ 3 次導関数とそれぞれ一致する．一方，</p>
+<p><span class="math display">\[
+F^{(4)}(0)=24
+\]</span></p>
+<p>となるため，4 次導関数では不連続となる．</p>
+<p>以上より，<span class="math inline">\(t_i^4\)</span> を用いることで，影響範囲の境界において寄与は <span class="math inline">\(C^3\)</span> 級となり，少なくともノイズ値とその 1 次導関数が連続に接続される．</p>
+</section>
+</section>
+<section id="appendix-e-正規化定数" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="appendix-e-正規化定数"><span class="header-section-number">9</span> Appendix E: 正規化定数</h2>
+<p>ノイズ値は，3 つの格子点からの寄与の総和</p>
+<p><span class="math display">\[
+f(\boldsymbol{x};\boldsymbol{g}_{0},\boldsymbol{g}_{1},\boldsymbol{g}_{2})
+=\sum_{i=0}^{2}n_{i}
+\]</span></p>
+<p>によって得られる．ここで <span class="math inline">\(\boldsymbol{g}_{i}\)</span> は各格子点に割り当てられた勾配ベクトルである．</p>
+<p>出力値を <span class="math inline">\([-1, 1]\)</span> に正規化するため，この総和の絶対値の最大値を</p>
+<p><span class="math display">\[
+f_{\max}
+=\max_{\boldsymbol{x},\boldsymbol{g}_{0},\boldsymbol{g}_{1},\boldsymbol{g}_{2}}{|f(\boldsymbol{x};\boldsymbol{g}_{0},\boldsymbol{g}_{1},\boldsymbol{g}_{2})|}
+\]</span></p>
+<p>とする．ここで <span class="math inline">\(\boldsymbol{x}\)</span> は 1 つの canonical simplex 内を動き，<span class="math inline">\(\boldsymbol{g}_{i}\)</span> は使用する勾配ベクトルの組み合わせについて評価する．</p>
+<p>正規化定数は</p>
+<p><span class="math display">\[
+C
+=\frac{1}{f_{\max}}
+\]</span></p>
+<p>と定める．したがって，正規化後のノイズ値は</p>
+<p><span class="math display">\[
+n
+=C\cdot f(\boldsymbol{x};\boldsymbol{g}_{0},\boldsymbol{g}_{1},\boldsymbol{g}_{2})
+\]</span></p>
+<p>となり，</p>
+<p><span class="math display">\[
+|n|\le 1
+\]</span></p>
+<p>を満たす．</p>
+<p>最大値の推定値は，1 つの canonical simplex 内を十分細かくサンプリングして最大値の候補を求め，その候補を初期値として数値最適化を行うことで求めた．数値計算には<a href="https://colab.research.google.com/drive/1J-RB4R2paFomD1dc9J2UVV9qPaQr2tUA?usp=sharing">このスクリプト</a>を使用した．</p>
+<p>今回使用する 2D simplex noise では，8 種類の勾配ベクトル</p>
+<p><span class="math display">\[
+\mathcal{G}
+=
+\left\{
+\begin{bmatrix}
+0\\
+\pm 1
+\end{bmatrix}
+,
+\begin{bmatrix}
+\pm 1\\
+0
+\end{bmatrix}
+,
+\begin{bmatrix}
+\pm 1\\
+\pm 1
+\end{bmatrix}
+\right\}
+\]</span></p>
+<p>を用いるため， 3 つの格子点に対する勾配の組み合わせは <span class="math inline">\(8^{3}=512\)</span> 通りとなる．これらすべての組み合わせについて simplex 内の <span class="math inline">\(|f|\)</span> の最大値を探索する．</p>
+<p>その結果，</p>
+<p><span class="math display">\[
+f_{\max}
+\approx 0.014255562201874
+\]</span></p>
+<p>となり，正規化定数は</p>
+<p><span class="math display">\[
+C
+\approx 70.14805770820965
+\]</span></p>
+<p>となる．</p>
+<p>なお，最大値は simplex のある辺上に現れ，このときの一例は</p>
+<p><span class="math display">\[
+\boldsymbol{g}_{0}
+=\boldsymbol{g}_{1}
+=
+\begin{bmatrix}
+-1\\
+-1
+\end{bmatrix}
+,\quad
+\boldsymbol{g}_{2}
+=
+\begin{bmatrix}
+1\\
+1
+\end{bmatrix}
+\]</span></p>
+<p>であり，重心座標は</p>
+<p><span class="math display">\[
+(u, v, w)
+\approx (0, 0.499002, 0.500998)
+\]</span></p>
+<p>となる．</p>
+</section>
+<section id="appendix-f-正規化定数-2" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="appendix-f-正規化定数-2"><span class="header-section-number">10</span> Appendix F: 正規化定数 2</h2>
+<p>Appendix E では，勾配ベクトルの組み合わせを変えながら，目的関数の最大値を探索していた．ここでは，勾配ベクトルの大きさを</p>
+<p><span class="math display">\[
+\|\boldsymbol{g}_{i}\|=1
+\]</span></p>
+<p>に制限することで，勾配ベクトルについての探索を取り除くことを考える．</p>
+<p><span class="math inline">\(\boldsymbol{x}\)</span> を固定すると，各項に含まれる内積について Cauchy–Schwarz の不等式より</p>
+<p><span class="math display">\[
+|\langle\boldsymbol{g}_{i},\boldsymbol{d}_{i}\rangle|
+\le\|\boldsymbol{g}_{i}\|\|\boldsymbol{d}_{i}\|
+=\|\boldsymbol{d}_{i}\|
+\]</span></p>
+<p>が成り立つ．</p>
+<p>等号は <span class="math inline">\(\boldsymbol{g}_{i}\parallel\boldsymbol{d}_{i}\)</span> のときに成立する．ここでは <span class="math inline">\(\boldsymbol{g}_{i}\)</span> を <span class="math inline">\(\boldsymbol{d}_{i}\)</span> と同じ向きに取ると，</p>
+<p><span class="math display">\[
+\boldsymbol{g}_{i}
+=\frac{\boldsymbol{d}_{i}}{\|\boldsymbol{d}_{i}\|}
+\]</span></p>
+<p>となり，</p>
+<p><span class="math display">\[
+\langle\boldsymbol{g}_{i},\boldsymbol{d}_{i}\rangle
+=\|\boldsymbol{d}_{i}\|
+\]</span></p>
+<p>を得る．</p>
+<p>これを Appendix E の目的関数</p>
+<p><span class="math display">\[
+f(\boldsymbol{x};\boldsymbol{g}_{0},\boldsymbol{g}_{1},\boldsymbol{g}_{2})
+=\sum_{i=0}^{2}t_{i}^{4}\cdot\langle\boldsymbol{g}_{i},\boldsymbol{d}_{i}\rangle
+\]</span></p>
+<p>に代入すると，</p>
+<p><span class="math display">\[
+f(\boldsymbol{x})
+=\sum_{i=0}^{2}t_{i}^{4}\cdot\|\boldsymbol{d}_{i}\|
+\]</span></p>
+<p>となる．</p>
+<p>これにより，勾配ベクトルについての探索は不要となり，<span class="math inline">\(\boldsymbol{x}\)</span> のみについて最大値を探索すればよい．したがって，</p>
+<p><span class="math display">\[
+f_{\max}
+=\max_{\boldsymbol{x}}{f(\boldsymbol{x})}
+=\max_{\boldsymbol{x}}{\sum_{i=0}^{2}t_{i}^{4}\cdot\|\boldsymbol{d}_{i}\|}
+\]</span></p>
+<p>となる．</p>
+<p>数値計算には<a href="https://colab.research.google.com/drive/1922113Ktui3HbcmgnHRHogMT_u7BCKUO?usp=sharing">このスクリプト</a>を使用した．</p>
+<p>その結果，</p>
+<p><span class="math display">\[
+f_{\max}
+\approx 0.010080204702571
+\]</span></p>
+<p>となり，正規化定数は</p>
+<p><span class="math display">\[
+C
+\approx 99.20433458508063
+\]</span></p>
+<p>となる．</p>
+<p>なお，最大値は simplex のある辺上に現れ，重心座標は</p>
+<p><span class="math display">\[
+(u, v, w)
+\approx (0, 0.499002, 0.500998)
+\]</span></p>
+<p>となる．</p>
+</section>
+<section id="references" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="references"><span class="header-section-number">11</span> References</h2>
+<ul>
+<li>Perlin, K. (2001). Noise hardware. In M. Olano (Ed.), Real-time shading SIGGRAPH course notes. ACM SIGGRAPH. <a href="https://userpages.cs.umbc.edu/olano/s2002c36/ch02.pdf" class="uri">https://userpages.cs.umbc.edu/olano/s2002c36/ch02.pdf</a></li>
+<li>Gustavson, S. (2005). Simplex noise demystified [Technical report]. Linköping University. <a href="https://github.com/stegu/perlin-noise/blob/master/simplexnoise.pdf" class="uri">https://github.com/stegu/perlin-noise/blob/master/simplexnoise.pdf</a></li>
+<li>briansharpe. (2012, January 13). Simplex noise. <a href="https://briansharpe.wordpress.com/2012/01/13/simplex-noise/" class="uri">https://briansharpe.wordpress.com/2012/01/13/simplex-noise/</a></li>
+<li><em>Simplex</em>. (2026, August 24). In <em>Wikipedia</em>. <a href="https://en.wikipedia.org/w/index.php?title=Simplex&amp;oldid=1371056590" class="uri">https://en.wikipedia.org/w/index.php?title=Simplex&amp;oldid=1371056590</a></li>
+</ul>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> トップに戻る</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/hasenpfote\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      if (authorPrefersDark) {
+          [baseTheme, altTheme] = [altTheme, baseTheme];
+      }
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "Hasenpfote/blog-comments";
+    script.dataset.repoId = "R_kgDOI-oVeg";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOI-oVes4CUQGw";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://quarto.org">
+<p>Built with Quarto</p>
+</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ © 2020-2025 Hasenpfote
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/edit/main/posts/2d-simplex-noise-math.md" class="toc-action"><i class="bi bi-github"></i>編集</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/blob/main/posts/2d-simplex-noise-math.md" class="toc-action"><i class="bi empty"></i>ソースコード</a></li><li><a href="https://github.com/Hasenpfote/hasenpfote.github.io/issues/new" class="toc-action"><i class="bi empty"></i>問題を報告</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../index.xml">
+<p>RSS</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../sitemap.xml">
+<p>Sitemap</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
