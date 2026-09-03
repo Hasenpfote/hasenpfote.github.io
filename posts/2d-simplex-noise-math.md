@@ -1,12 +1,11 @@
 ---
 title: 2D Simplex Noise の数学
 description: 2022年に米国特許 US6867776B2 が満了し，普段使いがしやすくなった Kenneth Perlin 考案の Simplex Noise を題材に，2D のアルゴリズムを数式から整理する
-date: 2026-09-01T09:00:00+09:00
+date: 2026-09-03T09:00:00+09:00
 categories:
   - math
   - computergraphics
 draft: false
-modified: 2026-09-03T10:14:20+09:00
 ---
 
 2D simplex noise では，入力点を Skew した座標系に変換して格子領域を求め，これを Unskew して元の座標系における基準位置を求める．基準位置から入力点が属する simplex を決定し，simplex を構成する 3 つの格子点との相対位置を求めた上で，各格子点からの寄与を評価する．
