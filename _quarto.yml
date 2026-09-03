@@ -55,6 +55,8 @@ website:
       loading: lazy
       input-position: top
       language: en
+  twitter-card: true
+  open-graph: true
 
 # https://quarto.org/docs/reference/formats/html.html
 format:
